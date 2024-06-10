@@ -1,0 +1,21 @@
+<head>
+{#    {% from "govuk/components/cookie-banner/macro.njk"  import govukCookieBanner %}#}
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+    <link href="{{ cdnHost }}/stylesheets/govuk-frontend/v3.11.0/govuk-frontend-3.11.0.min.css" rel="stylesheet"/>
+
+    <link href="{{ cdnUrlCss }}/app.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="{{ cdnHost }}/images/favicon.ico" rel="icon" type="image/x-icon" />
+    {% include "partials/__styles.njk" %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    {# <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /> #}
+    {# Set the page object to hold values exported from server to JS files #}
+    <script>
+        var page = page || {};
+    </script>
+    {# <script>if (typeof window.GOVUK === 'undefined') document.body.className = document.body.className.replace('js-enabled', '');</script> #}
+</head>
+
+{#<script>if (typeof window.GOVUK === 'undefined') document.body.className = document.body.className.replace('js-enabled', '');</script>#}

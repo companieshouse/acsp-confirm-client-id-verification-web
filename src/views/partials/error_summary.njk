@@ -1,0 +1,22 @@
+{% if errors is not undefined and errors is not null and errors | length %}
+  <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        {% if errors.serverError is not undefined %}
+          <li>
+            {{ errors.serverError.summary }}
+          </li>
+        {% else %}
+          {% for key,err in errors %}
+            <li>
+              <a href="#err-id-{{ key }}">{{ err.summary }}</a>
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+{% endif %}

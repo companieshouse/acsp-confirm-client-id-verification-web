@@ -1,0 +1,128 @@
+{
+  "name": "node-web-starter-ts",
+  "version": "1.0.0",
+  "description": "A starter web application for Node.js with Typescript",
+  "main": "dist/server.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": "^9"
+  },
+  "scripts": {
+    "prebuild": "rm -rf ./dist",
+    "build:assets": "gulp build",
+    "build:server": "tsc && cp -r src/views dist/ && cp -r src/config dist/",
+    "build": "npm run build:assets && npm run build:server",
+    "lint": "eslint 'src/*.ts' 'src/**/*.ts' 'test/src/**/*.ts'",
+    "lint:fix": "eslint 'src/*.ts' 'src/**/*.ts' 'test/src/**/*.ts' --fix",
+    "coverage": "nyc --check-coverage --reporter=text-summary npm run test",
+    "coverage:report": "nyc --reporter=lcov --reporter=text npm run test",
+    "test:coverage": "nyc npm test",
+    "test": "mocha --recursive test/src/**/*.ts",
+    "start": "npm run build && source ./dist/config/.env && node dist/server.js",
+    "start:watch": "nodemon"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm test"
+    }
+  },
+  "author": "Moses Wejuli <mwejuli@companieshouse.gov.uk>",
+  "license": "MIT",
+  "dependencies": {
+    "@companieshouse/api-sdk-node": "^2.0.71",
+    "@companieshouse/node-session-handler": "^4.1.9",
+    "@companieshouse/structured-logging-node": "^1.0.8",
+    "axios": "0.21.4",
+    "cookie-parser": "1.4.5",
+    "express": "4.18.2",
+    "govuk_frontend_toolkit": "^9.0.1",
+    "govuk-elements-sass": "^3.1.3",
+    "govuk-frontend": "^4.7.0",
+    "http-errors": "^1.7.3",
+    "ioredis": "4.16.2",
+    "js-yaml": "^3.14.0",
+    "nunjucks": "3.2.4",
+    "uuid": "8.0.0",
+    "yargs": "15.3.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/chai-as-promised": "7.1.2",
+    "@types/chai-http": "4.2.0",
+    "@types/cheerio": "^0.22.18",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/express": "^4.17.6",
+    "@types/http-errors": "^1.6.3",
+    "@types/ioredis": "4.14.9",
+    "@types/jest": "^29.4.0",
+    "@types/js-yaml": "^3.12.5",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^12.7.8",
+    "@types/nunjucks": "3.1.2",
+    "@types/sinon": "^9.0.0",
+    "@types/sinon-chai": "3.2.4",
+    "@types/uuid": "7.0.3",
+    "@typescript-eslint/eslint-plugin": "2.29.0",
+    "@typescript-eslint/parser": "2.29.0",
+    "chai": "4.2.0",
+    "chai-as-promised": "7.1.1",
+    "chai-http": "4.3.0",
+    "cheerio": "^1.0.0-rc.3",
+    "eslint": "6.8.0",
+    "eslint-config-standard": "14.1.1",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.1",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^5.1.0",
+    "gulp-uglify": "^3.0.2",
+    "husky": "^4.3.8",
+    "jest": "^29.4.3",
+    "mocha": "^10.2.0",
+    "nock": "12.0.3",
+    "nodemon": "^3.0.1",
+    "nyc": "^15.1.0",
+    "sass": "1.32.13",
+    "sinon": "9.0.2",
+    "sinon-chai": "3.5.0",
+    "ts-node": "8.10.1",
+    "typescript": "4.9.5"
+  },
+  "@comments devDependencies": {
+    "@package sass": [
+      "We're using an older version of @sass to suppress deprecation warnings thrown by the @govuk-frontend package during the build",
+      "We'll upgrade to the most recent version of @sass after this issue is fixed in the @govuk-frontend package"
+    ]
+  },
+  "overrides": {
+    "chokidar": "3.5.3",
+    "glob-parent": "6.0.2"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "./src",
+      "./assets/src"
+    ],
+    "ext": "ts,js,json,njk,scss,env",
+    "legacyWatch": true,
+    "ignore": [
+      "**/*.test.ts"
+    ],
+    "exec": "npm run build && source ./dist/config/.env && node dist/server.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/companieshouse/node-review-web-starter-ts.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/companieshouse/node-review-web-starter-ts/issues"
+  },
+  "homepage": "https://github.com/companieshouse/node-review-web-starter-ts#readme"
+}

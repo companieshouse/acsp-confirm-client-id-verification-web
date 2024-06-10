@@ -1,0 +1,67 @@
+{% extends "layouts/default.njk" %}
+
+{% block main_content %}
+
+  <div class="generic-class-name">
+    <h3>Company Router: Create a company page</h3>
+    <p>{{ sampleKey }}</p>
+
+    {% if dataSaved %}
+      <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+        <div class="govuk-notification-banner__header">
+          <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            Success
+          </h2>
+        </div>
+        <div class="govuk-notification-banner__content">
+          <h3 class="govuk-notification-banner__heading">
+            Company details saved
+          </h3>
+        </div>
+      </div>
+    {% endif %}
+
+    <form action="/company/create" method="post" enctype="application/json" id="frm-company-create">
+
+      <fieldset{{ ' disabled="disabled"' if dataSaved }}>
+
+        <div class="govuk-form-group{{ ' govuk-form-group--error' if errors.companyName is not undefined }}">
+          <label class="govuk-label" for="applicationName">Company name:</label>
+          {% if errors.companyName is not undefined %}
+            <span class="govuk-visually-hidden">Error:</span>
+            <span id="err-id-name" class="govuk-error-message">{{ errors.companyName.inline }}</span>
+          {% endif %}
+          <input class="govuk-input{{ ' govuk-input--error' if errors.companyName is not undefined }}"
+                 id="companyName" name="companyName" value="{{ payload.companyName }}" type="text" />
+        </div>
+
+        <div class="govuk-form-group{{ ' govuk-form-group--error' if errors.email is not undefined }}">
+          <label class="govuk-label" for="applicationName">Company email:</label>
+          {% if errors.email is not undefined %}
+            <span class="govuk-visually-hidden">Error:</span>
+            <span id="err-id-name" class="govuk-error-message">{{ errors.email.inline }}</span>
+          {% endif %}
+          <input class="govuk-input{{ ' govuk-input--error' if errors.email is not undefined }}"
+                 id="email" name="email" value="{{ payload.email }}" type="text" />
+        </div>
+
+        <div class="govuk-form-group{{ ' govuk-form-group--error' if errors.description is not undefined }}">
+          <label class="govuk-label" for="description">Company description:</label>
+          {% if errors.description is not undefined %}
+            <span class="govuk-visually-hidden">Error:</span>
+            <span id="err-id-name" class="govuk-error-message">{{ errors.description.inline }}</span>
+          {% endif %}
+          <textarea class="govuk-textarea{{ ' govuk-input--error' if errors.description is not undefined }}"
+                    id="description" name="description" rows="5">{{ payload.description }}</textarea>
+        </div>
+
+        <input class="govuk-button" id="submit" name="submit" type="submit" value="Create"{{ ' disabled="disabled"' if dataSaved }} />
+        <a href="/" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+          Cancel
+        </a>
+
+      </fieldset>
+    </form>
+  </div>
+
+{% endblock %}
