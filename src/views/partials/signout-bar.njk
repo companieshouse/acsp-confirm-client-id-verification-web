@@ -1,0 +1,16 @@
+{% if userEmail %}
+    {% set signoutURL = signoutURL | default("/tell-companies-house-you-have-verified-someones-identity/signout") %}
+    {% if lang %}
+        {% set signoutURL = signoutURL ~ "?lang=" ~ lang %}
+    {% endif %}
+    {% set email = userEmail | default("Not signed in") %}
+    <ul id="navigation">
+        <li id="signed-in-user">{{email}}</li>
+        <li>
+            <a href="{{signoutURL}}" data-event-id="signout" id="user-signout">
+                {{ i18n.SignOut }}
+            </a>
+        </li>
+    </ul>
+    <script src="{{cdnHost}}/javascripts/app/session-timeout.js"></script>
+{% endif %}

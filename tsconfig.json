@@ -19,7 +19,7 @@
     ],
     "types": [
       "node",
-      "mocha"
+      "jest"
     ]
   },
   "ts-node": {

@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="lte-ie8" lang="en"><![endif]-->
-<!--[(if gt IE 8) | (!IE)]><!--><html lang="en" class="govuk-template"><!--<![endif]-->
-
+<!--[(if gt IE 8) | (!IE)]><!-->
+<html lang="en" class="govuk-template"> <!--<![endif]-->
+  {% from "govuk/components/error-summary/macro.njk"       import govukErrorSummary %}
+  {% import "add-lang-to-url.njk" as lang2url %}
   {% include "partials/__meta_header.njk" %}
-
-  <body class="govuk-template__body" >
-
-    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
-{#    {% include "partials/cookie_consent_banner.njk" %}#}
+  <body class="govuk-template__body">
+    <script>
+      document.body.className = (
+        (document.body.className)
+        ? document.body.className + ' js-enabled'
+        : 'js-enabled');
+    </script>
+    <!--{% block bodyStart %}
+      {% include "partials/cookie_consent_banner.njk" %}
+    {% endblock %}-->
     <a href="#main-page-content" class="govuk-skip-link">Skip to main content</a>
     {% include "partials/__header.njk" %}
-
-    <div class="govuk-width-container ">
-
+    <div class="govuk-width-container">
+      <nav>
+        {% block backLink %}
+          <a href="{{ previousPage }}" class="govuk-back-link">{{i18n.Back}}</a>
+        {% endblock %}
+        {% block signoutBar %}
+          {% include "partials/signout-bar.njk" %}
+          <hr class="govuk-section-break govuk-section-break--visible">
+        {% endblock %}
+      </nav>
+      {% include "locales-banner.njk" %}
       <main class="govuk-main-wrapper " id="main-content">
-
         <div class="govuk-grid-row">
           {% include "partials/error_summary.njk" %}
-          <div class="govuk-grid-column-one-third">
-            {% include "partials/nav/left.njk" %}
-          </div>
-          <div class="govuk-grid-column-two-thirds" id="main-page-content">
-            {% block main_content %}
-            {% endblock %}
-          </div>
+          <div class="govuk-grid-column-two-thirds" id="main-page-content">{% block main_content %}{% endblock %}</div>
         </div>
-
       </main>
     </div>
-
     {% include "partials/__footer.njk" %}
-
+    {% include "partials/piwik.njk" %}
   </body>
 </html>

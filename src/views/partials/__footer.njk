@@ -11,10 +11,10 @@
             <a class="govuk-footer__link" data-track-category="footerClicked" data-track-action="supportLink" data-track-label="/help/privacy-notice" data-track-options="{&quot;dimension29&quot;:&quot;Privacy&quot;}" href="/help/privacy-notice">Privacy</a>
           </li>
           <li class="govuk-footer__inline-list-item">
-            <a class="govuk-footer__link" data-track-category="footerClicked" data-track-action="supportLink" data-track-label="/help/cookies" data-track-options="{&quot;dimension29&quot;:&quot;Cookies&quot;}" href="/help/cookies">Cookies</a>
+            <a class="govuk-footer__link" data-track-category="footerClicked" data-track-action="supportLink" data-track-label="/help/cookies" data-track-options="{&quot;dimension29&quot;:&quot;Cookies&quot;}" href="/cookies">Cookies</a>
           </li>
           <li class="govuk-footer__inline-list-item">
-            <a class="govuk-footer__link" data-track-category="footerClicked" data-track-action="supportLink" data-track-label="/help/accessibility-statement" data-track-options="{&quot;dimension29&quot;:&quot;Accessibility statement&quot;}" href="/help/accessibility-statement">Accessibility statement</a>
+            <a class="govuk-footer__link" data-track-category="footerClicked" data-track-action="supportLink" data-track-label="/accessibility-statement" data-track-options="{&quot;dimension29&quot;:&quot;Accessibility statement&quot;}" href="/tell-companies-house-you-have-verified-someones-identity/accessibility-statement">Accessibility statement</a>
           </li>
           <li class="govuk-footer__inline-list-item">
             <a class="govuk-footer__link" data-track-category="footerClicked" data-track-action="supportLink" data-track-label="/contact" data-track-options="{&quot;dimension29&quot;:&quot;Contact&quot;}" href="/contact">Contact</a>
@@ -42,14 +42,30 @@
       </div>
     </div>
   </div>
+     <!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//matomo.identity.aws.chdev.org/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
 </footer>
 
-<script src="/js/app.min.js"></script>
+<script src="{{ cdnHost }}/javascripts/govuk-frontend/v4.6.0/govuk-frontend-4.6.0.min.js"></script>
 <script src="{{ cdnHost }}/javascripts/app/cookie-consent/cookie-consent-1.0.0.js"></script>
 <script src="{{ cdnHost }}/javascripts/app/cookie-consent/piwik-only-cookie-consent.js"></script>
 <script src="{{ cdnHost }}/javascripts/vendor/jquery-3.3.1.min.js"></script>
-<!--<script src="/all.js"></script>
-<script>window.GOVUKFrontend.initAll()</script>-->
+<!--<script src="/all.js"></script>-->
+<script>window.GOVUKFrontend.initAll()</script>
+
 
 
 

@@ -1,21 +1,17 @@
 <head>
-{#    {% from "govuk/components/cookie-banner/macro.njk"  import govukCookieBanner %}#}
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta charset="utf-8" />
-    <title>{{ title }}</title>
-    <link href="{{ cdnHost }}/stylesheets/govuk-frontend/v3.11.0/govuk-frontend-3.11.0.min.css" rel="stylesheet"/>
-
-    <link href="{{ cdnUrlCss }}/app.min.css" media="all" rel="stylesheet" type="text/css" />
-    <link href="{{ cdnHost }}/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta charset="utf-8"/>
+    <title>{% if title %}{{ title }} -{% endif %} Tell Companies House you have verified someone’s identity - GOV.UK</title>
+    <link rel="stylesheet" href="{{cdnHost}}/stylesheets/accessible-autocomplete/autocomplete.min.css" />
+    <link href="{{cdnHost}}/stylesheets/extensions/languages-nav.css" rel="stylesheet"/>
+    <link href="{{ cdnUrlCss }}/app.min.css" media="all" rel="stylesheet" type="text/css"/>
+     <link href="{{ cdnHost }}/stylesheets/govuk-frontend/v4.6.0/govuk-frontend-4.6.0.min.css" rel="stylesheet"/>
+    <link href="{{ cdnHost }}/images/favicon.ico" rel="icon" type="image/x-icon"/>
     {% include "partials/__styles.njk" %}
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    {# <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /> #}
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta name="format-detection" content="telephone=no">
     {# Set the page object to hold values exported from server to JS files #}
     <script>
         var page = page || {};
     </script>
-    {# <script>if (typeof window.GOVUK === 'undefined') document.body.className = document.body.className.replace('js-enabled', '');</script> #}
 </head>
-
-{#<script>if (typeof window.GOVUK === 'undefined') document.body.className = document.body.className.replace('js-enabled', '');</script>#}

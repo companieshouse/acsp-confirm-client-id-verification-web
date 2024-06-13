@@ -1,12 +1,9 @@
-{% extends "layouts/shell.njk" %}
+{% extends "layouts/default.njk" %}	
 
 {% block main_content %}
 
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl govuk-!-margin-bottom-8">
-            Internal server error
-        </h1>
-        <pre class="govuk-!-margin-top-8">Status code: 500</pre>
-    </div>
+    <h1 class="govuk-heading-l">{{ i18n.technicalDifficuliesTitle}}</h1>
+    <p>{{ i18n.technicalDifficuliesText1 }}</p>
+    <p>{{ i18n.technicalDifficuliesText2 }}</p>
 
 {% endblock %}
