@@ -3,12 +3,12 @@ locals {
   stack_name                 = "identity" # this must match the stack name the service deploys into
   name_prefix                = "${local.stack_name}-${var.environment}"
   global_prefix              = "global-${var.environment}"
-  service_name               = "acsp-confirm-client-id-verfication-web"
+  service_name               = "acsp-confirm-client-id-verification-web"
   container_port             = "3000" # default Node port to match start script
-  docker_repo                = "acsp-confirm-client-id-verfication-web"
+  docker_repo                = "acsp-confirm-client-id-verification-web"
   lb_listener_rule_priority  = 18
-  lb_listener_paths          = ["/acsp-confirm-client-id-verfication-web*"]
-  healthcheck_path           = "/acsp-confirm-client-id-verfication-web/healthcheck" #healthcheck path for acsp service
+  lb_listener_paths          = ["/acsp-confirm-client-id-verification-web*"]
+  healthcheck_path           = "/acsp-confirm-client-id-verification-web/healthcheck" #healthcheck path for acsp service
   healthcheck_matcher        = "200"
   application_subnet_ids     = data.aws_subnets.application.ids
   kms_alias                  = "alias/${var.aws_profile}/environment-services-kms"
@@ -17,7 +17,7 @@ locals {
   application_subnet_pattern = local.stack_secrets["application_subnet_pattern"]
   use_set_environment_files  = var.use_set_environment_files
   s3_config_bucket           = data.vault_generic_secret.shared_s3.data["config_bucket_name"]
-  app_environment_filename   = "acsp-confirm-client-id-verfication-web.env"
+  app_environment_filename   = "acsp-confirm-client-id-verification-web.env"
   vpc_name                   = data.aws_ssm_parameter.secret[format("/%s/%s", local.name_prefix, "vpc-name")].value
   chs_api_key                = local.service_secrets["chs_api_key"]
 

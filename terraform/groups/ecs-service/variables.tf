@@ -108,7 +108,7 @@ variable "log_level" {
   description = "The log level for services to use: trace, debug, info or error"
 }
 
-variable "acsp-confirm-client-id-verfication-web_version" {
+variable "acsp_confirm_client_id_verification_web_version" {
   type        = string
-  description = "The version of the acsp-confirm-client-id-verfication-web container to run."
+  description = "The version of the acsp-confirm-client-id-verification-web container to run."
 }
