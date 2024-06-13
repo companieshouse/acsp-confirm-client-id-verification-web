@@ -1,4 +1,4 @@
-artifact_name       := acsp-confirm-client-id-verfication-web
+artifact_name       := acsp-confirm-client-id-verification-web
 version             := "unversioned"
 
 .PHONY: all

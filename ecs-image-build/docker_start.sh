@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Start script for acsp-confirm-client-id-verfication-web
+# Start script for acsp-confirm-client-id-verification-web
 
 PORT=3000
 
