@@ -1,0 +1,5 @@
+{
+    "thereIsAProblemError": "There is a problem welsh",
+    "error-invalidPostcodeFormat": "Postcode must only include letters a to z, numbers and spaces welsh",
+    "error-invalidAddressPostcode": "Enter a full UK postcode welsh"
+}

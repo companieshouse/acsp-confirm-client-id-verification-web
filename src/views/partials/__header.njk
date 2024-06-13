@@ -1,8 +1,11 @@
-<header class="govuk-header" data-module="header">
-  <div class="govuk-header__container govuk-width-container">
-    {% include "partials/banner.njk" %}
-  </div>
-</header>
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+
+{{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
+    serviceName: "Tell Companies House you have verified someone’s identity",
+    serviceUrl: "/tell-companies-house-you-have-verified-someones-identity"
+  })
+}}
 <div class="govuk-width-container">
   <div class="govuk-phase-banner">
     <p class="govuk-phase-banner__content">
@@ -15,4 +18,3 @@
     </p>
   </div>
 </div>
-
