@@ -4,7 +4,7 @@ export const START = "/";
 
 export const BASE_URL = "/tell-companies-house-you-have-verified-someones-identity";
 
-export const PERSONS_NAME = "/persons_name";
+export const PERSONS_NAME = "/name";
 
 export const HOME_URL = "";
 

@@ -1,12 +1,35 @@
 {% extends "layouts/default.njk" %}
+
 {% block backLink %}
   {# Remove back button on this page by replacing it with nothing #}
 {% endblock %}
+
 {% block main_content %}
   <form action="" method="POST">
-    <h1 class="govuk-heading-l">
-      {{ i18n.startPageTitle }}
-    </h1>
+    <h1 class="govuk-heading-l">{{ i18n.startPageTitle }}</h1>
+    <p class="govuk-body">{{ i18n.useThisService }}</p>
+    
+    <h2 class="govuk-heading-m">{{ i18n.whatYoullNeedHeading }}</h2>
+    <p class="govuk-body">{{ i18n.youllNeed }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{ i18n.fullName }}</li>
+      <li>{{ i18n.dob }}</li>
+      <li>{{ i18n.homeAddress }}</li>
+      <li>{{ i18n.emailAddress }}</li>
+    </ul>
+    
+    <p class="govuk-body">{{ i18n.useThisService }}</p>
+    
+    <div class="govuk-inset-text">
+      <p class="govuk-body">
+        {{ i18n.The }}
+        <a href="guidance">{{ i18n.companiesHouseIdentity }}</a>
+        {{ i18n.outLines }}
+      </p>
+    </div>
+    
+    <p class="govuk-body">{{ i18n.startTimeout }}</p>
+    
     <button class="govuk-button govuk-button--start" data-module="govuk-button" data-event-id="START NOW">
       {{ i18n.startNow }}
       <svg
@@ -21,5 +44,8 @@
       </svg>
     </button>
     
+    <p>
+      <a href="guidance-ACSPs" data-event-id="Read the guidance">{{ i18n.readThe }}</a>.
+    </p>
   </form>
 {% endblock %}
