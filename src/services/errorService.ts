@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getLocaleInfo } from "../utils/localise";
+import { getLocaleInfo, getLocalesService, selectLang  } from "../utils/localise";
 import { LocalesService } from "@companieshouse/ch-node-utils";
 import * as config from "../config";
 
@@ -13,8 +13,12 @@ export class ErrorService {
     }
 
     public render404Page = (req: Request, res: Response) => {
+        const locales = getLocalesService();
+        const lang = selectLang(req.query.lang);
         res.status(404).render(config.ERROR_404, {
-            title: "Page not found"
+            title: "Page not found",
+            ...getLocaleInfo(locales, lang),
+            currentUrl: req.url
         });
     }
 }
