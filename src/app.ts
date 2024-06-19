@@ -23,9 +23,9 @@ const app = express();
 
 const nunjucksEnv = nunjucks.configure([path.join(__dirname, "views"),
     path.join(__dirname, "/../node_modules/govuk-frontend"),
-    path.join(__dirname, "node_modules/govuk-frontend"),
+    path.join(__dirname, "/../../node_modules/govuk-frontend"),
     path.join(__dirname, "/../node_modules/@companieshouse/ch-node-utils/templates"),
-    path.join(__dirname, "node_modules/@companieshouse/ch-node-utils/templates")], {
+    path.join(__dirname, "/../../node_modules/@companieshouse/ch-node-utils/templates")], {
     autoescape: true,
     express: app
 });
