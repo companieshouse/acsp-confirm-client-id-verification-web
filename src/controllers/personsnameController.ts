@@ -4,9 +4,9 @@ import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { BASE_URL, PERSONS_NAME, PERSONAL_CODE } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { GET_ACSP_REGISTRATION_DETAILS_ERROR, POST_ACSP_REGISTRATION_DETAILS_ERROR, USER_DATA } from "../common/__utils/constants";
+import { USER_DATA } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
-import { saveDataInSession } from "../common/__utils/sessionHelper";
+import { saveDataInSession } from "../utils/sessionHelper";
 import  logger  from "../lib/Logger";
 import { ClientData } from "../model/ClientData";;
 import { ErrorService } from "../services/errorService";
@@ -24,7 +24,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             currentUrl,
         });
     } catch (err) {
-        logger.error(GET_ACSP_REGISTRATION_DETAILS_ERROR);
+        logger.error("There is a problem in get");
         const error = new ErrorService();
         error.renderErrorPage(res, locales, lang, currentUrl);
     }
@@ -65,7 +65,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
         }
     } catch (err) {
-        logger.error(POST_ACSP_REGISTRATION_DETAILS_ERROR + " " + JSON.stringify(err));
+        logger.error("There is a problem in post");
         const error = new ErrorService();
         error.renderErrorPage(res, locales, lang, currentUrl);
     }
