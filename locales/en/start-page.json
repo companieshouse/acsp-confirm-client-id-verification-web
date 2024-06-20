@@ -1,5 +1,18 @@
 {
-    "startPageTitle": "Apply to register as a Companies House authorised agent",
-    "startTimeout": "This service will time out if you do not use it for 60 minutes. You can save your answers and resume your application later.",
-    "startNow": "Start now"
+    "startPageTitle": "Tell Companies House you have verified someone’s identity",
+    "useThisService": "Use this service to tell us when you've verified someone's identity for Companies House.",
+    "YouWillBeAble": "You'll be able to add other people who work for the business once you have registered.",
+    "whatYoullNeedHeading": "What you'll need",
+    "youllNeed": "You’ll need to tell us the person's:",
+    "fullName": "full name",
+    "dob": "date of birth",
+    "homeAddress": "home address",
+    "emailAddress": "email address",
+    "youAlsoNeed": "You’ll also need to tell us which identity documents you used to verify their identity and the date you completed the checks.",
+    "The": "The",
+    "companiesHouseIdentity": "Companies House identity verification standard",
+    "outLines": "outlines which documents you can use to verify someone’s identity and the checks you’ll need to do to meet the standard.",
+    "startTimeout": "It takes around 10 minutes to use this service.",
+    "startNow": "Start now",
+    "readThe": "Read the guidance about verifying someone's identity for Companies House"
 }
