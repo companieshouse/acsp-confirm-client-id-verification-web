@@ -1,0 +1,60 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% extends "layouts/default.njk" %}
+{% set title = i18n.whatIsYourNameTitle %}
+{% block main_content %}
+    <form action="" method="POST">
+        <div class="govuk-form-group">
+            <h1 class="govuk-heading-l">{{ i18n.whatIsYourNameTitle }}</h1>
+            <div class="govuk-hint govuk-!-margin-bottom-6">
+            {{ i18n.thisMust }}
+            </div>
+            {{ govukInput({
+                label: {
+                    text: i18n.whatIsYourNameFirstName
+                },
+                errorMessage: {
+                    text: errors["first-name"].text
+                } if errors["first-name"] | length,
+                classes: "govuk-input--width-20",
+                id: "first-name",
+                name: "first-name",
+                autocomplete: "given-name",
+                value: payload["first-name"]
+            }) }}
+            {{ govukInput({
+                label: {
+                    text: i18n.whatIsYourNameMiddleNames
+                },
+                errorMessage: {
+                    text: errors["middle-names"].text
+                } if errors["middle-names"] | length,
+                classes: "govuk-input--width-20",
+                id: "middle-names",
+                name: "middle-names",
+                autocomplete: "additional-name",
+                value: payload["middle-names"]
+            }) }}
+            {{ govukInput({
+                label: {
+                    text: i18n.whatIsYourNameLastName
+                },
+                errorMessage: {
+                    text: errors["last-name"].text
+                } if errors["last-name"] | length or errors["first-name"].text === "Enter your full name" or errors["first-name"].text === "Enter your full name welsh",
+                classes: "govuk-input--width-20",
+                id: "last-name",
+                name: "last-name",
+                autocomplete: "family-name",
+                value: payload["last-name"]
+            }) }}
+        </div>
+        {{ govukButton({
+            text: i18n.Continue,
+            attributes: {
+              "data-event-id": "SAVE AND CONTINUE - NAME"
+            }
+        }) }}
+    </form>
+{% endblock main_content %}

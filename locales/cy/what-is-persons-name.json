@@ -1,0 +1,16 @@
+{
+    "whatIsYourNameTitle" : "What is the person's name? welsh",
+    "thisMust" : "This must be exactly the same as the name shown on at least one of the documents you used to check their identity. welsh",
+    "whatIsYourNameFirstName" : "First name welsh",
+    "whatIsYourNameMiddleNames" : "Middle name or names (if relevant) welsh",
+    "whatIsYourNameLastName" : "Last name welsh",
+    "error-enterFullName" : "Enter your full name welsh",
+    "error-enterFirstName" : "Enter your first name welsh",
+    "error-enterLastName": "Enter your last name welsh",
+    "error-invalidFirstNameFormat": "First name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes welsh",
+    "error-invalidMiddleNameFormat": "Middle name or names must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes welsh",
+    "error-invalidLastNameFormat": "Last name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes welsh",
+    "error-invalidFirstNameLength": "First name must be 50 characters or fewer welsh",
+    "error-invalidMiddleNameLength": "Middle names must be 50 characters or fewer welsh",
+    "error-invalidLastNameLength": "Last name must be 160 characters or fewer welsh"
+}
