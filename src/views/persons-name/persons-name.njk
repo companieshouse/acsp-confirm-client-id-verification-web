@@ -42,7 +42,7 @@
                 },
                 errorMessage: {
                     text: errors["last-name"].text
-                } if errors["last-name"] | length or errors["first-name"].text === "Enter your full name" or errors["first-name"].text === "Enter your full name welsh",
+                } if errors["last-name"] | length or errors["first-name"].text === i18n.error-enterFullName,
                 classes: "govuk-input--width-20",
                 id: "last-name",
                 name: "last-name",

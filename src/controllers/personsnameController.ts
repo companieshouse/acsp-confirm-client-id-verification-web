@@ -1,15 +1,15 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { validationResult } from "express-validator";
+import { ErrorService } from "../services/errorService";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { BASE_URL, PERSONS_NAME, PERSONAL_CODE } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { saveDataInSession } from "../utils/sessionHelper";
-import  logger  from "../lib/Logger";
-import { ClientData } from "../model/ClientData";;
-import { ErrorService } from "../services/errorService";
+import logger from "../lib/Logger";
+import { ClientData } from "../model/ClientData";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -21,7 +21,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         res.render(config.PERSONS_NAME, {
             previousPage,
             ...getLocaleInfo(locales, lang),
-            currentUrl,
+            currentUrl
         });
     } catch (err) {
         logger.error("There is a problem in get");
@@ -61,7 +61,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             // detailsAnswers.name = req.body["first-name"] + " " + req.body["last-name"];
             // saveDataInSession(req, ANSWER_DATA, detailsAnswers);
 
-            res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE , lang));
+            res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
 
         }
     } catch (err) {
