@@ -24,7 +24,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             currentUrl
         });
     } catch (err) {
-        logger.error("There is a problem in get");
+        logger.error("Sorry we are experiencing technical difficulties");
         const error = new ErrorService();
         error.renderErrorPage(res, locales, lang, currentUrl);
     }
@@ -65,7 +65,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
         }
     } catch (err) {
-        logger.error("There is a problem in post");
+        logger.error("Sorry we are experiencing technical difficulties");
         const error = new ErrorService();
         error.renderErrorPage(res, locales, lang, currentUrl);
     }
