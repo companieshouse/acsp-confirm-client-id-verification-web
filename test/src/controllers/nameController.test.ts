@@ -2,9 +2,7 @@ import supertest from "supertest";
 import app from "../../../src/app";
 import { BASE_URL, PERSONS_NAME } from "../../../src/types/pageURL";
 
-
 const router = supertest(app);
-
 
 describe("GET" + PERSONS_NAME, () => {
     it("should return status 200", async () => {

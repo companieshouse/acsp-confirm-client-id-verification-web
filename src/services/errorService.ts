@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getLocaleInfo, getLocalesService, selectLang  } from "../utils/localise";
+import { getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { LocalesService } from "@companieshouse/ch-node-utils";
 import * as config from "../config";
 
