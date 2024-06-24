@@ -1,6 +1,13 @@
 #!/bin/bash
-
-PORT=3000
+# Start script for acsp-confirm-client-id-verification-web
+npm i
+PORT=3011
 
 export NODE_PORT=${PORT}
-exec node /opt/dist/server.js -- ${PORT}
+
+for entry in /opt/*
+do
+  echo "$entry"
+done
+
+exec node /opt/server.js -- ${PORT}
