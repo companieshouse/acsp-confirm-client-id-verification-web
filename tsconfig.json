@@ -27,11 +27,12 @@
   },
   "lib": ["esnext"],
   "include": [
-    "./src/**/*.ts"
+    "src/**/*"
   ],
   "exclude": [
+    "test/**/*",
     "node_modules",
-    "tests",
+    "test",
     "dist"
   ]
 }
