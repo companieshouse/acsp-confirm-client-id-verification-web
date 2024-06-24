@@ -7,4 +7,4 @@ COPY dist docker_start.sh ./package.json ./package-lock.json ./
 
 CMD ["./docker_start.sh"]
 
-EXPOSE 3011
+EXPOSE 3000

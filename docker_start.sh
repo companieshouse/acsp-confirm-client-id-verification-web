@@ -1,7 +1,7 @@
 #!/bin/bash
 # Start script for acsp-confirm-client-id-verification-web
 npm i
-PORT=3011
+PORT=3000
 
 export NODE_PORT=${PORT}
 
