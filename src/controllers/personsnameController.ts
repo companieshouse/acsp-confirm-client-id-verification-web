@@ -47,19 +47,15 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 ...pageProperties
             });
         } else {
-            // const session: Session = req.session as any as Session;
-            // const acspData : ClientData = session?.getExtraData(USER_DATA)!;
-            // if (acspData) {
-            //     acspData.firstName = req.body["first-name"];
-            //     acspData.middleName = req.body["middle-names"];
-            //     acspData.lastName = req.body["last-name"];
-            // }
+            const session: Session = req.session as any as Session;
+            const acspData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+            if (acspData) {
+                acspData.firstName = req.body["first-name"];
+                acspData.middleName = req.body["middle-names"];
+                acspData.lastName = req.body["last-name"];
+            }
 
-            // saveDataInSession(req, USER_DATA, acspData);
-
-            // const detailsAnswers: Answers = session.getExtraData(ANSWER_DATA) || {};
-            // detailsAnswers.name = req.body["first-name"] + " " + req.body["last-name"];
-            // saveDataInSession(req, ANSWER_DATA, detailsAnswers);
+            saveDataInSession(req, USER_DATA, acspData);
 
             res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
 
