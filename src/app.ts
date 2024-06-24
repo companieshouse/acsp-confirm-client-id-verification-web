@@ -23,9 +23,9 @@ const app = express();
 
 const nunjucksEnv = nunjucks.configure([path.join(__dirname, "views"),
     path.join(__dirname, "/../node_modules/govuk-frontend"),
-    path.join(__dirname, "/../../node_modules/govuk-frontend"),
+    path.join(__dirname, "./node_modules/govuk-frontend"),
     path.join(__dirname, "/../node_modules/@companieshouse/ch-node-utils/templates"),
-    path.join(__dirname, "/../../node_modules/@companieshouse/ch-node-utils/templates")], {
+    path.join(__dirname, "./node_modules/@companieshouse/ch-node-utils/templates")], {
     autoescape: true,
     express: app
 });
@@ -50,6 +50,14 @@ app.use(express.urlencoded({ extended: false }));
 // Serve static files
 app.use(express.static(path.join(__dirname, "/../assets/public")));
 
+// Apply middleware
+// app.use(cookieParser());
+// app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware);
+app.use(commonTemplateVariablesMiddleware);
+
+// Channel all requests through router dispatch
+routerDispatch(app);
+
 // Unhandled errors
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     logger.error(`${err.name} - appError: ${err.message} - ${err.stack}`);
@@ -72,13 +80,5 @@ process.on("unhandledRejection", (err: any) => {
     logger.error(`${err.name} - unhandledRejection: ${err.message} - ${err.stack}`);
     process.exit(1);
 });
-
-// Apply middleware
-// app.use(cookieParser());
-// app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware);
-app.use(commonTemplateVariablesMiddleware);
-
-// Channel all requests through router dispatch
-routerDispatch(app);
 
 export default app;
