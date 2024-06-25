@@ -48,14 +48,14 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             });
         } else {
             const session: Session = req.session as any as Session;
-            const acspData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
-            if (acspData) {
-                acspData.firstName = req.body["first-name"];
-                acspData.middleName = req.body["middle-names"];
-                acspData.lastName = req.body["last-name"];
+            const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+            if (clientData) {
+                clientData.firstName = req.body["first-name"];
+                clientData.middleName = req.body["middle-names"];
+                clientData.lastName = req.body["last-name"];
             }
 
-            saveDataInSession(req, USER_DATA, acspData);
+            saveDataInSession(req, USER_DATA, clientData);
 
             res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
 

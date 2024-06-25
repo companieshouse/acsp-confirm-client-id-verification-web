@@ -1,13 +1,22 @@
+import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
 import { BASE_URL, PERSONS_NAME } from "../../../src/types/pageURL";
+import { ClientData } from "../../../src/model/ClientData";
 
 const router = supertest(app);
+
+const clientData: ClientData = {
+    firstName: "John",
+    middleName: "",
+    lastName: "Doe"
+};
 
 describe("GET" + PERSONS_NAME, () => {
     it("should return status 200", async () => {
         const res = await router.get(BASE_URL + PERSONS_NAME);
         expect(res.status).toBe(200);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
     });
 });
 
@@ -21,6 +30,7 @@ describe("POST" + PERSONS_NAME, () => {
                 "last-name": "Doe"
             });
         expect(res.status).toBe(302);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
     });
 
     // Test for incorrect form details entered, will return 400.
