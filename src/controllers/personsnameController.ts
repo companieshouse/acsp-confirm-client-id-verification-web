@@ -14,7 +14,6 @@ import { ClientData } from "../model/ClientData";
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
-    const session: Session = req.session as any as Session;
     const previousPage: string = addLangToUrl(BASE_URL, lang);
     const currentUrl: string = BASE_URL + PERSONS_NAME;
     try {
