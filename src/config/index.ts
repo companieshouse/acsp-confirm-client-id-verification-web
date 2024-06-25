@@ -14,3 +14,5 @@ export const ERROR_500 = `${BASE_PARTIALS_URL}/error_500`;
 export const PIWIK_URL = getEnvironmentValue("PIWIK_URL");
 export const PIWIK_SITE_ID = getEnvironmentValue("PIWIK_SITE_ID");
 export const PIWIK_START_GOAL_ID = getEnvironmentValue("PIWIK_START_GOAL_ID");
+
+export const PERSONS_NAME = `${BASE_VIEWS_URL}/persons-name/persons-name`;

@@ -1,0 +1,16 @@
+{
+    "whatIsYourNameTitle" : "What is the person's name?",
+    "thisMust" : "This must be exactly the same as the name shown on at least one of the documents you used to check their identity.",
+    "whatIsYourNameFirstName" : "First name",
+    "whatIsYourNameMiddleNames" : "Middle name or names (if relevant)",
+    "whatIsYourNameLastName" : "Last name",
+    "error-enterFullName" : "Enter your full name",
+    "error-enterFirstName" : "Enter your first name",
+    "error-enterLastName": "Enter your last name",
+    "error-invalidFirstNameFormat": "First name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes",
+    "error-invalidMiddleNameFormat": "Middle name or names must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes",
+    "error-invalidLastNameFormat": "Last name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes",
+    "error-invalidFirstNameLength": "First name must be 50 characters or fewer",
+    "error-invalidMiddleNameLength": "Middle names must be 50 characters or fewer",
+    "error-invalidLastNameLength": "Last name must be 160 characters or fewer"
+}

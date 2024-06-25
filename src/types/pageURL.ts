@@ -6,6 +6,8 @@ export const BASE_URL = "/tell-companies-house-you-have-verified-someones-identi
 
 export const PERSONS_NAME = "/name";
 
+export const PERSONAL_CODE = "/personal-code";
+
 export const HOME_URL = "";
 
 export const SIGN_OUT_PAGE = `signout`;
