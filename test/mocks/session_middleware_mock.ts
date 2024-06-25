@@ -15,6 +15,7 @@ export const session = getSessionRequestWithPermission();
 mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
     session.setExtraData(USER_DATA, {
         firstName: "John",
+        middleName: "",
         lastName: "Doe",
     }
     );
