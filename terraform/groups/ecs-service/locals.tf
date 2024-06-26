@@ -8,7 +8,7 @@ locals {
   docker_repo                = "acsp-confirm-client-id-verification-web"
   lb_listener_rule_priority  = 18
   lb_listener_paths          = ["/acsp-confirm-client-id-verification-web*"]
-  healthcheck_path           = "/acsp-confirm-client-id-verification-web/healthchecks" #healthcheck path for acsp service
+  healthcheck_path           = "/acsp-confirm-client-id-verification-web/healthcheck" #healthcheck path for acsp service
   healthcheck_matcher        = "200"
   application_subnet_ids     = data.aws_subnets.application.ids
   kms_alias                  = "alias/${var.aws_profile}/environment-services-kms"
