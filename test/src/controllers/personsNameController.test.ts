@@ -33,10 +33,21 @@ describe("POST" + PERSONS_NAME, () => {
     it("should return status 400 after incorrect data entered", async () => {
         const sendData = {
             "first-name": "",
+            "middle-names": "middlename",
+            "last-name": "lname"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData); ;
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("Enter your first name");
+    });
+    it("should return status 400 after incorrect data entered", async () => {
+        const sendData = {
+            "first-name": "fname",
             "middle-names": "",
             "last-name": ""
         };
         const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData); ;
         expect(res.status).toBe(400);
+        expect(res.text).toContain("Enter your last name");
     });
 });
