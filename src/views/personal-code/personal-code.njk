@@ -1,0 +1,40 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "layouts/default.njk" %}
+{% set title = i18n.codePageTitle %}
+
+{% block main_content %}
+    <form action="" method="POST">
+        <h1 class="govuk-heading-l">
+            {{ firstName }} {{ lastName }} {{ i18n.codePageHeading }}
+        </h1>
+        <p class="govuk-body">
+            {{ i18n.onceYou }}
+        </p>
+        <p class="govuk-body">
+            {{ i18n.weWill }}
+        </p>
+        <details class="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    {{ i18n.whenThey }}
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <p>
+                    {{ i18n.theyMay }}
+                </p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>{{ i18n.asPart }}</li>
+                    <li>{{ i18n.ifThey }}</li>
+                    <li>{{ i18n.ifTheyBecome }}</li>
+                </ul>
+            </div>
+        </details>
+        {{ govukButton({
+            text: i18n.Continue,
+            attributes: {
+                "data-event-id": "CONTINUE - CODE"
+            }
+        }) }}
+    </form>
+{% endblock main_content %}

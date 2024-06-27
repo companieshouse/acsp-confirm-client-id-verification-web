@@ -1,8 +1,8 @@
 {
     "whatIsYourNameTitle" : "What is the person's name?",
-    "thisMust" : "This must be exactly the same as the name shown on at least one of the documents you used to check their identity.",
+    "thisMust" : "This must be exactly the same as the name shown on at least one of the identity documents they provided.",
     "whatIsYourNameFirstName" : "First name",
-    "whatIsYourNameMiddleNames" : "Middle name or names (if relevant)",
+    "whatIsYourNameMiddleNames" : "Middle name or names",
     "whatIsYourNameLastName" : "Last name",
     "error-enterFullName" : "Enter your full name",
     "error-enterFirstName" : "Enter your first name",

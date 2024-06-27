@@ -3,7 +3,8 @@ import {
     accessibilityStatementController,
     healthCheckController,
     indexController,
-    nameController
+    nameController,
+    personalCodeController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -20,5 +21,8 @@ routes.get(urls.HEALTHCHECK, healthCheckController.get);
 
 routes.get(urls.PERSONS_NAME, nameController.get);
 routes.post(urls.PERSONS_NAME, nameValidator, nameController.post);
+
+routes.get(urls.PERSONAL_CODE, personalCodeController.get);
+routes.post(urls.PERSONAL_CODE, personalCodeController.post);
 
 export default routes;
