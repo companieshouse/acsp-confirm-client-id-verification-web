@@ -19,3 +19,5 @@ export const ACCOUNTS_SIGNOUT_PATH = `${ACCOUNT_URL}/signout`;
 export const HEALTHCHECK = "/healthcheck";
 
 export const ACCESSIBILITY_STATEMENT = "/accessibility-statement";
+
+
