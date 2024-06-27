@@ -1,0 +1,15 @@
+{
+    "homeAddressTitle": "What is their home address?",
+    "homeAddressPostcode": "UK postcode",
+    "homeAddressPostcodeHint": "You'll need to enter the address manually if it's not in the UK.",
+    "homeAddressPremise": "Property name or number",
+    "homeAddressPremiseHint": "For example, 'The Mill', '116' or 'Flat 37a'",
+    "homeAddressManualLink": "Enter address manually",
+    "homeAddressFindAddressBtn": "Find address",
+
+    "error-homeAddressEnterPostCode" : "Enter a postcode",  
+    "error-homeAddressInvalidPostcodeFormat": "Postcode must only include letters a to z, numbers and spaces",
+    "error-homeAddressEnterFullPostcode": "Enter a full UK postcode",
+    "error-homeAddressInvalidPropertyDetails" : "Property name or number must only include letters a to z, numbers and common special characters such as hyphens, spaces and apostrophes",
+    "error-homeAddressNoPostcodeFound" : "We cannot find this postcode. Enter a different one, or enter the address manually"
+}
