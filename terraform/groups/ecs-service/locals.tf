@@ -7,8 +7,8 @@ locals {
   container_port             = "3000" # default Node port to match start script
   docker_repo                = "acsp-confirm-client-id-verification-web"
   lb_listener_rule_priority  = 18
-  lb_listener_paths          = ["/acsp-confirm-client-id-verification-web*"]
-  healthcheck_path           = "/acsp-confirm-client-id-verification-web/healthcheck" #healthcheck path for acsp service
+  lb_listener_paths          = ["/tell-companies-house-you-have-verified-someones-identity*"]
+  healthcheck_path           = "/tell-companies-house-you-have-verified-someones-identity/healthcheck" #healthcheck path for acsp service
   healthcheck_matcher        = "200"
   application_subnet_ids     = data.aws_subnets.application.ids
   kms_alias                  = "alias/${var.aws_profile}/environment-services-kms"
