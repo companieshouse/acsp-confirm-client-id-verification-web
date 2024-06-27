@@ -8,7 +8,7 @@ import { USER_DATA } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { ClientData } from "../model/ClientData";
-import { logger } from "../utils/logger";  
+import { logger } from "../utils/logger";
 
 export const get = (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);

@@ -2,13 +2,9 @@ import { ACCOUNT_URL, CHS_URL } from "../utils/properties";
 
 export const START = "/";
 
-export const BASE_URL = "/tell-companies-house-you-have-verified-someones-identity";
-
-export const PERSONS_NAME = "/name";
-
-export const PERSONAL_CODE = "/personal-code";
-
 export const HOME_URL = "";
+
+export const BASE_URL = "/tell-companies-house-you-have-verified-someones-identity";
 
 export const SIGN_OUT_PAGE = `signout`;
 
@@ -20,4 +16,8 @@ export const HEALTHCHECK = "/healthcheck";
 
 export const ACCESSIBILITY_STATEMENT = "/accessibility-statement";
 
+export const PERSONS_NAME = "/what-is-the-persons-name";
 
+export const PERSONAL_CODE = "/companies-house-personal-code";
+
+export const WHAT_IS_EMAIL_ADDRESS = "/what-is-their-email-address";

@@ -6,8 +6,10 @@ const router = supertest(app);
 describe("Home Page tests -", () => {
     describe("GET " + HOME_URL, () => {
         it("should return status 200", async () => {
+            const res = await router.get(BASE_URL + HOME_URL);
             await router.get(BASE_URL);
             expect(200);
+            expect(res.text).toContain("Tell Companies House you have verified someone’s identity");
         });
     });
 
