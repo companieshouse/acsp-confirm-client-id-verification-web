@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, PERSONAL_CODE, WHAT_IS_EMAIL_ADDRESS } from "../../../src/types/pageURL";
+import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS } from "../../../src/types/pageURL";
 
 const router = supertest(app);
 
@@ -22,6 +22,6 @@ describe("POST " + PERSONAL_CODE, () => {
             .query({ lang: "en" });
         expect(res.status).toBe(302);
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
-        expect(res.header.location).toBe(BASE_URL + WHAT_IS_EMAIL_ADDRESS + "?lang=en");
+        expect(res.header.location).toBe(BASE_URL + EMAIL_ADDRESS + "?lang=en");
     });
 });

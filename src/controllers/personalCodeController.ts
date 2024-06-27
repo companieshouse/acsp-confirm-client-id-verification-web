@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
-import { BASE_URL, PERSONS_NAME, PERSONAL_CODE, WHAT_IS_EMAIL_ADDRESS } from "../types/pageURL";
+import { BASE_URL, PERSONS_NAME, PERSONAL_CODE, EMAIL_ADDRESS } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
@@ -23,5 +23,5 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
 
 export const post = (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
-    res.redirect(addLangToUrl(BASE_URL + WHAT_IS_EMAIL_ADDRESS, lang));
+    res.redirect(addLangToUrl(BASE_URL + EMAIL_ADDRESS, lang));
 };
