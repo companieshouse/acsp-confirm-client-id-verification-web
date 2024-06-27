@@ -8,7 +8,6 @@ import { USER_DATA } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { ClientData } from "../model/ClientData";
-import { logger } from "../utils/logger";
 
 export const get = (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -49,14 +48,8 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
         clientData.middleName = req.body["middle-names"];
         clientData.lastName = req.body["last-name"];
 
-        logger.info(`First Name: ${clientData?.firstName}`);
-        logger.info(`Last Name: ${clientData?.lastName}`);
-        logger.error(clientData + "datttttttaaa " + JSON.stringify(clientData));
         saveDataInSession(req, USER_DATA, clientData);
-        const clientDatasaved: ClientData = session?.getExtraData(USER_DATA)!;
-        logger.error(clientDatasaved + "datttttttaaa " + JSON.stringify(clientDatasaved));
 
         res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
-
     }
 };
