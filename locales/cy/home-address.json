@@ -1,0 +1,15 @@
+{
+    "homeAddressTitle": "What is their home address? welsh",
+    "homeAddressPostcode": "UK postcode welsh",
+    "homeAddressPostcodeHint": "You'll need to enter the address manually if it's not in the UK. welsh",
+    "homeAddressPremise": "Property name or number welsh",
+    "homeAddressPremiseHint": "For example, 'The Mill', '116' or 'Flat 37a' welsh",
+    "homeAddressManualLink": "Enter address manually welsh",
+    "homeAddressFindAddressBtn": "Find address welsh",
+
+    "error-homeAddressEnterPostCode" : "Enter a postcode welsh",  
+    "error-homeAddressInvalidPostcodeFormat": "Postcode must only include letters a to z, numbers and spaces welsh",
+    "error-homeAddressEnterFullPostcode": "Enter a full UK postcode welsh",
+    "error-homeAddressInvalidPropertyDetails" : "Property name or number must only include letters a to z, numbers and common special characters such as hyphens, spaces and apostrophes welsh",
+    "error-homeAddressNoPostcodeFound" : "We cannot find this postcode. Enter a different one, or enter the address manually welsh"
+}
