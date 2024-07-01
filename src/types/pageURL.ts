@@ -20,7 +20,7 @@ export const DATE_OF_BIRTH = "/date-of-birth";
 
 export const HOME_ADDRESS = "/address-lookup";
 
-export const CHOOSE_AN_ADDRESS = "/address-list";
+export const CHOOSE_AN_ADDRESS = "/choose-an-address";
 
 export const HOME_ADDRESS_MANUAL = "/enter-their-home-address";
 
