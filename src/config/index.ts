@@ -7,6 +7,7 @@ export const HOME = `${BASE_VIEWS_URL}/index/home`;
 
 export const ACCESSIBILITY_STATEMENT = `${BASE_VIEWS_URL}/accessibility-statement/accessibility-statement`;
 export const HOME_ADDRESS = `${BASE_VIEWS_URL}/home-address/home-address`;
+export const CONFIRM_HOME_ADDRESS = `${BASE_VIEWS_URL}/confirm-home-address/confirm-home-address`;
 
 export const ERROR_400 = `${BASE_PARTIALS_URL}/error_400`;
 export const ERROR_404 = `${BASE_PARTIALS_URL}/error_404`;

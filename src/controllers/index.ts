@@ -6,3 +6,4 @@ export * as homeAddressController from "./homeAddressController";
 export * as personalCodeController from "./personalCodeController";
 export * as homeAddressManualController from "./homeAddressManualController";
 export * as addressListController from "./addressListController";
+export * as confirmHomeAddressController from "./confirmHomeAddressController";

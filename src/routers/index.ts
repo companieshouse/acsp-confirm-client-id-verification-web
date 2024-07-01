@@ -7,6 +7,7 @@ import {
     personalCodeController,
     homeAddressController,
     homeAddressManualController,
+    confirmHomeAddressController,
     addressListController
 } from "../controllers";
 
@@ -30,6 +31,9 @@ routes.post(urls.PERSONS_NAME, nameValidator, nameController.post);
 
 routes.get(urls.HOME_ADDRESS, homeAddressController.get);
 routes.post(urls.HOME_ADDRESS, homeAddressValidator, homeAddressController.post);
+
+routes.get(urls.CONFIRM_HOME_ADDRESS, confirmHomeAddressController.get);
+routes.post(urls.CONFIRM_HOME_ADDRESS, confirmHomeAddressController.post);
 
 routes.get(urls.PERSONAL_CODE, personalCodeController.get);
 routes.post(urls.PERSONAL_CODE, personalCodeController.post);

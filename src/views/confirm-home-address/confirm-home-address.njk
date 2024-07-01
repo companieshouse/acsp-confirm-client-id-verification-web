@@ -1,0 +1,28 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "layouts/default.njk" %}
+{% set title = i18n.addressConfirmTitle %}
+{% block main_content %}
+  <form class="form" action="" method="post">
+    {% include "partials/user_name.njk" %}
+    {% set addressField = address.propertyDetails + " " + address.line1 + ", " %}
+    <h1 class="govuk-heading-l">{{ i18n.addressConfirmTitle }}</h1>
+    <ul class="govuk-list">
+      <li>{{ addressField }}</li>
+      <li>{{ address.line2 }}</li>
+      <li>{{ address.town }}</li>
+      <li>{{ address.county }}</li>
+      <li>{{ address.country }}</li>
+      <li>{{ address.postcode }}</li>
+    </ul>
+    <p class="govuk-body">
+      <a href={{editPage}} class="govuk-link govuk-link--no-visited-state">{{ i18n.EditAddress }}</a>
+    </p>
+    {{ govukButton({
+      text: i18n.ConfirmAndContinue,
+      attributes: {
+        "data-event-id": "CONFIRM AND CONTINUE"
+      }
+    }) }}
+  </form>
+{% endblock main_content %}
