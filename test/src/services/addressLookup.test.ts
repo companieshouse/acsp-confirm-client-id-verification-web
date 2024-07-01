@@ -30,7 +30,7 @@ describe("saveAddressToSession tests", () => {
         });
         const session = getSessionRequestWithPermission();
         req.session = session;
-    })
+    });
 
     it("should save address to session", () => {
         const session: Session = req.session as any as Session;
@@ -45,8 +45,8 @@ describe("saveAddressToSession tests", () => {
             town: "STOKE-ON-TRENT",
             country: "GB-ENG",
             postcode: "ST6 3LJ"
-        }
+        };
 
         expect(session.getExtraData(USER_DATA)).toEqual(clientData);
     });
-})
+});
