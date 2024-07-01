@@ -33,4 +33,3 @@ export const PERSONS_NAME = "/what-is-the-persons-name";
 export const PERSONAL_CODE = "/companies-house-personal-code";
 
 export const EMAIL_ADDRESS = "/what-is-their-email-address";
-

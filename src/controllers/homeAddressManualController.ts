@@ -54,7 +54,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     } else {
         const addressManualService = new AddressManualService();
         addressManualService.saveManualAddress(req, clientData);
-        saveDataInSession(req, CONFIRM_ADDRESS_PREVIOUS_PAGE_URL, currentUrl);  
+        saveDataInSession(req, CONFIRM_ADDRESS_PREVIOUS_PAGE_URL, currentUrl);
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_HOME_ADDRESS, lang));
     }
 };

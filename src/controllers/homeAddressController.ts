@@ -59,7 +59,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const addressLookUpService = new AddressLookUpService();
         await addressLookUpService.getAddressFromPostcode(req, postcode, inputPremise, clientData,
             CONFIRM_HOME_ADDRESS, CHOOSE_AN_ADDRESS).then(async (nextPageUrl) => {
-            saveDataInSession(req, CONFIRM_ADDRESS_PREVIOUS_PAGE_URL, currentUrl);    
+            saveDataInSession(req, CONFIRM_ADDRESS_PREVIOUS_PAGE_URL, currentUrl);
             res.redirect(nextPageUrl);
         }).catch(() => {
             const validationError: ValidationError[] = [{
