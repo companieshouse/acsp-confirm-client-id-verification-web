@@ -5,6 +5,7 @@ import {
     indexController,
     nameController,
     personalCodeController,
+    homeAddressController,
     homeAddressManualController
 } from "../controllers";
 
