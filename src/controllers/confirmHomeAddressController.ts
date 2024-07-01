@@ -6,7 +6,6 @@ import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA, CONFIRM_ADDRESS_PREVIOUS_PAGE_URL } from "../utils/constants";
 import { ClientData } from "model/ClientData";
 
-
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
