@@ -20,3 +20,4 @@ export const PERSONS_NAME = `${BASE_VIEWS_URL}/persons-name/persons-name`;
 export const PERSONAL_CODE = `${BASE_VIEWS_URL}/personal-code/personal-code`;
 
 export const HOME_ADDRESS_MANUAL = `${BASE_VIEWS_URL}/home-address-manual/home-address-manual`;
+export const ADDRESS_LIST = `${BASE_VIEWS_URL}/home-address-list/home-address-list`;

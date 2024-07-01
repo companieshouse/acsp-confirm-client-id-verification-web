@@ -8,6 +8,9 @@ import { getCountryFromKey } from "../utils/web";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
+import { Session } from "@companieshouse/node-session-handler";
+import { Address } from "../../model/Address";
+import { ADDRESS_LIST } from "utils/constants";
 
 export class AddressLookUpService {
     public getAddressFromPostcode (req: Request, postcode: string, inputPremise: string, clientData: ClientData, ...nexPageUrls: string[]) : Promise<string> {
@@ -19,7 +22,8 @@ export class AddressLookUpService {
                 saveDataInSession(req, USER_DATA, clientData);
                 return addLangToUrl(BASE_URL + nexPageUrls[0], lang);
             } else {
-                // TODO: save address list to session
+                // save address list to session
+                this.saveAddressListToSession(req, ukAddresses);
                 return addLangToUrl(BASE_URL + nexPageUrls[1], lang);
             }
         }).catch((err) => {
@@ -37,5 +41,26 @@ export class AddressLookUpService {
             country: getCountryFromKey(address?.country!),
             postcode: address?.postcode
         };
+    }
+
+    public saveAddressListToSession (req: Request, ukAddresses: UKAddress[]): void {
+
+        const addressList : Array<Address> = [];
+        for (const ukAddress of ukAddresses) {
+            const address = {
+                propertyDetails: ukAddress.premise,
+                line1: ukAddress.addressLine1,
+                line2: ukAddress.addressLine2,
+                town: ukAddress.postTown,
+                country: getCountryFromKey(ukAddress.country),
+                postcode: ukAddress.postcode,
+                formattedAddress: ukAddress.premise + ", " + ukAddress.addressLine1 + ", " + ukAddress.postTown + ", " + getCountryFromKey(ukAddress.country) + ", " + ukAddress.postcode
+            };
+
+            addressList.push(address);
+
+        }
+        // Save the list of addresses to the session
+        saveDataInSession(req, ADDRESS_LIST, addressList);
     }
 }

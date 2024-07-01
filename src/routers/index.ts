@@ -5,13 +5,17 @@ import {
     indexController,
     nameController,
     personalCodeController,
-    homeAddressManualController
+    homeAddressManualController,
+    homeAddressController,
+
+
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
 import { nameValidator } from "../validations/personName";
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { homeAddressValidator } from "../validations/homeAddress";
+import { addressList } from "../validations/addressList";
 
 const routes = Router();
 
@@ -33,5 +37,8 @@ routes.post(urls.PERSONAL_CODE, personalCodeController.post);
 
 routes.get(urls.HOME_ADDRESS_MANUAL, homeAddressManualController.get);
 routes.post(urls.HOME_ADDRESS_MANUAL, manualAddressValidator, homeAddressManualController.post);
+
+routes.get(urls.CHOOSE_AN_ADDRESS, addressListController.get);
+routes.post(urls.CHOOSE_AN_ADDRESS, addressList, addressListController.post);
 
 export default routes;

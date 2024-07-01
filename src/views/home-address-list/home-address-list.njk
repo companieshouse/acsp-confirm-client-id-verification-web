@@ -1,0 +1,57 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "layouts/default.njk" %}
+
+{% set errors = pageProperties.errors %}
+{% set title = i18n.addressListTitle %}
+{% block main_content %}
+    {# Prepare address items #}
+    {% set ITEMS = [] %}
+    {% for addressOption in addresses %}
+        {% set addressObject = {
+            id: addressOption.propertyDetails,
+            value: addressOption.propertyDetails,
+            text: addressOption.propertyDetails + ", " + addressOption.line1 + ", " + addressOption.town + ", " + addressOption.postcode,
+            checked: addressOption.propertyDetails == currentPremises,
+            attributes: {
+                "data-event-id": "address-option-" + addressOption.propertyDetails
+            }
+        } %}
+        {% set ITEMS = ITEMS.concat(addressObject) %}
+    {% endfor %}
+    
+    {# Form section #}
+    <form action="" method="POST">
+        {% if firstName %}
+            {% include "partials/user_name.njk" %}
+        {% endif %}  
+        <div class="govuk-form-group">
+            {# Render radios #}
+            {{ govukRadios({
+                errorMessage: errors.homeAddress if errors,
+                classes: "govuk-radios",
+                id: "address-in-radios",
+                name: "homeAddress",
+                fieldset: {
+                    legend: {
+                        text: i18n.addressListTitle,
+                        isPageHeading: true,
+                        classes: "govuk-fieldset__legend--l"
+                    }
+                },
+                items: ITEMS
+            }) }}
+        </div>
+        {{ govukButton({
+            text: i18n.ConfirmAndContinue,
+            attributes: {
+              "data-event-id": "CONTINUE - Select Address"
+            }
+          }) }}
+    </form>
+    
+    {# Manual address entry link #}
+    <p>
+        <a href= {{ manualAddressLink }} class="govuk-link" data-event-id="Enter address manually">{{ i18n.homeAddressManualLink }}</a>
+    </p>
+{% endblock main_content %}
