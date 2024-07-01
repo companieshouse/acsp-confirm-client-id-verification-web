@@ -17,7 +17,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const currentUrl: string = BASE_URL + CHOOSE_AN_ADDRESS;
     const session: Session = req.session as any as Session;
     const addressList = session.getExtraData(ADDRESS_LIST);
-    const manualAddressLink: String = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
+    const manualAddressLink: string = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
 
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
@@ -42,7 +42,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
     const addressList: Address[] = session.getExtraData(ADDRESS_LIST)!;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
-    const manualAddressLink: String = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
+    const manualAddressLink: string = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
 
     if (!errorList.isEmpty()) {
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
@@ -61,9 +61,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
         // Save selected address to the session
         const homeAddress: Address = addressList.filter((address) => address.propertyDetails === selectPremise)[0];
-
-        const session: Session = req.session as any as Session;
-        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
         clientData.address = homeAddress;
         saveDataInSession(req, USER_DATA, clientData);
