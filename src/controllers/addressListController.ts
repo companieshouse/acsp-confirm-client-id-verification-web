@@ -66,7 +66,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
         clientData.address = homeAddress;
-
         saveDataInSession(req, USER_DATA, clientData);
 
         const nextPageUrl = addLangToUrl(BASE_URL + CONFIRM_HOME_ADDRESS, lang);
