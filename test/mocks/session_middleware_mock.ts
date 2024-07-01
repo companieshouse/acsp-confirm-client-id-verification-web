@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { sessionMiddleware } from "../../src/middleware/session_middleware";
-import { USER_DATA } from "../../src/utils/constants";
+import { USER_DATA, CONFIRM_ADDRESS_PREVIOUS_PAGE_URL, ADDRESS_LIST } from "../../src/utils/constants";
 import { getSessionRequestWithPermission } from "./session.mock";
+import { addressList } from "./address.mock";
+import { HOME_ADDRESS } from "../../src/types/pageURL"
+
 
 jest.mock("ioredis");
 jest.mock("../../src/middleware/session_middleware");
@@ -16,9 +19,12 @@ mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: Nex
     session.setExtraData(USER_DATA, {
         firstName: "John",
         middleName: "",
-        lastName: "Doe",
+        lastName: "Doe"
     }
     );
+    session.setExtraData(ADDRESS_LIST, addressList);
+    session.setExtraData(CONFIRM_ADDRESS_PREVIOUS_PAGE_URL, HOME_ADDRESS);
+
     req.session = session;
     next();
 });
