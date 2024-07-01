@@ -5,10 +5,9 @@ import {
     indexController,
     nameController,
     personalCodeController,
-    homeAddressManualController,
     homeAddressController,
-
-
+    homeAddressManualController,
+    addressListController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
