@@ -5,6 +5,7 @@ import { BASE_URL } from "../types/pageURL";
 import { ClientData } from "model/ClientData";
 import { UKAddress } from "@companieshouse/api-sdk-node/dist/services/postcode-lookup/types";
 import { getCountryFromKey } from "../utils/web";
+import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA, ADDRESS_LIST } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { Address } from "../model/Address";

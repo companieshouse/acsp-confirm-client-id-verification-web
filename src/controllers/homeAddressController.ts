@@ -7,7 +7,8 @@ import { ValidationError, validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
 import { AddressLookUpService } from "../services/addressLookup";
-import { USER_DATA } from "../utils/constants";
+import { USER_DATA, CONFIRM_ADDRESS_PREVIOUS_PAGE_URL } from "../utils/constants";
+import { saveDataInSession } from "../utils/sessionHelper";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -58,6 +59,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const addressLookUpService = new AddressLookUpService();
         await addressLookUpService.getAddressFromPostcode(req, postcode, inputPremise, clientData,
             CONFIRM_HOME_ADDRESS, CHOOSE_AN_ADDRESS).then(async (nextPageUrl) => {
+            saveDataInSession(req, CONFIRM_ADDRESS_PREVIOUS_PAGE_URL, currentUrl);
             res.redirect(nextPageUrl);
         }).catch(() => {
             const validationError: ValidationError[] = [{

@@ -18,13 +18,15 @@ export const ACCESSIBILITY_STATEMENT = "/accessibility-statement";
 
 export const DATE_OF_BIRTH = "/date-of-birth";
 
-export const HOME_ADDRESS = "/address-lookup";
+export const HOME_ADDRESS = "/what-is-their-home-address";
 
 export const CHOOSE_AN_ADDRESS = "/choose-an-address";
 
 export const HOME_ADDRESS_MANUAL = "/enter-their-home-address";
 
-export const CONFIRM_HOME_ADDRESS = "/confirm-address";
+export const CONFIRM_HOME_ADDRESS = "/confirm-their-address";
+
+export const WHEN_IDENTITY_CHECKS_COMPLETED = "/identity-checks-completed";
 
 export const PERSONS_NAME = "/what-is-the-persons-name";
 
