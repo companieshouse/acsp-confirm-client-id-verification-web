@@ -22,7 +22,7 @@ export const HOME_ADDRESS = "/address-lookup";
 
 export const CHOOSE_AN_ADDRESS = "/address-list";
 
-export const HOME_ADDRESS_MANUAL = "/address-manual";
+export const HOME_ADDRESS_MANUAL = "/enter-their-home-address";
 
 export const CONFIRM_HOME_ADDRESS = "/confirm-address";
 
