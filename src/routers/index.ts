@@ -4,11 +4,13 @@ import {
     healthCheckController,
     indexController,
     nameController,
-    personalCodeController
+    personalCodeController,
+    homeAddressManualController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
 import { nameValidator } from "../validations/personName";
+import { manualAddressValidator } from "../validations/homeAddressManual";
 
 const routes = Router();
 
@@ -24,5 +26,8 @@ routes.post(urls.PERSONS_NAME, nameValidator, nameController.post);
 
 routes.get(urls.PERSONAL_CODE, personalCodeController.get);
 routes.post(urls.PERSONAL_CODE, personalCodeController.post);
+
+routes.get(urls.HOME_ADDRESS_MANUAL, homeAddressManualController.get);
+routes.post(urls.HOME_ADDRESS_MANUAL, manualAddressValidator, homeAddressManualController.post);
 
 export default routes;

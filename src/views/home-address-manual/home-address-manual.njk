@@ -1,0 +1,100 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "layouts/default.njk" %}
+{% set title = i18n.homeAddressManualTitle %}
+
+{% block main_content %}
+  <form action="" method="POST">
+    {% include "partials/user_name.njk" %} 
+    {{ govukFieldset({
+            legend: {
+            text: i18n.homeAddressManualTitle,
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+            }  
+        }) }}
+    {{ govukInput({
+            label: {
+            text: i18n.propertyNameOrNumber
+            },
+            hint: {
+            text: i18n.propertyNameOrNumberHint
+            },
+            id: "addressPropertyDetails",
+            name: "addressPropertyDetails",
+            value: payload["propertyDetails"],
+            errorMessage: {
+            text: errors["addressPropertyDetails"].text
+            } if errors.addressPropertyDetails
+        }) }}
+    {{ govukInput({
+            label: {
+            text: i18n.addressLine1
+            },
+            id: "addressLine1",
+            name: "addressLine1",
+            value: payload["addressLine1"],
+            errorMessage: {
+            text: errors["addressLine1"].text
+            } if errors.addressLine1
+        }) }}
+    {{ govukInput({
+            label: {
+            text: i18n.addressLine2
+            },
+            id: "addressLine2",
+            name: "addressLine2",
+            value: payload["addressLine2"],
+            errorMessage: {
+            text: errors["addressLine2"].text
+            } if errors.addressLine2
+        }) }}
+    {{ govukInput({
+            label: {
+            text: i18n.addressTown
+            },
+            id: "addressTown",
+            name: "addressTown",
+            value: payload["addressTown"],
+            errorMessage: {
+            text: errors["addressTown"].text
+            } if errors.addressTown
+        }) }}
+    {{ govukInput({
+            label: {
+            text: i18n.addressCounty
+            },
+            id: "addressCounty",
+            name: "addressCounty",
+            value: payload["addressCounty"],
+            errorMessage: {
+            text: errors["addressCounty"].text
+            } if errors.addressCounty
+        }) }}
+    {{ govukInput({
+            label: {
+            text: i18n.addressCountry
+            },
+            id: "addressCountry",
+            name: "addressCountry",
+            value: payload["addressCountry"],
+            errorMessage: {
+            text: errors["addressCountry"].text
+            } if errors.addressCountry
+        }) }}
+    {{ govukInput({
+            label: {
+            text: i18n.addressPostcode
+            },
+            id: "addressPostcode",
+            name: "addressPostcode",
+            value: payload["addressPostcode"],
+            errorMessage: {
+            text: errors["addressPostcode"].text
+            } if errors.addressPostcode
+        }) }}
+    <button class="govuk-button">{{ i18n.Continue }}</button>
+  </form>
+{% endblock main_content %}

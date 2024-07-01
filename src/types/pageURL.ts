@@ -21,3 +21,9 @@ export const PERSONS_NAME = "/what-is-the-persons-name";
 export const PERSONAL_CODE = "/companies-house-personal-code";
 
 export const EMAIL_ADDRESS = "/what-is-their-email-address";
+
+export const HOME_ADDRESS = "/address-lookup";
+
+export const HOME_ADDRESS_MANUAL = "/address-manual";
+
+export const CONFIRM_HOME_ADDRESS = "/confirm-address";
