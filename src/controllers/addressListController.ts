@@ -21,7 +21,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
-    res.render(config.ADDRESS_LIST, {
+    res.render(config.HOME_ADDRESS_LIST, {
         ...getLocaleInfo(locales, lang),
         currentUrl,
         previousPage,
@@ -46,7 +46,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
     if (!errorList.isEmpty()) {
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-        res.status(400).render(config.ADDRESS_LIST, {
+        res.status(400).render(config.HOME_ADDRESS_LIST, {
             ...getLocaleInfo(locales, lang),
             currentUrl,
             previousPage,

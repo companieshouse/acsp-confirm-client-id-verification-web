@@ -5,12 +5,9 @@ import { BASE_URL } from "../types/pageURL";
 import { ClientData } from "model/ClientData";
 import { UKAddress } from "@companieshouse/api-sdk-node/dist/services/postcode-lookup/types";
 import { getCountryFromKey } from "../utils/web";
-import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA } from "../utils/constants";
+import { USER_DATA, ADDRESS_LIST } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
-import { Session } from "@companieshouse/node-session-handler";
-import { Address } from "../../model/Address";
-import { ADDRESS_LIST } from "utils/constants";
+import { Address } from "../model/Address";
 
 export class AddressLookUpService {
     public getAddressFromPostcode (req: Request, postcode: string, inputPremise: string, clientData: ClientData, ...nexPageUrls: string[]) : Promise<string> {

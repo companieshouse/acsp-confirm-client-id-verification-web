@@ -1,5 +1,5 @@
 {
-    "addressListTitle": "Select the correspondence address",
+    "addressListTitle": "Choose an address",
 
-    "error-addresListNoRadioBtnSelected" : "Select the correspondence address"    
+    "error-addresListNoRadioBtnSelected" : "Select the home address"    
 }
