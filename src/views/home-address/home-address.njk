@@ -1,0 +1,52 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "layouts/default.njk" %}
+{% set title = i18n.homeAddressTitle %}
+{% block main_content %}
+  <form action="" method="POST">
+    {% include "partials/user_name.njk" %}
+    <h1 class="govuk-heading-l">
+      {{ i18n.homeAddressTitle }}
+    </h1>
+    {{ govukInput({
+      label: {
+        text: i18n.homeAddressPostcode
+      },
+      errorMessage: {
+        text: errors.postCode.text
+      } if errors.postCode | length,
+      hint: {
+        text: i18n.homeAddressPostcodeHint
+      },
+      classes: "govuk-input--width-20",
+      id: "postCode",
+      name: "postCode",
+      value: payload.postCode
+    }) }}
+    {{ govukInput({
+      label: {
+        text: i18n.homeAddressPremise
+      },
+      errorMessage: {
+        text: errors.premise.text
+      } if errors.premise | length,
+      hint: {
+        text: i18n.homeAddressPremiseHint
+      },
+      classes: "govuk-input--width-20",
+      id: "premise",
+      name: "premise",
+      value: payload.premise
+    }) }}
+    {{ govukButton({
+      text: i18n.homeAddressFindAddressBtn,
+      attributes: {
+        "data-event-id": "FIND ADDRESS"
+      }
+    }) }}
+    <p>
+      <a href={{AddressManualLink}} class="govuk-link" data-event-id="Enter address manually">{{ i18n.homeAddressManualLink }}</a>
+    </p>
+  </form>
+{% endblock %}
