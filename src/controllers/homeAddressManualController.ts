@@ -4,11 +4,10 @@ import { NextFunction, Request, Response } from "express";
 import { BASE_URL, CONFIRM_HOME_ADDRESS, HOME_ADDRESS, HOME_ADDRESS_MANUAL } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { ClientData } from "../model/ClientData";
-import { USER_DATA, CONFIRM_ADDRESS_PREVIOUS_PAGE_URL } from "../utils/constants";
+import { USER_DATA } from "../utils/constants";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { AddressManualService } from "../services/addressManualService";
-import { saveDataInSession } from "../utils/sessionHelper";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -54,7 +53,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     } else {
         const addressManualService = new AddressManualService();
         addressManualService.saveManualAddress(req, clientData);
-        saveDataInSession(req, CONFIRM_ADDRESS_PREVIOUS_PAGE_URL, currentUrl);
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_HOME_ADDRESS, lang));
     }
 };
