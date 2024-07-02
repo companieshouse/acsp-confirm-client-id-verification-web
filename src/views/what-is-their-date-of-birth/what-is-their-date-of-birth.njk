@@ -1,0 +1,77 @@
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set errors = pageProperties.errors %}
+
+{% extends "layouts/default.njk" %}
+
+{% set title = i18n.dateOfBirthTitle %}
+{% block main_content %}
+
+  {% if errors["dob-day"] %}
+    {% set errorMessageText = errors["dob-day"].text %}
+  {% elif errors["dob-month"] %}
+    {% set errorMessageText = errors["dob-month"].text %}
+  {% elif errors["dob-year"] %}
+    {% set errorMessageText = errors["dob-year"].text %}
+  {% endif %}
+
+  <div>
+    <form action="" method="POST">
+      {% include "partials/user_name.njk" %}
+      
+      {{ govukDateInput({
+          id: "dob",
+          namePrefix: "dob",
+          fieldset: {
+            legend: {
+              text: i18n.dateOfBirthTitle,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: i18n.dateOfBirthHint
+          },
+          errorMessage: {
+            text: errorMessageText
+          } if errors | length,
+          
+          items: [
+            {
+              name: "day",
+              classes: "govuk-input--error govuk-input--width-2" if errors else "govuk-input--width-2",
+              autocomplete: "bday-day",
+              id: "dob-day",
+              value: payload["dob-day"],
+              label: i18n.day
+            },
+            {
+              name: "month",
+              classes: "govuk-input--error govuk-input--width-2" if errors else "govuk-input--width-2",
+              autocomplete: "bday-month",
+              id: "dob-month",
+              value: payload["dob-month"],
+              label: i18n.month
+            },
+            {
+              name: "year",
+              classes: "govuk-input--error govuk-input--width-4" if errors else "govuk-input--width-4",
+              autocomplete: "bday-year",
+              id: "dob-year",
+              value: payload["dob-year"],
+              label: i18n.year
+            }
+          ]
+        }) }}
+
+      {{ govukButton({
+        text: i18n.Continue,
+        attributes: {
+          "data-event-id": "CONTINUE - DOB"
+      }
+      }) }}
+    </form>
+  </div>
+
+{% endblock main_content %}
