@@ -8,9 +8,9 @@ export const dateOfBirthValidator = [
 ];
 
 export const dateDayChecker = (day: string, month: string, year: string) => {
-    if (day.trim() === "" && month.trim() === "" && year.trim() === "") {
+    if (day.trim() === "" && month === undefined && year.trim() === "") {
         throw new Error("noData");
-    } else if (day.trim() === "" && month.trim() === "") {
+    } else if (day.trim() === "" && month === undefined) {
         throw new Error("noDayMonth");
     } else if (day.trim() === "" && year.trim() === "") {
         throw new Error("noDayYear");
@@ -21,26 +21,26 @@ export const dateDayChecker = (day: string, month: string, year: string) => {
 };
 
 export const dateMonthChecker = (day: string, month: string, year: string) => {
-    if (day.trim() !== "" && (month.trim() === "" || month === "") && year.trim() === "") {
+    if (day.trim() !== "" && month === undefined && year.trim() === "") {
         throw new Error("noMonthYear");
-    } else if (day.trim() !== "" && (month.trim() === "" || month === "")) {
+    } else if (day.trim() !== "" && month === undefined ) {
         throw new Error("noMonth");
     }
     return true;
 };
 
 export const dateYearChecker = (day: string, month: string, year: string) => {
-    if (day.trim() !== "" && month.trim() !== "" && year.trim() === "") {
+    if (day.trim() !== "" && month!== undefined && year.trim() === "") {
         throw new Error("noYear");
     }
     return true;
 };
 
 export const validDataChecker = (day: string, month: string, year: string) => {
-    if (day !== "" && month !== "" && year !== "") {
-        if (!isNumeric(day) || !isNumeric(month) || !isNumeric(year)) {
+    if (day !== "" && month !== undefined && year !== "") {
+        if (!isNumeric(day) || !isNumeric(year)) {
             throw new Error("nonNumeric");
-        } else if (+month < 1 || +month > 12 || +year < 1000 || +year > 9999 || !isValidDay(+day, +month, +year) || day.length > 2 || month.length > 2) {
+        } else if (+year < 1000 || +year > 9999 || !isValidDay(+day, +month, +year) || day.length > 2) {
             throw new Error("invalid");
         } else if (!isNotInFuture(+day, +month, +year)) {
             throw new Error("dateInFuture");
