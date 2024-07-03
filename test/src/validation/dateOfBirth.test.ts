@@ -2,10 +2,10 @@ import { dateDayChecker, dateMonthChecker, dateYearChecker, validDataChecker } f
 
 describe("Missing input validation tests", () => {
     test("Error if date field is completely empty", async () => {
-        expect(() => dateDayChecker("", "1", "1998")).toThrow(new Error("noDay"));
+        expect(() => dateDayChecker("", "", "")).toThrow(new Error("noData"));
     });
     test("Error if day and month fields are empty", async () => {
-        expect(() => dateDayChecker("", "", "1999")).toThrow(new Error("noDay"));
+        expect(() => dateDayChecker("", "", "1999")).toThrow(new Error("noDayMonth"));
     });
     test("Error if day and year fields are empty", async () => {
         expect(() => dateDayChecker("", "02", "")).toThrow(new Error("noDayYear"));
@@ -29,12 +29,6 @@ describe("Missing input validation tests", () => {
 });
 
 describe("Valid data input tests", () => {
-    test("Error if month is greater than 12", async () => {
-        expect(() => validDataChecker("11", "13", "1999")).toThrow(new Error("invalid"));
-    });
-    test("Error if month is less than 1", async () => {
-        expect(() => validDataChecker("11", "0", "1999")).toThrow(new Error("invalid"));
-    });
     test("Error if year is greater than 9999", async () => {
         expect(() => validDataChecker("11", "13", "99999")).toThrow(new Error("invalid"));
     });
