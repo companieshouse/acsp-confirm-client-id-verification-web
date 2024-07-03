@@ -62,11 +62,10 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             const dateOfBirth = new Date(
                 req.body["dob-year"],
                 req.body["dob-month"] - 1,
-                req.body["dob-day"]);
-
+                req.body["dob-day"]
+            );
             clientData.dateOfBirth = dateOfBirth;
         }
         res.redirect(addLangToUrl(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED, lang));
-
     }
 };

@@ -21,9 +21,9 @@ export const dateDayChecker = (day: string, month: string, year: string) => {
 };
 
 export const dateMonthChecker = (day: string, month: string, year: string) => {
-    if (day.trim() !== "" && month.trim() === "" && year.trim() === "") {
+    if (day.trim() !== "" && (month.trim() === "" || month === "") && year.trim() === "") {
         throw new Error("noMonthYear");
-    } else if (day.trim() !== "" && month.trim() === "") {
+    } else if (day.trim() !== "" && (month.trim() === "" || month === "")) {
         throw new Error("noMonth");
     }
     return true;
@@ -53,7 +53,7 @@ export const validDataChecker = (day: string, month: string, year: string) => {
     return true;
 };
 
-const isValidDay = (day: number, month: number, year: number):boolean => {
+const isValidDay = (day: number, month: number, year: number): boolean => {
     const numbDays = new Date(year, month, 0).getDate();
     if (day >= 1 && day <= numbDays) {
         return true;

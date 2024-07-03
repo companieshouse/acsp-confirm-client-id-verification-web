@@ -20,56 +20,76 @@
     <form action="" method="POST">
       {% include "partials/user_name.njk" %}
       
-      {{ govukDateInput({
-          id: "dob",
-          namePrefix: "dob",
-          fieldset: {
-            legend: {
-              text: i18n.dateOfBirthTitle,
-              isPageHeading: true,
-              classes: "govuk-fieldset__legend--l"
-            }
-          },
-          hint: {
-            text: i18n.dateOfBirthHint
-          },
-          errorMessage: {
-            text: errorMessageText
-          } if errors | length,
+      <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            {{ i18n.dateOfBirthTitle }}
+          </legend>
+          {% if i18n.dateOfBirthHint %}
+            <span id="dob-hint" class="govuk-hint">{{ i18n.dateOfBirthHint }}</span>
+          {% endif %}
+          {% if errors %}
+            <span class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span> {{ errorMessageText }}
+            </span>
+          {% endif %}
           
-          items: [
-            {
-              name: "day",
-              classes: "govuk-input--error govuk-input--width-2" if errors else "govuk-input--width-2",
-              autocomplete: "bday-day",
-              id: "dob-day",
-              value: payload["dob-day"],
-              label: i18n.day
-            },
-            {
-              name: "month",
-              classes: "govuk-input--error govuk-input--width-2" if errors else "govuk-input--width-2",
-              autocomplete: "bday-month",
-              id: "dob-month",
-              value: payload["dob-month"],
-              label: i18n.month
-            },
-            {
-              name: "year",
-              classes: "govuk-input--error govuk-input--width-4" if errors else "govuk-input--width-4",
-              autocomplete: "bday-year",
-              id: "dob-year",
-              value: payload["dob-year"],
-              label: i18n.year
-            }
-          ]
-        }) }}
+          <div class="govuk-date-input" id="dob">
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-day">
+                  {{ i18n.day }}
+                </label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors["dob-day"] %} govuk-input--error{% endif %}"
+                       id="dob-day"
+                       name="dob-day"
+                       value="{{ payload["dob-day"] | default('') }}">
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-month">
+                  {{ i18n.month }}
+                </label>
+                <select class="govuk-select{% if errors["dob-month"] %} govuk-select--error{% endif %}"
+                        id="dob-month"
+                        name="dob-month">
+                  <option value="" disabled selected>{{ i18n.chooseMonth }}</option>
+                  <option value="1" {% if payload["dob-month"] == '1' %}selected{% endif %}>{{ i18n.january }}</option>
+                  <option value="2" {% if payload["dob-month"] == '2' %}selected{% endif %}>{{ i18n.february }}</option>
+                  <option value="3" {% if payload["dob-month"] == '3' %}selected{% endif %}>{{ i18n.march }}</option>
+                  <option value="4" {% if payload["dob-month"] == '4' %}selected{% endif %}>{{ i18n.april }}</option>
+                  <option value="5" {% if payload["dob-month"] == '5' %}selected{% endif %}>{{ i18n.may }}</option>
+                  <option value="6" {% if payload["dob-month"] == '6' %}selected{% endif %}>{{ i18n.june }}</option>
+                  <option value="7" {% if payload["dob-month"] == '7' %}selected{% endif %}>{{ i18n.july }}</option>
+                  <option value="8" {% if payload["dob-month"] == '8' %}selected{% endif %}>{{ i18n.august }}</option>
+                  <option value="9" {% if payload["dob-month"] == '9' %}selected{% endif %}>{{ i18n.september }}</option>
+                  <option value="10" {% if payload["dob-month"] == '10' %}selected{% endif %}>{{ i18n.october }}</option>
+                  <option value="11" {% if payload["dob-month"] == '11' %}selected{% endif %}>{{ i18n.november }}</option>
+                  <option value="12" {% if payload["dob-month"] == '12' %}selected{% endif %}>{{ i18n.december }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="govuk-date-input__item">
+              <div class="govuk-form-group">
+                <label class="govuk-label govuk-date-input__label" for="dob-year">
+                  {{ i18n.year }}
+                </label>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors["dob-year"] %} govuk-input--error{% endif %}"
+                       id="dob-year"
+                       name="dob-year"
+                       value="{{ payload["dob-year"] | default('') }}">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
 
       {{ govukButton({
         text: i18n.Continue,
         attributes: {
           "data-event-id": "CONTINUE - DOB"
-      }
+        }
       }) }}
     </form>
   </div>
