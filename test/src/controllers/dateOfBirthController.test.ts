@@ -5,7 +5,6 @@ import { BASE_URL, DATE_OF_BIRTH, WHEN_IDENTITY_CHECKS_COMPLETED } from "../../.
 
 const router = supertest(app);
 
-
 describe("GET" + DATE_OF_BIRTH, () => {
     it("should return status 200", async () => {
         const res = await router.get(BASE_URL + DATE_OF_BIRTH);

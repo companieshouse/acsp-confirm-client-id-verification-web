@@ -8,9 +8,11 @@ export const dateOfBirthValidator = [
 ];
 
 export const dateDayChecker = (day: string, month: string, year: string) => {
-    if (day.trim() === "" && month === undefined && year.trim() === "") {
+    month = month || "";
+
+    if (day.trim() === "" && month.trim() === "" && year.trim() === "") {
         throw new Error("noData");
-    } else if (day.trim() === "" && month === undefined) {
+    } else if (day.trim() === "" && month.trim() === "") {
         throw new Error("noDayMonth");
     } else if (day.trim() === "" && year.trim() === "") {
         throw new Error("noDayYear");
@@ -21,26 +23,32 @@ export const dateDayChecker = (day: string, month: string, year: string) => {
 };
 
 export const dateMonthChecker = (day: string, month: string, year: string) => {
-    if (day.trim() !== "" && month === undefined && year.trim() === "") {
+    month = month || "";
+
+    if (day.trim() !== "" && month.trim() === "" && year.trim() === "") {
         throw new Error("noMonthYear");
-    } else if (day.trim() !== "" && month === undefined ) {
+    } else if (day.trim() !== "" && month.trim() === "") {
         throw new Error("noMonth");
     }
     return true;
 };
 
 export const dateYearChecker = (day: string, month: string, year: string) => {
-    if (day.trim() !== "" && month!== undefined && year.trim() === "") {
+    month = month || "";
+
+    if (day.trim() !== "" && month.trim() !== "" && year.trim() === "") {
         throw new Error("noYear");
     }
     return true;
 };
 
 export const validDataChecker = (day: string, month: string, year: string) => {
-    if (day !== "" && month !== undefined && year !== "") {
-        if (!isNumeric(day) || !isNumeric(year)) {
+    month = month || "";
+
+    if (day !== "" && month !== "" && year !== "") {
+        if (!isNumeric(day) || !isNumeric(month) || !isNumeric(year)) {
             throw new Error("nonNumeric");
-        } else if (+year < 1000 || +year > 9999 || !isValidDay(+day, +month, +year) || day.length > 2) {
+        } else if (+month < 1 || +month > 12 || +year < 1000 || +year > 9999 || !isValidDay(+day, +month, +year) || day.length > 2) {
             throw new Error("invalid");
         } else if (!isNotInFuture(+day, +month, +year)) {
             throw new Error("dateInFuture");
@@ -55,27 +63,19 @@ export const validDataChecker = (day: string, month: string, year: string) => {
 
 const isValidDay = (day: number, month: number, year: number): boolean => {
     const numbDays = new Date(year, month, 0).getDate();
-    if (day >= 1 && day <= numbDays) {
-        return true;
-    }
-    return false;
+    return day >= 1 && day <= numbDays;
 };
 
 const isNotInFuture = (day: number, month: number, year: number): boolean => {
-    var currentDate = new Date();
-    var inputDate = new Date(year, month - 1, day);
-
-    if (inputDate > currentDate) {
-        return false;
-    }
-    return true;
+    const currentDate = new Date();
+    const inputDate = new Date(year, month - 1, day);
+    return inputDate <= currentDate;
 };
 
 const isNotTooYoung = (day: number, month: number, year: number): boolean => {
-    var currentDate = new Date();
-    var inputDate = new Date(year, month - 1, day);
-    var age = currentDate.getFullYear() - inputDate.getFullYear();
-
+    const currentDate = new Date();
+    const inputDate = new Date(year, month - 1, day);
+    let age = currentDate.getFullYear() - inputDate.getFullYear();
     if (currentDate.getMonth() < inputDate.getMonth() || (currentDate.getMonth() === inputDate.getMonth() && currentDate.getDate() < inputDate.getDate())) {
         age--;
     }
@@ -83,10 +83,9 @@ const isNotTooYoung = (day: number, month: number, year: number): boolean => {
 };
 
 const isNotTooOld = (day: number, month: number, year: number): boolean => {
-    var currentDate = new Date();
-    var inputDate = new Date(year, month - 1, day);
-    var age = currentDate.getFullYear() - inputDate.getFullYear();
-
+    const currentDate = new Date();
+    const inputDate = new Date(year, month - 1, day);
+    let age = currentDate.getFullYear() - inputDate.getFullYear();
     if (currentDate.getMonth() > inputDate.getMonth() || (currentDate.getMonth() === inputDate.getMonth() && currentDate.getDate() > inputDate.getDate())) {
         age++;
     }
@@ -94,6 +93,6 @@ const isNotTooOld = (day: number, month: number, year: number): boolean => {
 };
 
 const isNumeric = (number: string): boolean => {
-    const regex = /^\d+$/ig;
+    const regex = /^\d+$/;
     return regex.test(number);
 };

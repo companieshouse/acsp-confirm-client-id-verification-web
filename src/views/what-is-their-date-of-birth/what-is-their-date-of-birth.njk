@@ -55,8 +55,8 @@
                         id="dob-month"
                         name="dob-month">
                   <option value="" disabled selected>{{ i18n.chooseMonth }}</option>
-                  <option value="1" {% if payload["dob-month"] == '1' %}selected{% endif %}> January </option>
-                  <option value="2" {% if payload["dob-month"] == '2' %}selected{% endif %}> February </option>
+                  <option value="1" {% if payload["dob-month"] == '1' %}selected{% endif %}>{{ i18n.january }}</option>
+                  <option value="2" {% if payload["dob-month"] == '2' %}selected{% endif %}>{{ i18n.february }}</option>
                   <option value="3" {% if payload["dob-month"] == '3' %}selected{% endif %}>{{ i18n.march }}</option>
                   <option value="4" {% if payload["dob-month"] == '4' %}selected{% endif %}>{{ i18n.april }}</option>
                   <option value="5" {% if payload["dob-month"] == '5' %}selected{% endif %}>{{ i18n.may }}</option>
