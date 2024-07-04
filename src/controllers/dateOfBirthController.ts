@@ -15,7 +15,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
     const previousPage: string = addLangToUrl(BASE_URL + EMAIL_ADDRESS, lang);
     const currentUrl: string = BASE_URL + DATE_OF_BIRTH;
-    // get data from mongo and save it to session
+
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
     saveDataInSession(req, USER_DATA, clientData);
     let payload;
