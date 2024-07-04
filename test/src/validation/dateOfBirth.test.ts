@@ -79,7 +79,7 @@ describe("Additional tests cases", () => {
     test("Boundary test: 110 years ago exactly", () => {
         const currentDate = new Date();
         const year = currentDate.getFullYear() - 110;
-        const month = (`0${currentDate.getMonth() + 1}`).slice(-2); 
+        const month = (`0${currentDate.getMonth() + 1}`).slice(-2);
         const day = (`0${currentDate.getDate()}`).slice(-2);
         expect(() => validDataChecker(day, month, year.toString())).toBeTruthy();
     });

@@ -72,7 +72,7 @@ const isNotInFuture = (day: number, month: number, year: number): boolean => {
     return inputDate <= currentDate;
 };
 
-const isNotTooYoung = (day: number, month: number, year: number): boolean => {
+export const isNotTooYoung = (day: number, month: number, year: number): boolean => {
     const currentDate = new Date();
     const inputDate = new Date(year, month - 1, day);
     let age = currentDate.getFullYear() - inputDate.getFullYear();
@@ -82,7 +82,7 @@ const isNotTooYoung = (day: number, month: number, year: number): boolean => {
     return age >= 16;
 };
 
-const isNotTooOld = (day: number, month: number, year: number): boolean => {
+export const isNotTooOld = (day: number, month: number, year: number): boolean => {
     const currentDate = new Date();
     const inputDate = new Date(year, month - 1, day);
     let age = currentDate.getFullYear() - inputDate.getFullYear();
