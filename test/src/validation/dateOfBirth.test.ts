@@ -51,3 +51,35 @@ describe("Valid data input tests", () => {
         expect(() => validDataChecker("a", "01", "2024")).toThrow(new Error("nonNumeric"));
     });
 });
+
+describe("Additional test cases", () => {
+    test("Error if day length is more than 2 digits", () => {
+        expect(() => validDataChecker("123", "01", "2024")).toThrow(new Error("invalid"));
+    });
+    test("Error if month is zero", () => {
+        expect(() => validDataChecker("11", "00", "1999")).toThrow(new Error("invalid"));
+    });
+    test("Error if day is zero", () => {
+        expect(() => validDataChecker("00", "01", "1999")).toThrow(new Error("invalid"));
+    });
+    test("Leap year test: valid leap day", () => {
+        expect(() => validDataChecker("29", "02", "2020")).toBeTruthy();
+    });
+    test("Leap year test: invalid leap day", () => {
+        expect(() => validDataChecker("29", "02", "2019")).toThrow(new Error("invalid"));
+    });
+    test("Boundary test: 110 years ago exactly", () => {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear() - 110;
+        const month = (`0${currentDate.getMonth() + 1}`).slice(-2); 
+        const day = (`0${currentDate.getDate()}`).slice(-2); 
+        expect(() => validDataChecker(day, month, year.toString())).toBeTruthy();
+    });
+    test("Boundary test: 16 years ago exactly", () => {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear() - 16;
+        const month = (`0${currentDate.getMonth() + 1}`).slice(-2); 
+        const day = (`0${currentDate.getDate()}`).slice(-2); 
+        expect(() => validDataChecker(day, month, year.toString())).toBeTruthy();
+    });
+});
