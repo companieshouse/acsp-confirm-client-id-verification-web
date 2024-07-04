@@ -8,7 +8,8 @@ import {
     homeAddressController,
     homeAddressManualController,
     confirmHomeAddressController,
-    addressListController
+    addressListController,
+    dateOfBirthController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -16,6 +17,7 @@ import { nameValidator } from "../validations/personName";
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { homeAddressValidator } from "../validations/homeAddress";
 import { addressListValidator } from "../validations/addressList";
+import { dateOfBirthValidator } from "../validations/dateOfBirth";
 
 const routes = Router();
 
@@ -43,5 +45,8 @@ routes.post(urls.HOME_ADDRESS_MANUAL, manualAddressValidator, homeAddressManualC
 
 routes.get(urls.CHOOSE_AN_ADDRESS, addressListController.get);
 routes.post(urls.CHOOSE_AN_ADDRESS, addressListValidator, addressListController.post);
+
+routes.get(urls.DATE_OF_BIRTH, dateOfBirthController.get);
+routes.post(urls.DATE_OF_BIRTH, dateOfBirthValidator, dateOfBirthController.post);
 
 export default routes;

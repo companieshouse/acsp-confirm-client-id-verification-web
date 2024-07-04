@@ -16,7 +16,7 @@ export const HEALTHCHECK = "/healthcheck";
 
 export const ACCESSIBILITY_STATEMENT = "/accessibility-statement";
 
-export const DATE_OF_BIRTH = "/date-of-birth";
+export const DATE_OF_BIRTH = "/what-is-their-date-of-birth";
 
 export const HOME_ADDRESS = "/what-is-their-home-address";
 
