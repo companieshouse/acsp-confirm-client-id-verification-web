@@ -95,6 +95,11 @@
             text: errors["addressPostcode"].text
             } if errors.addressPostcode
         }) }}
-    <button class="govuk-button">{{ i18n.Continue }}</button>
+       {{ govukButton({
+            text: i18n.Continue,
+            attributes: {
+              "data-event-id": "CONTINUE - MANUAL ADDRESS"
+            }
+        }) }}
   </form>
 {% endblock main_content %}
