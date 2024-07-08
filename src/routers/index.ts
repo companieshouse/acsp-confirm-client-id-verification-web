@@ -9,7 +9,8 @@ import {
     homeAddressManualController,
     confirmHomeAddressController,
     addressListController,
-    dateOfBirthController
+    dateOfBirthController,
+    howIdentityDocumentsCheckedController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -18,6 +19,7 @@ import { manualAddressValidator } from "../validations/homeAddressManual";
 import { homeAddressValidator } from "../validations/homeAddress";
 import { addressListValidator } from "../validations/addressList";
 import { dateOfBirthValidator } from "../validations/dateOfBirth";
+import { howIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
 
 const routes = Router();
 
@@ -48,5 +50,8 @@ routes.post(urls.CHOOSE_AN_ADDRESS, addressListValidator, addressListController.
 
 routes.get(urls.DATE_OF_BIRTH, dateOfBirthController.get);
 routes.post(urls.DATE_OF_BIRTH, dateOfBirthValidator, dateOfBirthController.post);
+
+routes.get(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocumentsCheckedController.get);
+routes.post(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocsCheckedValidator, howIdentityDocumentsCheckedController.post);
 
 export default routes;
