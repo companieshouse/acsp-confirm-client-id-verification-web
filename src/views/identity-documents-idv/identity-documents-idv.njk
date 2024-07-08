@@ -70,11 +70,12 @@
             }
             ]
         }) }}
+        {{ govukButton({
+            text: i18n.Continue,
+            attributes: {
+                "data-event-id": "CONTINUE - dc1"
+            }
+        }) }}
     </form>
-    {{ govukButton({
-        text: i18n.Continue,
-        attributes: {
-            "data-event-id": "CONTINUE - dc1"
-        }
-    }) }}
+    
 {% endblock main_content %}
