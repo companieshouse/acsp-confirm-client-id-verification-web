@@ -1,0 +1,72 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
+{% extends "layouts/default.njk" %}
+{% set title = i18n.howIdentityDocsCheckedTabTitle %}
+
+{% block main_content %}
+  <form action="" method="POST">
+    {% include "partials/user_name.njk" %} 
+    <div class="govuk-form-group">
+        {{ govukRadios({
+            errorMessage: errors.howIdentityDocsCheckedRadio if errors,
+            classes: "govuk-radios",
+            id: "how-identity-docs-checked-radios",
+            name: "howIdentityDocsCheckedRadio",
+            fieldset: {
+                legend: {
+                    text: i18n.howIdentityDocsCheckedTitle,
+                    isPageHeading: true,
+                    classes: "govuk-fieldset__legend--l"
+                }
+            },
+            hint: {
+                text: i18n.howIdentityDocsCheckedHint
+            },
+            value: selectedOption,
+            items: [
+                {
+                    value: "OPTION1",
+                    text: i18n.howIdentityDocsCheckedOption1,
+                    hint: {
+                        text: i18n.howIdentityDocsCheckedOption1hint
+                    },
+                    attributes: {
+                        "data-event-id": "option1"
+                    }
+                },
+                {
+                    value: "OPTION2",
+                    text: i18n.howIdentityDocsCheckedOption2,
+                    hint: {
+                        text: i18n.howIdentityDocsCheckedOption2hint
+                    },    
+                    attributes: {
+                        "data-event-id": "option2"
+                    }
+                }
+            ]
+        }) }}
+
+
+        <details class="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  {{i18n.howIdentityDocsCheckedInfoHeading}} 
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <p>{{i18n.howIdentityDocsCheckedInfoText1}}</p>
+                <p>{{i18n.howIdentityDocsCheckedInfoText2}} <a href={{guidance}} class="govuk-link govuk-link--no-visited-state">{{ i18n.howIdentityDocsCheckedInfoText2Link }}</a></p>
+            </div>
+        </details>
+        {{ govukButton({
+            text: i18n.Continue,
+            attributes: {
+            "data-event-id": "CONTINUE - how were idenity documents checked"
+            }
+        }) }}
+    </div>
+  </form>
+{% endblock main_content %}
