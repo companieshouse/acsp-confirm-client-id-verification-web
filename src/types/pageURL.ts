@@ -34,10 +34,6 @@ export const PERSONAL_CODE = "/companies-house-personal-code";
 
 export const EMAIL_ADDRESS = "/what-is-their-email-address";
 
-export const IDENTITY_DOCUMETS_CHECKED = "/how-were-identity-documents-checked";
-
-export const IDENTITY_DOCUMETS_IDV = "/identity-documents-checked-group-1";
-
 export const CONFIRM_IDENTITY_VERIFICATION = "/confirm-you-verified-their-identity";
 
 export const HOW_IDENTITY_DOCUMENTS_CHECKED = "/how-were-identity-documents-checked";

@@ -1,7 +1,7 @@
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../config";
 import { NextFunction, Request, Response } from "express";
-import { BASE_URL, IDENTITY_DOCUMETS_IDV, IDENTITY_DOCUMETS_CHECKED, CONFIRM_IDENTITY_VERIFICATION } from "../types/pageURL";
+import { BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, HOW_IDENTITY_DOCUMENTS_CHECKED, CONFIRM_IDENTITY_VERIFICATION } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { ClientData } from "../model/ClientData";
 import { USER_DATA } from "../utils/constants";
@@ -13,8 +13,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
-    const previousPage: string = addLangToUrl(BASE_URL + IDENTITY_DOCUMETS_CHECKED, lang);
-    const currentUrl: string = BASE_URL + IDENTITY_DOCUMETS_IDV;
+    const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
+    const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
     const payload = { documents: clientData.documentsChecked };
@@ -33,8 +33,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
-    const previousPage: string = addLangToUrl(BASE_URL + IDENTITY_DOCUMETS_CHECKED, lang);
-    const currentUrl: string = BASE_URL + IDENTITY_DOCUMETS_IDV;
+    const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
+    const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
     const errorList = validationResult(req);
 

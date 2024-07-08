@@ -10,7 +10,7 @@ import {
     confirmHomeAddressController,
     addressListController,
     dateOfBirthController,
-    identityDocumentsCheckedIdvController,
+    identityDocumentsCheckedGroup1Controller,
     howIdentityDocumentsCheckedController
 } from "../controllers";
 
@@ -52,8 +52,8 @@ routes.post(urls.CHOOSE_AN_ADDRESS, addressListValidator, addressListController.
 routes.get(urls.DATE_OF_BIRTH, dateOfBirthController.get);
 routes.post(urls.DATE_OF_BIRTH, dateOfBirthValidator, dateOfBirthController.post);
 
-routes.get(urls.IDENTITY_DOCUMETS_IDV, identityDocumentsCheckedIdvController.get);
-routes.post(urls.IDENTITY_DOCUMETS_IDV, identityDocumentsCheckedIdvController.post);
+routes.get(urls.WHICH_IDENTITY_DOCS_CHECKED_GROUP1, identityDocumentsCheckedGroup1Controller.get);
+routes.post(urls.WHICH_IDENTITY_DOCS_CHECKED_GROUP1, identityDocumentsCheckedGroup1Controller.post);
 
 routes.get(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocumentsCheckedController.get);
 routes.post(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocsCheckedValidator, howIdentityDocumentsCheckedController.post);

@@ -1,14 +1,14 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, CONFIRM_IDENTITY_VERIFICATION, IDENTITY_DOCUMETS_IDV } from "../../../src/types/pageURL";
+import { BASE_URL, CONFIRM_IDENTITY_VERIFICATION, WHICH_IDENTITY_DOCS_CHECKED_GROUP1 } from "../../../src/types/pageURL";
 jest.mock("@companieshouse/api-sdk-node");
 
 const router = supertest(app);
 
-describe("GET" + IDENTITY_DOCUMETS_IDV, () => {
+describe("GET" + WHICH_IDENTITY_DOCS_CHECKED_GROUP1, () => {
     it("should return status 200", async () => {
-        const res = await router.get(BASE_URL + IDENTITY_DOCUMETS_IDV);
+        const res = await router.get(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.status).toBe(200);
@@ -18,12 +18,12 @@ describe("GET" + IDENTITY_DOCUMETS_IDV, () => {
     });
 });
 
-describe("POST" + IDENTITY_DOCUMETS_IDV, () => {
+describe("POST" + WHICH_IDENTITY_DOCS_CHECKED_GROUP1, () => {
     it("should return status 302 after redirecting to the next page", async () => {
         const inputData = {
             documents: ["biometricPassport", "ukDriversLicence"]
         };
-        const res = await router.post(BASE_URL + IDENTITY_DOCUMETS_IDV).send(inputData);
+        const res = await router.post(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1).send(inputData);
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(BASE_URL + CONFIRM_IDENTITY_VERIFICATION + "?lang=en");
     });
