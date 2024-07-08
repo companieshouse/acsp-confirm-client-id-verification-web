@@ -39,3 +39,9 @@ export const IDENTITY_DOCUMETS_CHECKED = "/how-were-identity-documents-checked";
 export const IDENTITY_DOCUMETS_IDV = "/identity-documents-checked-group-1";
 
 export const CONFIRM_IDENTITY_VERIFICATION = "/confirm-you-verified-their-identity";
+
+export const HOW_IDENTITY_DOCUMENTS_CHECKED = "/how-were-identity-documents-checked";
+
+export const WHICH_IDENTITY_DOCS_CHECKED_GROUP1 = "/identity-documents-checked-group-1";
+
+export const WHICH_IDENTITY_DOCS_CHECKED_GROUP2 = "/identity-documents-checked-group-2";

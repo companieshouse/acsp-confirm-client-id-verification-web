@@ -7,4 +7,5 @@ export interface ClientData {
     dateOfBirth?: Date;
     address?: Address;
     documentsChecked?: string[];
+    howIdentityDocsChecked?: string;
 }
