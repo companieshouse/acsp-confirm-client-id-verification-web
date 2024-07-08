@@ -33,3 +33,9 @@ export const PERSONS_NAME = "/what-is-the-persons-name";
 export const PERSONAL_CODE = "/companies-house-personal-code";
 
 export const EMAIL_ADDRESS = "/what-is-their-email-address";
+
+export const HOW_IDENTITY_DOCUMENTS_CHECKED = "/how-were-identity-documents-checked";
+
+export const WHICH_IDENTITY_DOCS_CHECKED_GROUP1 = "/identity-documents-checked-group-1";
+
+export const WHICH_IDENTITY_DOCS_CHECKED_GROUP2 = "/identity-documents-checked-group-2";
