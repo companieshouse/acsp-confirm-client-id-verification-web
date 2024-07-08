@@ -1,0 +1,13 @@
+{
+    "identityChecksTitle" : "When were the identity checks completed?",
+    "error-invalidIdentity" : "The date must be a real date",
+    "error-dateInFutureIdentity" : "The date must be in the past",
+    "error-noDataIdentity" : "Enter the date the identity checks were completed",
+    "error-noDayMonthIdentity" : "The date must include a day and a month",
+    "error-noDayYearIdentity" : "The date must include a day and a year",
+    "error-noMonthYearIdentity" : "The date must include a month and a year",
+    "error-noDayIdentity" : "The date must include a day",
+    "error-noMonthIdentity" : "The date must include a month",
+    "error-noYearIdentity" : "The date must include a year",
+    "error-nonNumericIdentity" : "The date must only include numbers"
+}

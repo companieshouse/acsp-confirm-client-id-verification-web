@@ -1,0 +1,13 @@
+{
+    "identityChecksTitle" : "When were the identity checks completed? welsh",
+    "error-invalidIdentity" : "The date must be a real date welsh",
+    "error-dateInFutureIdentity" : "The date must be in the past  welsh",
+    "error-noDataIdentity" : "Enter the date the identity checks were completed welsh",
+    "error-noDayMonthIdentity" : "The date must include a day and a month welsh",
+    "error-noDayYearIdentity" : "The date must include a day and a year welsh",
+    "error-noMonthYearIdentity" : "The date must include a month and a year welsh",
+    "error-noDayIdentity" : "The date must include a day welsh",
+    "error-noMonthIdentity" : "The date must include a month welsh",
+    "error-noYearIdentity" : "The date must include a year welsh",
+    "error-nonNumericIdentity" : "The date must only include numbers welsh"
+} 

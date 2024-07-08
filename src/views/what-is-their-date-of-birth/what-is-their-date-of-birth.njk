@@ -40,7 +40,7 @@
                 <label class="govuk-label govuk-date-input__label" for="dob-day">
                   {{ i18n.day }}
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors["dob-day"] %} govuk-input--error{% endif %}"
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}"
                        id="dob-day"
                        name="dob-day"
                        value="{{ payload["dob-day"] | default('') }}">
@@ -51,7 +51,7 @@
                 <label class="govuk-label govuk-date-input__label" for="dob-month">
                   {{ i18n.month }}
                 </label>
-                <select class="govuk-select{% if errors["dob-month"] %} govuk-select--error{% endif %}"
+                <select class="govuk-select{% if errors %} govuk-select--error{% endif %}"
                         id="dob-month"
                         name="dob-month">
                   <option value="" disabled selected>{{ i18n.chooseMonth }}</option>
@@ -75,7 +75,7 @@
                 <label class="govuk-label govuk-date-input__label" for="dob-year">
                   {{ i18n.year }}
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors["dob-year"] %} govuk-input--error{% endif %}"
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors %} govuk-input--error{% endif %}"
                        id="dob-year"
                        name="dob-year"
                        value="{{ payload["dob-year"] | default('') }}">
