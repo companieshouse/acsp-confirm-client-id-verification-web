@@ -7,6 +7,7 @@ import { ClientData } from "../model/ClientData";
 import { USER_DATA } from "../utils/constants";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
+import { CheckedDocumentsService } from "../services/checkedDocumentsService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -16,12 +17,15 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const currentUrl: string = BASE_URL + IDENTITY_DOCUMETS_IDV;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
+    const payload = { documents: clientData.documentsChecked };
+
     res.render(config.IDENTITY_DOCUMETS_IDV, {
         ...getLocaleInfo(locales, lang),
         previousPage,
         currentUrl,
         firstName: clientData?.firstName,
-        lastName: clientData?.lastName
+        lastName: clientData?.lastName,
+        payload
     });
 };
 
@@ -46,6 +50,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             lastName: clientData?.lastName
         });
     } else {
+        const checkedDocumentsService = new CheckedDocumentsService();
+        checkedDocumentsService.saveDocumentsToSession(req, req.body.documents);
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
     }
 };
