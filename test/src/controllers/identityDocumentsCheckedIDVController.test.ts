@@ -13,6 +13,8 @@ describe("GET" + IDENTITY_DOCUMETS_IDV, () => {
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.status).toBe(200);
         expect(res.text).toContain("Which documents did you check to verify their identity?");
+        expect(res.text).toContain("John");
+        expect(res.text).toContain("Doe");
     });
 });
 

@@ -51,7 +51,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         });
     } else {
         const checkedDocumentsService = new CheckedDocumentsService();
-        checkedDocumentsService.saveDocumentsToSession(req, req.body.documents);
+        checkedDocumentsService.saveDocumentsToSession(req, clientData, req.body.documents);
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
     }
 };
