@@ -9,7 +9,8 @@ import {
     homeAddressManualController,
     confirmHomeAddressController,
     addressListController,
-    dateOfBirthController
+    dateOfBirthController,
+    identityDocumentsCheckedIdvController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -48,5 +49,8 @@ routes.post(urls.CHOOSE_AN_ADDRESS, addressListValidator, addressListController.
 
 routes.get(urls.DATE_OF_BIRTH, dateOfBirthController.get);
 routes.post(urls.DATE_OF_BIRTH, dateOfBirthValidator, dateOfBirthController.post);
+
+routes.get(urls.IDENTITY_DOCUMETS_IDV, identityDocumentsCheckedIdvController.get);
+routes.post(urls.IDENTITY_DOCUMETS_IDV, identityDocumentsCheckedIdvController.post);
 
 export default routes;

@@ -17,9 +17,9 @@ import {
     PIWIK_SITE_ID
 } from "./utils/properties";
 import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT } from "./types/pageURL";
-import * as config from "./config";
 import { commonTemplateVariablesMiddleware } from "./middleware/common_variables_middleware";
-import { getLocaleInfo, getLocalesService, selectLang } from "./utils/localise";
+import { getLocalesService, selectLang } from "./utils/localise";
+import { ErrorService } from "services/errorService";
 const app = express();
 
 const nunjucksEnv = nunjucks.configure([path.join(__dirname, "views"),
@@ -63,12 +63,8 @@ routerDispatch(app);
 // Unhandled errors
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     logger.error(`${err.name} - appError: ${err.message} - ${err.stack}`);
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    res.status(500).render(config.ERROR_500, {
-        title: "Sorry we are experiencing technical difficulties",
-        ...getLocaleInfo(locales, lang)
-    });
+    const errorService = new ErrorService();
+    errorService.renderErrorPage(res, getLocalesService(), selectLang(req.query.lang), req.url);
 });
 
 // Unhandled exceptions

@@ -1,4 +1,4 @@
-import { ACCOUNT_URL, CHS_URL } from "../utils/properties";
+import { ACCOUNT_URL } from "../utils/properties";
 
 export const START = "/";
 
@@ -33,3 +33,9 @@ export const PERSONS_NAME = "/what-is-the-persons-name";
 export const PERSONAL_CODE = "/companies-house-personal-code";
 
 export const EMAIL_ADDRESS = "/what-is-their-email-address";
+
+export const IDENTITY_DOCUMETS_CHECKED = "/how-were-identity-documents-checked";
+
+export const IDENTITY_DOCUMETS_IDV = "/identity-documents-checked-group-1";
+
+export const CONFIRM_IDENTITY_VERIFICATION = "/confirm-you-verified-their-identity";
