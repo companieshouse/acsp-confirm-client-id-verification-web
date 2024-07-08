@@ -10,8 +10,8 @@ import {
     confirmHomeAddressController,
     addressListController,
     dateOfBirthController,
-    howIdentityDocumentsCheckedController
-    identityChecksController
+    howIdentityDocumentsCheckedController,
+    whenIdentityChecksCompletedController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -56,7 +56,7 @@ routes.post(urls.DATE_OF_BIRTH, dateOfBirthValidator, dateOfBirthController.post
 routes.get(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocumentsCheckedController.get);
 routes.post(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocsCheckedValidator, howIdentityDocumentsCheckedController.post);
 
-routes.get(urls.WHEN_IDENTITY_CHECKS_COMPLETED, identityChecksController.get);
-routes.post(urls.WHEN_IDENTITY_CHECKS_COMPLETED, identityChecksValidator, identityChecksController.post);
+routes.get(urls.WHEN_IDENTITY_CHECKS_COMPLETED, whenIdentityChecksCompletedController.get);
+routes.post(urls.WHEN_IDENTITY_CHECKS_COMPLETED, identityChecksValidator, whenIdentityChecksCompletedController.post);
 
 export default routes;
