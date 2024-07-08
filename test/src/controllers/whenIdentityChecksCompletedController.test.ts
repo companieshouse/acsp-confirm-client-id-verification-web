@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, WHEN_IDENTITY_CHECKS_COMPLETED } from "../../../src/types/pageURL";
+import { BASE_URL, WHEN_IDENTITY_CHECKS_COMPLETED, HOW_IDENTITY_DOCUMENTS_CHECKED } from "../../../src/types/pageURL";
 
 const router = supertest(app);
 
@@ -25,7 +25,7 @@ describe("POST" + WHEN_IDENTITY_CHECKS_COMPLETED, () => {
         };
         const res = await router.post(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED).send(sendData);
         expect(res.status).toBe(302);
-        expect(res.header.location).toBe(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED + "?lang=en");
+        expect(res.header.location).toBe(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED + "?lang=en");
     });
 
     // Test for incorrect form details entered, will return 400.
@@ -37,6 +37,6 @@ describe("POST" + WHEN_IDENTITY_CHECKS_COMPLETED, () => {
         };
         const res = await router.post(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED).send(sendData); ;
         expect(res.status).toBe(400);
-        expect(res.text).toContain("Enter your date of birth");
+        expect(res.text).toContain("When were the identity checks completed?");
     });
 });
