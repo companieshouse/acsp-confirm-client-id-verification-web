@@ -3,10 +3,9 @@ import * as config from "../config";
 import { HOW_IDENTITY_DOCUMENTS_CHECKED, WHEN_IDENTITY_CHECKS_COMPLETED, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { formatValidationError, getPageProperties } from "../validations/validation";
-import { ValidationError, validationResult } from "express-validator";
+import { validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
-import { AddressLookUpService } from "../services/addressLookup";
 import { USER_DATA } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
 
