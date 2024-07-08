@@ -19,9 +19,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         ...getLocaleInfo(locales, lang),
         previousPage: addLangToUrl(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED, lang),
         currentUrl: BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED,
-        selectedOption: clientData.howIdentityDocsChecked,
-        firstName: clientData.firstName,
-        lastName: clientData.lastName
+        selectedOption: clientData?.howIdentityDocsChecked,
+        firstName: clientData?.firstName,
+        lastName: clientData?.lastName
     });
 };
 
@@ -31,6 +31,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
     const errorList = validationResult(req);
+    const selectedOption = req.body.howIdentityDocsCheckedRadio;
     if (!errorList.isEmpty()) {
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
         res.status(400).render(config.HOW_IDENTITY_DOCUMENTS_CHECKED, {
@@ -38,12 +39,11 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             ...getLocaleInfo(locales, lang),
             currentUrl: BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED,
             ...pageProperties,
-            selectedOption: req.body,
+            selectedOption,
             firstName: clientData?.firstName,
             lastName: clientData?.lastName
         });
     } else {
-        const selectedOption = req.body.howIdentityDocsCheckedRadio;
         clientData.howIdentityDocsChecked = selectedOption;
         saveDataInSession(req, USER_DATA, clientData);
         if (selectedOption === "OPTION1") {
