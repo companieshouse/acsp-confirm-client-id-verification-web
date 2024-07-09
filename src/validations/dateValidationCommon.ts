@@ -92,7 +92,6 @@ const validateDobAge = (day: string, month: string, year: string): void => {
     }
 };
 
-
 const isValidDay = (day: number, month: number, year: number): boolean => {
     const numbDays = new Date(year, month, 0).getDate();
     return day >= 1 && day <= numbDays;
