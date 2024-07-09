@@ -11,13 +11,13 @@ export const dateDayChecker = (day: string, month: string, year: string) => {
     month = month || "";
 
     if (day.trim() === "" && month.trim() === "" && year.trim() === "") {
-        throw new Error("noData");
+        throw new Error("noDataIdentity");
     } else if (day.trim() === "" && month.trim() === "") {
-        throw new Error("noDayMonth");
+        throw new Error("noDayMonthIdentity");
     } else if (day.trim() === "" && year.trim() === "") {
-        throw new Error("noDayYear");
+        throw new Error("noDayYearIdentity");
     } else if (day.trim() === "") {
-        throw new Error("noDay");
+        throw new Error("noDayIdentity");
     }
     return true;
 };
@@ -26,9 +26,9 @@ export const dateMonthChecker = (day: string, month: string, year: string) => {
     month = month || "";
 
     if (day.trim() !== "" && month.trim() === "" && year.trim() === "") {
-        throw new Error("noMonthYear");
+        throw new Error("noMonthYearIdentity");
     } else if (day.trim() !== "" && month.trim() === "") {
-        throw new Error("noMonth");
+        throw new Error("noMonthIdentity");
     }
     return true;
 };
@@ -37,7 +37,7 @@ export const dateYearChecker = (day: string, month: string, year: string) => {
     month = month || "";
 
     if (day.trim() !== "" && month.trim() !== "" && year.trim() === "") {
-        throw new Error("noYear");
+        throw new Error("noYearIdentity");
     }
     return true;
 };
@@ -47,11 +47,11 @@ export const validDataChecker = (day: string, month: string, year: string) => {
 
     if (day !== "" && month !== "" && year !== "") {
         if (!isNumeric(day) || !isNumeric(month) || !isNumeric(year)) {
-            throw new Error("nonNumeric");
+            throw new Error("nonNumericIdentity");
         } else if (+month < 1 || +month > 12 || +year < 1000 || +year > 9999 || !isValidDay(+day, +month, +year) || day.length > 2) {
-            throw new Error("invalid");
+            throw new Error("invalidIdentity");
         } else if (!isNotInFuture(+day, +month, +year)) {
-            throw new Error("dateInFuture");
+            throw new Error("dateInFutureIdentity");
         }
     }
     return true;

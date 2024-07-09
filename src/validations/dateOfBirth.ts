@@ -10,7 +10,7 @@ export const dateOfBirthValidator = [
 export const dateDayChecker = (day: string, month: string, year: string) => {
     month = month || "";
 
-    if (day.trim() === "" && month.trim() === "" && year.trim() === "") {
+    if (day.trim() === "" && month === "" && year.trim() === "") {
         throw new Error("noData");
     } else if (day.trim() === "" && month.trim() === "") {
         throw new Error("noDayMonth");
@@ -25,7 +25,7 @@ export const dateDayChecker = (day: string, month: string, year: string) => {
 export const dateMonthChecker = (day: string, month: string, year: string) => {
     month = month || "";
 
-    if (day.trim() !== "" && month.trim() === "" && year.trim() === "") {
+    if (day.trim() !== "" && month === "" && year.trim() === "") {
         throw new Error("noMonthYear");
     } else if (day.trim() !== "" && month.trim() === "") {
         throw new Error("noMonth");
@@ -36,7 +36,7 @@ export const dateMonthChecker = (day: string, month: string, year: string) => {
 export const dateYearChecker = (day: string, month: string, year: string) => {
     month = month || "";
 
-    if (day.trim() !== "" && month.trim() !== "" && year.trim() === "") {
+    if (day.trim() !== "" && month !== "" && year.trim() === "") {
         throw new Error("noYear");
     }
     return true;
