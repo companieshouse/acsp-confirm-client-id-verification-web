@@ -48,20 +48,50 @@ export const validDataChecker = (day: string, month: string, year: string, type:
     month = month || "";
 
     if (day !== "" && month !== "" && year !== "") {
-        if (!isNumeric(day) || !isNumeric(month) || !isNumeric(year)) {
-            throw new Error(type === "dob" ? "nonNumeric" : "nonNumericIdentity");
-        } else if (+month < 1 || +month > 12 || +year < 1000 || +year > 9999 || !isValidDay(+day, +month, +year) || day.length > 2) {
-            throw new Error(type === "dob" ? "invalid" : "invalidIdentity");
-        } else if (!isNotInFuture(+day, +month, +year)) {
-            throw new Error(type === "dob" ? "dateInFuture" : "dateInFutureIdentity");
-        } else if (type === "dob" && !isNotTooYoung(+day, +month, +year)) {
-            throw new Error("tooYoung");
-        } else if (type === "dob" && !isNotTooOld(+day, +month, +year)) {
-            throw new Error("tooOld");
+        validateNumeric(day, month, year, type);
+        validateMonthYearRange(month, year, type);
+        validateDayLength(day, month, year, type);
+        validateDate(day, month, year, type);
+        if (type === "dob") {
+            validateDobAge(day, month, year);
         }
     }
     return true;
 };
+
+const validateNumeric = (day: string, month: string, year: string, type: ValidationType): void => {
+    if (!isNumeric(day) || !isNumeric(month) || !isNumeric(year)) {
+        throw new Error(type === "dob" ? "nonNumeric" : "nonNumericIdentity");
+    }
+};
+
+const validateMonthYearRange = (month: string, year: string, type: ValidationType): void => {
+    if (+month < 1 || +month > 12 || +year < 1000 || +year > 9999) {
+        throw new Error(type === "dob" ? "invalid" : "invalidIdentity");
+    }
+};
+
+const validateDayLength = (day: string, month: string, year: string, type: ValidationType): void => {
+    if (!isValidDay(+day, +month, +year) || day.length > 2) {
+        throw new Error(type === "dob" ? "invalid" : "invalidIdentity");
+    }
+};
+
+const validateDate = (day: string, month: string, year: string, type: ValidationType): void => {
+    if (!isNotInFuture(+day, +month, +year)) {
+        throw new Error(type === "dob" ? "dateInFuture" : "dateInFutureIdentity");
+    }
+};
+
+const validateDobAge = (day: string, month: string, year: string): void => {
+    if (!isNotTooYoung(+day, +month, +year)) {
+        throw new Error("tooYoung");
+    }
+    if (!isNotTooOld(+day, +month, +year)) {
+        throw new Error("tooOld");
+    }
+};
+
 
 const isValidDay = (day: number, month: number, year: number): boolean => {
     const numbDays = new Date(year, month, 0).getDate();
