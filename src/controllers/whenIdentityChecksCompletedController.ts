@@ -14,7 +14,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
 
-    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+    const clientData: ClientData = session.getExtraData(USER_DATA)!;
     let payload;
     if (clientData.whenIdentityChecksCompleted) {
         const whenIdentityChecksCompleted = new Date(clientData.whenIdentityChecksCompleted);
