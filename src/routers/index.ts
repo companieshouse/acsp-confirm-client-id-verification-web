@@ -19,9 +19,8 @@ import { nameValidator } from "../validations/personName";
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { homeAddressValidator } from "../validations/homeAddress";
 import { addressListValidator } from "../validations/addressList";
-import { dateOfBirthValidator } from "../validations/dateOfBirth";
+import { dateValidator } from "../validations/dateValidationCommon";
 import { howIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
-import { identityChecksValidator } from "../validations/identityChecks";
 
 const routes = Router();
 
@@ -51,12 +50,12 @@ routes.get(urls.CHOOSE_AN_ADDRESS, addressListController.get);
 routes.post(urls.CHOOSE_AN_ADDRESS, addressListValidator, addressListController.post);
 
 routes.get(urls.DATE_OF_BIRTH, dateOfBirthController.get);
-routes.post(urls.DATE_OF_BIRTH, dateOfBirthValidator, dateOfBirthController.post);
+routes.post(urls.DATE_OF_BIRTH, dateValidator("dob"), dateOfBirthController.post);
 
 routes.get(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocumentsCheckedController.get);
 routes.post(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocsCheckedValidator, howIdentityDocumentsCheckedController.post);
 
 routes.get(urls.WHEN_IDENTITY_CHECKS_COMPLETED, whenIdentityChecksCompletedController.get);
-routes.post(urls.WHEN_IDENTITY_CHECKS_COMPLETED, identityChecksValidator, whenIdentityChecksCompletedController.post);
+routes.post(urls.WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator("wicc"), whenIdentityChecksCompletedController.post);
 
 export default routes;

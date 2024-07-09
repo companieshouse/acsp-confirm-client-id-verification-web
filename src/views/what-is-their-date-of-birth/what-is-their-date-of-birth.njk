@@ -8,12 +8,13 @@
 {% set title = i18n.dateOfBirthTitle %}
 {% block main_content %}
 
-  {% if errors["dob-day"] %}
-    {% set errorMessageText = errors["dob-day"].text %}
-  {% elif errors["dob-month"] %}
-    {% set errorMessageText = errors["dob-month"].text %}
-  {% elif errors["dob-year"] %}
-    {% set errorMessageText = errors["dob-year"].text %}
+  {% set errorPrefix = "dob" %}
+  {% if errors[errorPrefix + "-day"] %}
+    {% set errorMessageText = errors[errorPrefix + "-day"].text %}
+  {% elif errors[errorPrefix + "-month"] %}
+    {% set errorMessageText = errors[errorPrefix + "-month"].text %}
+  {% elif errors[errorPrefix + "-year"] %}
+    {% set errorMessageText = errors[errorPrefix + "-year"].text %}
   {% endif %}
 
   <div>
@@ -93,5 +94,4 @@
       }) }}
     </form>
   </div>
-
 {% endblock main_content %}

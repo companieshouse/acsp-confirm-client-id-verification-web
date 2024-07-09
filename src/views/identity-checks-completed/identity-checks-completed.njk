@@ -8,13 +8,14 @@
  {% set title = i18n.identityChecksTitle %}
  {% block main_content %}
 
-   {% if errors["wicc-day"] %}
-     {% set errorMessageText = errors["wicc-day"].text %}
-   {% elif errors["wicc-month"] %}
-     {% set errorMessageText = errors["wicc-month"].text %}
-   {% elif errors["wicc-year"] %}
-     {% set errorMessageText = errors["wicc-year"].text %}
-   {% endif %}
+  {% set errorPrefix = "wicc" %}
+  {% if errors[errorPrefix + "-day"] %}
+    {% set errorMessageText = errors[errorPrefix + "-day"].text %}
+  {% elif errors[errorPrefix + "-month"] %}
+    {% set errorMessageText = errors[errorPrefix + "-month"].text %}
+  {% elif errors[errorPrefix + "-year"] %}
+    {% set errorMessageText = errors[errorPrefix + "-year"].text %}
+  {% endif %}
 
    <div>
      <form action="" method="POST">
