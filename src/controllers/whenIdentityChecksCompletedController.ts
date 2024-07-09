@@ -16,7 +16,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
     const clientData: ClientData = session.getExtraData(USER_DATA)!;
     let payload;
-    if (clientData.whenIdentityChecksCompleted) {
+    if (clientData?.whenIdentityChecksCompleted) {
         const whenIdentityChecksCompleted = new Date(clientData.whenIdentityChecksCompleted);
         payload = {
             "wicc-year": whenIdentityChecksCompleted.getFullYear(),
