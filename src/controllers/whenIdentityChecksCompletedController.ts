@@ -15,7 +15,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
 
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
-    saveDataInSession(req, USER_DATA, clientData);
     let payload;
     if (clientData.whenIdentityChecksCompleted) {
         const whenIdentityChecksCompleted = new Date(clientData.whenIdentityChecksCompleted);
@@ -62,6 +61,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             );
             clientData.whenIdentityChecksCompleted = whenIdentityChecksCompleted;
         }
+        saveDataInSession(req, USER_DATA, clientData);
         res.redirect(addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang));
     }
 };
