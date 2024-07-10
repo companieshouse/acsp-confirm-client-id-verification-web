@@ -34,6 +34,7 @@
     "@companieshouse/node-session-handler": "^4.1.9",
     "@companieshouse/structured-logging-node": "^1.0.8",
     "@companieshouse/web-security-node": "^2.0.3",
+    "@types/express-validator": "^3.0.0",
     "axios": "1.6.2",
     "cookie-parser": "^1.4.6",
     "express": "^4.19.2",
