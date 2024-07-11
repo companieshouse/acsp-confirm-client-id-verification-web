@@ -1,0 +1,14 @@
+{
+    "whatIs" : "What is welsh",
+    "emailAddress" : "email address welsh",
+    "theyMustAbleToAccess" : "They must be able to access emails sent to this address. welsh",
+    "confirmEmail" : "Confirm their email address welsh",
+
+    "emailAddressCanOnlyUsedOnce" : "The email address you give can only be used once to verify someone’s identity. You will not be able to use it for anyone else whose identity you have verified. welsh",
+    "continue": "Continue welsh",
+
+    "error-noEmailAddress" : "Enter their email address welsh",
+    "error-noConfirmAddress" : "Enter confirmation email address welsh",
+    "error-invalidEmail" : "Enter an email address in the correct format, like name@example.com welsh",
+    "error-emailAddressDontMatch": "Email addresses must match welsh"
+}
