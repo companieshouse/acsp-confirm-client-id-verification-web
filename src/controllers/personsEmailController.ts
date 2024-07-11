@@ -13,11 +13,11 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
-    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+    const clientData: ClientData = session.getExtraData(USER_DATA)!;
 
     const payload = {
-        "email-address": clientData.emailAddress,
-        "confirm-email": clientData.confirmEmailAddress
+        "email-address": clientData?.emailAddress,
+        "confirm-email": clientData?.confirmEmailAddress
     };
 
     res.render(config.PERSONS_EMAIL, {
@@ -25,8 +25,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         previousPage: addLangToUrl(BASE_URL + PERSONAL_CODE, lang),
         currentUrl: BASE_URL + EMAIL_ADDRESS,
         payload,
-        firstName: clientData.firstName,
-        lastName: clientData.lastName
+        firstName: clientData?.firstName,
+        lastName: clientData?.lastName
     });
 };
 
