@@ -8,12 +8,13 @@
 {% set title = i18n.dateOfBirthTitle %}
 {% block main_content %}
 
-  {% if errors["dob-day"] %}
-    {% set errorMessageText = errors["dob-day"].text %}
-  {% elif errors["dob-month"] %}
-    {% set errorMessageText = errors["dob-month"].text %}
-  {% elif errors["dob-year"] %}
-    {% set errorMessageText = errors["dob-year"].text %}
+  {% set errorPrefix = "dob" %}
+  {% if errors[errorPrefix + "-day"] %}
+    {% set errorMessageText = errors[errorPrefix + "-day"].text %}
+  {% elif errors[errorPrefix + "-month"] %}
+    {% set errorMessageText = errors[errorPrefix + "-month"].text %}
+  {% elif errors[errorPrefix + "-year"] %}
+    {% set errorMessageText = errors[errorPrefix + "-year"].text %}
   {% endif %}
 
   <div>
@@ -40,7 +41,7 @@
                 <label class="govuk-label govuk-date-input__label" for="dob-day">
                   {{ i18n.day }}
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors["dob-day"] %} govuk-input--error{% endif %}"
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}"
                        id="dob-day"
                        name="dob-day"
                        value="{{ payload["dob-day"] | default('') }}">
@@ -51,7 +52,7 @@
                 <label class="govuk-label govuk-date-input__label" for="dob-month">
                   {{ i18n.month }}
                 </label>
-                <select class="govuk-select{% if errors["dob-month"] %} govuk-select--error{% endif %}"
+                <select class="govuk-select{% if errors %} govuk-select--error{% endif %}"
                         id="dob-month"
                         name="dob-month">
                   <option value="" disabled selected>{{ i18n.chooseMonth }}</option>
@@ -75,7 +76,7 @@
                 <label class="govuk-label govuk-date-input__label" for="dob-year">
                   {{ i18n.year }}
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors["dob-year"] %} govuk-input--error{% endif %}"
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors %} govuk-input--error{% endif %}"
                        id="dob-year"
                        name="dob-year"
                        value="{{ payload["dob-year"] | default('') }}">
@@ -93,5 +94,4 @@
       }) }}
     </form>
   </div>
-
 {% endblock main_content %}

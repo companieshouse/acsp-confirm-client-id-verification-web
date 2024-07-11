@@ -9,3 +9,5 @@ export * as addressListController from "./addressListController";
 export * as confirmHomeAddressController from "./confirmHomeAddressController";
 export * as dateOfBirthController from "./dateOfBirthController";
 export * as personsEmailController from "./personsEmailController";
+export * as howIdentityDocumentsCheckedController from "./howIdentityDocumentsCheckedController";
+export * as whenIdentityChecksCompletedController from "./whenIdentityChecksCompletedController";

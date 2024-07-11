@@ -1,0 +1,14 @@
+{
+    "howIdentityDocsCheckedTabTitle": "How were their identity documents checked?",
+    "howIdentityDocsCheckedTitle": "Which option from the identity verification standard did you use to verify their identity?",
+    "howIdentityDocsCheckedHint": "You must have used one of the 2 options for checking identity documents from Companies House identity verification standard.",
+    "howIdentityDocsCheckedOption1": "Option1",
+    "howIdentityDocsCheckedOption1hint": "Their identity documents were checked using identity document validation technology (IDVT).",
+    "howIdentityDocsCheckedOption2": "Option2",
+    "howIdentityDocsCheckedOption2hint": "Their identity documents were checked by a person.",
+    "howIdentityDocsCheckedInfoHeading": "What is Companies House identity verification standard?",
+    "howIdentityDocsCheckedInfoText1": "The identity verification standard outlines the checks you must do to verify someone's identity for Comapnies House.",
+    "howIdentityDocsCheckedInfoText2": "Read the ",
+    "howIdentityDocsCheckedInfoText2Link": "guidance on how to meet the identity verification standard.",
+    "error-howIdentityDocsCheckedEmpty" : "Please select an option"
+}
