@@ -2,7 +2,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "layouts/default.njk" %}
-{% set title = i18n.whatIs + ' ' + firstName + ' ' + lastName + ' ' + i18n.emailAddress %}
+{% set title = i18n.whatIs + ' ' + firstName + ' ' + lastName + i18n.emailAddress %}
 {% block main_content %}
     <form action="" method="POST">
         <div class="govuk-form-group">
