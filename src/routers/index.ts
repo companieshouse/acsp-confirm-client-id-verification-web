@@ -10,6 +10,7 @@ import {
     confirmHomeAddressController,
     addressListController,
     dateOfBirthController,
+    personsEmailController,
     howIdentityDocumentsCheckedController,
     whenIdentityChecksCompletedController
 } from "../controllers";
@@ -19,6 +20,7 @@ import { nameValidator } from "../validations/personName";
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { homeAddressValidator } from "../validations/homeAddress";
 import { addressListValidator } from "../validations/addressList";
+import { emailValidator } from "../validations/personEmail";
 import { dateValidator } from "../validations/dateValidationCommon";
 import { howIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
 
@@ -57,5 +59,8 @@ routes.post(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocsCheckedValidator
 
 routes.get(urls.WHEN_IDENTITY_CHECKS_COMPLETED, whenIdentityChecksCompletedController.get);
 routes.post(urls.WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator("wicc"), whenIdentityChecksCompletedController.post);
+
+routes.get(urls.EMAIL_ADDRESS, personsEmailController.get);
+routes.post(urls.EMAIL_ADDRESS, emailValidator, personsEmailController.post);
 
 export default routes;
