@@ -8,7 +8,7 @@
     "continue": "Continue welsh",
 
     "error-noEmailAddress" : "Enter their email address welsh",
-    "error-noConfirmAddress" : "Enter confirmation email address welsh",
+    "error-noConfirmAddress" : "Enter their email address welsh",
     "error-invalidEmail" : "Enter an email address in the correct format, like name@example.com welsh",
     "error-emailAddressDontMatch": "Email addresses must match welsh"
 }
