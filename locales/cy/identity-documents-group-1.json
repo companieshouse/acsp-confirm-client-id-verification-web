@@ -7,6 +7,7 @@
     "identityCard": "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein Welsh",
     "biometricPermit": "UK biometric residence permit (BRP) Welsh",
     "biometricCard": "UK biometric residence card (BRC) Welsh",
-    "frontierPermit": "UK Frontier Worker permit Welsh"
+    "frontierPermit": "UK Frontier Worker permit Welsh",
 
+    "error-identityDocumentsGroup1Empty": "Select which documents you checked to verify their identity Welsh"
 }

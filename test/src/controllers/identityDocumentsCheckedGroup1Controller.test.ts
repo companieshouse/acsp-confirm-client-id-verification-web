@@ -21,10 +21,17 @@ describe("GET" + WHICH_IDENTITY_DOCS_CHECKED_GROUP1, () => {
 describe("POST" + WHICH_IDENTITY_DOCS_CHECKED_GROUP1, () => {
     it("should return status 302 after redirecting to the next page", async () => {
         const inputData = {
-            documents: ["biometricPassport", "ukDriversLicence"]
+            documentsGroup1: ["biometricPassport", "ukDriversLicence"]
         };
         const res = await router.post(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1).send(inputData);
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(BASE_URL + CONFIRM_IDENTITY_VERIFICATION + "?lang=en");
+    });
+
+    it("should return status 400 when no documents are selected", async () => {
+        const inputData = {};
+        const res = await router.post(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1).send(inputData);
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("Select which documents you checked to verify their identity");
     });
 });

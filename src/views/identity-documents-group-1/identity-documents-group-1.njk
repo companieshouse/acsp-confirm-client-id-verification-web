@@ -1,13 +1,13 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "layouts/default.njk" %}
-{% set title = i18n.homeAddressManualTitle %}
+{% set title = i18n.identityDocumentsIDVTitle %}
 
 {% block main_content %}
     <form action="" method="POST">
         {% include "partials/user_name.njk" %} 
         {{ govukCheckboxes({
-            name: "documents",
+            name: "documentsGroup1",
             fieldset: {
                 legend: {
                     text: i18n.identityDocumentsIDVTitle,

@@ -21,6 +21,7 @@ import { homeAddressValidator } from "../validations/homeAddress";
 import { addressListValidator } from "../validations/addressList";
 import { dateOfBirthValidator } from "../validations/dateOfBirth";
 import { howIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
+import { identityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 
 const routes = Router();
 
@@ -53,7 +54,7 @@ routes.get(urls.DATE_OF_BIRTH, dateOfBirthController.get);
 routes.post(urls.DATE_OF_BIRTH, dateOfBirthValidator, dateOfBirthController.post);
 
 routes.get(urls.WHICH_IDENTITY_DOCS_CHECKED_GROUP1, identityDocumentsCheckedGroup1Controller.get);
-routes.post(urls.WHICH_IDENTITY_DOCS_CHECKED_GROUP1, identityDocumentsCheckedGroup1Controller.post);
+routes.post(urls.WHICH_IDENTITY_DOCS_CHECKED_GROUP1, identityDocsGroup1Validator, identityDocumentsCheckedGroup1Controller.post);
 
 routes.get(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocumentsCheckedController.get);
 routes.post(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocsCheckedValidator, howIdentityDocumentsCheckedController.post);

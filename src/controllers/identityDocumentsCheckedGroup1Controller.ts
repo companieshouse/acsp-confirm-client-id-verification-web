@@ -17,9 +17,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
-    const payload = { documents: clientData.documentsChecked };
+    const payload = { documentsGroup1: clientData.documentsChecked };
 
-    res.render(config.IDENTITY_DOCUMETS_IDV, {
+    res.render(config.IDENTITY_DOCUMETS_GROUP_1, {
         ...getLocaleInfo(locales, lang),
         previousPage,
         currentUrl,
@@ -40,7 +40,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
     if (!errorList.isEmpty()) {
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-        res.status(400).render(config.IDENTITY_DOCUMETS_IDV, {
+        res.status(400).render(config.IDENTITY_DOCUMETS_GROUP_1, {
             ...getLocaleInfo(locales, lang),
             ...pageProperties,
             previousPage,
@@ -51,7 +51,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         });
     } else {
         const checkedDocumentsService = new CheckedDocumentsService();
-        checkedDocumentsService.saveDocumentsToSession(req, clientData, req.body.documents);
+        checkedDocumentsService.saveDocumentsToSession(req, clientData, req.body.documentsGroup1);
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
     }
 };

@@ -7,6 +7,7 @@
     "identityCard": "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein",
     "biometricPermit": "UK biometric residence permit (BRP)",
     "biometricCard": "UK biometric residence card (BRC)",
-    "frontierPermit": "UK Frontier Worker permit"
+    "frontierPermit": "UK Frontier Worker permit",
 
+    "error-identityDocumentsGroup1Empty": "Select which documents you checked to verify their identity"
 }
