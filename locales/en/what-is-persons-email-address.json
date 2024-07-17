@@ -1,0 +1,14 @@
+{
+    "whatIs" : "What is ",
+    "emailAddress" : "'s email address",
+    "theyMustAbleToAccess" : "They must be able to access emails sent to this address.",
+    "confirmEmail" : "Confirm their email address",
+    
+    "emailAddressCanOnlyUsedOnce" : "The email address you give can only be used once to verify someone’s identity. You will not be able to use it for anyone else whose identity you have verified.",
+    "continue": "Continue",
+
+    "error-noEmailAddress" : "Enter their email address",
+    "error-noConfirmAddress" : "Enter their email address",
+    "error-invalidEmail" : "Enter an email address in the correct format, like name@example.com",
+    "error-emailAddressDontMatch": "Email addresses must match"
+}

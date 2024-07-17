@@ -11,7 +11,9 @@ import {
     addressListController,
     dateOfBirthController,
     identityDocumentsCheckedGroup1Controller,
-    howIdentityDocumentsCheckedController
+    howIdentityDocumentsCheckedController,
+    personsEmailController,
+    whenIdentityChecksCompletedController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -19,7 +21,8 @@ import { nameValidator } from "../validations/personName";
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { homeAddressValidator } from "../validations/homeAddress";
 import { addressListValidator } from "../validations/addressList";
-import { dateOfBirthValidator } from "../validations/dateOfBirth";
+import { emailValidator } from "../validations/personEmail";
+import { dateValidator } from "../validations/dateValidationCommon";
 import { howIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
 import { identityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 
@@ -51,12 +54,18 @@ routes.get(urls.CHOOSE_AN_ADDRESS, addressListController.get);
 routes.post(urls.CHOOSE_AN_ADDRESS, addressListValidator, addressListController.post);
 
 routes.get(urls.DATE_OF_BIRTH, dateOfBirthController.get);
-routes.post(urls.DATE_OF_BIRTH, dateOfBirthValidator, dateOfBirthController.post);
+routes.post(urls.DATE_OF_BIRTH, dateValidator("dob"), dateOfBirthController.post);
 
 routes.get(urls.WHICH_IDENTITY_DOCS_CHECKED_GROUP1, identityDocumentsCheckedGroup1Controller.get);
 routes.post(urls.WHICH_IDENTITY_DOCS_CHECKED_GROUP1, identityDocsGroup1Validator, identityDocumentsCheckedGroup1Controller.post);
 
 routes.get(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocumentsCheckedController.get);
 routes.post(urls.HOW_IDENTITY_DOCUMENTS_CHECKED, howIdentityDocsCheckedValidator, howIdentityDocumentsCheckedController.post);
+
+routes.get(urls.WHEN_IDENTITY_CHECKS_COMPLETED, whenIdentityChecksCompletedController.get);
+routes.post(urls.WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator("wicc"), whenIdentityChecksCompletedController.post);
+
+routes.get(urls.EMAIL_ADDRESS, personsEmailController.get);
+routes.post(urls.EMAIL_ADDRESS, emailValidator, personsEmailController.post);
 
 export default routes;

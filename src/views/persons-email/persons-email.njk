@@ -1,0 +1,54 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% extends "layouts/default.njk" %}
+{% set title = i18n.whatIs + ' ' + firstName + ' ' + lastName + i18n.emailAddress %}
+{% block main_content %}
+    <form action="" method="POST">
+        <div class="govuk-form-group">
+            <h1 class="govuk-heading-l">{{i18n.whatIs}} {{firstName}} {{lastName}} {{i18n.emailAddress}}</h1>
+           
+            {{ govukInput({
+                label: {
+                    text: i18n.theyMustAbleToAccess,
+                    classes: "govuk-hint"
+                },
+                errorMessage: {
+                    text: errors["email-address"].text
+                } if errors["email-address"] | length,
+                classes: "govuk-input",
+                id: "email-address",
+                name: "email-address",
+                autocomplete: "email-address",
+                value: payload["email-address"]
+            }) }}
+
+             {{ govukInput({
+                label: {
+                    text: i18n.confirmEmail,
+                    classes: "govuk-label--s"
+                },
+                errorMessage: {
+                    text: errors["confirm-email"].text
+                } if errors["confirm-email"] | length,
+                classes: "govuk-input",
+                id: "confirm-email",
+                name: "confirm-email",
+                value: payload["confirm-email"],
+                attributes: {
+                    onpaste: "return false"
+                }
+            }) }}
+
+            {{ govukInsetText({
+              text: i18n.emailAddressCanOnlyUsedOnce
+            }) }}
+        </div>
+        {{ govukButton({
+            text: i18n.Continue,
+            attributes: {
+              "data-event-id": "CONTINUE - EMAIL"
+            }
+        }) }}
+    </form>
+{% endblock main_content %}

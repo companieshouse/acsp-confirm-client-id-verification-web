@@ -16,6 +16,12 @@ export const HEALTHCHECK = "/healthcheck";
 
 export const ACCESSIBILITY_STATEMENT = "/accessibility-statement";
 
+export const PERSONS_NAME = "/what-is-the-persons-name";
+
+export const PERSONAL_CODE = "/companies-house-personal-code";
+
+export const EMAIL_ADDRESS = "/what-is-their-email-address";
+
 export const DATE_OF_BIRTH = "/what-is-their-date-of-birth";
 
 export const HOME_ADDRESS = "/what-is-their-home-address";

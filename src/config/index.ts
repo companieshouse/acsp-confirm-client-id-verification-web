@@ -20,8 +20,10 @@ export const PIWIK_START_GOAL_ID = getEnvironmentValue("PIWIK_START_GOAL_ID");
 export const PERSONS_NAME = `${BASE_VIEWS_URL}/persons-name/persons-name`;
 export const PERSONAL_CODE = `${BASE_VIEWS_URL}/personal-code/personal-code`;
 export const DATE_OF_BIRTH = `${BASE_VIEWS_URL}/what-is-their-date-of-birth/what-is-their-date-of-birth`;
+export const PERSONS_EMAIL = `${BASE_VIEWS_URL}/persons-email/persons-email`;
 
 export const HOME_ADDRESS_MANUAL = `${BASE_VIEWS_URL}/home-address-manual/home-address-manual`;
 export const HOME_ADDRESS_LIST = `${BASE_VIEWS_URL}/home-address-list/home-address-list`;
 export const IDENTITY_DOCUMETS_GROUP_1 = `${BASE_VIEWS_URL}/identity-documents-group-1/identity-documents-group-1`;
 export const HOW_IDENTITY_DOCUMENTS_CHECKED = `${BASE_VIEWS_URL}/how-identity-documents-checked/how-identity-documents-checked`;
+export const WHEN_IDENTITY_CHECKS_COMPLETED = `${BASE_VIEWS_URL}/identity-checks-completed/identity-checks-completed`;
