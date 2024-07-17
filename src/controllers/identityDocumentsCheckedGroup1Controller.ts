@@ -15,7 +15,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
     const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
     const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
-    const clientData: ClientData = session.getExtraData(USER_DATA)!;
+    const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
     const payload = { documentsGroup1: clientData.documentsChecked };
 
@@ -35,7 +35,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
     const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
     const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
-    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+    const clientData: ClientData = session?.getExtraData(USER_DATA)!;
     const errorList = validationResult(req);
 
     if (!errorList.isEmpty()) {
