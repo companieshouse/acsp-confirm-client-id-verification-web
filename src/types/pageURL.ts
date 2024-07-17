@@ -34,12 +34,6 @@ export const CONFIRM_HOME_ADDRESS = "/confirm-their-address";
 
 export const WHEN_IDENTITY_CHECKS_COMPLETED = "/identity-checks-completed";
 
-export const PERSONS_NAME = "/what-is-the-persons-name";
-
-export const PERSONAL_CODE = "/companies-house-personal-code";
-
-export const EMAIL_ADDRESS = "/what-is-their-email-address";
-
 export const CONFIRM_IDENTITY_VERIFICATION = "/confirm-you-verified-their-identity";
 
 export const HOW_IDENTITY_DOCUMENTS_CHECKED = "/how-were-identity-documents-checked";
