@@ -15,7 +15,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
     const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
     const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
-    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+    const clientData: ClientData = session.getExtraData(USER_DATA)!;
 
     const payload = { documentsGroup1: clientData.documentsChecked };
 
@@ -51,7 +51,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         });
     } else {
         const checkedDocumentsService = new CheckedDocumentsService();
-        checkedDocumentsService.saveDocumentsToSession(req, clientData, req.body.documentsGroup1);
+        checkedDocumentsService.saveDocuments(req, clientData, req.body.documentsGroup1);
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
     }
 };

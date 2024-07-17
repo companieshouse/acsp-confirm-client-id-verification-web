@@ -19,7 +19,7 @@ describe("CheckedDocumentsService tests", () => {
     it("should save the selected document to an array in the session", () => {
         const selectedDocument = "biometricPassport";
         const session: Session = req.session as any as Session;
-        service.saveDocumentsToSession(req, {}, selectedDocument);
+        service.saveDocuments(req, {}, selectedDocument);
 
         expect(session.getExtraData(USER_DATA)).toEqual({
             documentsChecked: ["biometricPassport"]
@@ -29,7 +29,7 @@ describe("CheckedDocumentsService tests", () => {
     it("should save the selected documents to an array in the session", () => {
         const selectedDocuments = ["biometricPassport", "irishPassport"];
         const session: Session = req.session as any as Session;
-        service.saveDocumentsToSession(req, {}, selectedDocuments);
+        service.saveDocuments(req, {}, selectedDocuments);
 
         expect(session.getExtraData(USER_DATA)).toEqual({
             documentsChecked: ["biometricPassport", "irishPassport"]
