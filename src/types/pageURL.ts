@@ -1,4 +1,4 @@
-import { ACCOUNT_URL, CHS_URL } from "../utils/properties";
+import { ACCOUNT_URL } from "../utils/properties";
 
 export const START = "/";
 
@@ -33,6 +33,8 @@ export const HOME_ADDRESS_MANUAL = "/enter-their-home-address";
 export const CONFIRM_HOME_ADDRESS = "/confirm-their-address";
 
 export const WHEN_IDENTITY_CHECKS_COMPLETED = "/identity-checks-completed";
+
+export const CONFIRM_IDENTITY_VERIFICATION = "/confirm-you-verified-their-identity";
 
 export const HOW_IDENTITY_DOCUMENTS_CHECKED = "/how-were-identity-documents-checked";
 

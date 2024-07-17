@@ -1,0 +1,82 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "layouts/default.njk" %}
+{% set title = i18n.identityDocumentsIDVTitle %}
+
+{% block main_content %}
+    <form action="" method="POST">
+        {% include "partials/user_name.njk" %} 
+        {{ govukCheckboxes({
+            name: "documentsGroup1",
+            fieldset: {
+                legend: {
+                    text: i18n.identityDocumentsIDVTitle,
+                    isPageHeading: true,
+                    classes: "govuk-fieldset__legend--l"
+                }
+            },
+            hint: {
+                text: i18n.identityDocumentsIDVHint
+            },
+            values: payload.documents,
+            items: [
+            {
+                value: "biometricPassport",
+                text: i18n.biometricPassport,
+                attributes: {
+                    "data-event-id": "biometricPassport"
+                }
+            },
+            {
+                value: "irishPassport",
+                text: i18n.irishPassport,
+                attributes: {
+                    "data-event-id": "irishPassport"
+                }
+            },
+            {
+                value: "ukDriversLicence",
+                text: i18n.ukDriversLicence,
+                attributes: {
+                    "data-event-id": "ukDriversLicence"
+                }
+            },
+            {
+                value: "identityCard",
+                text: i18n.identityCard,
+                attributes: {
+                    "data-event-id": "identityCard"
+                }
+            },
+            {
+                value: "biometricPermit",
+                text: i18n.biometricPermit,
+                attributes: {
+                    "data-event-id": "biometricPermit"
+                }
+            },
+            {
+                value: "biometricCard",
+                text: i18n.biometricCard,
+                attributes: {
+                    "data-event-id": "biometricCard"
+                }
+            },
+            {
+                value: "frontierPermit",
+                text: i18n.frontierPermit,
+                attributes: {
+                    "data-event-id": "frontierPermit"
+                }
+            }
+            ]
+        }) }}
+        {{ govukButton({
+            text: i18n.Continue,
+            attributes: {
+                "data-event-id": "CONTINUE - dc1"
+            }
+        }) }}
+    </form>
+    
+{% endblock main_content %}

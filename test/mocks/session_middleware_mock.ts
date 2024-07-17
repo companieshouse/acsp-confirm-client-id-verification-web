@@ -3,8 +3,6 @@ import { sessionMiddleware } from "../../src/middleware/session_middleware";
 import { USER_DATA, ADDRESS_LIST } from "../../src/utils/constants";
 import { getSessionRequestWithPermission } from "./session.mock";
 import { addressList } from "./address.mock";
-import { HOME_ADDRESS } from "../../src/types/pageURL"
-
 
 jest.mock("ioredis");
 jest.mock("../../src/middleware/session_middleware");

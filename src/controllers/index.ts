@@ -8,6 +8,7 @@ export * as homeAddressManualController from "./homeAddressManualController";
 export * as addressListController from "./addressListController";
 export * as confirmHomeAddressController from "./confirmHomeAddressController";
 export * as dateOfBirthController from "./dateOfBirthController";
+export * as identityDocumentsCheckedGroup1Controller from "./identityDocumentsCheckedGroup1Controller";
 export * as personsEmailController from "./personsEmailController";
 export * as howIdentityDocumentsCheckedController from "./howIdentityDocumentsCheckedController";
 export * as whenIdentityChecksCompletedController from "./whenIdentityChecksCompletedController";
