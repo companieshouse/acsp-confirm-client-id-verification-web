@@ -20,7 +20,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
         const res = await router.post(BASE_URL + EMAIL_ADDRESS)
             .send({
                 "email-address": "test@gmail.com",
-                "confirm-email": "test@gmail.com"
+                confirm: "test@gmail.com"
             });
         expect(res.status).toBe(302);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
@@ -32,7 +32,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
     it("should return status 400 after incorrect data entered", async () => {
         const sendData = {
             "email-address": "test@gmail.com",
-            "confirm-email": ""
+            confirm: ""
         };
         const res = await router.post(BASE_URL + EMAIL_ADDRESS).send(sendData); ;
         expect(res.status).toBe(400);
@@ -42,7 +42,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
     it("should return status 400 after incorrect data entered", async () => {
         const sendData = {
             "email-address": "",
-            "confirm-email": "test@gmail.com"
+            confirm: "test@gmail.com"
         };
         const res = await router.post(BASE_URL + EMAIL_ADDRESS).send(sendData); ;
         expect(res.status).toBe(400);
@@ -52,7 +52,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
     it("should return status 400 after incorrect data entered", async () => {
         const sendData = {
             "email-address": "test@gmail.com",
-            "confirm-email": "different@gmail.com"
+            confirm: "different@gmail.com"
         };
         const res = await router.post(BASE_URL + EMAIL_ADDRESS).send(sendData); ;
         expect(res.status).toBe(400);

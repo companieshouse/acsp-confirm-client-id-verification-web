@@ -6,7 +6,7 @@
 {% block main_content %}
     <form action="" method="POST">
         <div class="govuk-form-group">
-            <h1 class="govuk-heading-l">{{i18n.whatIs}} {{firstName}} {{lastName}} {{i18n.emailAddress}}</h1>
+            <h1 class="govuk-heading-l">{{i18n.whatIs}} {{firstName}} {{lastName}}{{i18n.emailAddress}}</h1>
            
             {{ govukInput({
                 label: {
@@ -29,12 +29,13 @@
                     classes: "govuk-label--s"
                 },
                 errorMessage: {
-                    text: errors["confirm-email"].text
-                } if errors["confirm-email"] | length,
+                    text: errors["confirm"].text
+                } if errors["confirm"] | length,
                 classes: "govuk-input",
-                id: "confirm-email",
-                name: "confirm-email",
-                value: payload["confirm-email"],
+                id: "confirm",
+                name: "confirm",
+                value: payload["confirm"],
+                autocomplete: "off",
                 attributes: {
                     onpaste: "return false"
                 }
