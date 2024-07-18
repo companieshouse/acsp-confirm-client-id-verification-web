@@ -17,7 +17,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
     const payload = {
         "email-address": clientData?.emailAddress,
-        "confirm-email": clientData?.confirmEmailAddress
+        confirm: clientData?.confirmEmailAddress
     };
 
     res.render(config.PERSONS_EMAIL, {
@@ -48,11 +48,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             ...pageProperties
         });
     } else {
-        const session: Session = req.session as any as Session;
-        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
-
         clientData.emailAddress = req.body["email-address"];
-        clientData.confirmEmailAddress = req.body["confirm-email"];
+        clientData.confirmEmailAddress = req.body.confirm;
 
         saveDataInSession(req, USER_DATA, clientData);
 
