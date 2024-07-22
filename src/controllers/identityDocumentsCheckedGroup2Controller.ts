@@ -53,6 +53,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     } else {
         const checkedDocumentsService = new CheckedDocumentsService();
         checkedDocumentsService.saveDocuments(req, clientData, req.body.documentsGroup2);
-        res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang))
+        res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
     }
 };
