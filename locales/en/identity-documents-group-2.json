@@ -1,0 +1,35 @@
+{
+    "identityDocumentsIDVHint2": "Select at least 2 documents. At least 1 of the documents must be from group A.",
+
+
+    "passportIrishCard": "Passport or Irish passport card",
+    "identityCard": "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein",
+    "ukBRP": "UK biometric residence permit (BRP)",
+    "ukBRC": "UK biometric residence card (BRC)",
+    "passCard": "UK accredited PASS card",
+    "ukEuDigitalCard": "UK or EU driver digital tachograph card",
+    "fullDrivingLicense": "UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional)",
+    "ukForceCard": "UK HM Forces ID Card",
+    "ukArmedForceCard": "UK HM Armed Forces Veteran Card",
+    "ukFrontierPermit": "UK Frontier Worker permit",
+    "photoWorkPermit": "Photographic work permit (government issued)",
+    "photoimmigrationDoc":"Photographic immigration document",
+    "photoVisa":"Photographic Visa",
+    "ukFirearmsLicence": "UK, Channel Islands and Isle of Man Firearms Licence",
+    "photoIdPrado":"Photographic ID listed on PRADO",
+
+
+    "birthCert": "Birth or adoption certificate",
+    "marriageCert": "Marriage or civil partnership certificate",
+    "noPhotoimmigrationDoc": "Non-photographic immigration document",
+    "noPhotoVisa": "Non-photographic visa",
+    "noPhotoWorkPermit": "Non-photographic work permit",
+    "bankStatement": "Bank or building society statement",
+    "rentalAgreement": "UK local authority or social housing rental agreement (for the person’s current address)",
+    "morgageStatement": "Mortgage statement (for the person’s current address)",
+    "taxStatement": "UK council tax statement (for the person’s current address)",
+    
+    "utilityBill": "Utility bill (for the person’s current address)",
+
+    "error-identityDocumentsGroup1Empty2": "Select which documents you checked to verify their identity"
+}

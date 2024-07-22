@@ -1,0 +1,35 @@
+{
+    "identityDocumentsIDVHint2": "Select at least 2 documents. At least 1 of the documents must be from group A. welsh",
+
+
+    "passportIrishCard": "Passport or Irish passport card welsh",
+    "identityCard": "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein welsh",
+    "ukBRP": "UK biometric residence permit (BRP) welsh",
+    "ukBRC": "UK biometric residence card (BRC) welsh",
+    "passCard": "UK accredited PASS card welsh",
+    "ukEuDigitalCard": "UK or EU driver digital tachograph card welsh",
+    "fullDrivingLicense": "UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional) welsh",
+    "ukForceCard": "UK HM Forces ID Card welsh",
+    "ukArmedForceCard": "UK HM Armed Forces Veteran Card welsh",
+    "ukFrontierPermit": "UK Frontier Worker permit welsh",
+    "photoWorkPermit": "Photographic work permit (government issued) welsh",
+    "photoimmigrationDoc":"Photographic immigration document welsh",
+    "photoVisa":"Photographic Visa welsh",
+    "ukFirearmsLicence": "UK, Channel Islands and Isle of Man Firearms Licence welsh",
+    "photoIdPrado":"Photographic ID listed on PRADO welsh",
+
+
+    "birthCert": "Birth or adoption certificate welsh",
+    "marriageCert": "Marriage or civil partnership certificate welsh",
+    "noPhotoimmigrationDoc": "Non-photographic immigration document welsh",
+    "noPhotoVisa": "Non-photographic visa welsh",
+    "noPhotoWorkPermit": "Non-photographic work permit welsh",
+    "bankStatement": "Bank or building society statement welsh",
+    "rentalAgreement": "UK local authority or social housing rental agreement (for the person’s current address) welsh",
+    "morgageStatement": "Mortgage statement (for the person’s current address) welsh",
+    "taxStatement": "UK council tax statement (for the person’s current address welsh",
+    
+    "utilityBill": "Utility bill (for the person’s current address) welsh",
+
+    "error-identityDocumentsGroup1Empty2": "Select which documents you checked to verify their identity welsh"
+}
