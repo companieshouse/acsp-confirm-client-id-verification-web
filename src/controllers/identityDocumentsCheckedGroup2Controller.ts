@@ -18,10 +18,10 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
-    const payload = { 
-                    documentsGroup2A : clientData.documentsChecked,
-                    documentsGroup2B : clientData.documentsChecked
-                    };
+    const payload = {
+        documentsGroup2A: clientData.documentsChecked,
+        documentsGroup2B: clientData.documentsChecked
+    };
 
     res.render(config.IDENTITY_DOCUMETS_GROUP_2, {
         ...getLocaleInfo(locales, lang),
@@ -54,10 +54,10 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             lastName: clientData?.lastName
         });
     } else {
- 
+
         const documentsGroup2 = {
-            documentsGroup2A : req.body.documentsGroup2A,
-            documentsGroup2B : req.body.documentsGroup2B
+            documentsGroup2A: req.body.documentsGroup2A,
+            documentsGroup2B: req.body.documentsGroup2B
         };
 
         const checkedDocumentsService = new CheckedDocumentsService();

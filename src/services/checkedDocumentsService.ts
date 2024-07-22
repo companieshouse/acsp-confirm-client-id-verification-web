@@ -9,7 +9,7 @@ export interface DocumentsGroup {
 }
 
 export class CheckedDocumentsService {
-    public saveDocuments(req: Request, clientData: ClientData, documents: string | string[]): void {
+    public saveDocuments (req: Request, clientData: ClientData, documents: string | string[]): void {
         const session: Session = req.session as any as Session;
         if (!(documents instanceof Array)) {
             const documentArray = [];
@@ -22,7 +22,7 @@ export class CheckedDocumentsService {
         session.setExtraData(USER_DATA, clientData);
     }
 
-    public saveDocumentGroupAB(req: Request, clientData: ClientData, documents: DocumentsGroup): void {
+    public saveDocumentGroupAB (req: Request, clientData: ClientData, documents: DocumentsGroup): void {
         const session: Session = req.session as any as Session;
         const documentsGroup2A = Array.isArray(documents.documentsGroup2A)
             ? documents.documentsGroup2A

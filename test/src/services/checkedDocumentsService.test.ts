@@ -36,9 +36,6 @@ describe("CheckedDocumentsService tests", () => {
         });
     });
 
-
-
-
     it("should save grouped documents from group 2A and 2B to the session", () => {
         const documentsGroup: DocumentsGroup = {
             documentsGroup2A: ["ukBRC", "photoimmigrationDoc"],
@@ -77,7 +74,5 @@ describe("CheckedDocumentsService tests", () => {
             documentsChecked: []
         });
     });
-
-
 
 });
