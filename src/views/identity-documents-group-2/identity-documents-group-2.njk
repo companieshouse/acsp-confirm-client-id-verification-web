@@ -8,16 +8,16 @@ i18n.identityDocumentsIDVTitle %}
         <h1 class="govuk-heading-l">{{i18n.identityDocumentsIDVTitle}}</h1>
         <p class="govuk-hint">{{i18n.identityDocumentsIDVHint2}} </p>
         {{ govukCheckboxes({
-            name: "documentsGroup2",
+            name: "documentsGroup2A",
             fieldset: {
                 legend: {
-                    text: "Group A",
+                    text: i18n.textGroupA,
                     isPageHeading: true,
                     classes: "govuk-fieldset__legend--m"
                 }
             },
 
-            values: payload.documents,
+            values: payload["documentsGroup2A"],
             items: [
             {
                 value: "passportIrishCard",
@@ -131,16 +131,16 @@ i18n.identityDocumentsIDVTitle %}
         }) }}
 
         {{ govukCheckboxes({
-            name: "documentsGroup3",
+            name: "documentsGroup2B",
             fieldset: {
                 legend: {
-                    text: "Group B",
+                    text: i18n.textGroupB,
                     isPageHeading: true,
                     classes: "govuk-fieldset__legend--m"
                 }
             },
             
-            values: payload.documents,
+            values: payload["documentsGroup2B"],
             items: [
             {
                 value: "birthCert",

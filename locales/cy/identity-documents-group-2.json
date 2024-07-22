@@ -1,7 +1,7 @@
 {
     "identityDocumentsIDVHint2": "Select at least 2 documents. At least 1 of the documents must be from group A. welsh",
-
-
+    "textGroupA": "Group A welsh",
+    "textGroupB":"Group B welsh",
     "passportIrishCard": "Passport or Irish passport card welsh",
     "identityCard": "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein welsh",
     "ukBRP": "UK biometric residence permit (BRP) welsh",
