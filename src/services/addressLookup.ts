@@ -5,7 +5,6 @@ import { BASE_URL } from "../types/pageURL";
 import { ClientData } from "model/ClientData";
 import { UKAddress } from "@companieshouse/api-sdk-node/dist/services/postcode-lookup/types";
 import { getCountryFromKey } from "../utils/web";
-import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA, ADDRESS_LIST } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { Address } from "../model/Address";
@@ -30,14 +29,14 @@ export class AddressLookUpService {
     }
 
     private getAddress (ukAddresses: UKAddress[], inputPremise: string) {
-        const address = ukAddresses.find((address) => address.premise === inputPremise);
+        const foundAddress = ukAddresses.find((address) => address.premise === inputPremise);
         return {
-            propertyDetails: address?.premise,
-            line1: address?.addressLine1,
-            line2: address?.addressLine2,
-            town: address?.postTown,
-            country: getCountryFromKey(address?.country!),
-            postcode: address?.postcode
+            propertyDetails: foundAddress?.premise,
+            line1: foundAddress?.addressLine1,
+            line2: foundAddress?.addressLine2,
+            town: foundAddress?.postTown,
+            country: getCountryFromKey(foundAddress?.country!),
+            postcode: foundAddress?.postcode
         };
     }
 

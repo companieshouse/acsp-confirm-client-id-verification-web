@@ -7,8 +7,8 @@ export interface ClientData {
     dateOfBirth?: Date;
     address?: Address;
     documentsChecked?: string[];
-    emailAddress?: String;
-    confirmEmailAddress?: String
+    emailAddress?: string;
+    confirmEmailAddress?: string;
     howIdentityDocsChecked?: string;
-    whenIdentityChecksCompleted?: Date
+    whenIdentityChecksCompleted?: Date;
 }
