@@ -32,5 +32,7 @@
     
     "utilityBill": "Utility bill (for the person’s current address) welsh",
 
-    "error-identityDocumentsGroup1Empty2": "Select which documents you checked to verify their identity welsh"
+    "error-identityDocumentsGroup1Empty2": "Select which documents you checked to verify their identity welsh",
+    "error-identityDocumentsGroupANotSelected": "Select at least one document from group A welsh",
+    "error-identityDocumentsNo2Selection": "Select at least 2 documents welsh"
 }
