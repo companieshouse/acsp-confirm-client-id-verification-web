@@ -1,9 +1,8 @@
-import { body, ValidationChain } from 'express-validator';
+import { body, ValidationChain } from "express-validator";
 
 export const identityDocsGroup2Validator: ValidationChain[] = [
-    body('documentsGroup2A')
+    body("documentsGroup2A")
         .custom((value, { req }) => {
-
 
             let documentsGroup2A: any[] = [];
             let documentsGroup2B: any[] = [];
@@ -24,8 +23,6 @@ export const identityDocsGroup2Validator: ValidationChain[] = [
                 documentsGroup2B = [req.body.documentsGroup2B];
             }
 
-
-
             if (documentsGroup2A.length === 0 && documentsGroup2B.length === 0) {
                 throw new Error("identityDocumentsGroup1Empty");
 
@@ -36,8 +33,8 @@ export const identityDocsGroup2Validator: ValidationChain[] = [
             if ((documentsGroup2B.length + documentsGroup2A.length) < 2) {
                 throw new Error("identityDocumentsNo2Selection");
             }
-            return true
+            return true;
 
-        }),
+        })
 
 ];
