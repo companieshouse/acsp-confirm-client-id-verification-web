@@ -1,0 +1,225 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %} {% from
+"govuk/components/button/macro.njk" import govukButton %} {% extends "layouts/default.njk" %} {% set title =
+i18n.identityDocumentsIDVTitle %}
+
+{% block main_content %}
+    <form action="" method="POST">
+        {% include "partials/user_name.njk" %}
+        <h1 class="govuk-heading-l">{{i18n.identityDocumentsIDVTitle}}</h1>
+        <p class="govuk-hint">{{i18n.identityDocumentsIDVHint2}} </p>
+        {{ govukCheckboxes({
+            name: "documentsGroup2A",
+            fieldset: {
+                legend: {
+                    text: i18n.textGroupA,
+                    isPageHeading: true,
+                    classes: "govuk-fieldset__legend--m"
+                }
+            },
+
+            values: payload["documentsGroup2A"],
+            items: [
+            {
+                value: "passportIrishCard",
+                text: i18n.passportIrishCard,
+                attributes: {
+                    "data-event-id": "passportIrishCard"
+                }
+            },
+            {
+                value: "identityCard",
+                text: i18n.identityCard,
+                attributes: {
+                    "data-event-id": "identityCard"
+                }
+            },
+            {
+                value: "ukBRP",
+                text: i18n.ukBRP,
+                attributes: {
+                    "data-event-id": "ukBRP"
+                }
+            },
+            {
+                value: "ukBRC",
+                text: i18n.ukBRC,
+                attributes: {
+                    "data-event-id": "ukBRC"
+                }
+            },
+            {
+                value: "passCard",
+                text: i18n.passCard,
+                attributes: {
+                    "data-event-id": "passCard"
+                }
+            },
+            {
+                value: "ukEuDigitalCard",
+                text: i18n.ukEuDigitalCard,
+                attributes: {
+                    "data-event-id": "ukEuDigitalCard"
+                }
+            },
+            {
+                value: "fullDrivingLicense",
+                text: i18n.fullDrivingLicense,
+                attributes: {
+                    "data-event-id": "fullDrivingLicense"
+                }
+            },
+            {
+                value: "ukForceCard",
+                text: i18n.ukForceCard,
+                attributes: {
+                    "data-event-id": "ukForceCard"
+                }
+            },
+            {
+                value: "ukArmedForceCard",
+                text: i18n.ukArmedForceCard,
+                attributes: {
+                    "data-event-id": "ukArmedForceCard"
+                }
+            },
+            {
+                value: "ukFrontierPermit",
+                text: i18n.ukFrontierPermit,
+                attributes: {
+                    "data-event-id": "ukFrontierPermit"
+                }
+            },
+            {
+                value: "photoWorkPermit",
+                text: i18n.photoWorkPermit,
+                attributes: {
+                    "data-event-id": "photoWorkPermit"
+                }
+            },
+            {
+                value: "photoimmigrationDoc",
+                text: i18n.photoimmigrationDoc,
+                attributes: {
+                    "data-event-id": "photoimmigrationDoc"
+                }
+            },
+            {
+                value: "photoVisa",
+                text: i18n.photoVisa,
+                attributes: {
+                    "data-event-id": "photoVisa"
+                }
+            },
+            {
+                value: "ukFirearmsLicence",
+                text: i18n.ukFirearmsLicence,
+                attributes: {
+                    "data-event-id": "ukFirearmsLicence"
+                }
+            },
+            {
+                value: "photoIdPrado",
+                text: i18n.photoIdPrado,
+                hint: {
+                        text: i18n.photoIdPradoHint
+                        },
+                attributes: {
+                    "data-event-id": "photoIdPrado"
+                }
+            }
+            ]
+        }) }}
+
+        {{ govukCheckboxes({
+            name: "documentsGroup2B",
+            fieldset: {
+                legend: {
+                    text: i18n.textGroupB,
+                    isPageHeading: true,
+                    classes: "govuk-fieldset__legend--m"
+                }
+            },
+            
+            values: payload["documentsGroup2B"],
+            items: [
+            {
+                value: "birthCert",
+                text: i18n.birthCert,
+                attributes: {
+                    "data-event-id": "birthCert"
+                }
+            },
+            {
+                value: "marriageCert",
+                text: i18n.marriageCert,
+                attributes: {
+                    "data-event-id": "marriageCert"
+                }
+            },
+            {
+                value: "noPhotoimmigrationDoc",
+                text: i18n.noPhotoimmigrationDoc,
+                attributes: {
+                    "data-event-id": "noPhotoimmigrationDoc"
+                }
+            },
+            {
+                value: "noPhotoVisa",
+                text: i18n.noPhotoVisa,
+                attributes: {
+                    "data-event-id": "noPhotoVisa"
+                }
+            },
+            {
+                value: "noPhotoWorkPermit",
+                text: i18n.noPhotoWorkPermit,
+                attributes: {
+                    "data-event-id": "noPhotoWorkPermit"
+                }
+            },
+            {
+                value: "bankStatement",
+                text: i18n.bankStatement,
+                attributes: {
+                    "data-event-id": "bankStatement"
+                }
+            },
+            {
+                value: "rentalAgreement",
+                text: i18n.rentalAgreement,
+                attributes: {
+                    "data-event-id": "rentalAgreement"
+                }
+            },
+            {
+                value: "morgageStatement",
+                text: i18n.morgageStatement,
+                attributes: {
+                    "data-event-id": "morgageStatement"
+                }
+            },
+            {
+                value: "taxStatement",
+                text: i18n.taxStatement,
+                attributes: {
+                    "data-event-id": "taxStatement"
+                }
+            },
+            {
+                value: "utilityBill",
+                text: i18n.utilityBill,
+                attributes: {
+                    "data-event-id": "utilityBill"
+                }
+            }
+            ]
+        }) }}
+        {{ govukButton({
+            text: i18n.Continue,
+            attributes: {
+                "data-event-id": "CONTINUE - dc1"
+            }
+        }) }}
+    </form>
+
+{% endblock main_content %}
