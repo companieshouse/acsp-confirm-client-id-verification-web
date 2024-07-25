@@ -1,0 +1,144 @@
+{% extends "layouts/default.njk" %}
+{% block backLink %}
+  {# Remove back button on this page by replacing it with nothing #}
+{% endblock %}
+{% set title = "Accessibility statement for the Companies House service" %}
+{% block main_content %}
+  <div id="search-container">
+    <article class="text" id="page-content">
+      <h1 class="govuk-heading-xl">
+        Accessibility statement for the Companies House service
+      </h1>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a href="#about-service">About this service</a>
+        </li>
+        <li>
+          <a href="#how-accessible">How accessible this service is</a>
+        </li>
+        <li>
+          <a href="#reporting-accessibility">Reporting accessibility problems with this service</a>
+        </li>
+        <li>
+          <a href="#enforcement">Enforcement procedure</a>
+        </li>
+        <li>
+          <a href="#technical-information">Technical information about this service’s accessibility</a>
+        </li>
+        <li>
+          <a href="#tested">How we tested this service</a>
+        </li>
+        <li>
+          <a href="#were-doing">What we’re doing to improve accessibility</a>
+        </li>
+      </ul>
+      <h2 class="govuk-heading-m" id="about-service">
+        About this service
+      </h2>
+      <p class="govuk-body">This accessibility statement applies to the ‘Find and update company information' service.</p>
+      <p class="govuk-body">This service is run by
+        <a class="govuk-link" href="https://www.gov.uk/government/organisations/companies-house">Companies House</a>. We want as many people as possible to be able to use this service. For example, that means you should be able to:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>change colours, contrast levels, and fonts</li>
+        <li>zoom in up to 300% without the text disappearing off the screen</li>
+        <li>navigate most of the service using just a keyboard</li>
+        <li>navigate most of the service using speech recognition software</li>
+        <li>listen to most of the service using a screen reader (including the most recent versions of JAWS, NVDA, and VoiceOver)</li>
+      </ul>
+      <p class="govuk-body">We’ve also made the website text simple to understand.</p>
+      <p class="govuk-body">
+        <a class="govuk-link" href="https://mcmw.abilitynet.org.uk/">AbilityNet has advice on making your device easier to use
+          if you have a disability.</a>
+      </p>
+      <h2 class="govuk-heading-m" id="how-accessible">
+        How accessible this service is
+      </h2>
+      <p class="govuk-body">We know some parts of this service aren’t fully accessible:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>some PDF documents are not accessible in a few ways, including missing text alternatives and missing document structure</li>
+      </ul>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>due to a known bug in the Chrome web browser, in some circumstances users of assistive technology such as screen
+          readers may get presented with incorrect information when using our accounts filing service</li>
+      </ul>
+      <h2 class="govuk-heading-m" id="reporting-accessibility">
+        Reporting accessibility problems with this service
+      </h2>
+      <p class="govuk-body">We’re always looking to improve the accessibility of this service. If you find any problems not
+        listed on this page or think we’re not meeting accessibility requirements, you can find contact details on our
+        <a class="govuk-link" href="https://www.gov.uk/guidance/accessibility-support-for-companies-house-users">
+          accessibility support for Companies House users</a>
+        page.
+      </p>
+      <h2 class="govuk-heading-m" id="enforcement">
+        Enforcement procedure
+      </h2>
+      <p class="govuk-body">The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector
+        Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If
+        you’re not happy with how we respond to your complaint,
+        <a class="govuk-link" href="https://www.equalityadvisoryservice.com/">contact the Equality Advisory and Support Service
+          (EASS)</a>.
+      </p>
+      <h2 class="govuk-heading-m" id="technical-information">
+        Technical information about this service’s accessibility
+      </h2>
+      <p class="govuk-body">Companies House is committed to making its website accessible in accordance with the Public Sector
+        Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.</p>
+      <p class="govuk-body">This service is partially compliant with the
+        <a class="govuk-link" href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines version 2.1</a>
+        AA standard, due to the non-compliances listed below.
+      </p>
+      <h2 class="govuk-heading-m">
+        Users of screen reading technology
+      </h2>
+      <p class="govuk-body">In some circumstances, users of screen reader technology may get presented with incorrect
+        information when using our accounts filing service. This doesn’t meet WCAG 2.1 Success Criterion 3.3.2 (Labels or
+        Instructions). This is a known bug in the Chrome web browser - these types of bugs are usually fixed by future updates
+        to the browser.</p>
+      <h2 class="govuk-heading-m">
+        PDFs and other documents
+      </h2>
+      <p class="govuk-body">Many of our PDFs don’t meet accessibility standards - for example, they may not be structured so
+        they’re accessible to a screen reader. This doesn’t meet WCAG 2.1 success criterion 4.1.2 (name, role value). We are
+        currently fixing these PDFs.</p>
+      <h2 class="govuk-heading-m" id="tested">
+        How we tested this service
+      </h2>
+      <p class="govuk-body">We regularly carry out internal tests for compliance with the Web Content Accessibility Guidelines
+        V2.1 level A and level AA using a variety of manual and automated testing tools.</p>
+      <p class="govuk-body">This service was last (externally) audited on 19 July 2022. The audit was carried out by the
+        <a href="https://digitalaccessibilitycentre.org/" class="govuk-link">Digital Accessibility Centre</a>.</p>
+      <p class="govuk-body">They tested:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Sign in/Register</li>
+        <li>Search for a company</li>
+        <li>Search for a company officer</li>
+        <li>Your filings</li>
+        <li>The company profile</li>
+      </ul>
+      <h2 class="govuk-heading-m" id="were-doing">
+        What we’re doing to improve accessibility
+      </h2>
+      <p class="govuk-body">To improve this service's accessibility, we:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>work with real users who have accessibility issues to make sure that our services meet their needs</li>
+        <li>carry out internal tests for compliance with Web Content Accessibility Guidelines V2.1 level A and level AA</li>
+        <li>work with external agencies in major UK cities to perform usability research with users</li>
+        <li>recruit customers through
+          <a class="govuk-link" href="https://www.gov.uk/government/news/help-improve-companies-house">our user panel</a>
+          to take part in sessions at our usability lab in Cardiff</li>
+        <li>build and test our services to meet
+          <a
+            class="govuk-link"
+            href="https://www.gov.uk/service-manual/helping-people-to-use-your-service/making-your-service-accessible-an-introduction#meeting-government-accessibility-requirements">
+          government accessibility requirements</a>
+        </li>
+      </ul>
+      <br>
+        <p class="govuk-body">
+          <a class="govuk-link" href="https://companieshouse.blog.gov.uk/category/user-research/">Read our blogs about usability</a>
+          to find out more about our user research work.</p>
+        <p class="govuk-body">This statement was prepared on 7 May 2020. It was last updated on 30 August 2022.</p>
+      </article>
+    </div>
+  {% endblock %}
