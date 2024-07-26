@@ -19,5 +19,6 @@
     "checksDate": "the date you completed the checks",
     "startTimeout": "It takes around 10 minutes to use this service.",
     "startNow": "Start now",
-    "readThe": "Read the guidance about verifying someone's identity for Companies House"
+    "readText": "Read the ",
+    "readThe": "the guidance about verifying someone's identity for Companies House"
 }
