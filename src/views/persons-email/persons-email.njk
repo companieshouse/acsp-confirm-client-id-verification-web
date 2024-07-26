@@ -9,9 +9,8 @@
             <h1 class="govuk-heading-l">{{i18n.whatIs}} {{firstName}} {{lastName}}{{i18n.emailAddress}}</h1>
            
             {{ govukInput({
-                label: {
-                    text: i18n.theyMustAbleToAccess,
-                    classes: "govuk-hint"
+                hint: {
+                    text: i18n.theyMustAbleToAccess
                 },
                 errorMessage: {
                     text: errors["email-address"].text
