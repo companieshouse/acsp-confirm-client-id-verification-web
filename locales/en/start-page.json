@@ -1,6 +1,8 @@
 {
     "startPageTitle": "Tell Companies House you have verified someone’s identity",
     "useThisService": "Use this service to tell us when you've verified someone's identity for Companies House.",
+    "guidePageVerificationServiceNote" :  "You must have verified the person's identity by completing the checks from ",
+    "linkGuidePageVerificationService" : "Companies House identity verification standard",
     "YouWillBeAble": "You'll be able to add other people who work for the business once you have registered.",
 
     "whatYoullNeedHeading": "What you'll need to tell us about the person",
