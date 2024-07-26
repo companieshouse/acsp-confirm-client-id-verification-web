@@ -1,15 +1,16 @@
 {% extends "layouts/default.njk" %}
 {% set title = i18n.startPageTitle %}
-
 {% block backLink %}
   {# Remove back button on this page by replacing it with nothing #}
 {% endblock %}
-
 {% block main_content %}
   <form action="" method="POST">
     <h1 class="govuk-heading-l">{{ i18n.startPageTitle }}</h1>
     <p class="govuk-body">{{ i18n.useThisService }}</p>
-    
+    <div class="govuk-inset-text">
+      {{ i18n.guidePageVerificationServiceNote }}
+      <a href="https://www.gov.uk/guidance/companies-house-identity-verification-standard">{{ i18n.linkGuidePageVerificationService }}</a>.
+    </div>
     <h2 class="govuk-heading-m">{{ i18n.whatYoullNeedHeading }}</h2>
     <p class="govuk-body">{{ i18n.youllNeed }}</p>
     <ul class="govuk-list govuk-list--bullet">
@@ -18,23 +19,18 @@
       <li>{{ i18n.homeAddress }}</li>
       <li>{{ i18n.emailAddress }}</li>
     </ul>
-
     <h2 class="govuk-heading-m">{{ i18n.whatYoullNeedIdentityHeading }}</h2>
-    
-      <p class="govuk-body">
-        {{ i18n.youMustHave }}
-        <a href="https://www.gov.uk/guidance/companies-house-identity-verification-standard" data-event-id="Click guidance link">{{ i18n.companiesHouseIdentity }}</a>
-        {{ i18n.outLines }}
-      </p>
-
-      <ul class="govuk-list govuk-list--bullet">
+    <p class="govuk-body">
+      {{ i18n.youMustHave }}
+      {{ i18n.companiesHouseIdentity }}
+      {{ i18n.outLines }}
+    </p>
+    <ul class="govuk-list govuk-list--bullet">
       <li>{{ i18n.option1or2 }}</li>
       <li>{{ i18n.documentChecked }}</li>
       <li>{{ i18n.checksDate }}</li>
     </ul>
-    
     <p class="govuk-body">{{ i18n.startTimeout }}</p>
-    
     <button class="govuk-button govuk-button--start" data-module="govuk-button" onClick="_paq.push(['trackGoal', '15'])">
       {{ i18n.startNow }}
       <svg
@@ -48,7 +44,6 @@
         <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
       </svg>
     </button>
-    
     <p>
       <a href="https://www.gov.uk/guidance/verify-someones-identity" data-event-id="Read the guidance">{{ i18n.readThe }}</a>.
     </p>
