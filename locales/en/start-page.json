@@ -1,28 +1,24 @@
 {
     "startPageTitle": "Tell Companies House you have verified someone’s identity",
     "useThisService": "Use this service to tell us when you've verified someone's identity for Companies House.",
-    "guidePageVerificationServiceNote" :  "You must have verified the person's identity by completing the checks from ",
-    "linkGuidePageVerificationService" : "Companies House identity verification standard",
+    "guidePageVerificationServiceNote": "You must have verified the person's identity by completing the checks from ",
+    "linkGuidePageVerificationService": "Companies House identity verification standard",
     "YouWillBeAble": "You'll be able to add other people who work for the business once you have registered.",
-
     "whatYoullNeedHeading": "What you'll need to tell us about the person",
     "youllNeed": "You’ll need to tell us their:",
     "fullName": "full name",
     "dob": "date of birth",
     "homeAddress": "home address",
     "emailAddress": "email address",
-
     "whatYoullNeedIdentityHeading": "What you'll need to tell us about the identity checks",
-
     "youMustHave": "You must have completed the checks outlined in our",
     "companiesHouseIdentity": "identity verification standard",
     "outLines": "There are 2 options for checking identity documents in the standard. you'll need to tell us:",
-
     "option1or2": "whether you used option 1 or 2",
     "documentChecked": "which documents you checked",
     "checksDate": "the date you completed the checks",
-
     "startTimeout": "It takes around 10 minutes to use this service.",
     "startNow": "Start now",
-    "readThe": "Read the guidance about verifying someone's identity for Companies House"
+    "readText": "Read the ",
+    "readThe": "guidance about verifying someone's identity for Companies House"
 }
