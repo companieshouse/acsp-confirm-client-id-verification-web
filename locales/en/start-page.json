@@ -9,7 +9,7 @@
     "fullName": "full name",
     "dob": "date of birth",
     "homeAddress": "home address",
-    "emailAddress": "email address",
+    "emailAddress1": "email address",
     "whatYoullNeedIdentityHeading": "What you'll need to tell us about the identity checks",
     "youMustHave": "You must have completed the checks outlined in our",
     "companiesHouseIdentity": "identity verification standard",
