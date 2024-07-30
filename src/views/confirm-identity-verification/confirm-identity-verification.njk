@@ -1,0 +1,44 @@
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "layouts/default.njk" %}
+{% set title = i18n.confirmVerificationHeading %}
+{% block main_content %}
+
+{% set checkBoxText = "<p>" + i18n.confirmationStatement1 + " ACSP NAME " + i18n.confirmationStatement2 + " " + firstName + " " + lastName + " " + i18n.confirmationStatement3 + formattedDate + 
+    "</p><br><p> ACSP NAME " + i18n.isSupervisedBy + " AML Bodies.</p>"%}
+
+{% include "partials/user_name.njk" %}
+<h1 class="govuk-heading-l">{{ i18n.confirmVerificationHeading }}</h1>
+<form action="" method="POST">
+    {{ govukCheckboxes({
+        name: "declaration",
+        errorMessage: errors.declaration if errors,
+        fieldset: {
+            legend: {
+                text: i18n.declarationSubHeading,
+                classes: "govuk-fieldset__legend--m"
+            }
+        },
+        items: [
+        {
+            value: "confirm",
+            html: checkBoxText
+        }
+        ]
+    }) }}
+
+    <div class="govuk-inset-text">
+        <h2 class="govuk-heading-m">{{ i18n.informationShownOnPublicRegister }}</h2>
+        <p>{{ i18n.showThisDeclaration }}</p>
+    </div>
+
+    {{ govukButton({
+        text: i18n.Continue,
+        attributes: {
+        "data-event-id": "CONTINUE"
+        }
+    }) }}
+</form>
+
+{% endblock main_content %}

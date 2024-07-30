@@ -1,0 +1,12 @@
+{
+    "confirmVerificationHeading": "Confirm you have verified this person's identity",
+    "declarationSubHeading": "Declaration",
+    "confirmationStatement1": "I confirm that",
+    "confirmationStatement2": "verified the identity of",
+    "confirmationStatement3": " to the standard set by Companies House and is satisfied that the required personal information is true. The verification checks were completed on ",
+    "isSupervisedBy": "is supervised by",
+    "informationShownOnPublicRegister": "What information we'll show on the public register",
+    "showThisDeclaration": "We will show this declaration as part of any records about the person on the online Companies House register.",
+
+    "error-declarationNotChecked": "Select to confirm you have verified their identity"
+}
