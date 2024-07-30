@@ -6,7 +6,7 @@ jest.mock("@companieshouse/api-sdk-node");
 const router = supertest(app);
 
 describe("GET " + CONFIRM_IDENTITY_VERIFICATION, () => {
-    it("should render the confirmation page with status 200 ans display the information on the screen", async () => {
+    it("should render the confirmation page with status 200 and display the information on the screen", async () => {
         const res = await router.get(BASE_URL + CONFIRM_IDENTITY_VERIFICATION);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();

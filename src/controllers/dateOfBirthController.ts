@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
-import { BASE_URL, DATE_OF_BIRTH, EMAIL_ADDRESS, WHEN_IDENTITY_CHECKS_COMPLETED } from "../types/pageURL";
+import { BASE_URL, DATE_OF_BIRTH, EMAIL_ADDRESS, HOME_ADDRESS } from "../types/pageURL";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA } from "../utils/constants";
@@ -66,6 +66,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             );
             clientData.dateOfBirth = dateOfBirth;
         }
-        res.redirect(addLangToUrl(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED, lang));
+        res.redirect(addLangToUrl(BASE_URL + HOME_ADDRESS, lang));
     }
 };
