@@ -5,7 +5,7 @@ import { BASE_URL, CONFIRM_IDENTITY_VERIFICATION, CHECK_YOUR_ANSWERS } from "../
 jest.mock("@companieshouse/api-sdk-node");
 const router = supertest(app);
 
-describe("GET" + CONFIRM_IDENTITY_VERIFICATION, () => {
+describe("GET " + CONFIRM_IDENTITY_VERIFICATION, () => {
     it("should render the confirmation page with status 200 ans display the information on the screen", async () => {
         const res = await router.get(BASE_URL + CONFIRM_IDENTITY_VERIFICATION);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
@@ -15,7 +15,7 @@ describe("GET" + CONFIRM_IDENTITY_VERIFICATION, () => {
     });
 });
 
-describe("POST CONFIRM_HOME_ADDRESS", () => {
+describe("POST " + CONFIRM_IDENTITY_VERIFICATION, () => {
     it("should return status 302 after redirect", async () => {
         const res = await router.post(BASE_URL + CONFIRM_IDENTITY_VERIFICATION).send({ declaration: "confirm" });
         expect(res.status).toBe(302);
