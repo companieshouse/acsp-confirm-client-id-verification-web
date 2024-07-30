@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, DATE_OF_BIRTH, WHEN_IDENTITY_CHECKS_COMPLETED } from "../../../src/types/pageURL";
+import { BASE_URL, DATE_OF_BIRTH, HOME_ADDRESS } from "../../../src/types/pageURL";
 
 const router = supertest(app);
 
@@ -25,7 +25,7 @@ describe("POST" + DATE_OF_BIRTH, () => {
         };
         const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData);
         expect(res.status).toBe(302);
-        expect(res.header.location).toBe(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED + "?lang=en");
+        expect(res.header.location).toBe(BASE_URL + HOME_ADDRESS + "?lang=en");
     });
 
     // Test for incorrect form details entered, will return 400.
