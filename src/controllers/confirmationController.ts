@@ -16,7 +16,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         previousPage: addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang),
         ...getLocaleInfo(locales, lang),
         currentUrl: BASE_URL + CONFIRMATION,
-        firstName: clientData?.firstName,
-        lastName: clientData?.lastName
+        clientData
     });
 };
