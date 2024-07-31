@@ -13,3 +13,4 @@ export * as identityDocumentsCheckedGroup2Controller from "./identityDocumentsCh
 export * as personsEmailController from "./personsEmailController";
 export * as howIdentityDocumentsCheckedController from "./howIdentityDocumentsCheckedController";
 export * as whenIdentityChecksCompletedController from "./whenIdentityChecksCompletedController";
+export * as checkYourAnswersController from "./checkYourAnswers";

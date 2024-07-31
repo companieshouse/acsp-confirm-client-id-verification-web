@@ -28,3 +28,4 @@ export const IDENTITY_DOCUMETS_GROUP_1 = `${BASE_VIEWS_URL}/identity-documents-g
 export const IDENTITY_DOCUMETS_GROUP_2 = `${BASE_VIEWS_URL}/identity-documents-group-2/identity-documents-group-2`;
 export const HOW_IDENTITY_DOCUMENTS_CHECKED = `${BASE_VIEWS_URL}/how-identity-documents-checked/how-identity-documents-checked`;
 export const WHEN_IDENTITY_CHECKS_COMPLETED = `${BASE_VIEWS_URL}/identity-checks-completed/identity-checks-completed`;
+export const CHECK_YOUR_ANSWERS = `${BASE_VIEWS_URL}/check-your-answers/check-your-answers`;

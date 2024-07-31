@@ -14,7 +14,8 @@ import {
     identityDocumentsCheckedGroup2Controller,
     howIdentityDocumentsCheckedController,
     personsEmailController,
-    whenIdentityChecksCompletedController
+    whenIdentityChecksCompletedController,
+    checkYourAnswersController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -72,5 +73,8 @@ routes.post(urls.WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator("wicc"), whenIden
 
 routes.get(urls.EMAIL_ADDRESS, personsEmailController.get);
 routes.post(urls.EMAIL_ADDRESS, emailValidator, personsEmailController.post);
+
+routes.get(urls.CHECK_YOUR_ANSWERS, checkYourAnswersController.get);
+routes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswersController.post);
 
 export default routes;
