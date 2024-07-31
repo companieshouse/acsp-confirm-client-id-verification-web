@@ -9,145 +9,70 @@
     rows: [
       {
         key: {
-          text: "Name"
+          text: i18n.name
         },
         value: {
-          text: "Sarah Philips"
-        },
-        actions: {
-            items: [
-              {
-                href: "/register-as-companies-house-authorised-agent/unincorporated/name-registered-with-aml" + "?lang=" + lang,
-                text: "Change",
-                visuallyHiddenText: i18n.checkAnswersNameWithAML
-              }
-            ]
-          }
+          text: clientData.firstName + " " + clientData.lastName
+        }
       },
-    {
-      key: {
-        text: "Email address"
-      },
-      value: {
-        html: "james@jamesaccounting.com"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "address"
-          }
-        ]
-      }
-    },
       {
         key: {
-          text: "Date of birth"
+          text: i18n.emailAddressConfirmation
         },
         value: {
-          text: "5 January 1978"
-        },
-        actions: {
-            items: [
-              {
-                href: "/register-as-companies-house-authorised-agent/unincorporated/what-is-your-name" + "?lang=" + lang,
-                text: "Change",
-                visuallyHiddenText: "date of birth"
-          }
-        ]
-      }
-    },
+          text: clientData.emailAddress
+        }
+      },
       {
         key: {
-          text: "Home address"
+          text: i18n.dateOfBirth
         },
         value: {
-          text: "7 Wentloog Road, Rumney, Cardiff,Wales,CF3 3EA"
+          text: clientData.dateOfBirth
+        }
+      },
+      {
+        key: {
+          text: i18n.homeAdd
         },
-        actions: {
-            items: [
-              {
-                href: "/register-as-companies-house-authorised-agent/unincorporated/what-is-the-business-name" + "?lang=" + lang,
-                text: "Change",
-                visuallyHiddenText: "Home address"
-              }
-            ]
-          }
+        value: {
+          text: clientData.address
+        }
       },
-          {
-      key: {
-        text: "Date identity checks were completed"
+      {
+        key: {
+          text: i18n.dateIdentityCompleted
+        },
+        value: {
+          text: clientData.whenIdentityChecksCompleted
+        }
       },
-      value: {
-        html: "Hellllllllooooooooo"
+      {
+        key: {
+          text: i18n.optionUsed
+        },
+        value: {
+          text: clientData.howIdentityDocsChecked
+        }
       },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "Date identity checks were completed"
-          }
-        ]
+      {
+        key: {
+          text: i18n.identityDoc
+        },
+        value: {
+          text: clientData.documentsChecked
+        }
+      },
+      {
+        key: {
+          text: i18n.identityVerification
+        },
+        value: {
+          text: clientData.firstName
+        }
       }
-    },
-    {
-      key: {
-        text: "Option used to check identity documents"
-      },
-      value: {
-        text: "Option 2 - the documents were checked by a person"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "Option used to check identity documents"
-          }
-        ]
-      }
-    },
-    {
-      key: {
-        text: "Identity documents that were checked"
-      },
-      value: {
-        html: "Current signed passport"
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "Identity documents that were checked"
-          }
-        ]
-      }
-    },
-    {
-      key: {
-        text: "Identity verification declaration"
-      },
-      value: {
-        text: " declaration	
-I confirm that JAMES ACCOUNTING LTD verified the identity of James Morris to the standard set by Companies House and is satisfied that the required personal information is true. The verification checks were completed .
-
-JAMES ACCOUNTING LTD is supervised by Association of Chartered Certified Accountants."
-      },
-      actions: {
-        items: [
-          {
-            href: "#",
-            text: "Change",
-            visuallyHiddenText: "Identity verification declaration"
-          }
-        ]
-      }
-    }
-  ]
-}) }}      
+    ]
+  }) }}
 
 <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
