@@ -15,7 +15,8 @@ import {
     howIdentityDocumentsCheckedController,
     personsEmailController,
     whenIdentityChecksCompletedController,
-    confirmIdentityVerificationController
+    confirmIdentityVerificationController,
+    confirmationController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -77,5 +78,7 @@ routes.post(urls.EMAIL_ADDRESS, emailValidator, personsEmailController.post);
 
 routes.get(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationController.get);
 routes.post(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationValidator, confirmIdentityVerificationController.post);
+
+routes.get(urls.CONFIRMATION, confirmationController.get);
 
 export default routes;
