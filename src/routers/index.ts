@@ -15,7 +15,8 @@ import {
     howIdentityDocumentsCheckedController,
     personsEmailController,
     whenIdentityChecksCompletedController,
-    checkYourAnswersController
+    checkYourAnswersController,
+    confirmIdentityVerificationController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -28,6 +29,7 @@ import { dateValidator } from "../validations/dateValidationCommon";
 import { howIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
 import { identityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 import { identityDocsGroup2Validator } from "../validations/identityDocumentsGroup2";
+import { confirmIdentityVerificationValidator } from "validations/confirmIdentityVerification";
 
 const routes = Router();
 
@@ -74,7 +76,10 @@ routes.post(urls.WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator("wicc"), whenIden
 routes.get(urls.EMAIL_ADDRESS, personsEmailController.get);
 routes.post(urls.EMAIL_ADDRESS, emailValidator, personsEmailController.post);
 
+routes.get(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationController.get);
+routes.post(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationValidator, confirmIdentityVerificationController.post);
+
 routes.get(urls.CHECK_YOUR_ANSWERS, checkYourAnswersController.get);
-routes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswersController.post);
+//routes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswersController.post);
 
 export default routes;
