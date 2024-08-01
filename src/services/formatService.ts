@@ -54,10 +54,8 @@ export class FormatService {
         //     ukBRC: "UK Biometric Residence Card",
         //     birthCert: "Birth certificate",
         //     marriageCert: "Marriage certificate"
-        //     // Add other mappings as needed
         // };
 
-        // Use a mapped description or default to the raw document name if not found
         return documents
             //.map(doc => documentMapping[doc] || doc)
             .join('<br>');
