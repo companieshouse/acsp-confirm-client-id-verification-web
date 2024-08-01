@@ -58,7 +58,7 @@
           text: i18n.homeAdd
         },
         value: {
-          text: clientData.address
+          text: clientData.address | safe
         }
       },
       {
@@ -82,7 +82,7 @@
           text: i18n.identityDoc
         },
         value: {
-          text: clientData.documentsChecked
+          text: clientData.documentsChecked | safe
         }
       },
       {
@@ -90,7 +90,7 @@
           text: i18n.identityVerification
         },
         value: {
-          text: clientData.firstName
+          text: i18n.iConfirm + " ACSP NAME " + i18n.verifiedThe + clientData.firstName + " " + clientData.lastName + i18n.toTheStandard + i18n.isSupervised
         }
       }
     ]

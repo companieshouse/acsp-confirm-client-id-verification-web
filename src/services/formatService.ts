@@ -1,24 +1,37 @@
 import { Address } from "../model/Address";
-  export class FormatService {
+export class FormatService {
     public static formatAddress(address?: Address): string {
-        
       if (!address) {
         return '';
       }
-      return [
-        address.propertyDetails,
-        address.line1 += "<br>" +
-        address.line2,
-        address.town,
-        address.county,
-        address.country,
-        address.postcode
-      ]
-      .filter(Boolean) 
-      .join('\n');
+  
+      let formattedAddress = address.propertyDetails +
+      " " + address?.line1;
+  
+      if (address.line2) {
+        formattedAddress += formattedAddress ? `<br>${address.line2}` : address.line2;
+      }
+  
+      if (address.town) {
+        formattedAddress += formattedAddress ? `<br>${address.town}` : address.town;
+      }
+  
+      if (address.county) {
+        formattedAddress += formattedAddress ? `<br>${address.county}` : address.county;
+      }
+  
+      if (address.country) {
+        formattedAddress += formattedAddress ? `<br>${address.country}` : address.country;
+      }
+  
+      if (address.postcode) {
+        formattedAddress += formattedAddress ? `<br>${address.postcode}` : address.postcode;
+      }
+  
+      return formattedAddress;
     }
 
-  public static formatDate(date?: Date): string {
+    public static formatDate(date?: Date): string {
     if (!date) {
       return '';
     }
@@ -28,4 +41,39 @@ import { Address } from "../model/Address";
     const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'long', year: 'numeric' };
     return new Intl.DateTimeFormat('en-GB', options).format(date);
   }
+
+    public static formatDocumentsChecked(documents?: string[]): string {
+        if (!documents || documents.length === 0) {
+            return '';
+        }
+
+        // const documentMapping: { [key: string]: string } = {
+        //     passportIrishCard: "Current signed passport",
+        //     identityCard: "Photo driving licence",
+        //     ukBRP: "UK Biometric Residence Permit",
+        //     ukBRC: "UK Biometric Residence Card",
+        //     birthCert: "Birth certificate",
+        //     marriageCert: "Marriage certificate"
+        //     // Add other mappings as needed
+        // };
+
+        // Use a mapped description or default to the raw document name if not found
+        return documents
+            //.map(doc => documentMapping[doc] || doc)
+            .join('<br>');
+    }
+
+    // public static formatHowIdentityDocsChecked(option: string | undefined, i18n: any): string {
+    //     if (!option) {
+    //         return '';
+    //     }
+
+    //     const optionsMapping: { [key: string]: string } = {
+    //         "Option 1": `${i18n.howIdentityDocsCheckedOption1} - ${i18n.howIdentityDocsCheckedOption1hint}`,
+    //         "Option 2": `${i18n.howIdentityDocsCheckedOption2} - ${i18n.howIdentityDocsCheckedOption2hint}`
+    //     };
+
+    //     return optionsMapping[option] || option;
+    // }
+
 }
