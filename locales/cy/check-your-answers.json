@@ -18,5 +18,8 @@
     "dateIdentityCompleted": "Date identity checks were completed welsh",
     "optionUsed": "Option used to check identity documents welsh",
     "identityDoc": "Identity documents that were checked welsh",
-    "identityVerification": "Identity verification declaration welsh"
+    "identityVerification": "Identity verification declaration welsh",
+    "checkAnswerOption1": "Option 1 - the documents were checked by a person welsh",
+    "checkAnswerOption2": "Option 2 - the documents were checked by a person welsh"
+
 }

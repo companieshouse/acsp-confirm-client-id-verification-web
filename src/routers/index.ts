@@ -29,7 +29,7 @@ import { dateValidator } from "../validations/dateValidationCommon";
 import { howIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
 import { identityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 import { identityDocsGroup2Validator } from "../validations/identityDocumentsGroup2";
-import { confirmIdentityVerificationValidator } from "validations/confirmIdentityVerification";
+import { confirmIdentityVerificationValidator } from "../validations/confirmIdentityVerification";
 
 const routes = Router();
 
@@ -80,6 +80,6 @@ routes.get(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationContro
 routes.post(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationValidator, confirmIdentityVerificationController.post);
 
 routes.get(urls.CHECK_YOUR_ANSWERS, checkYourAnswersController.get);
-//routes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswersController.post);
+// routes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswersController.post);
 
 export default routes;

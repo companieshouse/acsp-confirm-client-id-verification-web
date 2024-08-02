@@ -18,5 +18,7 @@
     "dateIdentityCompleted": "Date identity checks were completed",
     "optionUsed": "Option used to check identity documents",
     "identityDoc": "Identity documents that were checked",
-    "identityVerification": "Identity verification declaration"
+    "identityVerification": "Identity verification declaration",
+    "checkAnswerOption1": "Option 1 - the documents were checked by a person",
+    "checkAnswerOption2": "Option 2 - the documents were checked by a person"
 }
