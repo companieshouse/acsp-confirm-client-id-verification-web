@@ -29,3 +29,4 @@ export const IDENTITY_DOCUMETS_GROUP_2 = `${BASE_VIEWS_URL}/identity-documents-g
 export const HOW_IDENTITY_DOCUMENTS_CHECKED = `${BASE_VIEWS_URL}/how-identity-documents-checked/how-identity-documents-checked`;
 export const WHEN_IDENTITY_CHECKS_COMPLETED = `${BASE_VIEWS_URL}/identity-checks-completed/identity-checks-completed`;
 export const CONFIRM_IDENTITY_VERIFICATION = `${BASE_VIEWS_URL}/confirm-identity-verification/confirm-identity-verification`;
+export const SIGN_OUT_PAGE = `${BASE_VIEWS_URL}/sign-out-page/sign-out`;
