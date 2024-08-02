@@ -15,3 +15,4 @@ export * as howIdentityDocumentsCheckedController from "./howIdentityDocumentsCh
 export * as whenIdentityChecksCompletedController from "./whenIdentityChecksCompletedController";
 export * as confirmationController from "./confirmationController";
 export * as confirmIdentityVerificationController from "./confirmIdentityVerificationController";
+export * as signOutController from "./signOutController";

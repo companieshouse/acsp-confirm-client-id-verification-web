@@ -31,3 +31,4 @@ export const WHEN_IDENTITY_CHECKS_COMPLETED = `${BASE_VIEWS_URL}/identity-checks
 
 export const CONFIRMATION = `${BASE_VIEWS_URL}/confirmation/confirmation`;
 export const CONFIRM_IDENTITY_VERIFICATION = `${BASE_VIEWS_URL}/confirm-identity-verification/confirm-identity-verification`;
+export const SIGN_OUT_PAGE = `${BASE_VIEWS_URL}/sign-out-page/sign-out`;

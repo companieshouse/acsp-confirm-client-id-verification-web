@@ -16,6 +16,7 @@ import {
     personsEmailController,
     whenIdentityChecksCompletedController,
     confirmIdentityVerificationController,
+    signOutController,
     confirmationController
 } from "../controllers";
 
@@ -30,6 +31,7 @@ import { howIdentityDocsCheckedValidator } from "../validations/howIdentityDocsC
 import { identityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 import { identityDocsGroup2Validator } from "../validations/identityDocumentsGroup2";
 import { confirmIdentityVerificationValidator } from "../validations/confirmIdentityVerification";
+import { selectsignOutValidator } from "../validations/signOut";
 
 const routes = Router();
 
@@ -79,6 +81,8 @@ routes.post(urls.EMAIL_ADDRESS, emailValidator, personsEmailController.post);
 routes.get(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationController.get);
 routes.post(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationValidator, confirmIdentityVerificationController.post);
 
-routes.get(urls.CONFIRMATION, confirmationController.get);
+routes.get(urls.SIGN_OUT_URL, signOutController.get);
+routes.post(urls.SIGN_OUT_URL, selectsignOutValidator, signOutController.post);
 
+routes.get(urls.CONFIRMATION, confirmationController.get);
 export default routes;

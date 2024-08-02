@@ -1,0 +1,10 @@
+{
+    "signoutTitle": "Are you sure you want to sign out? welsh",
+    "signoutOptionHintText": "Your application will be saved in Your filings. welsh",
+    "signoutYesButtonText": "Yes welsh",
+    "signoutNoButtonText": "No welsh",
+    "signoutHowHintText": "How do I find my saved applications? welsh",
+    "signoutHowHintDetailsText": "Sign in to your Companies House account and select Your filings to access your saved applications. welsh",
+
+    "error-signoutNoInputError": "Select yes if you want to sign out welsh"
+}
