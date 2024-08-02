@@ -1,10 +1,14 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "layouts/default.njk" %}
 {% block main_content %}
+
+{% set textContent = + i18n.checkYourAnswersDeclarationText1 + " ACSP NAME " + i18n.checkYourAnswersDeclarationText2 + " " + firstName + " " + lastName + i18n.checkYourAnswersDeclarationText3 %}
+
     <form action="" method="POST">
-        <h1 class="govuk-heading-xl">Check your answers before sending your application</h1>
-        <h2 class="govuk-heading-m">Details for James  Morris</h2>
+        <h1 class="govuk-heading-xl">{{i18n.checkYourAnswersHeading}}</h1>
+        <h2 class="govuk-heading-m">{{i18n.checkYourAnswersDocHeading + i18n.clientData.firstName + " " + i18n.clientData.lastName}}</h2>
         {{ govukSummaryList({
     rows: [
       {
@@ -13,86 +17,155 @@
         },
         value: {
           text: clientData.firstName + " " + clientData.lastName
-        }
-      },
-      {
-        key: {
-          text: i18n.emailAddressConfirmation
         },
-        value: {
-          text: clientData.emailAddress
-        }
+        actions: {
+            items: [
+              {
+                href: "/tell-companies-house-you-have-verified-someones-identity/what-is-the-persons-name" + "?lang=" + lang,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: i18n.checkAnswersNameWithAML
+              }
+            ]
+          }
       },
+    {
+      key: {
+        text: i18n.emailAddressConfirmation
+      },
+      value: {
+        html: clientData.emailAddress
+      },
+      actions: {
+        items: [
+          {
+            href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-email-address" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: "address"
+          }
+        ]
+      }
+    },
       {
         key: {
           text: i18n.dateOfBirth
         },
         value: {
           text: clientData.dateOfBirth
-        }
-      },
+        },
+        actions: {
+            items: [
+              {
+                href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-date-of-birth" + "?lang=" + lang,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: "date of birth"
+          }
+        ]
+      }
+    },
       {
         key: {
           text: i18n.homeAdd
         },
         value: {
-          text: clientData.address
-        }
-      },
-      {
-        key: {
-          text: i18n.dateIdentityCompleted
+          text: clientData.address | safe
         },
-        value: {
-          text: clientData.whenIdentityChecksCompleted
-        }
+        actions: {
+            items: [
+              {
+                href: "/register-as-companies-house-authorised-agent/unincorporated/what-is-their-home-address" + "?lang=" + lang,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: "Home address"
+              }
+            ]
+          }
       },
-      {
-        key: {
-          text: i18n.optionUsed
-        },
-        value: {
-          text: clientData.howIdentityDocsChecked
-        }
+          {
+      key: {
+        text: i18n.dateIdentityCompleted
       },
-      {
-        key: {
-          text: i18n.identityDoc
-        },
-        value: {
-          text: clientData.documentsChecked
-        }
+      value: {
+        html: clientData.whenIdentityChecksCompleted
       },
-      {
-        key: {
-          text: i18n.identityVerification
-        },
-        value: {
-          text: clientData.firstName
-        }
+      actions: {
+        items: [
+          {
+            href: "/tell-companies-house-you-have-verified-someones-identity/identity-checks-completed" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: "Date identity checks were completed"
+          }
+        ]
       }
-    ]
-  }) }}
+    },
+    {
+      key: {
+        text: i18n.optionUsed
+      },
+      value: {
+        text: clientData.howIdentityDocsChecked
+      },
+      actions: {
+        items: [
+          {
+            href: "/tell-companies-house-you-have-verified-someones-identity/how-were-identity-documents-checked" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: "Option used to check identity documents"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: i18n.identityDoc
+      },
+      value: {
+        html: clientData.documentsChecked | safe
+      },
+      actions: {
+        items: [
+          {
+            href: "/tell-companies-house-you-have-verified-someones-identity/confirm-you-verified-their-identity" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: "Identity documents that were checked"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: i18n.identityVerification
+      },
+      value: {
+        text: i18n.iConfirm + " ACSP NAME " + i18n.verifiedThe + clientData.firstName + " " + clientData.lastName + i18n.toTheStandard + i18n.isSupervised
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: "Identity verification declaration"
+          }
+        ]
+      }
+    }
+  ]
+}) }}      
+    {{ govukCheckboxes({
+        name: "declaration",
+        errorMessage: errors.declaration if errors,
+        fieldset: {
+            legend: {
+                text: i18n.declarationSubHeading,
+                classes: "govuk-fieldset__legend--m"
+            }
+        },
+        items: [
+        {
+            value: "confirm",
+            html: textContent
+        }
+        ]
+    }) }}
 
-<div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            <h2 class="govuk-fieldset__heading">
-             Declaration
-            </h2>
-          </legend>
-          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-            <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
-              <label class="govuk-label govuk-checkboxes__label" for="waste-3">
-               I confirm that JAMES ACCOUNTING LTD has delivered the date of birth and required contact information for James  Morris, and a description of the information and evidence used to satisfy that the required personal information is true.
-
-              </label>
-            </div>
-          </div>
-        </fieldset>
-      </div>
-      
         {{ govukButton({
             text: i18n.continueSend
            }) }}
