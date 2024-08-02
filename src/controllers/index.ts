@@ -14,3 +14,4 @@ export * as personsEmailController from "./personsEmailController";
 export * as howIdentityDocumentsCheckedController from "./howIdentityDocumentsCheckedController";
 export * as whenIdentityChecksCompletedController from "./whenIdentityChecksCompletedController";
 export * as confirmIdentityVerificationController from "./confirmIdentityVerificationController";
+export * as signOutController from "./signOutController";
