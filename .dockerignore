@@ -8,3 +8,4 @@
 !docker_start.sh
 !assets
 !locales
+!node_modules
