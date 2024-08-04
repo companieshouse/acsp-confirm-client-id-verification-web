@@ -1,7 +1,7 @@
 import { FormatService } from "../../../src/services/formatService";
 import { Address } from "../../../src/model/Address";
 
-describe("ConfirmFormatService tests", () => {
+describe("FormatService tests", () => {
 
     describe("formatAddress", () => {
         it("should return an empty string if no address is provided", () => {
@@ -55,6 +55,34 @@ describe("ConfirmFormatService tests", () => {
             };
             const result = FormatService.formatAddress(address);
             const expected = "1234567890 Elm Street, Suite 500 Baker Street<br>London<br>NW1 6XE";
+            expect(result).toBe(expected);
+        });
+
+        it("should format address correctly with only propertyDetails and no line1", () => {
+            const address: Address = {
+                propertyDetails: "Flat 1"
+            };
+            const result = FormatService.formatAddress(address);
+            const expected = "Flat 1";
+            expect(result).toBe(expected);
+        });
+
+        it("should format address correctly with only line1 and no propertyDetails", () => {
+            const address: Address = {
+                line1: "Baker Street"
+            };
+            const result = FormatService.formatAddress(address);
+            const expected = "Baker Street";
+            expect(result).toBe(expected);
+        });
+
+        it("should format address correctly with propertyDetails and line1, but no other fields", () => {
+            const address: Address = {
+                propertyDetails: "Flat 1",
+                line1: "Baker Street"
+            };
+            const result = FormatService.formatAddress(address);
+            const expected = "Flat 1 Baker Street";
             expect(result).toBe(expected);
         });
     });

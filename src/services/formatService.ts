@@ -5,31 +5,40 @@ export class FormatService {
         if (!address) {
             return "";
         }
-
-        let formattedAddress = address.propertyDetails +
-      " " + address?.line1;
+        const parts: string[] = [];
+        if (address.propertyDetails || address.line1) {
+            let combinedLine = "";
+            if (address.propertyDetails) {
+                combinedLine += address.propertyDetails;
+            }
+            if (address.line1) {
+                combinedLine += (combinedLine ? " " : "") + address.line1;
+            }
+            parts.push(combinedLine);
+        }
 
         if (address.line2) {
-            formattedAddress += formattedAddress ? `<br>${address.line2}` : address.line2;
+            parts.push(address.line2);
         }
 
         if (address.town) {
-            formattedAddress += formattedAddress ? `<br>${address.town}` : address.town;
+            parts.push(address.town);
         }
 
         if (address.county) {
-            formattedAddress += formattedAddress ? `<br>${address.county}` : address.county;
+            parts.push(address.county);
         }
 
         if (address.country) {
-            formattedAddress += formattedAddress ? `<br>${address.country}` : address.country;
+            parts.push(address.country);
         }
 
         if (address.postcode) {
-            formattedAddress += formattedAddress ? `<br>${address.postcode}` : address.postcode;
+            parts.push(address.postcode);
         }
 
-        return formattedAddress;
+        // Join the parts with `<br>` and return the formatted address
+        return parts.join("<br>");
     }
 
     public static formatDate (date?: Date): string {
