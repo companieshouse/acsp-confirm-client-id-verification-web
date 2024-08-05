@@ -4,7 +4,15 @@
 {% extends "layouts/default.njk" %}
 {% block main_content %}
 
-{% set textContent = + i18n.checkYourAnswersDeclarationText1 + " ACSP NAME " + i18n.checkYourAnswersDeclarationText2 + " " + firstName + " " + lastName + i18n.checkYourAnswersDeclarationText3 %}
+{% set textContent = i18n.checkYourAnswersDeclarationText1 + " ACSP NAME " + i18n.checkYourAnswersDeclarationText2 + " " + firstName + " " + lastName + i18n.checkYourAnswersDeclarationText3 %}
+
+
+{% set identityDocHref = "" %}
+{% if clientData.optionUsed == "Option 1 - The identity documents were checked using identity document validation technology (IDVT)." or clientData.whenIdentityChecksCompleted == "Option 1 - The identity documents were checked using identity document validation technology (IDVT). Welsh" %}
+    {% set identityDocHref = "/tell-companies-house-you-have-verified-someones-identity/identity-documents-checked-group-1" + "?lang=" + lang %}
+{% elseif clientData.optionUsed == "Option 2 - The identity documents were checked by a person." or clientData.whenIdentityChecksCompleted == "Option 2 - The identity documents were checked by a person. Welsh" %}
+    {% set identityDocHref = "/tell-companies-house-you-have-verified-someones-identity/identity-documents-checked-group-2" + "?lang=" + lang %}
+{% endif %}
 
     <form action="" method="POST">
         <h1 class="govuk-heading-xl">{{i18n.checkYourAnswersHeading}}</h1>
@@ -72,7 +80,7 @@
         actions: {
             items: [
               {
-                href: "/register-as-companies-house-authorised-agent/unincorporated/what-is-their-home-address" + "?lang=" + lang,
+                href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-home-address" + "?lang=" + lang,
                 text: i18n.checkAnswerDetailsChange,
                 visuallyHiddenText: "Home address"
               }
@@ -123,7 +131,7 @@
       actions: {
         items: [
           {
-            href: "/tell-companies-house-you-have-verified-someones-identity/confirm-you-verified-their-identity" + "?lang=" + lang,
+            href: identityDocHref,
             text: i18n.checkAnswerDetailsChange,
             visuallyHiddenText: "Identity documents that were checked"
           }
@@ -140,7 +148,7 @@
       actions: {
         items: [
           {
-            href: "#",
+            href: "/tell-companies-house-you-have-verified-someones-identity/confirm-you-verified-their-identity" + "?lang=" + lang,
             text: i18n.checkAnswerDetailsChange,
             visuallyHiddenText: "Identity verification declaration"
           }
@@ -150,8 +158,8 @@
   ]
 }) }}      
     {{ govukCheckboxes({
-        name: "declaration",
-        errorMessage: errors.declaration if errors,
+        name: "checkYourAnswerDeclaration",
+        errorMessage: errors.checkYourAnswerDeclaration if errors,
         fieldset: {
             legend: {
                 text: i18n.declarationSubHeading,
@@ -171,3 +179,8 @@
            }) }}
     </form>
 {% endblock main_content %}
+
+
+
+        
+          

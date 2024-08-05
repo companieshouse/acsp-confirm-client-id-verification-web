@@ -6,6 +6,7 @@
     "checkYourAnswersDeclarationText2" : " has delivered the date of birth and required contact information for"  ,
     "checkYourAnswersDeclarationText3" : ", and a description of the information and evidence used to satisfy that the required personal information is true."  ,
     "continueSend": "Confirm and send",
+    "error-checkYourAnswerEmpty":"Select to confirm the declaration",
 
     "identityTitle": "Identity verified successfully",
     "yourRef": "Your reference is HDJ2123F. This is not the Companies House personal code for the person you have verified.",

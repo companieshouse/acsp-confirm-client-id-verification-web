@@ -1,43 +1,77 @@
 import { NextFunction, Request, Response } from "express";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import * as config from "../config";
-import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRMATION } from "../types/pageURL";
+import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRMATION, HOW_IDENTITY_DOCUMENTS_CHECKED } from "../types/pageURL";
 import { USER_DATA } from "../utils/constants";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../services/formatService";
+import { validationResult } from "express-validator";
+import { formatValidationError, getPageProperties } from "../validations/validation";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
+    const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
+    const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
     const formattedAddress = FormatService.formatAddress(clientData.address);
     const formattedDateOfBirth = FormatService.formatDate(clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined);
     const formattedwhenIdentityChecksCompleted = FormatService.formatDate(clientData.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted) : undefined);
-    const formattedDocumentsChecked = FormatService.formatBulletList(clientData.documentsChecked);
-    const formattedHowIdentityDocksChecked = FormatService.formatIdentityDocChecked(clientData.howIdentityDocsChecked);
+    const formattedDocumentsChecked = FormatService.formatDocumentsChecked(clientData.documentsChecked, lang);
+    const formattedHowIdentityDocsChecked = FormatService.formatHowIdentityDocsChecked(clientData.howIdentityDocsChecked, lang);
     res.render(config.CHECK_YOUR_ANSWERS, {
         title: "Check your answers before sending your application",
         ...getLocaleInfo(locales, lang),
-        currentUrl: BASE_URL + CHECK_YOUR_ANSWERS,
+        currentUrl,
+        previousPage,
         clientData: {
             ...clientData,
             address: formattedAddress,
             dateOfBirth: formattedDateOfBirth,
             whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
             documentsChecked: formattedDocumentsChecked,
-            formattedHowIdentityDocksChecked: formattedHowIdentityDocksChecked
+            howIdentityDocsChecked: formattedHowIdentityDocsChecked
         }
     });
 };
 
-/* export const post = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const lang = selectLang(req.query.lang);
+
+export const post = async (req: Request, res: Response, next: NextFunction) => {
+    const lang = selectLang(req.query.lang);
+    const locales = getLocalesService();
+    const errorList = validationResult(req);
+    const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
+    const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
+    const session: Session = req.session as any as Session;
+    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+
+    const formattedAddress = FormatService.formatAddress(clientData.address);
+    const formattedDateOfBirth = FormatService.formatDate(clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined);
+    const formattedwhenIdentityChecksCompleted = FormatService.formatDate(clientData.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted) : undefined);
+    const formattedDocumentsChecked = FormatService.formatDocumentsChecked(clientData.documentsChecked, lang);
+    const formattedHowIdentityDocsChecked = FormatService.formatHowIdentityDocsChecked(clientData.howIdentityDocsChecked, lang);
+
+    if (!errorList.isEmpty()) {
+        const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+        res.status(400).render(config.CHECK_YOUR_ANSWERS, {
+            title: "Check your answers before sending your application",
+            previousPage,
+            ...getLocaleInfo(locales, lang),
+            currentUrl,
+            ...pageProperties,
+            clientData: {
+                ...clientData,
+                address: formattedAddress,
+                dateOfBirth: formattedDateOfBirth,
+                whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
+                documentsChecked: formattedDocumentsChecked,
+                howIdentityDocsChecked: formattedHowIdentityDocsChecked
+            }
+        });
+    } else {
         res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
-    } catch (error) {
-        next(error);
     }
-}; */
+};
