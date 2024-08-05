@@ -5,7 +5,7 @@ import { BASE_URL, CONFIRMATION, CHECK_YOUR_ANSWERS } from "../../../src/types/p
 import { ClientData } from "../../../src/model/ClientData";
 import { FormatService } from "../../../src/services/formatService";
 
-jest.mock("../../../src/services/FormatService.ts");
+jest.mock("../../../src/services/formatService.ts");
 
 const router = supertest(app);
 
