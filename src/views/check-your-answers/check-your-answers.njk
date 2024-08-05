@@ -8,9 +8,9 @@
 
 
 {% set identityDocHref = "" %}
-{% if clientData.optionUsed == "Option 1 - The identity documents were checked using identity document validation technology (IDVT)." or clientData.whenIdentityChecksCompleted == "Option 1 - The identity documents were checked using identity document validation technology (IDVT). Welsh" %}
+{% if clientData.optionUsed === "Option 1 - The identity documents were checked using identity document validation technology (IDVT)." or clientData.whenIdentityChecksCompleted === "Option 1 - The identity documents were checked using identity document validation technology (IDVT). Welsh" %}
     {% set identityDocHref = "/tell-companies-house-you-have-verified-someones-identity/identity-documents-checked-group-1" + "?lang=" + lang %}
-{% elseif clientData.optionUsed == "Option 2 - The identity documents were checked by a person." or clientData.whenIdentityChecksCompleted == "Option 2 - The identity documents were checked by a person. Welsh" %}
+{% elseif clientData.optionUsed === "Option 2 - The identity documents were checked by a person." or clientData.whenIdentityChecksCompleted === "Option 2 - The identity documents were checked by a person. Welsh" %}
     {% set identityDocHref = "/tell-companies-house-you-have-verified-someones-identity/identity-documents-checked-group-2" + "?lang=" + lang %}
 {% endif %}
 

@@ -38,7 +38,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-
 export const post = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
