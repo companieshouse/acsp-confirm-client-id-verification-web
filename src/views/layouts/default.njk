@@ -12,9 +12,9 @@
         ? document.body.className + ' js-enabled'
         : 'js-enabled');
     </script>
-    <!--{% block bodyStart %}
+    {% block bodyStart %}
       {% include "partials/cookie_consent_banner.njk" %}
-    {% endblock %}-->
+    {% endblock %}
     <a href="#main-page-content" class="govuk-skip-link">Skip to main content</a>
     {% include "partials/__header.njk" %}
     <div class="govuk-width-container">
