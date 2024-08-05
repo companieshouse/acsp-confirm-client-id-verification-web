@@ -80,8 +80,8 @@ describe("POST" + EMAIL_ADDRESS, () => {
         await mockFindIdentityByEmail.mockRejectedValueOnce(new Error("Verification API error"));
         const res = await router.post(BASE_URL + EMAIL_ADDRESS)
             .send({
-                "email-address": "test@gmail.com",
-                confirm: "test@gmail.com"
+                "email-address": "test@email.com",
+                confirm: "test@email.com"
             });
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
