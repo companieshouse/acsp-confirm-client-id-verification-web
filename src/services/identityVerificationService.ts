@@ -2,7 +2,7 @@ import { Identity } from "private-api-sdk-node/dist/services/identity-verificati
 import logger from "../lib/Logger";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { ApiErrorResponse } from "@companieshouse/api-sdk-node/dist/services/resource";
-import { createPrivateApiKeyClient } from "./apiClientService";
+import { createPrivateApiKeyClient } from "./apiService";
 
 export const findIdentityByEmail = async (email: string): Promise<Identity | undefined> => {
     const apiClient = createPrivateApiKeyClient();
