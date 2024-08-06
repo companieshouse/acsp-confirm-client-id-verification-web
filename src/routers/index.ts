@@ -16,7 +16,8 @@ import {
     personsEmailController,
     whenIdentityChecksCompletedController,
     confirmIdentityVerificationController,
-    signOutController
+    signOutController,
+    confirmationController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -83,4 +84,5 @@ routes.post(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationValid
 routes.get(urls.SIGN_OUT_URL, signOutController.get);
 routes.post(urls.SIGN_OUT_URL, selectsignOutValidator, signOutController.post);
 
+routes.get(urls.CONFIRMATION, confirmationController.get);
 export default routes;

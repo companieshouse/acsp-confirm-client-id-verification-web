@@ -43,3 +43,5 @@ export const WHICH_IDENTITY_DOCS_CHECKED_GROUP1 = "/identity-documents-checked-g
 export const WHICH_IDENTITY_DOCS_CHECKED_GROUP2 = "/identity-documents-checked-group-2";
 
 export const CHECK_YOUR_ANSWERS = "/check-your-answers";
+
+export const CONFIRMATION = "/confirmation";
