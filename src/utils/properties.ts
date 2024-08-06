@@ -18,6 +18,8 @@ export const API_URL = getEnvironmentValue("API_URL", "http://api.chs.local:4001
 
 export const CHS_API_KEY = getEnvironmentValue("CHS_API_KEY", "chs.api.key");
 
+export const CHS_INTERNAL_API_KEY = getEnvironmentValue("CHS_INTERNAL_API_KEY");
+
 export const CHS_URL = getEnvironmentValue("CHS_URL", "http://chs.local");
 
 export const CDN_URL_CSS = getEnvironmentValue("CDN_URL_CSS", "//d3miau0r8stw5u.cloudfront.net/stylesheets/services/acsp");
