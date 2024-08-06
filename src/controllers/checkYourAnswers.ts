@@ -54,21 +54,20 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
-    const formattedAddress = FormatService.formatAddress(clientData.address);
-    const formattedDateOfBirth = FormatService.formatDate(
-        clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
-    );
-    const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
-        clientData.whenIdentityChecksCompleted
-            ? new Date(clientData.whenIdentityChecksCompleted)
-            : undefined
-    );
-    const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
-        clientData.documentsChecked,
-        lang
-    );
-
     if (!errorList.isEmpty()) {
+        const formattedAddress = FormatService.formatAddress(clientData.address);
+        const formattedDateOfBirth = FormatService.formatDate(
+            clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
+        );
+        const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
+            clientData.whenIdentityChecksCompleted
+                ? new Date(clientData.whenIdentityChecksCompleted)
+                : undefined
+        );
+        const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
+            clientData.documentsChecked,
+            lang
+        );
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
         res.status(400).render(config.CHECK_YOUR_ANSWERS, {
             title: "Check your answers before sending your application",
