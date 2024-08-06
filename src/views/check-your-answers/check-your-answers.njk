@@ -3,21 +3,29 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "layouts/default.njk" %}
 {% block main_content %}
+  {% set textContent = i18n.checkYourAnswersDeclarationText1 + " ACSP NAME " + i18n.checkYourAnswersDeclarationText2 + " " + firstName + " " + lastName + i18n.checkYourAnswersDeclarationText3 %}
+  
+  {% set fullName = clientData.firstName %}
+  {% if clientData.middleName %}
+    {% set fullName = fullName + ' ' + clientData.middleName %}
+  {% endif %}
+  {% set fullName = fullName + ' ' + clientData.lastName %}
 
-{% set textContent = i18n.checkYourAnswersDeclarationText1 + " ACSP NAME " + i18n.checkYourAnswersDeclarationText2 + " " + firstName + " " + lastName + i18n.checkYourAnswersDeclarationText3 %}
+  {% set identityDocHref = "" %}
+  {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
 
-
-{% set identityDocHref = "" %}
-{% if clientData.howIdentityDocsChecked === "Option 1 - The identity documents were checked using identity document validation technology (IDVT)." or clientData.whenIdentityChecksCompleted === "Option 1 - The identity documents were checked using identity document validation technology (IDVT). Welsh" %}
+  {% if howIdentityDocsChecked == "OPTION1" %}
     {% set identityDocHref = "/tell-companies-house-you-have-verified-someones-identity/identity-documents-checked-group-1" + "?lang=" + lang %}
-{% elseif clientData.howIdentityDocsChecked === "Option 2 - The identity documents were checked by a person." or clientData.whenIdentityChecksCompleted ==="Option 2 - The identity documents were checked by a person. Welsh" %}
+    {% set howIdentityDocsChecked = i18n.option1Confirmation %}
+  {% elseif howIdentityDocsChecked == "OPTION2" %}
     {% set identityDocHref = "/tell-companies-house-you-have-verified-someones-identity/identity-documents-checked-group-2" + "?lang=" + lang %}
-{% endif %}
+    {% set howIdentityDocsChecked = i18n.option2Confirmation %}
+  {% endif %}
 
-    <form action="" method="POST">
-        <h1 class="govuk-heading-xl">{{i18n.checkYourAnswersHeading}}</h1>
-        <h2 class="govuk-heading-m">{{i18n.checkYourAnswersDocHeading + i18n.clientData.firstName + " " + i18n.clientData.lastName}}</h2>
-        {{ govukSummaryList({
+  <form action="" method="POST">
+    <h1 class="govuk-heading-xl">{{ i18n.checkYourAnswersHeading }}</h1>
+    <h2 class="govuk-heading-m">{{ i18n.checkYourAnswersDocHeading + i18n.clientData.firstName + " " + i18n.clientData.lastName }}</h2>
+    {{ govukSummaryList({
     rows: [
       {
         key: {
@@ -109,7 +117,7 @@
         text: i18n.optionUsed
       },
       value: {
-        text: clientData.howIdentityDocsChecked
+        text: howIdentityDocsChecked
       },
       actions: {
         items: [
@@ -156,7 +164,7 @@
       }
     }
   ]
-}) }}      
+}) }}
     {{ govukCheckboxes({
         name: "checkYourAnswerDeclaration",
         errorMessage: errors.checkYourAnswerDeclaration if errors,
@@ -173,14 +181,8 @@
         }
         ]
     }) }}
-
-        {{ govukButton({
+    {{ govukButton({
             text: i18n.continueSend
            }) }}
-    </form>
+  </form>
 {% endblock main_content %}
-
-
-
-        
-          

@@ -23,7 +23,6 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
             dateOfBirth: "07 July 1998",
             whenIdentityChecksCompleted: "07 July 2024",
             documentsChecked: "• Biometric or machine readable passport<br>• Irish passport card",
-            howIdentityDocsChecked: "Option 2 - The identity documents were checked by a person.",
             checkYourAnswerDeclaration: "confirm"
         });
         expect(res.status).toBe(302);
@@ -36,7 +35,6 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
             dateOfBirth: "07 July 1998",
             whenIdentityChecksCompleted: "07 July 2024",
             documentsChecked: "• Biometric or machine readable passport<br>• Irish passport card",
-            howIdentityDocsChecked: "Option 2 - The identity documents were checked by a person.",
             checkYourAnswerDeclaration: ""
         });
         expect(res.status).toBe(400);

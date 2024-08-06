@@ -18,10 +18,18 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
     const formattedAddress = FormatService.formatAddress(clientData.address);
-    const formattedDateOfBirth = FormatService.formatDate(clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined);
-    const formattedwhenIdentityChecksCompleted = FormatService.formatDate(clientData.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted) : undefined);
-    const formattedDocumentsChecked = FormatService.formatDocumentsChecked(clientData.documentsChecked, lang);
-    const formattedHowIdentityDocsChecked = FormatService.formatHowIdentityDocsChecked(clientData.howIdentityDocsChecked, lang);
+    const formattedDateOfBirth = FormatService.formatDate(
+        clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
+    );
+    const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
+        clientData.whenIdentityChecksCompleted
+            ? new Date(clientData.whenIdentityChecksCompleted)
+            : undefined
+    );
+    const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
+        clientData.documentsChecked,
+        lang
+    );
     res.render(config.CHECK_YOUR_ANSWERS, {
         title: "Check your answers before sending your application",
         ...getLocaleInfo(locales, lang),
@@ -32,8 +40,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             address: formattedAddress,
             dateOfBirth: formattedDateOfBirth,
             whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
-            documentsChecked: formattedDocumentsChecked,
-            howIdentityDocsChecked: formattedHowIdentityDocsChecked
+            documentsChecked: formattedDocumentsChecked
         }
     });
 };
@@ -48,10 +55,18 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
     const formattedAddress = FormatService.formatAddress(clientData.address);
-    const formattedDateOfBirth = FormatService.formatDate(clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined);
-    const formattedwhenIdentityChecksCompleted = FormatService.formatDate(clientData.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted) : undefined);
-    const formattedDocumentsChecked = FormatService.formatDocumentsChecked(clientData.documentsChecked, lang);
-    const formattedHowIdentityDocsChecked = FormatService.formatHowIdentityDocsChecked(clientData.howIdentityDocsChecked, lang);
+    const formattedDateOfBirth = FormatService.formatDate(
+        clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
+    );
+    const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
+        clientData.whenIdentityChecksCompleted
+            ? new Date(clientData.whenIdentityChecksCompleted)
+            : undefined
+    );
+    const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
+        clientData.documentsChecked,
+        lang
+    );
 
     if (!errorList.isEmpty()) {
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
@@ -66,8 +81,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 address: formattedAddress,
                 dateOfBirth: formattedDateOfBirth,
                 whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
-                documentsChecked: formattedDocumentsChecked,
-                howIdentityDocsChecked: formattedHowIdentityDocsChecked
+                documentsChecked: formattedDocumentsChecked
             }
         });
     } else {
