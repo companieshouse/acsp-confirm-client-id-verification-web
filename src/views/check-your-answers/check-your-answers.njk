@@ -1,0 +1,188 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "layouts/default.njk" %}
+{% block main_content %}
+  {% set textContent = i18n.checkYourAnswersDeclarationText1 + " ACSP NAME " + i18n.checkYourAnswersDeclarationText2 + " " + firstName + " " + lastName + i18n.checkYourAnswersDeclarationText3 %}
+  
+  {% set fullName = clientData.firstName %}
+  {% if clientData.middleName %}
+    {% set fullName = fullName + ' ' + clientData.middleName %}
+  {% endif %}
+  {% set fullName = fullName + ' ' + clientData.lastName %}
+
+  {% set identityDocHref = "" %}
+  {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
+
+  {% if howIdentityDocsChecked == "OPTION1" %}
+    {% set identityDocHref = "/tell-companies-house-you-have-verified-someones-identity/identity-documents-checked-group-1" + "?lang=" + lang %}
+    {% set howIdentityDocsChecked = i18n.option1Confirmation %}
+  {% elseif howIdentityDocsChecked == "OPTION2" %}
+    {% set identityDocHref = "/tell-companies-house-you-have-verified-someones-identity/identity-documents-checked-group-2" + "?lang=" + lang %}
+    {% set howIdentityDocsChecked = i18n.option2Confirmation %}
+  {% endif %}
+
+  <form action="" method="POST">
+    <h1 class="govuk-heading-xl">{{ i18n.checkYourAnswersHeading }}</h1>
+    <h2 class="govuk-heading-m">{{ i18n.checkYourAnswersDocHeading + i18n.clientData.firstName + " " + i18n.clientData.lastName }}</h2>
+    {{ govukSummaryList({
+    rows: [
+      {
+        key: {
+          text: i18n.name
+        },
+        value: {
+          text: clientData.firstName + " " + clientData.lastName
+        },
+        actions: {
+            items: [
+              {
+                href: "/tell-companies-house-you-have-verified-someones-identity/what-is-the-persons-name" + "?lang=" + lang,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: i18n.checkAnswersNameWithAML
+              }
+            ]
+          }
+      },
+    {
+      key: {
+        text: i18n.emailAddressConfirmation
+      },
+      value: {
+        html: clientData.emailAddress
+      },
+      actions: {
+        items: [
+          {
+            href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-email-address" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: "address"
+          }
+        ]
+      }
+    },
+      {
+        key: {
+          text: i18n.dateOfBirth
+        },
+        value: {
+          text: clientData.dateOfBirth
+        },
+        actions: {
+            items: [
+              {
+                href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-date-of-birth" + "?lang=" + lang,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: "date of birth"
+          }
+        ]
+      }
+    },
+      {
+        key: {
+          text: i18n.homeAdd
+        },
+        value: {
+          text: clientData.address | safe
+        },
+        actions: {
+            items: [
+              {
+                href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-home-address" + "?lang=" + lang,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: "Home address"
+              }
+            ]
+          }
+      },
+          {
+      key: {
+        text: i18n.dateIdentityCompleted
+      },
+      value: {
+        html: clientData.whenIdentityChecksCompleted
+      },
+      actions: {
+        items: [
+          {
+            href: "/tell-companies-house-you-have-verified-someones-identity/identity-checks-completed" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: "Date identity checks were completed"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: i18n.optionUsed
+      },
+      value: {
+        text: howIdentityDocsChecked
+      },
+      actions: {
+        items: [
+          {
+            href: "/tell-companies-house-you-have-verified-someones-identity/how-were-identity-documents-checked" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: "Option used to check identity documents"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: i18n.identityDoc
+      },
+      value: {
+        html: clientData.documentsChecked | safe
+      },
+      actions: {
+        items: [
+          {
+            href: identityDocHref,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: "Identity documents that were checked"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: i18n.identityVerification
+      },
+      value: {
+        text: i18n.iConfirm + " ACSP NAME " + i18n.verifiedThe + clientData.firstName + " " + clientData.lastName + i18n.toTheStandard + i18n.isSupervised
+      },
+      actions: {
+        items: [
+          {
+            href: "/tell-companies-house-you-have-verified-someones-identity/confirm-you-verified-their-identity" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: "Identity verification declaration"
+          }
+        ]
+      }
+    }
+  ]
+}) }}
+    {{ govukCheckboxes({
+        name: "checkYourAnswerDeclaration",
+        errorMessage: errors.checkYourAnswerDeclaration if errors,
+        fieldset: {
+            legend: {
+                text: i18n.declarationSubHeading,
+                classes: "govuk-fieldset__legend--m"
+            }
+        },
+        items: [
+        {
+            value: "confirm",
+            html: textContent
+        }
+        ]
+    }) }}
+    {{ govukButton({
+            text: i18n.continueSend
+           }) }}
+  </form>
+{% endblock main_content %}
