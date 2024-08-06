@@ -28,7 +28,6 @@ const mockClientData: ClientData = {
 };
 
 describe("GET " + BASE_URL + CONFIRMATION, () => {
-
     beforeEach(() => {
         jest.clearAllMocks();
         mocks.mockSessionMiddleware.mockImplementation((req, res, next) => {
@@ -48,8 +47,12 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
 
     it("should format the client data correctly", async () => {
         await router.get(BASE_URL + CONFIRMATION + "?lang=en");
-        expect(FormatService.formatAddress).toHaveBeenCalledWith(mockClientData.address);
-        expect(FormatService.formatDocumentsChecked).toHaveBeenCalledWith(mockClientData.documentsChecked, "en");
-        expect(FormatService.formatHowIdentityDocsChecked).toHaveBeenCalledWith(mockClientData.howIdentityDocsChecked, "en");
+        expect(FormatService.formatAddress).toHaveBeenCalledWith(
+            mockClientData.address
+        );
+        expect(FormatService.formatDocumentsChecked).toHaveBeenCalledWith(
+            mockClientData.documentsChecked,
+            "en"
+        );
     });
 });

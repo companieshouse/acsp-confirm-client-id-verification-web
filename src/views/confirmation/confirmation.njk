@@ -34,6 +34,13 @@
   {% endif %}
   {% set fullName = fullName + ' ' + clientData.lastName %}
 
+ {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
+{% if howIdentityDocsChecked == "OPTION1" %}
+  {% set howIdentityDocsChecked = i18n.option1Confirmation %}
+{% elseif howIdentityDocsChecked == "OPTION2" %}
+  {% set howIdentityDocsChecked = i18n.option2Confirmation %}
+{% endif %}
+
   {{ govukSummaryList({
     rows: [
       {
@@ -81,7 +88,7 @@
           text: i18n.optionUsed
         },
         value: {
-          text: clientData.howIdentityDocsChecked
+          text: howIdentityDocsChecked
         }
       },
       {
