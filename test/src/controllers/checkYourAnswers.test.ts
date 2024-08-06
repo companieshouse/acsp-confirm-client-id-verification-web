@@ -6,7 +6,6 @@ jest.mock("@companieshouse/api-sdk-node");
 
 const router = supertest(app);
 
-
 describe("GET" + CHECK_YOUR_ANSWERS, () => {
     it("should return status 200", async () => {
         const res = await router.get(BASE_URL + CHECK_YOUR_ANSWERS);
@@ -32,13 +31,14 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
     });
 
     it("should return status 400 if checkbox is not selected", async () => {
-        const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS).send({ 
+        const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS).send({
             address: "Flat 1 Baker Street<br>Second Floor<br>London<br>Greater London<br>United Kingdom<br>NW1 6XE",
             dateOfBirth: "07 July 1998",
             whenIdentityChecksCompleted: "07 July 2024",
             documentsChecked: "• Biometric or machine readable passport<br>• Irish passport card",
             howIdentityDocsChecked: "Option 2 - The identity documents were checked by a person.",
-            checkYourAnswerDeclaration: "" });
+            checkYourAnswerDeclaration: ""
+        });
         expect(res.status).toBe(400);
         expect(res.text).toContain("Select to confirm the declaration");
     });
