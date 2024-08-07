@@ -20,9 +20,7 @@
   <h2 class="govuk-heading-m">{{ i18n.whatHappens }}</h2>
   <p class="govuk-body">{{ i18n.weWillEmailed }} <strong>{{ clientData.emailAddress }}</strong> {{ i18n.toLet }}</p>
 
-  <button type="submit" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-2" data-module="govuk-button">
-    Print this page
-  </button>
+  {% include "partials/print_button.njk" %} 
 
   <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 

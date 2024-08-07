@@ -30,7 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "@companieshouse/api-sdk-node": "^2.0.171",
-    "@companieshouse/ch-node-utils": "^1.3.2",
+    "@companieshouse/ch-node-utils": "^1.3.5",
     "@companieshouse/node-session-handler": "^4.1.9",
     "@companieshouse/structured-logging-node": "^1.0.8",
     "@companieshouse/web-security-node": "^2.0.3",

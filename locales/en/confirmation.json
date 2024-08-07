@@ -20,5 +20,7 @@
   "toTheStandard": "to the standard set by Companies House and is satisfied that the required personal information is true. The verification checks were completed.",
   "isSupervised": "is supervised by",
   "option1Confirmation": "Option 1 - The identity documents were checked using identity document validation technology (IDVT).",
-  "option2Confirmation": "Option 2 - The identity documents were checked by a person."
+  "option2Confirmation": "Option 2 - The identity documents were checked by a person.",
+  "printButton": "Print this page",
+  "printFromBrowser": "To print this page, select print from your browser menu."
 }
