@@ -21,5 +21,6 @@
   "isSupervised": "is supervised by",
   "option1Confirmation": "Option 1 - The identity documents were checked using identity document validation technology (IDVT).",
   "option2Confirmation": "Option 2 - The identity documents were checked by a person.",
-  "printButton": "Print this page"
+  "printButton": "Print this page",
+  "printFromBrowser": "To print this page, select print from your browser menu."
 }
