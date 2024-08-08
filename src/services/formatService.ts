@@ -58,97 +58,45 @@ export class FormatService {
 
     public static formatDocumentsChecked (
         documents: string[] | undefined,
-        lang: string
+        i18n: any
     ): string {
         if (!documents || documents.length === 0) {
             return "";
         }
-        const documentMappingEn: { [key: string]: string } = {
-            biometricPassport: "Biometric or machine readable passport",
-            irishPassport: "Irish passport card",
-            ukDriversLicence:
-        "UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional)",
-            identityCard:
-        "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein",
-            biometricPermit: "UK biometric residence permit (BRP)",
-            biometricCard: "UK biometric residence card (BRC)",
-            frontierPermit: "UK Frontier Worker permit",
-            passportIrishCard: "Passport or Irish passport card",
-            ukBRP: "UK biometric residence permit (BRP)",
-            ukBRC: "UK biometric residence card (BRC)",
-            passCard: "UK accredited PASS card",
-            ukEuDigitalCard: "UK or EU driver digital tachograph card",
-            fullDrivingLicense:
-        "UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional)",
-            ukForceCard: "UK HM Forces ID Card",
-            ukArmedForceCard: "UK HM Armed Forces Veteran Card",
-            ukFrontierPermit: "UK Frontier Worker permit",
-            photoWorkPermit: "Photographic work permit (government issued)",
-            photoimmigrationDoc: "Photographic immigration document",
-            photoVisa: "Photographic Visa",
-            ukFirearmsLicence: "UK, Channel Islands and Isle of Man Firearms Licence",
-            photoIdPrado: "Photographic ID listed on PRADO",
-            photoIdPradoHint:
-        "Such as a National Identity Card (Pakistan), crew member certificate (South Africa), or Permanent Resident Card (USA).",
-            birthCert: "Birth or adoption certificate",
-            marriageCert: "Marriage or civil partnership certificate",
-            noPhotoimmigrationDoc: "Non-photographic immigration document",
-            noPhotoVisa: "Non-photographic visa",
-            noPhotoWorkPermit: "Non-photographic work permit",
-            bankStatement: "Bank or building society statement",
-            rentalAgreement:
-        "UK local authority or social housing rental agreement (for the person’s current address)",
-            morgageStatement: "Mortgage statement (for the person’s current address)",
-            taxStatement:
-        "UK council tax statement (for the person’s current address",
-            utilityBill: "Utility bill (for the person’s current address)"
+        const documentMapping: { [key: string]: string } = {
+            biometricPassport: i18n.biometricPassport,
+            irishPassport: i18n.irishPassport,
+            ukDriversLicence: i18n.ukDriversLicence,
+            identityCard: i18n.identityCard,
+            biometricPermit: i18n.biometricPermit,
+            biometricCard: i18n.biometricCard,
+            frontierPermit: i18n.frontierPermit,
+            passportIrishCard: i18n.passportIrishCard,
+            ukBRP: i18n.ukBRP,
+            ukBRC: i18n.ukBRC,
+            passCard: i18n.passCard,
+            ukEuDigitalCard: i18n.ukEuDigitalCard,
+            fullDrivingLicense: i18n.fullDrivingLicense,
+            ukForceCard: i18n.ukForceCard,
+            ukArmedForceCard: i18n.ukArmedForceCard,
+            ukFrontierPermit: i18n.ukFrontierPermit,
+            photoWorkPermit: i18n.photoWorkPermit,
+            photoimmigrationDoc: i18n.photoimmigrationDoc,
+            photoVisa: i18n.photoVisa,
+            ukFirearmsLicence: i18n.ukFirearmsLicence,
+            photoIdPrado: i18n.photoIdPrado,
+            photoIdPradoHint: i18n.photoIdPradoHint,
+            birthCert: i18n.birthCert,
+            marriageCert: i18n.marriageCert,
+            noPhotoimmigrationDoc: i18n.noPhotoimmigrationDoc,
+            noPhotoVisa: i18n.noPhotoVisa,
+            noPhotoWorkPermit: i18n.noPhotoWorkPermit,
+            bankStatement: i18n.bankStatement,
+            rentalAgreement: i18n.rentalAgreement,
+            morgageStatement: i18n.morgageStatement,
+            taxStatement: i18n.taxStatement,
+            utilityBill: i18n.utilityBill
         };
-
-        const documentMappingWelsh: { [key: string]: string } = {
-            biometricPassport: "Biometric or machine readable passport Welsh",
-            irishPassport: "Irish passport card Welsh",
-            ukDriversLicence:
-        "UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional) Welsh",
-            identityCard:
-        "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein Welsh",
-            biometricPermit: "UK biometric residence permit (BRP) Welsh",
-            biometricCard: "UK biometric residence card (BRC) Welsh",
-            frontierPermit: "UK Frontier Worker permit Welsh",
-            passportIrishCard: "Passport or Irish passport card welsh",
-            ukBRP: "UK biometric residence permit (BRP) welsh",
-            ukBRC: "UK biometric residence card (BRC) welsh",
-            passCard: "UK accredited PASS card welsh",
-            ukEuDigitalCard: "UK or EU driver digital tachograph card welsh",
-            fullDrivingLicense:
-        "UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional) welsh",
-            ukForceCard: "UK HM Forces ID Card welsh",
-            ukArmedForceCard: "UK HM Armed Forces Veteran Card welsh",
-            ukFrontierPermit: "UK Frontier Worker permit welsh",
-            photoWorkPermit: "Photographic work permit (government issued) welsh",
-            photoimmigrationDoc: "Photographic immigration document welsh",
-            photoVisa: "Photographic Visa welsh",
-            ukFirearmsLicence:
-        "UK, Channel Islands and Isle of Man Firearms Licence welsh",
-            photoIdPrado: "Photographic ID listed on PRADO welsh",
-            photoIdPradoHint:
-        "Such as a National Identity Card (Pakistan), crew member certificate (South Africa), or Permanent Resident Card (USA). welsh",
-            birthCert: "Birth or adoption certificate welsh",
-            marriageCert: "Marriage or civil partnership certificate welsh",
-            noPhotoimmigrationDoc: "Non-photographic immigration document welsh",
-            noPhotoVisa: "Non-photographic visa welsh",
-            noPhotoWorkPermit: "Non-photographic work permit welsh",
-            bankStatement: "Bank or building society statement welsh",
-            rentalAgreement:
-        "UK local authority or social housing rental agreement (for the person’s current address) welsh",
-            morgageStatement:
-        "Mortgage statement (for the person’s current address) welsh",
-            taxStatement:
-        "UK council tax statement (for the person’s current address welsh",
-            utilityBill: "Utility bill (for the person’s current address) welsh"
-        };
-
-        const documentMapping =
-      lang === "en" ? documentMappingEn : documentMappingWelsh;
 
         const formattedDocuments = documents.map((doc) => {
             const docText = documentMapping[doc] || doc;

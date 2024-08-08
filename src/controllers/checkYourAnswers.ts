@@ -28,7 +28,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     );
     const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
         clientData.documentsChecked,
-        lang
+        locales.i18nCh.resolveNamespacesKeys(lang)
     );
     res.render(config.CHECK_YOUR_ANSWERS, {
         title: "Check your answers before sending your application",
@@ -66,7 +66,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         );
         const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
             clientData.documentsChecked,
-            lang
+            locales.i18nCh.resolveNamespacesKeys(lang)
         );
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
         res.status(400).render(config.CHECK_YOUR_ANSWERS, {

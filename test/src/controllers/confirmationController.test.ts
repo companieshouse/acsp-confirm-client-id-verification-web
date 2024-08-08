@@ -4,6 +4,7 @@ import app from "../../../src/app";
 import { BASE_URL, CONFIRMATION, CHECK_YOUR_ANSWERS } from "../../../src/types/pageURL";
 import { ClientData } from "../../../src/model/ClientData";
 import { FormatService } from "../../../src/services/formatService";
+import { getLocalesService } from "../../../src/utils/localise";
 
 jest.mock("../../../src/services/formatService.ts");
 
@@ -46,13 +47,14 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
     });
 
     it("should format the client data correctly", async () => {
+        const locales = getLocalesService();
         await router.get(BASE_URL + CONFIRMATION + "?lang=en");
         expect(FormatService.formatAddress).toHaveBeenCalledWith(
             mockClientData.address
         );
         expect(FormatService.formatDocumentsChecked).toHaveBeenCalledWith(
             mockClientData.documentsChecked,
-            "en"
+            locales.i18nCh.resolveNamespacesKeys("en")
         );
     });
 });
