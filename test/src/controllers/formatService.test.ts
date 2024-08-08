@@ -1,5 +1,6 @@
 import { FormatService } from "../../../src/services/formatService";
 import { Address } from "../../../src/model/Address";
+import { getLocalesService } from "../../../src/utils/localise";
 
 describe("FormatService tests", () => {
     describe("formatAddress", () => {
@@ -121,14 +122,16 @@ describe("FormatService tests", () => {
     });
 
     describe("formatDocumentsChecked", () => {
+        const locales = getLocalesService();
         it("should return an empty string if no documents are provided", () => {
-            const result = FormatService.formatDocumentsChecked(undefined, "en");
+            const locales = getLocalesService();
+            const result = FormatService.formatDocumentsChecked(undefined, locales.i18nCh.resolveNamespacesKeys("en"));
             expect(result).toBe("");
         });
 
         it("should return formatted documents in English", () => {
             const documents = ["biometricPassport", "irishPassport"];
-            const result = FormatService.formatDocumentsChecked(documents, "en");
+            const result = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("en"));
             const expected =
         "• Biometric or machine readable passport<br>• Irish passport card";
             expect(result).toBe(expected);
@@ -136,7 +139,7 @@ describe("FormatService tests", () => {
 
         it("should return formatted documents in Welsh", () => {
             const documents = ["biometricPassport", "irishPassport"];
-            const result = FormatService.formatDocumentsChecked(documents, "cy");
+            const result = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("cy"));
             const expected =
         "• Biometric or machine readable passport Welsh<br>• Irish passport card Welsh";
             expect(result).toBe(expected);
@@ -156,21 +159,21 @@ describe("FormatService tests", () => {
 
         it("should handle a single document in the array", () => {
             const documents = ["biometricPassport"];
-            const result = FormatService.formatDocumentsChecked(documents, "en");
+            const result = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("en"));
             const expected = "• Biometric or machine readable passport";
             expect(result).toBe(expected);
         });
 
         it("should handle multiple documents with different languages", () => {
             const documents = ["ukDriversLicence", "identityCard"];
-            const resultEn = FormatService.formatDocumentsChecked(documents, "en");
-            const resultWelsh = FormatService.formatDocumentsChecked(documents, "cy");
+            const resultEn = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("en"));
+            const resultWelsh = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("cy"));
             const expectedEn =
         "• UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional)<br>• Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein";
             const expectedWelsh =
-        "• UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional) Welsh<br>• Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein Welsh";
-            expect(resultEn).toBe(expectedEn);
-            expect(resultWelsh).toBe(expectedWelsh);
+        "• UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional) Welsh<br>• Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein welsh";
+        expect(resultWelsh).toBe(expectedWelsh); 
+        expect(resultEn).toBe(expectedEn); 
         });
     });
 });
