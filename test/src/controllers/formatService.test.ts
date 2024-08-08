@@ -172,8 +172,8 @@ describe("FormatService tests", () => {
         "• UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional)<br>• Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein";
             const expectedWelsh =
         "• UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional) Welsh<br>• Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein welsh";
-        expect(resultWelsh).toBe(expectedWelsh); 
-        expect(resultEn).toBe(expectedEn); 
+            expect(resultWelsh).toBe(expectedWelsh);
+            expect(resultEn).toBe(expectedEn);
         });
     });
 });
