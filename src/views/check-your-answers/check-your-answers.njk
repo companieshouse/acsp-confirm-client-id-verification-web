@@ -24,7 +24,7 @@
 
   <form action="" method="POST">
     <h1 class="govuk-heading-xl">{{ i18n.checkYourAnswersHeading }}</h1>
-    <h2 class="govuk-heading-m">{{ i18n.checkYourAnswersDocHeading + i18n.clientData.firstName + " " + i18n.clientData.lastName }}</h2>
+    <h2 class="govuk-heading-m">{{ i18n.checkYourAnswersDocHeading + " " + fullName }}</h2>
     {{ govukSummaryList({
     rows: [
       {
@@ -32,7 +32,7 @@
           text: i18n.name
         },
         value: {
-          text: clientData.firstName + " " + clientData.lastName
+          text: fullName
         },
         actions: {
             items: [
@@ -151,7 +151,7 @@
         text: i18n.identityVerification
       },
       value: {
-        text: i18n.iConfirm + " ACSP NAME " + i18n.verifiedThe + clientData.firstName + " " + clientData.lastName + i18n.toTheStandard + i18n.isSupervised
+        text: i18n.iConfirm + " ACSP NAME " + i18n.verifiedThe +  " " + fullName + " " + i18n.toTheStandard + i18n.isSupervised
       },
       actions: {
         items: [
