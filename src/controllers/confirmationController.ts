@@ -22,7 +22,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             ? new Date(clientData.whenIdentityChecksCompleted)
             : undefined
     );
-    console.log("test------>", locales.i18nCh.resolveNamespacesKeys(lang));
     const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
         clientData.documentsChecked,
         locales.i18nCh.resolveNamespacesKeys(lang),
