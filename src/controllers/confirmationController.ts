@@ -24,7 +24,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     );
     const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
         clientData.documentsChecked,
-        locales.i18nCh.resolveNamespacesKeys(lang),
+        locales.i18nCh.resolveNamespacesKeys(lang)
     );
 
     res.render(config.CONFIRMATION, {
