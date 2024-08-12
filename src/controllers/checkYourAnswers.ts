@@ -88,7 +88,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const identityVerificationService = new IdentityVerificationService();
         const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData);
         await sendVerifiedClientDetails(verifiedClientData).then(identity => {
-            logger.info("response from verification api ---------->" + JSON.stringify(identity));
+            logger.info("response from verification api" + JSON.stringify(identity));
         }).catch(error => {
             logger.error("Verification-Api error" + JSON.stringify(error));
             const errorService = new ErrorService();
