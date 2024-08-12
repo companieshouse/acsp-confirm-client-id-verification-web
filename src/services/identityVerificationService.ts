@@ -75,7 +75,7 @@ export class IdentityVerificationService {
             foreNames.push(clientData.middleName!);
         }
 
-        const verifiedClientData: VerifiedClientData = {
+       return {
             //below 2 fields are hardcoded. Need to replace with actual logic in future
             acspId: "1234567890",
             verificationEvidence: ["passport"],
@@ -99,6 +99,5 @@ export class IdentityVerificationService {
                created: new Date()
             }
         }
-        return verifiedClientData;
     }
 }
