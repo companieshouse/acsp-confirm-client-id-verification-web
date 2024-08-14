@@ -18,7 +18,6 @@ export class CheckedDocumentsService {
         } else {
             clientData.documentsChecked = documents;
         }
-
         session.setExtraData(USER_DATA, clientData);
     }
 
@@ -31,7 +30,6 @@ export class CheckedDocumentsService {
             ? documents.documentsGroup2B
             : [documents.documentsGroup2B];
         clientData.documentsChecked = [...documentsGroup2A, ...documentsGroup2B];
-
         session.setExtraData(USER_DATA, clientData);
     }
 }

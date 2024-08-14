@@ -4,7 +4,8 @@ import app from "../../../src/app";
 import { BASE_URL, HOME_ADDRESS, CHOOSE_AN_ADDRESS, CONFIRM_HOME_ADDRESS } from "../../../src/types/pageURL";
 import { getAddressFromPostcode } from "../../../src/services/postcode-lookup-service";
 import { UKAddress } from "@companieshouse/api-sdk-node/dist/services/postcode-lookup/types";
-import { Address } from "@companieshouse/api-sdk-node/dist/services/acsp/types";
+import { Address } from "../../../src/model/Address";
+
 
 jest.mock("../../../src/services/postcode-lookup-service.ts");
 

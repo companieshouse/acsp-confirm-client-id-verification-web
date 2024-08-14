@@ -1,5 +1,5 @@
-import { Address } from "@companieshouse/api-sdk-node/dist/services/acsp";
 import { UKAddress } from "@companieshouse/api-sdk-node/dist/services/postcode-lookup";
+import { Address } from "../../src/model/Address";
 
 export const address1: Address = {
     propertyDetails: "1",

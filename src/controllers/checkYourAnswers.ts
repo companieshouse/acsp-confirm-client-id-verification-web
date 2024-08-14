@@ -8,6 +8,9 @@ import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../services/formatService";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
+import { IdentityVerificationService, sendVerifiedClientDetails } from "../services/identityVerificationService";
+import logger from "../lib/Logger";
+import { ErrorService } from "../services/errorService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -82,6 +85,16 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             }
         });
     } else {
+        const identityVerificationService = new IdentityVerificationService();
+        const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData);
+        await sendVerifiedClientDetails(verifiedClientData).then(identity => {
+            logger.info("response from verification api" + JSON.stringify(identity));
+        }).catch(error => {
+            logger.error("Verification-Api error" + JSON.stringify(error));
+            const errorService = new ErrorService();
+            errorService.renderErrorPage(res, locales, lang, BASE_URL + CHECK_YOUR_ANSWERS);
+        });
+
         res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
     }
 };

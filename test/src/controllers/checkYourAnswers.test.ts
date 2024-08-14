@@ -2,8 +2,11 @@ import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
 import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRMATION } from "../../../src/types/pageURL";
+import { sendVerifiedClientDetails } from "../../../src/services/identityVerificationService";
 jest.mock("@companieshouse/api-sdk-node");
+jest.mock("../../../src/services/identityVerificationService.ts");
 
+const mockSendVerifiedClientDetails = sendVerifiedClientDetails as jest.Mock;
 const router = supertest(app);
 
 describe("GET" + CHECK_YOUR_ANSWERS, () => {
@@ -18,6 +21,7 @@ describe("GET" + CHECK_YOUR_ANSWERS, () => {
 
 describe("POST " + CHECK_YOUR_ANSWERS, () => {
     it("should return status 302 after redirect", async () => {
+        await mockSendVerifiedClientDetails.mockResolvedValueOnce(undefined);
         const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS).send({
             address: "Flat 1 Baker Street<br>Second Floor<br>London<br>Greater London<br>United Kingdom<br>NW1 6XE",
             dateOfBirth: "07 July 1998",
