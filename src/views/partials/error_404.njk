@@ -1,12 +1,16 @@
-{% extends "layouts/default.njk" %}	
+{% extends "layouts/default.njk" %}
+
+{% block backLink %}
+  {# Remove back button on this page by replacing it with nothing #}
+{% endblock %}
 
 {% block main_content %}	
 
   <h1 class="govuk-heading-l">{{ i18n.pageNotFoundTitle}}</h1>
   <p>{{ i18n.pageNotFoundText1 }}</p>
-  <p>{{ i18n.pageNotFoundText3 }}</p>
+  <p>{{ i18n.pageNotFoundText2 }}</p>
   <p>
-      {{ i18n.pageNotFoundText1 }}
-      <a href="#">{{ i18n.pageNotLink }}</a>.
+      {{ i18n.pageNotFoundText3 }}
+      <a href="#">{{ i18n.pageNotFoundLink }}</a>.
   </p>
 {% endblock %}	
