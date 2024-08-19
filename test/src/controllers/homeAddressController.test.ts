@@ -6,7 +6,6 @@ import { getAddressFromPostcode } from "../../../src/services/postcode-lookup-se
 import { UKAddress } from "@companieshouse/api-sdk-node/dist/services/postcode-lookup/types";
 import { Address } from "../../../src/model/Address";
 
-
 jest.mock("../../../src/services/postcode-lookup-service.ts");
 
 const router = supertest(app);
