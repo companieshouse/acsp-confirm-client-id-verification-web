@@ -71,12 +71,12 @@ export class IdentityVerificationService {
     public prepareVerifiedClientData (clientData: ClientData) : VerifiedClientData {
         const foreNames = [];
         foreNames.push(clientData.firstName!);
-        if(clientData.middleName !== ""){
+        if (clientData.middleName !== "") {
             foreNames.push(clientData.middleName!);
         }
 
-       return {
-            //below 2 fields are hardcoded. Need to replace with actual logic in future
+        return {
+            // below 2 fields are hardcoded. Need to replace with actual logic in future
             acspId: "1234567890",
             verificationEvidence: ["passport"],
 
@@ -85,19 +85,19 @@ export class IdentityVerificationService {
             currentName: {
                 forenames: foreNames,
                 surname: clientData.lastName!,
-                created: new Date(),
+                created: new Date()
             },
             dateOfBirth: clientData.dateOfBirth!,
             currentAddress: {
-               addressLine1: clientData.address?.line1!,
-               addressLine2: clientData.address?.line2,
-               region: clientData.address?.county,
-               locality: clientData.address?.town,
-               country: clientData.address?.country!,
-               postalCode: clientData.address?.postcode!,
-               premises: clientData.address?.propertyDetails!,
-               created: new Date()
+                addressLine1: clientData.address?.line1!,
+                addressLine2: clientData.address?.line2,
+                region: clientData.address?.county,
+                locality: clientData.address?.town,
+                country: clientData.address?.country!,
+                postalCode: clientData.address?.postcode!,
+                premises: clientData.address?.propertyDetails!,
+                created: new Date()
             }
-        }
+        };
     }
 }
