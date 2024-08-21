@@ -88,11 +88,17 @@
 
        {{ govukButton({
          text: i18n.Continue,
+         id: "continue-button",
          attributes: {
-          "onClick": "_paq.push(['trackGoal', '16']);"
+          "data-event-id": "Continue"
          }
        }) }}
      </form>
    </div>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+  trackEventBasedOnPageTitle("continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue");
+</script>
 
  {% endblock main_content %}

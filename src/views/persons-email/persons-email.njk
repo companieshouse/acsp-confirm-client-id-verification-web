@@ -46,9 +46,18 @@
         </div>
         {{ govukButton({
             text: i18n.Continue,
+            id: "continue-button",
             attributes: {
-              "data-event-id": "CONTINUE - EMAIL"
+              "data-event-id": "Continue-EA"
             }
         }) }}
     </form>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+    // Overriding page title to remove user's personal details
+    _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - Tell Companies House you have verified someone’s identity"]);
+    trackEventBasedOnPageTitle("continue-button", "User" + "{{i18n.emailAddress}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Continue-EA");
+</script>
+
 {% endblock main_content %}

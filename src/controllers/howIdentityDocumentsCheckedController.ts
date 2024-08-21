@@ -6,7 +6,7 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
-import { USER_DATA } from "../utils/constants";
+import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
@@ -20,6 +20,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         previousPage: addLangToUrl(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED, lang),
         currentUrl: BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED,
         selectedOption: clientData?.howIdentityDocsChecked,
+        matomoButtonClick: MATOMO_BUTTON_CLICK,
+        matomoRadioSelection: MATOMO_RADIO_OPTION_SELECT,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName
     });

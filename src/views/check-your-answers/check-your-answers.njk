@@ -186,8 +186,20 @@
         }
         ]
     }) }}
+
     {{ govukButton({
-            text: i18n.continueSend
-           }) }}
+        text: i18n.continueSend,
+        id: "continue-send-button",
+        attributes: {
+          "data-event-id": "Continue and Send"
+        }
+    }) }}
+
   </form>
+  
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+    trackEventBasedOnPageTitle("continue-send-button", "{{title}}", "{{matomoButtonClick}}", "Continue and Send");
+</script>
+
 {% endblock main_content %}

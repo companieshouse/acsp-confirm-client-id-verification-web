@@ -3,7 +3,7 @@ import * as config from "../config";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { BASE_URL, CONFIRM_IDENTITY_VERIFICATION, CHECK_YOUR_ANSWERS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA } from "../utils/constants";
+import { USER_DATA, MATOMO_BUTTON_CLICK } from "../utils/constants";
 import { ClientData } from "../model/ClientData";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
@@ -20,6 +20,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
         ...getLocaleInfo(locales, lang),
         currentUrl: BASE_URL + CONFIRM_IDENTITY_VERIFICATION,
+        matomoButtonClick: MATOMO_BUTTON_CLICK,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName,
         formattedDate

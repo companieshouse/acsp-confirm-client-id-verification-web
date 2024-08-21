@@ -26,30 +26,15 @@
             ]
           }
         }) }}
-     <!-- Matomo -->
-<script>
-  var _paq = window._paq = window._paq || [];
-  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(['trackPageView']);
-  _paq.push(['enableLinkTracking']);
-  (function() {
-    var u="//matomo.identity.aws.chdev.org/";
-    _paq.push(['setTrackerUrl', u+'matomo.php']);
-    _paq.push(['setSiteId', '1']);
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-  })();
+
+<script type="application/javascript">
+  window.SERVICE_NAME = "Tell Companies House you have verified someone's identity";
+  window.PIWIK_URL = '{{ PIWIK_URL }}'
+  window.PIWIK_SITE_ID = '{{ PIWIK_SITE_ID }}'
 </script>
-<!-- End Matomo Code -->
-</footer>
 
 <script src="{{ cdnHost }}/javascripts/govuk-frontend/v4.6.0/govuk-frontend-4.6.0.min.js"></script>
 <script src="{{ cdnHost }}/javascripts/app/cookie-consent/cookie-consent-1.0.0.js"></script>
-<script src="{{ cdnHost }}/javascripts/app/cookie-consent/piwik-only-cookie-consent.js"></script>
+<script src="{{ cdnHost }}/javascripts/app/cookie-consent/matomo-only-cookie-consent.js"></script>
 <script src="{{ cdnHost }}/javascripts/vendor/jquery-3.3.1.min.js"></script>
-<!--<script src="/all.js"></script>-->
 <script>window.GOVUKFrontend.initAll()</script>
-
-
-
-

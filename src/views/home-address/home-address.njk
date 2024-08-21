@@ -41,12 +41,20 @@
     }) }}
     {{ govukButton({
       text: i18n.homeAddressFindAddressBtn,
+      id: "find-address-button",
       attributes: {
-        "data-event-id": "FIND ADDRESS"
+        "data-event-id": "Find address"
       }
     }) }}
     <p>
-      <a href={{AddressManualLink}} class="govuk-link" data-event-id="Enter address manually">{{ i18n.homeAddressManualLink }}</a>
+      <a href={{AddressManualLink}} class="govuk-link" id="enter-address-manually-link" data-event-id="Enter address manually">{{ i18n.homeAddressManualLink }}</a>
     </p>
   </form>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+  trackEventBasedOnPageTitle("find-address-button", "{{title}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Find address");
+  trackEventBasedOnPageTitle("enter-address-manually-link", "{{title}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoLinkClick}}", "Enter address manually");
+</script>
+
 {% endblock %}

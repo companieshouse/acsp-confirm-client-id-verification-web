@@ -23,60 +23,80 @@
             {
                 value: "biometricPassport",
                 text: i18n.biometricPassport,
+                id: "biometric-passport",
                 attributes: {
-                    "data-event-id": "biometricPassport"
+                    "data-event-id": "Biometric or machine readable passport"
                 }
             },
             {
                 value: "irishPassport",
                 text: i18n.irishPassport,
+                id: "irish-passport",
                 attributes: {
-                    "data-event-id": "irishPassport"
+                    "data-event-id": "Irish Passport Card"
                 }
             },
             {
                 value: "ukDriversLicence",
                 text: i18n.ukDriversLicence,
+                id: "uk-drivers-licence",
                 attributes: {
-                    "data-event-id": "ukDriversLicence"
+                    "data-event-id": "UK, Channel Islands,  Isle of Man, and EU photocard driving license (full or provisional)"
                 }
             },
             {
                 value: "identityCard",
                 text: i18n.identityCard,
+                id: "identity-card",
                 attributes: {
-                    "data-event-id": "identityCard"
+                    "data-event-id": "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein"
                 }
             },
             {
                 value: "biometricPermit",
                 text: i18n.biometricPermit,
+                id: "uk-biometric-residence-permit",
                 attributes: {
-                    "data-event-id": "biometricPermit"
+                    "data-event-id": "UK biometric residence permit (BRP)"
                 }
             },
             {
                 value: "biometricCard",
                 text: i18n.biometricCard,
+                id: "uk-biometric-residence-card",
                 attributes: {
-                    "data-event-id": "biometricCard"
+                    "data-event-id": "UK biometric residence card (BRC)"
                 }
             },
             {
                 value: "frontierPermit",
                 text: i18n.frontierPermit,
+                id: "uk-frontier-worker-permit",
                 attributes: {
-                    "data-event-id": "frontierPermit"
+                    "data-event-id": "UK Frontier worker permit"
                 }
             }
             ]
         }) }}
         {{ govukButton({
             text: i18n.Continue,
+            id: "continue-button",
             attributes: {
-                "data-event-id": "CONTINUE - dc1"
+                "data-event-id": "Continue-DC1"
             }
         }) }}
     </form>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+    trackEventBasedOnPageTitle("biometric-passport", "{{title}}", "{{matomoRadioSelection}}", "Biometric or machine readable passport");
+    trackEventBasedOnPageTitle("irish-passport", "{{title}}", "{{matomoRadioSelection}}", "Irish Passport Card");
+    trackEventBasedOnPageTitle("uk-drivers-licence", "{{title}}", "{{matomoRadioSelection}}", "UK, Channel Islands,  Isle of Man, and EU photocard driving license (full or provisional)");
+    trackEventBasedOnPageTitle("identity-card", "{{title}}", "{{matomoRadioSelection}}", "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein");
+    trackEventBasedOnPageTitle("uk-biometric-residence-permit", "{{title}}", "{{matomoRadioSelection}}", "UK biometric residence permit (BRP)");
+    trackEventBasedOnPageTitle("uk-biometric-residence-card", "{{title}}", "{{matomoRadioSelection}}", "UK biometric residence card (BRC)");
+    trackEventBasedOnPageTitle("uk-frontier-worker-permit", "{{title}}", "{{matomoRadioSelection}}", "UK Frontier worker permit");
+    trackEventBasedOnPageTitle("continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue-DC1");
+</script>
     
 {% endblock main_content %}

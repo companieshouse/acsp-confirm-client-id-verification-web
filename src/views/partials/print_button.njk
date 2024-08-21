@@ -22,8 +22,13 @@
   href: "javascript: window.print()",
   attributes: {
       "id": "print-button",
-      "data-event-id": "print-button"
+      "data-event-id": "Print this page"
   }
 }) }}
 
 <p class="govuk-body govuk-!-font-size-20 check-your-answers-javascript-disabled-text-style">{{i18n.printFromBrowser}}</p>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+  trackEventBasedOnPageTitle("print-button", "{{title}}", "pageview", "Print this page");
+</script>

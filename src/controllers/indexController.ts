@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { BASE_URL, PERSONS_NAME } from "../types/pageURL";
+import { MATOMO_LINK_CLICK, MATOMO_BUTTON_CLICK } from "../utils/constants";
 import {
     addLangToUrl,
     getLocaleInfo,
@@ -14,6 +15,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
     res.render(config.HOME, {
         ...getLocaleInfo(locales, lang),
+        matomoLinkClick: MATOMO_LINK_CLICK,
+        matomoButtonClick: MATOMO_BUTTON_CLICK,
         currentUrl: BASE_URL
     });
 };
