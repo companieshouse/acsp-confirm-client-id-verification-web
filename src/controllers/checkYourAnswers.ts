@@ -11,6 +11,7 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { IdentityVerificationService, sendVerifiedClientDetails } from "../services/identityVerificationService";
 import logger from "../lib/Logger";
 import { ErrorService } from "../services/errorService";
+import { saveDataInSession } from "../utils/sessionHelper";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -90,6 +91,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData);
         await sendVerifiedClientDetails(verifiedClientData).then(identity => {
             logger.info("response from verification api" + JSON.stringify(identity));
+            saveDataInSession(req, REFERENCE, identity?.id);
         }).catch(error => {
             logger.error("Verification-Api error" + JSON.stringify(error));
             const errorService = new ErrorService();
