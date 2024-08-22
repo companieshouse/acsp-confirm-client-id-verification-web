@@ -1,6 +1,7 @@
 export const USER_DATA = "user";
 export const ADDRESS_LIST = "addressList";
 export const PREVIOUS_PAGE_URL: string = "previouspageurl";
+export const REFERENCE = "reference";
 
 // Matomo
 export const MATOMO_BUTTON_CLICK = "Click button";
