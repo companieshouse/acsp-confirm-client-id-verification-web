@@ -1,21 +1,35 @@
 <script src="{{ cdnHost }}/javascripts/app/piwik-enable.js"></script>
-<script type="application/javascript">
-    const journeyTypes = {
-        "register-company": "Register"
-    };
-    
-    const uri = window.location.href;
-    const journeyFromUri = journeyTypes[uri.replace(/^(https?:\/\/)?/, '').split('/')[1]];
 
-    window.SERVICE_NAME = "Tell Companies House you have verified someones identity";
-    window.PIWIK_URL = '{{ PIWIK_URL }}'
-    window.PIWIK_SITE_ID = '{{ PIWIK_SITE_ID }}'
-</script>
-<div id="templateName" data-id='{{templateName}}' hidden></div>
-<script src="{{ cdnHost }}/javascripts/app/cookie-consent/cookie-consent-1.0.0.js"></script>
-<script src="{{ cdnHost }}/javascripts/app/cookie-consent/matomo-only-cookie-consent.js"></script>
-<noscript>
+<!-- Matomo -->
+<script>
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    
+    _paq.push(['enableLinkTracking']);
+    (function () {
+      var u = "//matomo.identity.aws.chdev.org/";
+      _paq.push(['setTrackerUrl', u + 'matomo.php']);
+      _paq.push(['setSiteId', '1']);
+      var d = document,
+        g = d.createElement('script'),
+        s = d.getElementsByTagName('script')[0];
+      g.async = true;
+      g.src = u + 'matomo.js';
+      s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+  <noscript>
     <p>
         <img src="{{PIWIK_URL}}/piwik.php?idsite={{PIWIK_SITE_ID}}" style="border:0;" alt="" />
     </p>
 </noscript>
+<script>
+// Function to add event categories based on page title
+function trackEventBasedOnPageTitle(elementId, eventCategory, eventAction, eventName) {
+    document.getElementById(elementId)
+    .addEventListener("click", () => {
+        _paq.push(["trackEvent", eventCategory, eventAction, eventName]);
+    });
+}
+</script>
+<!-- Matomo Ends -->

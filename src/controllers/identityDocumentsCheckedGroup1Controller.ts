@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 import { BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, HOW_IDENTITY_DOCUMENTS_CHECKED, CONFIRM_IDENTITY_VERIFICATION } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { ClientData } from "../model/ClientData";
-import { USER_DATA } from "../utils/constants";
+import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT } from "../utils/constants";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { CheckedDocumentsService } from "../services/checkedDocumentsService";
@@ -23,6 +23,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         ...getLocaleInfo(locales, lang),
         previousPage,
         currentUrl,
+        matomoButtonClick: MATOMO_BUTTON_CLICK,
+        matomoRadioSelection: MATOMO_RADIO_OPTION_SELECT,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName,
         payload

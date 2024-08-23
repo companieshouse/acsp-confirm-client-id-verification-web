@@ -44,14 +44,19 @@
         </div>
         {{ govukButton({
             text: i18n.ConfirmAndContinue,
-            attributes: {
-              "data-event-id": "CONTINUE - SELECT ADDRESS"
-            }
+            id: "confirm-and-continue-button"
           }) }}
     </form>
     
     {# Manual address entry link #}
     <p>
-        <a href= {{ manualAddressLink }} class="govuk-link" data-event-id="Enter address manually">{{ i18n.homeAddressManualLink }}</a>
+        <a href= {{ manualAddressLink }} class="govuk-link" id="enter-address-manually-link">{{ i18n.homeAddressManualLink }}</a>
     </p>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+    trackEventBasedOnPageTitle("confirm-and-continue-button", "{{title}}", "{{matomoButtonClick}}", "Confirm and Continue");
+    trackEventBasedOnPageTitle("enter-address-manually-link", "{{title}}", "{{matomoLinkClick}}", "Enter address manually");
+</script>
+
 {% endblock main_content %}

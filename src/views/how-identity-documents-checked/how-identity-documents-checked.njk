@@ -29,21 +29,17 @@
                 {
                     value: "OPTION1",
                     text: i18n.howIdentityDocsCheckedOption1,
+                    id: "option-1",
                     hint: {
                         text: i18n.howIdentityDocsCheckedOption1hint
-                    },
-                    attributes: {
-                        "data-event-id": "option1"
                     }
                 },
                 {
                     value: "OPTION2",
                     text: i18n.howIdentityDocsCheckedOption2,
+                    id: "option-2",
                     hint: {
                         text: i18n.howIdentityDocsCheckedOption2hint
-                    },    
-                    attributes: {
-                        "data-event-id": "option2"
                     }
                 }
             ]
@@ -63,10 +59,16 @@
         </details>
         {{ govukButton({
             text: i18n.Continue,
-            attributes: {
-            "data-event-id": "CONTINUE - how were idenity documents checked"
-            }
+            id: "continue-button"
         }) }}
     </div>
   </form>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+    trackEventBasedOnPageTitle("option-1", "{{title}}", "{{matomoRadioSelection}}", "Option 1");
+    trackEventBasedOnPageTitle("option-2", "{{title}}", "{{matomoRadioSelection}}", "Option 2");
+    trackEventBasedOnPageTitle("continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue");
+</script>
+
 {% endblock main_content %}

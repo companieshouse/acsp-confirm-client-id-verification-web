@@ -22,109 +22,79 @@ i18n.identityDocumentsIDVTitle %}
             {
                 value: "passportIrishCard",
                 text: i18n.passportIrishCard,
-                attributes: {
-                    "data-event-id": "passportIrishCard"
-                }
+                id: "passport-or-irish-passport-card"
             },
             {
                 value: "identityCard",
                 text: i18n.identityCard,
-                attributes: {
-                    "data-event-id": "identityCard"
-                }
+                id: "identity-card"
             },
             {
                 value: "ukBRP",
                 text: i18n.ukBRP,
-                attributes: {
-                    "data-event-id": "ukBRP"
-                }
+                id: "uk-biometric-residence-permit"
             },
             {
                 value: "ukBRC",
                 text: i18n.ukBRC,
-                attributes: {
-                    "data-event-id": "ukBRC"
-                }
+                id: "uk-biometric-residence-card"
             },
             {
                 value: "passCard",
                 text: i18n.passCard,
-                attributes: {
-                    "data-event-id": "passCard"
-                }
+                id: "uk-accredited-pass-card"
             },
             {
                 value: "ukEuDigitalCard",
                 text: i18n.ukEuDigitalCard,
-                attributes: {
-                    "data-event-id": "ukEuDigitalCard"
-                }
+                id: "uk-eu-driver-digital-tacograph-card"
             },
             {
                 value: "fullDrivingLicense",
                 text: i18n.fullDrivingLicense,
-                attributes: {
-                    "data-event-id": "fullDrivingLicense"
-                }
+                id: "uk-drivers-licence"
             },
             {
                 value: "ukForceCard",
                 text: i18n.ukForceCard,
-                attributes: {
-                    "data-event-id": "ukForceCard"
-                }
+                id: "uk-forces-id-card"
             },
             {
                 value: "ukArmedForceCard",
                 text: i18n.ukArmedForceCard,
-                attributes: {
-                    "data-event-id": "ukArmedForceCard"
-                }
+                id: "uk-armed-forces-veteran-card"
             },
             {
                 value: "ukFrontierPermit",
                 text: i18n.ukFrontierPermit,
-                attributes: {
-                    "data-event-id": "ukFrontierPermit"
-                }
+                id: "uk-frontier-worker-permit"
             },
             {
                 value: "photoWorkPermit",
                 text: i18n.photoWorkPermit,
-                attributes: {
-                    "data-event-id": "photoWorkPermit"
-                }
+                id: "photo-work-permit"
             },
             {
                 value: "photoimmigrationDoc",
                 text: i18n.photoimmigrationDoc,
-                attributes: {
-                    "data-event-id": "photoimmigrationDoc"
-                }
+                id: "photo-immigration-doc"
             },
             {
                 value: "photoVisa",
                 text: i18n.photoVisa,
-                attributes: {
-                    "data-event-id": "photoVisa"
-                }
+                id: "photo-visa"
             },
             {
                 value: "ukFirearmsLicence",
                 text: i18n.ukFirearmsLicence,
-                attributes: {
-                    "data-event-id": "ukFirearmsLicence"
-                }
+                id: "uk-firearms-licence"
             },
             {
                 value: "photoIdPrado",
                 text: i18n.photoIdPrado,
+                id: "photo-id-prado",
                 hint: {
                         text: i18n.photoIdPradoHint
-                        },
-                attributes: {
-                    "data-event-id": "photoIdPrado"
                 }
             }
             ]
@@ -145,81 +115,89 @@ i18n.identityDocumentsIDVTitle %}
             {
                 value: "birthCert",
                 text: i18n.birthCert,
-                attributes: {
-                    "data-event-id": "birthCert"
-                }
+                id: "birth-cert"
             },
             {
                 value: "marriageCert",
                 text: i18n.marriageCert,
-                attributes: {
-                    "data-event-id": "marriageCert"
-                }
+                id: "marriage-cert"
             },
             {
                 value: "noPhotoimmigrationDoc",
                 text: i18n.noPhotoimmigrationDoc,
-                attributes: {
-                    "data-event-id": "noPhotoimmigrationDoc"
-                }
+                id: "non-photo-immigration-doc"
             },
             {
                 value: "noPhotoVisa",
                 text: i18n.noPhotoVisa,
-                attributes: {
-                    "data-event-id": "noPhotoVisa"
-                }
+                id: "non-photo-visa"
             },
             {
                 value: "noPhotoWorkPermit",
                 text: i18n.noPhotoWorkPermit,
-                attributes: {
-                    "data-event-id": "noPhotoWorkPermit"
-                }
+                id: "non-photo-work-permit"
             },
             {
                 value: "bankStatement",
                 text: i18n.bankStatement,
-                attributes: {
-                    "data-event-id": "bankStatement"
-                }
+                id: "bank-statement"
             },
             {
                 value: "rentalAgreement",
                 text: i18n.rentalAgreement,
-                attributes: {
-                    "data-event-id": "rentalAgreement"
-                }
+                id: "rental-agreement"
             },
             {
                 value: "morgageStatement",
                 text: i18n.morgageStatement,
-                attributes: {
-                    "data-event-id": "morgageStatement"
-                }
+                id: "mortgage-statement"
             },
             {
                 value: "taxStatement",
                 text: i18n.taxStatement,
-                attributes: {
-                    "data-event-id": "taxStatement"
-                }
+                id: "council-tax-statement"
             },
             {
                 value: "utilityBill",
                 text: i18n.utilityBill,
-                attributes: {
-                    "data-event-id": "utilityBill"
-                }
+                id: "utility-bill"
             }
             ]
         }) }}
         {{ govukButton({
             text: i18n.Continue,
-            attributes: {
-                "data-event-id": "CONTINUE - dc1"
-            }
+            id: "continue-button"
         }) }}
     </form>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+    trackEventBasedOnPageTitle("passport-or-irish-passport-card", "{{title}}", "{{matomoRadioSelection}}", "Passport or Irish passport card");
+    trackEventBasedOnPageTitle("identity-card", "{{title}}", "{{matomoRadioSelection}}", "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein");
+    trackEventBasedOnPageTitle("uk-biometric-residence-permit", "{{title}}", "{{matomoRadioSelection}}", "UK biometric residence permit (BRP)");
+    trackEventBasedOnPageTitle("uk-biometric-residence-card", "{{title}}", "{{matomoRadioSelection}}", "UK biometric residence card (BRC)");
+    trackEventBasedOnPageTitle("uk-accredited-pass-card", "{{title}}", "{{matomoRadioSelection}}", "UK accredited PASS card");
+    trackEventBasedOnPageTitle("uk-eu-driver-digital-tacograph-card", "{{title}}", "{{matomoRadioSelection}}", "UK or EU driver digital tachograph card");
+    trackEventBasedOnPageTitle("uk-drivers-licence", "{{title}}", "{{matomoRadioSelection}}", "UK, Channel Islands,  Isle of Man, and EU photocard driving license (full or provisional)");
+    trackEventBasedOnPageTitle("uk-forces-id-card", "{{title}}", "{{matomoRadioSelection}}", "UK HM Forces ID card");
+    trackEventBasedOnPageTitle("uk-armed-forces-veteran-card", "{{title}}", "{{matomoRadioSelection}}", "UK HM Armed Forces Veteran Card");
+    trackEventBasedOnPageTitle("uk-frontier-worker-permit", "{{title}}", "{{matomoRadioSelection}}", "UK Frontier worker permit");
+    trackEventBasedOnPageTitle("photo-work-permit", "{{title}}", "{{matomoRadioSelection}}", "Photographic work permit (government issued)");
+    trackEventBasedOnPageTitle("photo-immigration-doc", "{{title}}", "{{matomoRadioSelection}}", "Photographic immigration document");
+    trackEventBasedOnPageTitle("photo-visa", "{{title}}", "{{matomoRadioSelection}}", "Photographic visa");
+    trackEventBasedOnPageTitle("uk-firearms-licence", "{{title}}", "{{matomoRadioSelection}}", "PUK, Channel Islands and Isle of Man Firearms Licence");
+    trackEventBasedOnPageTitle("photo-id-prado", "{{title}}", "{{matomoRadioSelection}}", "Photographic ID listed on PRADO");
+    trackEventBasedOnPageTitle("birth-cert", "{{title}}", "{{matomoRadioSelection}}", "Birth or adoption certificate");
+    trackEventBasedOnPageTitle("marriage-cert", "{{title}}", "{{matomoRadioSelection}}", "Marriage or civil partnership certificate");
+    trackEventBasedOnPageTitle("non-photo-immigration-doc", "{{title}}", "{{matomoRadioSelection}}", "Non-photographic immigration document");
+    trackEventBasedOnPageTitle("non-photo-visa", "{{title}}", "{{matomoRadioSelection}}", "Non-photographic visa");
+    trackEventBasedOnPageTitle("non-photo-work-permit", "{{title}}", "{{matomoRadioSelection}}", "Non-photographic work permit");
+    trackEventBasedOnPageTitle("bank-statement", "{{title}}", "{{matomoRadioSelection}}", "Bank or building society statement");
+    trackEventBasedOnPageTitle("rental-agreement", "{{title}}", "{{matomoRadioSelection}}", "UK local authority or social housing rental agreement (for the person's current address)");
+    trackEventBasedOnPageTitle("mortgage-statement", "{{title}}", "{{matomoRadioSelection}}", "Mortgage statement (for the person's current address)");
+    trackEventBasedOnPageTitle("council-tax-statement", "{{title}}", "{{matomoRadioSelection}}", "UK Council Tax statement (for the person's current address)");
+    trackEventBasedOnPageTitle("utility-bill", "{{title}}", "{{matomoRadioSelection}}", "Utility bill (for the person's current address)");
+    trackEventBasedOnPageTitle("continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue-DC2");
+</script>
 
 {% endblock main_content %}

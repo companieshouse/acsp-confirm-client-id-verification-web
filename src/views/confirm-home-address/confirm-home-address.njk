@@ -16,13 +16,18 @@
       <li>{{ address.postcode }}</li>
     </ul>
     <p class="govuk-body">
-      <a href={{editPage}} class="govuk-link govuk-link--no-visited-state"  data-event-id="Edit address">{{ i18n.EditAddress }}</a>
+      <a href={{editPage}} class="govuk-link govuk-link--no-visited-state" id="edit-address-link">{{ i18n.EditAddress }}</a>
     </p>
     {{ govukButton({
       text: i18n.ConfirmAndContinue,
-      attributes: {
-        "data-event-id": "CONFIRM AND CONTINUE"
-      }
+      id: "confirm-and-continue-button"
     }) }}
   </form>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+  trackEventBasedOnPageTitle("confirm-and-continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue-confirm address");
+  trackEventBasedOnPageTitle("edit-address-link", "{{title}}", "{{matomoLinkClick}}", "Edit address");
+</script>
+
 {% endblock main_content %}

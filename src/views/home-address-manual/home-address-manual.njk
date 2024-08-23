@@ -97,9 +97,13 @@
         }) }}
        {{ govukButton({
             text: i18n.Continue,
-            attributes: {
-              "data-event-id": "CONTINUE - MANUAL ADDRESS"
-            }
+            id: "continue-button"
         }) }}
   </form>
+  
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+    trackEventBasedOnPageTitle("continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue");
+</script>
+
 {% endblock main_content %}

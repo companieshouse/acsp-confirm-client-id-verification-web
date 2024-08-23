@@ -4,7 +4,7 @@ import { validationResult } from "express-validator";
 import { getPreviousPageUrl } from "../services/url";
 import { Session } from "@companieshouse/node-session-handler";
 import { formatValidationError, getPageProperties } from "../validations/validation";
-import { PREVIOUS_PAGE_URL } from "../utils/constants";
+import { PREVIOUS_PAGE_URL, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT } from "../utils/constants";
 import { selectLang, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { BASE_URL, SIGN_OUT_URL, ACCOUNTS_SIGNOUT_PATH } from "../types/pageURL";
 import { saveDataInSession } from "../utils/sessionHelper";
@@ -18,6 +18,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     res.render(config.SIGN_OUT_PAGE, {
         previousPage: (previousPageUrl),
         ...getLocaleInfo(locales, lang),
+        matomoButtonClick: MATOMO_BUTTON_CLICK,
+        matomoRadioSelect: MATOMO_RADIO_OPTION_SELECT,
         currentUrl: BASE_URL + SIGN_OUT_URL
     });
 };

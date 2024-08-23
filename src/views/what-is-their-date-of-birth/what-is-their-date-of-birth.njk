@@ -88,10 +88,14 @@
 
       {{ govukButton({
         text: i18n.Continue,
-        attributes: {
-          "data-event-id": "CONTINUE - DOB"
-        }
+        id: "continue-button"
       }) }}
     </form>
   </div>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+  trackEventBasedOnPageTitle("continue-button", "{{title}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Continue-DOB");
+</script>
+
 {% endblock main_content %}

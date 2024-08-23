@@ -5,7 +5,7 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { BASE_URL, CONFIRM_HOME_ADDRESS, WHEN_IDENTITY_CHECKS_COMPLETED, HOW_IDENTITY_DOCUMENTS_CHECKED } from "../types/pageURL";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA } from "../utils/constants";
+import { USER_DATA, MATOMO_BUTTON_CLICK } from "../utils/constants";
 import { ClientData } from "model/ClientData";
 import { saveDataInSession } from "../utils/sessionHelper";
 
@@ -28,6 +28,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         ...getLocaleInfo(locales, lang),
         previousPage: addLangToUrl(BASE_URL + CONFIRM_HOME_ADDRESS, lang),
         currentUrl: BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED,
+        matomoButtonClick: MATOMO_BUTTON_CLICK,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName,
         payload
