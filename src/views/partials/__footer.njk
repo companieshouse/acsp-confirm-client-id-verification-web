@@ -26,7 +26,17 @@
             ]
           }
         }) }}
+        
+        {% set templateTitle = title %}
+        {% if "s email address?" in title %}
+            {% set templateTitle = "What is User's email address?" %}
+        {% endif %}
+        {% if "s personal code" in title %}
+            {% set templateTitle = "User's personal code" %}
+        {% endif %}
 
+
+<div id="templateName" data-id='{{templateTitle}}' hidden></div>
 <script type="application/javascript">
   window.SERVICE_NAME = "Tell Companies House you have verified someone's identity";
   window.PIWIK_URL = '{{ PIWIK_URL }}'

@@ -16,14 +16,11 @@
       <li>{{ address.postcode }}</li>
     </ul>
     <p class="govuk-body">
-      <a href={{editPage}} class="govuk-link govuk-link--no-visited-state" id="edit-address-link" data-event-id="Edit address">{{ i18n.EditAddress }}</a>
+      <a href={{editPage}} class="govuk-link govuk-link--no-visited-state" id="edit-address-link">{{ i18n.EditAddress }}</a>
     </p>
     {{ govukButton({
       text: i18n.ConfirmAndContinue,
-      id: "confirm-and-continue-button",
-      attributes: {
-        "data-event-id": "Continue-confirm address"
-      }
+      id: "confirm-and-continue-button"
     }) }}
   </form>
 

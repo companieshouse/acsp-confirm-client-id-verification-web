@@ -41,13 +41,10 @@
     }) }}
     {{ govukButton({
       text: i18n.homeAddressFindAddressBtn,
-      id: "find-address-button",
-      attributes: {
-        "data-event-id": "Find address"
-      }
+      id: "find-address-button"
     }) }}
     <p>
-      <a href={{AddressManualLink}} class="govuk-link" id="enter-address-manually-link" data-event-id="Enter address manually">{{ i18n.homeAddressManualLink }}</a>
+      <a href={{AddressManualLink}} class="govuk-link" id="enter-address-manually-link">{{ i18n.homeAddressManualLink }}</a>
     </p>
   </form>
 

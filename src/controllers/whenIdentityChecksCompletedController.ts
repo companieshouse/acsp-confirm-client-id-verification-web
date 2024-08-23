@@ -28,7 +28,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         ...getLocaleInfo(locales, lang),
         previousPage: addLangToUrl(BASE_URL + CONFIRM_HOME_ADDRESS, lang),
         currentUrl: BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED,
-        matomoButtonCLick: MATOMO_BUTTON_CLICK,
+        matomoButtonClick: MATOMO_BUTTON_CLICK,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName,
         payload
