@@ -188,15 +188,15 @@
     }) }}
 
     {{ govukButton({
-        text: i18n.continueSend,
-        id: "continue-send-button"
+        text: i18n.confirmSend,
+        id: "confirm-send-button"
     }) }}
 
   </form>
   
 <!-- Calling Matomo event script to capture event actions based on page title -->
 <script>
-    trackEventBasedOnPageTitle("continue-send-button", "{{title}}", "{{matomoButtonClick}}", "Continue and Send");
+    trackEventBasedOnPageTitle("confirm-send-button", "{{title}}", "{{matomoButtonClick}}", "Confirm and Send");
 </script>
 
 {% endblock main_content %}

@@ -5,7 +5,7 @@
     "checkYourAnswersDeclarationText1" : "I confirm that welsh"  ,
     "checkYourAnswersDeclarationText2" : " has delivered the date of birth and required contact information for welsh"  ,
     "checkYourAnswersDeclarationText3" : ", and a description of the information and evidence used to satisfy that the required personal information is true.welsh"  ,
-    "continueSend": "Confirm and send welsh",
+    "confirmSend": "Confirm and send welsh",
     "error-checkYourAnswerEmpty":"Select to confirm the declaration welsh"
 
 
