@@ -32,16 +32,31 @@ variable "desired_task_count" {
   description = "The desired ECS task count for this service"
   default = 1 # defaulted low for dev environments, override for production
 }
+
+variable "min_task_count" {
+  type        = number
+  description = "The minimum number of tasks for this service."
+  default     = 1
+}
+
+variable "max_task_count" {
+  type        = number
+  description = "The maximum number of tasks for this service."
+  default     = 3
+}
+
 variable "required_cpus" {
   type = number
   description = "The required cpu resource for this service. 1024 here is 1 vCPU"
   default = 256 # defaulted low for dev environments, override for production
 }
+
 variable "required_memory" {
   type = number
   description = "The required memory for this service"
   default = 512 # defaulted low for node service in dev environments, override for production
 }
+
 variable "use_fargate" {
   type        = bool
   description = "If true, sets the required capabilities for all containers in the task definition to use FARGATE, false uses EC2"
@@ -63,7 +78,7 @@ variable "service_autoscale_enabled" {
 variable "service_autoscale_target_value_cpu" {
   type        = number
   description = "Target CPU percentage for the ECS Service to autoscale on"
-  default     = 50 # 100 disables autoscaling using CPU as a metric
+  default     = 80 # 100 disables autoscaling using CPU as a metric
 }
 
 variable "service_scaledown_schedule" {
