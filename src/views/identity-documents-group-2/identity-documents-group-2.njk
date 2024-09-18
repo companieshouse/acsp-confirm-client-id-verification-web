@@ -20,9 +20,14 @@ i18n.identityDocumentsIDVTitle %}
             values: payload["documentsGroup2A"],
             items: [
             {
-                value: "passportIrishCard",
-                text: i18n.passportIrishCard,
-                id: "passport-or-irish-passport-card"
+                value: "passport",
+                text: i18n.passport,
+                id: "passport"
+            },
+            {
+                value: "IrishCard",
+                text: i18n.IrishCard,
+                id: "irish-passport-card"
             },
             {
                 value: "identityCard",
@@ -172,7 +177,8 @@ i18n.identityDocumentsIDVTitle %}
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
 <script>
-    trackEventBasedOnPageTitle("passport-or-irish-passport-card", "{{title}}", "{{matomoRadioSelection}}", "Passport or Irish passport card");
+    trackEventBasedOnPageTitle("passport", "{{title}}", "{{matomoRadioSelection}}", "Passport");
+    trackEventBasedOnPageTitle("irish-passport-card", "{{title}}", "{{matomoRadioSelection}}", "Irish passport card");
     trackEventBasedOnPageTitle("identity-card", "{{title}}", "{{matomoRadioSelection}}", "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein");
     trackEventBasedOnPageTitle("uk-biometric-residence-permit", "{{title}}", "{{matomoRadioSelection}}", "UK biometric residence permit (BRP)");
     trackEventBasedOnPageTitle("uk-biometric-residence-card", "{{title}}", "{{matomoRadioSelection}}", "UK biometric residence card (BRC)");
