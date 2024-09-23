@@ -26,10 +26,17 @@ export class CheckedDocumentsService {
         const documentsGroup2A = Array.isArray(documents.documentsGroup2A)
             ? documents.documentsGroup2A
             : [documents.documentsGroup2A];
-        const documentsGroup2B = Array.isArray(documents.documentsGroup2B)
-            ? documents.documentsGroup2B
-            : [documents.documentsGroup2B];
-        clientData.documentsChecked = [...documentsGroup2A, ...documentsGroup2B];
+        let documentsGroup2B;
+        if (documents.documentsGroup2B) {
+            documentsGroup2B = Array.isArray(documents.documentsGroup2B)
+                ? documents.documentsGroup2B
+                : [documents.documentsGroup2B];
+        }
+        if (documentsGroup2B) {
+            clientData.documentsChecked = [...documentsGroup2A, ...documentsGroup2B];
+        } else {
+            clientData.documentsChecked = documentsGroup2A;
+        }
         session.setExtraData(USER_DATA, clientData);
     }
 }
