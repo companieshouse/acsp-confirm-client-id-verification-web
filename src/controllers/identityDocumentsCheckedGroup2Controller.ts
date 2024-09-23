@@ -2,7 +2,7 @@
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../config";
 import { NextFunction, Request, Response } from "express";
-import { BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP2, HOW_IDENTITY_DOCUMENTS_CHECKED, CONFIRM_IDENTITY_VERIFICATION, WHICH_IDENTITY_DOCS_CHECKED_GROUP1 } from "../types/pageURL";
+import { BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP2, HOW_IDENTITY_DOCUMENTS_CHECKED, CONFIRM_IDENTITY_VERIFICATION } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { ClientData } from "../model/ClientData";
 import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT } from "../utils/constants";
