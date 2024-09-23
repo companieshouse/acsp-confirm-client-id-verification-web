@@ -62,6 +62,19 @@ describe("CheckedDocumentsService tests", () => {
         });
     });
 
+    it("should handle cases where documentsGroup2B is empty", () => {
+        const documentsGroup: DocumentsGroup = {
+            documentsGroup2A: ["ukBRC", "photoimmigrationDoc"],
+            documentsGroup2B: ""
+        };
+        const session: Session = req.session as any as Session;
+        service.saveDocumentGroupAB(req, {}, documentsGroup);
+
+        expect(session.getExtraData(USER_DATA)).toEqual({
+            documentsChecked: ["ukBRC", "photoimmigrationDoc"]
+        });
+    });
+
     it("should handle empty document groups", () => {
         const documentsGroup: DocumentsGroup = {
             documentsGroup2A: [],
