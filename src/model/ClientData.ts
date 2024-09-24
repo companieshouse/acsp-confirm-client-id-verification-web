@@ -11,4 +11,5 @@ export interface ClientData {
     confirmEmailAddress?: string;
     howIdentityDocsChecked?: string;
     whenIdentityChecksCompleted?: Date;
+    confirmIdentityVerified?: string;
 }

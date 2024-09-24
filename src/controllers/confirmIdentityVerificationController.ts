@@ -16,6 +16,10 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const formattedDate = new Date(clientData.whenIdentityChecksCompleted!)
         .toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
+    const payload = {
+        declaration: clientData.confirmIdentityVerified
+    };
+
     res.render(config.CONFIRM_IDENTITY_VERIFICATION, {
         previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
         ...getLocaleInfo(locales, lang),
@@ -23,7 +27,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         matomoButtonClick: MATOMO_BUTTON_CLICK,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName,
-        formattedDate
+        formattedDate,
+        payload
     });
 };
 
@@ -48,6 +53,9 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             ...pageProperties
         });
     } else {
+        if (clientData) {
+            clientData.confirmIdentityVerified = req.body.declaration;
+        }
         res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
     }
 };
