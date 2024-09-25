@@ -13,10 +13,10 @@
   {% set identityDocHref = "" %}
 
   {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
-  {% if howIdentityDocsChecked == "OPTION1" %}
+  {% if howIdentityDocsChecked == "cryptographic_security_features_checked" %}
     {% set identityDocHref = "/tell-companies-house-you-have-verified-someones-identity/identity-documents-checked-group-1" + "?lang=" + lang %}
     {% set howIdentityDocsChecked = i18n.option1Confirmation %}
-  {% elseif howIdentityDocsChecked == "OPTION2" %}
+  {% elseif howIdentityDocsChecked == "physical_security_features_checked" %}
     {% set identityDocHref = "/tell-companies-house-you-have-verified-someones-identity/identity-documents-checked-group-2" + "?lang=" + lang %}
     {% set howIdentityDocsChecked = i18n.option2Confirmation %}
   {% endif %}

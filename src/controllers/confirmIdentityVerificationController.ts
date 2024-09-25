@@ -61,7 +61,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getBackUrl = (selectedOption: string) => {
-    if (selectedOption === "OPTION1") {
+    if (selectedOption === "cryptographic_security_features_checked") {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
     } else {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;

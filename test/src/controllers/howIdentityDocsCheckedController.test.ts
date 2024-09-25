@@ -18,13 +18,13 @@ describe("GET" + HOW_IDENTITY_DOCUMENTS_CHECKED, () => {
 
 describe("POST" + HOW_IDENTITY_DOCUMENTS_CHECKED, () => {
     it("should return status 302 after redirect", async () => {
-        const res = await router.post(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED).send({ howIdentityDocsCheckedRadio: "OPTION1" });
+        const res = await router.post(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED).send({ howIdentityDocsCheckedRadio: "cryptographic_security_features_checked" });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1 + "?lang=en");
     });
 
     it("should return status 302 after redirect", async () => {
-        const res = await router.post(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED).send({ howIdentityDocsCheckedRadio: "OPTION2" });
+        const res = await router.post(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED).send({ howIdentityDocsCheckedRadio: "physical_security_features_checked" });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2 + "?lang=en");
     });

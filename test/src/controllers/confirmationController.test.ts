@@ -25,7 +25,7 @@ const mockClientData: ClientData = {
     dateOfBirth: new Date("1990-01-01"),
     whenIdentityChecksCompleted: new Date("2024-01-01"),
     documentsChecked: ["biometricPassport"],
-    howIdentityDocsChecked: "OPTION1"
+    howIdentityDocsChecked: "cryptographic_security_features_checked"
 };
 
 describe("GET " + BASE_URL + CONFIRMATION, () => {
