@@ -76,9 +76,10 @@ export class IdentityVerificationService {
         }
 
         return {
-            // below 2 fields are hardcoded. Need to replace with actual logic in future
+            // below 3 fields are hardcoded. Need to replace with actual logic in future
             acspId: "1234567890",
             verificationEvidence: ["passport"],
+            acspUserId: "1234",
 
             verificationSource: "acsp",
             email: clientData.emailAddress!,
@@ -87,6 +88,8 @@ export class IdentityVerificationService {
                 surname: clientData.lastName!,
                 created: new Date()
             },
+            verificationDate: clientData.whenIdentityChecksCompleted!,
+            validationMethod: clientData.howIdentityDocsChecked!,
             dateOfBirth: clientData.dateOfBirth!,
             currentAddress: {
                 addressLine1: clientData.address?.line1!,

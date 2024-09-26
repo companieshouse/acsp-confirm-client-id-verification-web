@@ -1,5 +1,4 @@
-import { Identity } from "private-api-sdk-node/dist/services/identity-verification/types";
-import { VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 
 export const dummyIdentity: Identity = {
     id: "23456",
@@ -54,6 +53,9 @@ export const verifiedClientDetails: VerifiedClientData = {
         created: new Date()
     },
     verificationEvidence: ["passport"],
+    acspUserId: "",
+    verificationDate: new Date(),
+    validationMethod: ""
 };
 
 export const clientDetails = {

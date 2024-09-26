@@ -17,7 +17,8 @@ mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: Nex
     session.setExtraData(USER_DATA, {
         firstName: "John",
         middleName: "",
-        lastName: "Doe"
+        lastName: "Doe",
+        howIdentityDocsChecked: "cryptographic_security_features_checked"
     }
     );
     session.setExtraData(ADDRESS_LIST, addressList);
