@@ -7,8 +7,14 @@
 
 {% block main_content %}
   <form action="" method="POST">
-    {% include "partials/user_name.njk" %} 
+    {% include "partials/user_name.njk" %}
     <div class="govuk-form-group">
+        <h1 class="govuk-heading-l">{{ i18n.howIdentityDocsCheckedTitle }}</h1>
+        <p class="govuk-body">
+            {{ i18n.howIdentityDocsCheckedBodyText1 }}<a href="#" id="identity-verification-standard-link-id">{{ i18n.howIdentityDocsCheckedVerificationStandardLink }}</a>.
+        </p>
+        <p class="govuk-body">{{ i18n.howIdentityDocsCheckedBodyText2 }}</p>
+
         {{ govukRadios({
             errorMessage: errors.howIdentityDocsCheckedRadio if errors,
             classes: "govuk-radios",
@@ -16,9 +22,8 @@
             name: "howIdentityDocsCheckedRadio",
             fieldset: {
                 legend: {
-                    text: i18n.howIdentityDocsCheckedTitle,
-                    isPageHeading: true,
-                    classes: "govuk-fieldset__legend--l"
+                    text: i18n.howIdentityDocsCheckedWhichOptionHeading,
+                    classes: "govuk-fieldset__legend--m"
                 }
             },
             hint: {
@@ -44,28 +49,17 @@
                 }
             ]
         }) }}
+    </div>
 
-
-        <details class="govuk-details">
-            <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                  {{i18n.howIdentityDocsCheckedInfoHeading}} 
-                </span>
-            </summary>
-            <div class="govuk-details__text">
-                <p>{{i18n.howIdentityDocsCheckedInfoText1}}</p>
-                <p>{{i18n.howIdentityDocsCheckedInfoText2}} <a href="https://www.gov.uk/government/publications/identity-document-validation-technology/identification-document-validation-technology" class="govuk-link govuk-link--no-visited-state" target="_blank">{{ i18n.howIdentityDocsCheckedInfoText2Link }}</a></p>
-            </div>
-        </details>
         {{ govukButton({
             text: i18n.Continue,
             id: "continue-button"
         }) }}
-    </div>
   </form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
 <script>
+    trackEventBasedOnPageTitle("identity-verification-standard-link-id", "{{title}}", "click-link", "Identity verification standard link");
     trackEventBasedOnPageTitle("option-1", "{{title}}", "{{matomoRadioSelection}}", "Option 1");
     trackEventBasedOnPageTitle("option-2", "{{title}}", "{{matomoRadioSelection}}", "Option 2");
     trackEventBasedOnPageTitle("continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue");

@@ -1,5 +1,6 @@
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
- {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
  {% set errors = pageProperties.errors %}
 
@@ -85,6 +86,10 @@
            </div>
          </fieldset>
        </div>
+
+       {{ govukInsetText({
+        text: i18n.identityChecksCompletedInsetText
+      }) }}
 
        {{ govukButton({
          text: i18n.Continue,
