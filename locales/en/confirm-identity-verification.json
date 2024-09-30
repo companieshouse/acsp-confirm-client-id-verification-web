@@ -1,5 +1,6 @@
 {
     "confirmVerificationHeading": "Confirm you have verified this person's identity",
+    "confirmVerificationWarningText": "We could suspend or stop [ACSP NAME] from acting as an authorised agent if you have not met Companies House identity verification standard.",
     "declarationSubHeading": "Declaration",
     "confirmationStatement1": "I confirm that",
     "confirmationStatement2": "verified the identity of",

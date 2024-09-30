@@ -10,6 +10,15 @@
 
 {% include "partials/user_name.njk" %}
 <h1 class="govuk-heading-l">{{ i18n.confirmVerificationHeading }}</h1>
+
+<div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-visually-hidden">Warning</span>
+      {{ i18n.confirmVerificationWarningText }}
+    </strong>
+</div>
+
 <form action="" method="POST">
     {{ govukCheckboxes({
         name: "declaration",
