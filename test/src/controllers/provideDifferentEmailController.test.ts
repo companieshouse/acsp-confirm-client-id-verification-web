@@ -7,7 +7,12 @@ const router = supertest(app);
 
 describe("GET " + PROVIDE_DIFFERENT_EMAIL, () => {
     it("should respond with status 200", async () => {
-        const res = await router.get(BASE_URL + PROVIDE_DIFFERENT_EMAIL);
+        const res = await router.get(BASE_URL + PROVIDE_DIFFERENT_EMAIL)
+            .send({
+                "first-name": "John",
+                "last-name": "Doe",
+                "email-address": "johndoe@gmail.com"
+            });
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.status).toBe(200);
