@@ -1,0 +1,9 @@
+{
+    "provideDifferentEmailTitle": "You need to provide a different email address welsh",
+    "cannotUseDynamicEmail": "You cannot use welsh ",
+    "invalidEmailReasonsLabel": "This could be for one of the following reasons: welsh",
+    "invalidEmailReasons1": "an authorised agent already provided this email address when they verified someone's identity welsh",
+    "invalidEmailReasons2": "someone has used this email address to verify their identity using GOV.UK One Login welsh",
+    "youNeedTo": "You'll need to welsh ",
+    "provideDifferentEmailLink": "provide a different email address for welsh "
+}

@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, EMAIL_ADDRESS, DATE_OF_BIRTH } from "../../../src/types/pageURL";
+import { BASE_URL, EMAIL_ADDRESS, DATE_OF_BIRTH, PROVIDE_DIFFERENT_EMAIL } from "../../../src/types/pageURL";
 import { findIdentityByEmail } from "../../../src/services/identityVerificationService";
 import { dummyIdentity } from "../../mocks/identity.mock";
 
@@ -35,6 +35,20 @@ describe("POST" + EMAIL_ADDRESS, () => {
         expect(res.header.location).toBe(BASE_URL + DATE_OF_BIRTH + "?lang=en");
     });
 
+    // Test for when email exists in verification api to redirect to stop screen
+    it("should return status 302 if email address exists in verification api and redirect to stop screen", async () => {
+        await mockFindIdentityByEmail.mockResolvedValueOnce(dummyIdentity);
+        const res = await router.post(BASE_URL + EMAIL_ADDRESS)
+            .send({
+                "email-address": "test@gmail.com",
+                confirm: "test@gmail.com"
+            });
+        expect(res.status).toBe(302);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+        expect(res.header.location).toBe(BASE_URL + PROVIDE_DIFFERENT_EMAIL + "?lang=en");
+    });
+
     // Test for incorrect form details entered, will return 400.
     it("should return status 400 after incorrect data entered", async () => {
         const sendData = {
@@ -64,16 +78,6 @@ describe("POST" + EMAIL_ADDRESS, () => {
         const res = await router.post(BASE_URL + EMAIL_ADDRESS).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("Email addresses must match");
-    });
-
-    it("should return status 400 if email address exists in verification api", async () => {
-        await mockFindIdentityByEmail.mockResolvedValueOnce(dummyIdentity);
-        const res = await router.post(BASE_URL + EMAIL_ADDRESS)
-            .send({
-                "email-address": "test@gmail.com",
-                confirm: "test@gmail.com"
-            });
-        expect(res.status).toBe(400);
     });
 
     it("should return status 500 if verification api errors", async () => {
