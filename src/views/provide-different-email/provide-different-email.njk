@@ -1,0 +1,22 @@
+{% extends "layouts/default.njk" %}
+{% set title = i18n.provideDifferentEmailTitle %}
+{% block main_content %}
+
+    <h1 class="govuk-heading-l">{{ i18n.provideDifferentEmailTitle }}</h1>
+    <p class="govuk-body">{{ i18n.cannotUseDynamicEmail }}<strong>{{ emailAddress }}</strong>.</p>
+    <p class="govuk-body">{{ i18n.invalidEmailReasonsLabel }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{ i18n.invalidEmailReasons1 }}</li>
+      <li>{{ i18n.invalidEmailReasons2 }}</li>
+    </ul>
+    
+    <p class="govuk-body">
+        {{ i18n.youNeedTo }}
+        <a id="provide-different-email-link-id" href="/tell-companies-house-you-have-verified-someones-identity/what-is-their-email-address">{{ i18n.provideDifferentEmailLink }}{{ firstName }} {{ lastName }}</a>.
+    </p>
+
+    <script>
+        trackEventBasedOnPageTitle("provide-different-email-link-id", "{{title}}", "click-link", "provide different email link");
+    </script>
+
+{% endblock main_content %}

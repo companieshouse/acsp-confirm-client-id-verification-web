@@ -18,7 +18,8 @@ import {
     checkYourAnswersController,
     confirmIdentityVerificationController,
     signOutController,
-    confirmationController
+    confirmationController,
+    provideDifferentEmailController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -79,6 +80,8 @@ routes.post(urls.WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator("wicc"), whenIden
 
 routes.get(urls.EMAIL_ADDRESS, personsEmailController.get);
 routes.post(urls.EMAIL_ADDRESS, emailValidator, personsEmailController.post);
+
+routes.get(urls.PROVIDE_DIFFERENT_EMAIL, provideDifferentEmailController.get);
 
 routes.get(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationController.get);
 routes.post(urls.CONFIRM_IDENTITY_VERIFICATION, confirmIdentityVerificationValidator, confirmIdentityVerificationController.post);

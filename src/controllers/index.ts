@@ -11,6 +11,7 @@ export * as dateOfBirthController from "./dateOfBirthController";
 export * as identityDocumentsCheckedGroup1Controller from "./identityDocumentsCheckedGroup1Controller";
 export * as identityDocumentsCheckedGroup2Controller from "./identityDocumentsCheckedGroup2Controller";
 export * as personsEmailController from "./personsEmailController";
+export * as provideDifferentEmailController from "./provideDifferentEmailController";
 export * as howIdentityDocumentsCheckedController from "./howIdentityDocumentsCheckedController";
 export * as whenIdentityChecksCompletedController from "./whenIdentityChecksCompletedController";
 export * as checkYourAnswersController from "./checkYourAnswers";

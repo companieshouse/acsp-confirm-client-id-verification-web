@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
-import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, DATE_OF_BIRTH } from "../types/pageURL";
+import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, DATE_OF_BIRTH, PROVIDE_DIFFERENT_EMAIL } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { ValidationError, validationResult } from "express-validator";
@@ -45,20 +45,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
         renderValidationError(req, res, locales, lang, clientData, pageProperties);
     } else {
+        clientData.emailAddress = req.body["email-address"];
+        clientData.confirmEmailAddress = req.body.confirm;
+        saveDataInSession(req, USER_DATA, clientData);
         await findIdentityByEmail(req.body["email-address"]).then(identity => {
             if (identity !== undefined) {
-                const validationError : ValidationError[] = [{
-                    value: req.body.emailAddress,
-                    msg: "emailAlreadyInUse",
-                    param: "emailAddress",
-                    location: "body"
-                }];
-                const pageProperties = getPageProperties(formatValidationError(validationError, lang));
-                renderValidationError(req, res, locales, lang, clientData, pageProperties);
+                res.redirect(addLangToUrl(BASE_URL + PROVIDE_DIFFERENT_EMAIL, lang));
             } else {
-                clientData.emailAddress = req.body["email-address"];
-                clientData.confirmEmailAddress = req.body.confirm;
-                saveDataInSession(req, USER_DATA, clientData);
                 res.redirect(addLangToUrl(BASE_URL + DATE_OF_BIRTH, lang));
             }
         }).catch(error => {
