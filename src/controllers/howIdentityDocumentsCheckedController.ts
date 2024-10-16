@@ -6,14 +6,18 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
-import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT } from "../utils/constants";
+import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT, PREVIOUS_PAGE_URL } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
+import { getPreviousPageUrl } from "../services/url";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+
+    const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
+    saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
 
     res.render(config.HOW_IDENTITY_DOCUMENTS_CHECKED, {
         ...getLocaleInfo(locales, lang),
