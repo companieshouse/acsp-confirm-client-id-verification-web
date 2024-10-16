@@ -57,7 +57,7 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
         saveDataInSession(req, USER_DATA, clientData);
 
         const previousPageUrl : string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
-        console.log("abc------>", previousPageUrl);
+        console.log("abc------>", previousPageUrl );
 
         if (previousPageUrl === "/tell-companies-house-you-have-verified-someones-identity/check-your-answers?lang=en") {
             res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
