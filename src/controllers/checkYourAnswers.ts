@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import * as config from "../config";
 import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, CONFIRMATION } from "../types/pageURL";
-import { USER_DATA, REFERENCE, MATOMO_BUTTON_CLICK } from "../utils/constants";
+import { USER_DATA, REFERENCE, MATOMO_BUTTON_CLICK, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../services/formatService";
@@ -20,6 +20,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+
+    // setting CYA flag to true when user reaches this page - used for routing back if they change a value
+    saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, true);
 
     const formattedAddress = FormatService.formatAddress(clientData.address);
     const formattedDateOfBirth = FormatService.formatDate(
@@ -89,6 +92,10 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     } else {
         const identityVerificationService = new IdentityVerificationService();
         const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData);
+
+        // Deleting CYA flag once journey is completed
+        session.deleteExtraData(CHECK_YOUR_ANSWERS_FLAG);
+
         await sendVerifiedClientDetails(verifiedClientData).then(identity => {
             logger.info("response from verification api" + JSON.stringify(identity));
             saveDataInSession(req, REFERENCE, identity?.id);

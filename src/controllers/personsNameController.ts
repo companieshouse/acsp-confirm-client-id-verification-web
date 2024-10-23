@@ -24,8 +24,12 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
     const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
     saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
 
+    const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+        ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+        : addLangToUrl(BASE_URL, lang);
+
     res.render(config.PERSONS_NAME, {
-        previousPage: addLangToUrl(BASE_URL, lang),
+        previousPage: previousPage,
         ...getLocaleInfo(locales, lang),
         matomoButtonClick: MATOMO_BUTTON_CLICK,
         currentUrl: BASE_URL + PERSONS_NAME,
@@ -39,9 +43,16 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
     const errorList = validationResult(req);
     if (!errorList.isEmpty()) {
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+        const session: Session = req.session as any as Session;
+        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
+
+        const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(BASE_URL, lang);
+
         res.status(400).render(config.PERSONS_NAME, {
             ...getLocaleInfo(locales, lang),
-            previousPage: addLangToUrl(BASE_URL, lang),
+            previousPage: previousPage,
             currentUrl: BASE_URL + PERSONS_NAME,
             payload: req.body,
             ...pageProperties
@@ -56,10 +67,9 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
 
         saveDataInSession(req, USER_DATA, clientData);
 
-        const previousPageUrl : string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
-        console.log("abc------>", previousPageUrl );
+        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
 
-        if (previousPageUrl === "/tell-companies-house-you-have-verified-someones-identity/check-your-answers?lang=en") {
+        if (previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)) {
             res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
         } else {
             res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
