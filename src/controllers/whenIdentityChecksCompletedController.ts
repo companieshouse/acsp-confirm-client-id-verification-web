@@ -78,8 +78,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         }
         saveDataInSession(req, USER_DATA, clientData);
 
-        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
-
         if (previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)) {
             res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
         } else {

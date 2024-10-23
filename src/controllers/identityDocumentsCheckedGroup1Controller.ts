@@ -3,11 +3,11 @@ import * as config from "../config";
 import { NextFunction, Request, Response } from "express";
 import { BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, HOW_IDENTITY_DOCUMENTS_CHECKED, CONFIRM_IDENTITY_VERIFICATION, CHECK_YOUR_ANSWERS } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
+import { CheckedDocumentsService } from "../services/checkedDocumentsService";
 import { ClientData } from "../model/ClientData";
+import { formatValidationError, getPageProperties } from "../validations/validation";
 import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
 import { validationResult } from "express-validator";
-import { formatValidationError, getPageProperties } from "../validations/validation";
-import { CheckedDocumentsService } from "../services/checkedDocumentsService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
