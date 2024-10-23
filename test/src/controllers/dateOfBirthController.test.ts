@@ -53,7 +53,7 @@ describe("POST" + DATE_OF_BIRTH, () => {
             "dob-month": undefined,
             "dob-year": ""
         };
-        const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData);;
+        const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("Enter your date of birth");
     });

@@ -57,7 +57,7 @@ describe("POST" + PERSONS_NAME, () => {
             "middle-names": "middlename",
             "last-name": "lname"
         };
-        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);;
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("Enter your first name");
     });
@@ -67,7 +67,7 @@ describe("POST" + PERSONS_NAME, () => {
             "middle-names": "",
             "last-name": ""
         };
-        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);;
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("Enter your last name");
     });

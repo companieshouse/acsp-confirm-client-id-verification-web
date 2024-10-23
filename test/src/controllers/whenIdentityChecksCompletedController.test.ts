@@ -53,7 +53,7 @@ describe("POST" + WHEN_IDENTITY_CHECKS_COMPLETED, () => {
             "wicc-month": undefined,
             "wicc-year": ""
         };
-        const res = await router.post(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED).send(sendData);;
+        const res = await router.post(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("When were the identity checks completed?");
     });
