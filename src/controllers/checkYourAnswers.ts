@@ -93,9 +93,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const identityVerificationService = new IdentityVerificationService();
         const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData);
 
-        // Deleting CYA flag once journey is completed
-        session.deleteExtraData(CHECK_YOUR_ANSWERS_FLAG);
-
         await sendVerifiedClientDetails(verifiedClientData).then(identity => {
             logger.info("response from verification api" + JSON.stringify(identity));
             saveDataInSession(req, REFERENCE, identity?.id);
