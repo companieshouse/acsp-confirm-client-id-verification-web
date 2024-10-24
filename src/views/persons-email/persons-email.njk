@@ -19,7 +19,10 @@
                 id: "email-address",
                 name: "email-address",
                 autocomplete: "email",
-                value: payload["email-address"]
+                value: payload["email-address"],
+                attributes: {
+                    "aria-label": "email-address"
+                }
             }) }}
 
              {{ govukInput({
