@@ -1,15 +1,21 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, EMAIL_ADDRESS, DATE_OF_BIRTH, PROVIDE_DIFFERENT_EMAIL } from "../../../src/types/pageURL";
+import { BASE_URL, EMAIL_ADDRESS, DATE_OF_BIRTH, PROVIDE_DIFFERENT_EMAIL, CHECK_YOUR_ANSWERS } from "../../../src/types/pageURL";
 import { findIdentityByEmail } from "../../../src/services/identityVerificationService";
 import { dummyIdentity } from "../../mocks/identity.mock";
+import { sessionMiddleware } from "../../../src/middleware/session_middleware";
+import { getSessionRequestWithPermission } from "../../mocks/session.mock";
+import { PREVIOUS_PAGE_URL, USER_DATA } from "../../../src/utils/constants";
+import { Request, Response, NextFunction } from "express";
 
 jest.mock("../../../src/services/identityVerificationService");
 
 const mockFindIdentityByEmail = findIdentityByEmail as jest.Mock;
 
 const router = supertest(app);
+
+let customMockSessionMiddleware: any;
 
 describe("GET" + EMAIL_ADDRESS, () => {
     it("should return status 200", async () => {
@@ -90,4 +96,33 @@ describe("POST" + EMAIL_ADDRESS, () => {
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
+
+    it("should return status 302 after redirect to Check Your Answers", async () => {
+        await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
+        createMockSessionMiddleware();
+        const res = await router.post(BASE_URL + EMAIL_ADDRESS)
+            .send({
+                "email-address": "test@gmail.com",
+                confirm: "test@gmail.com"
+            });
+        expect(res.status).toBe(302);
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+        expect(res.header.location).toBe(BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
+    });
 });
+
+function createMockSessionMiddleware () {
+    customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+    const session = getSessionRequestWithPermission();
+    session.setExtraData(PREVIOUS_PAGE_URL, "/tell-companies-house-you-have-verified-someones-identity/check-your-answers?lang=en");
+    session.setExtraData(USER_DATA, {
+        firstName: "John",
+        middleName: "",
+        lastName: "Doe"
+    }
+    );
+    customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+        req.session = session;
+        next();
+    });
+}

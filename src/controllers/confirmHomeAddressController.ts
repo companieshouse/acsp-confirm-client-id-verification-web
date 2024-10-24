@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
-import { HOME_ADDRESS, BASE_URL, CONFIRM_HOME_ADDRESS, WHEN_IDENTITY_CHECKS_COMPLETED, HOME_ADDRESS_MANUAL } from "../types/pageURL";
+import { HOME_ADDRESS, BASE_URL, CONFIRM_HOME_ADDRESS, WHEN_IDENTITY_CHECKS_COMPLETED, HOME_ADDRESS_MANUAL, CHECK_YOUR_ANSWERS } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_LINK_CLICK } from "../utils/constants";
+import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_LINK_CLICK, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
 import { ClientData } from "model/ClientData";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
@@ -27,5 +27,13 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
-    res.redirect(addLangToUrl(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED, lang));
+    const session: Session = req.session as any as Session;
+
+    const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
+
+    if (checkYourAnswersFlag) {
+        res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
+    } else {
+        res.redirect(addLangToUrl(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED, lang));
+    }
 };

@@ -1,9 +1,15 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, DATE_OF_BIRTH, HOME_ADDRESS } from "../../../src/types/pageURL";
+import { BASE_URL, CHECK_YOUR_ANSWERS, DATE_OF_BIRTH, HOME_ADDRESS } from "../../../src/types/pageURL";
+import { sessionMiddleware } from "../../../src/middleware/session_middleware";
+import { getSessionRequestWithPermission } from "../../mocks/session.mock";
+import { PREVIOUS_PAGE_URL } from "../../../src/utils/constants";
+import { Request, NextFunction } from "express";
 
 const router = supertest(app);
+
+let customMockSessionMiddleware: any;
 
 describe("GET" + DATE_OF_BIRTH, () => {
     it("should return status 200", async () => {
@@ -28,6 +34,18 @@ describe("POST" + DATE_OF_BIRTH, () => {
         expect(res.header.location).toBe(BASE_URL + HOME_ADDRESS + "?lang=en");
     });
 
+    it("should return status 302 after redirect to Check Your Answers", async () => {
+        createMockSessionMiddleware();
+        const sendData = {
+            "dob-day": "11",
+            "dob-month": "2",
+            "dob-year": "1999"
+        };
+        const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData);
+        expect(res.status).toBe(302);
+        expect(res.header.location).toBe(BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
+    });
+
     // Test for incorrect form details entered, will return 400.
     it("should return status 400", async () => {
         const sendData = {
@@ -35,8 +53,18 @@ describe("POST" + DATE_OF_BIRTH, () => {
             "dob-month": undefined,
             "dob-year": ""
         };
-        const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData); ;
+        const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("Enter your date of birth");
     });
 });
+
+function createMockSessionMiddleware () {
+    customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+    const session = getSessionRequestWithPermission();
+    session.setExtraData(PREVIOUS_PAGE_URL, "/tell-companies-house-you-have-verified-someones-identity/check-your-answers?lang=en");
+    customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+        req.session = session;
+        next();
+    });
+}

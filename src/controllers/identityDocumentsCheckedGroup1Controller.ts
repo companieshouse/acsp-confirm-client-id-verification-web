@@ -1,13 +1,13 @@
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../config";
 import { NextFunction, Request, Response } from "express";
-import { BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, HOW_IDENTITY_DOCUMENTS_CHECKED, CONFIRM_IDENTITY_VERIFICATION } from "../types/pageURL";
+import { BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, HOW_IDENTITY_DOCUMENTS_CHECKED, CONFIRM_IDENTITY_VERIFICATION, CHECK_YOUR_ANSWERS } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
-import { ClientData } from "../model/ClientData";
-import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT } from "../utils/constants";
-import { validationResult } from "express-validator";
-import { formatValidationError, getPageProperties } from "../validations/validation";
 import { CheckedDocumentsService } from "../services/checkedDocumentsService";
+import { ClientData } from "../model/ClientData";
+import { formatValidationError, getPageProperties } from "../validations/validation";
+import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
+import { validationResult } from "express-validator";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -54,6 +54,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     } else {
         const checkedDocumentsService = new CheckedDocumentsService();
         checkedDocumentsService.saveDocuments(req, clientData, req.body.documentsGroup1);
-        res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
+
+        const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
+
+        if (checkYourAnswersFlag) {
+            res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
+        } else {
+            res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
+        }
     }
 };
