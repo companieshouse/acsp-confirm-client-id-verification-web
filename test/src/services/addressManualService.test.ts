@@ -65,7 +65,7 @@ describe("AddressManualService tests", () => {
             addressLine2: "Line 2",
             addressPostcode: "Postcode",
             addressTown: "Town",
-            propertyDetails: "Property Details"
+            addressPropertyDetails: "Property Details"
         });
     });
 });
