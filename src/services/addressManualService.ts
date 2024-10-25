@@ -23,7 +23,7 @@ export class AddressManualService {
 
     public getManualAddress (clientData: ClientData) {
         return {
-            propertyDetails: clientData.address?.propertyDetails,
+            addressPropertyDetails: clientData.address?.propertyDetails,
             addressLine1: clientData.address?.line1,
             addressLine2: clientData.address?.line2,
             addressTown: clientData.address?.town,
