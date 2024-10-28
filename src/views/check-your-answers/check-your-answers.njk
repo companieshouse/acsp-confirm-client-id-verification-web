@@ -44,28 +44,28 @@
               {
                 href: "/tell-companies-house-you-have-verified-someones-identity/what-is-the-persons-name" + "?lang=" + lang,
                 text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.checkAnswersNameWithAML
+                visuallyHiddenText: i18n.name
               }
             ]
           }
       },
-    {
-      key: {
-        text: i18n.emailAddressConfirmation
+      {
+        key: {
+          text: i18n.emailAddressConfirmation
+        },
+        value: {
+          html: clientData.emailAddress
+        },
+        actions: {
+          items: [
+            {
+              href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-email-address" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.emailAddressConfirmation
+            }
+          ]
+        }
       },
-      value: {
-        html: clientData.emailAddress
-      },
-      actions: {
-        items: [
-          {
-            href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-email-address" + "?lang=" + lang,
-            text: i18n.checkAnswerDetailsChange,
-            visuallyHiddenText: "address"
-          }
-        ]
-      }
-    },
       {
         key: {
           text: i18n.dateOfBirth
@@ -78,11 +78,11 @@
               {
                 href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-date-of-birth" + "?lang=" + lang,
                 text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: "date of birth"
+                visuallyHiddenText: i18n.dateOfBirth
           }
         ]
-      }
-    },
+        } 
+      },
       {
         key: {
           text: i18n.homeAdd
@@ -95,12 +95,12 @@
               {
                 href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-home-address" + "?lang=" + lang,
                 text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: "Home address"
+                visuallyHiddenText: i18n.homeAdd
               }
             ]
           }
       },
-          {
+      {
       key: {
         text: i18n.dateIdentityCompleted
       },
@@ -112,7 +112,7 @@
           {
             href: "/tell-companies-house-you-have-verified-someones-identity/identity-checks-completed" + "?lang=" + lang,
             text: i18n.checkAnswerDetailsChange,
-            visuallyHiddenText: "Date identity checks were completed"
+            visuallyHiddenText: i18n.dateIdentityCompleted
           }
         ]
       }
@@ -129,7 +129,7 @@
           {
             href: "/tell-companies-house-you-have-verified-someones-identity/how-were-identity-documents-checked" + "?lang=" + lang,
             text: i18n.checkAnswerDetailsChange,
-            visuallyHiddenText: "Option used to check identity documents"
+            visuallyHiddenText: i18n.optionUsed
           }
         ]
       }
@@ -146,7 +146,7 @@
           {
             href: identityDocHref,
             text: i18n.checkAnswerDetailsChange,
-            visuallyHiddenText: "Identity documents that were checked"
+            visuallyHiddenText: i18n.identityDoc
           }
         ]
       }
@@ -163,7 +163,7 @@
           {
             href: "/tell-companies-house-you-have-verified-someones-identity/confirm-you-verified-their-identity" + "?lang=" + lang,
             text: i18n.checkAnswerDetailsChange,
-            visuallyHiddenText: "Identity verification declaration"
+            visuallyHiddenText: i18n.identityVerification
           }
         ]
       }
