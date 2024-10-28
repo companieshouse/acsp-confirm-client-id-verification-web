@@ -1,17 +1,13 @@
 {
-    "howIdentityDocsCheckedTabTitle": "How were their identity documents checked? welsh",
-    "howIdentityDocsCheckedTitle": "Tell us about the identity checks you completed welsh",
+    "howIdentityDocsCheckedTabTitle": "Dywedwch wrthym am y gwiriadau hunaniaeth rydych wedi'u cwblhau",
+    "howIdentityDocsCheckedTitle": "Dywedwch wrthym am y gwiriadau hunaniaeth rydych wedi'u cwblhau",
     "howIdentityDocsCheckedBodyText1": "To verify someone's identity for Companies House, you must have completed checks that meet our welsh",
     "howIdentityDocsCheckedVerificationStandardLink": "identity verification standard welsh",
-    "howIdentityDocsCheckedBodyText2": "There are 2 options for checking identity documents in the standard. You’ll need to tell us which option you used. welsh",
-    "howIdentityDocsCheckedWhichOptionHeading": "Which option from the identity verification standard did you use to verify their identity? welsh",
-    "howIdentityDocsCheckedOption1": "Option 1 welsh",
-    "howIdentityDocsCheckedOption1hint": "Their identity documents were checked using identity document validation technology (IDVT). welsh",
-    "howIdentityDocsCheckedOption2": "Option 2 welsh",
-    "howIdentityDocsCheckedOption2hint": "Their identity documents were checked by a person. welsh",
-    "howIdentityDocsCheckedInfoHeading": "What is Companies House identity verification standard? welsh ",
-    "howIdentityDocsCheckedInfoText1": "The identity verification standard outlines the checks you must do to verify someone's identity for Comapnies House. welsh",
-    "howIdentityDocsCheckedInfoText2": "Read the ",
-    "howIdentityDocsCheckedInfoText2Link": "guidance on how to meet the identity verification standard. welsh",
-    "error-howIdentityDocsCheckedEmpty" : "Please select an option welsh"
+    "howIdentityDocsCheckedBodyText2": "Mae 2 opsiwn ar gyfer gwirio dogfennau adnabod yn ein safon gwiriad hunaniaeth, bydd angen i chi ddweud wrthym.",
+    "howIdentityDocsCheckedWhichOptionHeading": "Pa opsiwn o'r safon gwiriad hunaniaeth a ddefnyddiwyd gennych i wirio ei hunaniaeth?",
+    "howIdentityDocsCheckedOption1": "Opsiwn 1",
+    "howIdentityDocsCheckedOption1hint": "Gwiriwyd eu dogfennau hunaniaeth gan ddefnyddio technoleg gwirio dogfennau adnabod (IDVT).",
+    "howIdentityDocsCheckedOption2": "Opsiwn 2",
+    "howIdentityDocsCheckedOption2hint": "Gwiriwyd eu dogfennau hunaniaeth gan berson.",
+    "error-howIdentityDocsCheckedEmpty" : "Dewiswch a wnaethoch ddefnyddio opsiwn 1 neu 2 i wirio pwy ydyn nhw"
 }

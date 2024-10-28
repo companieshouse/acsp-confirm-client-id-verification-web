@@ -32,6 +32,6 @@ describe("POST" + HOW_IDENTITY_DOCUMENTS_CHECKED, () => {
     it("should return status 400 after incorrect data entered", async () => {
         const res = await router.post(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED).send({ howIdentityDocsCheckedRadio: "" });
         expect(res.status).toBe(400);
-        expect(res.text).toContain("Please select an option");
+        expect(res.text).toContain("Select if you used option 1 or option 2 to verify their identity");
     });
 });

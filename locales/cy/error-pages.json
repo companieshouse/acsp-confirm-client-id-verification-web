@@ -1,12 +1,12 @@
 {
-    "pageNotFoundTitle": "Page not found welsh",
-    "pageNotFoundText1": "If you typed the web address, check it is spelled correctly. welsh",
-    "pageNotFoundText2": "If you pasted the web address, check you copied the entire address. welsh",
-    "pageNotFoundText3": "welsh If the web address is correct or you selected a link, the page may have moved. Go to the ",
+    "pageNotFoundTitle": "Tudalen heb ei darganfod",
+    "pageNotFoundText1": "Os gwnaethoch deipio'r cyfeiriad gwe, gwiriwch ei fod wedi'i sillafu'n gywir.",
+    "pageNotFoundText2": "Os gwnaethoch chi gludo'r cyfeiriad gwe, gwiriwch eich bod wedi copïo'r cyfeiriad cyfan.",
+    "pageNotFoundText3": "Os yw'r cyfeiriad gwe yn gywir neu os ydych wedi dewis dolen, efallai bod y dudalen wedi symud. Ewch i'r ",
     "pageNotFoundLink": "Tell Companies House you have verified someone’s identity start page welsh",
 
-    "technicalDifficuliesTitle": "Sorry we are experiencing technical difficulties welsh",
-    "technicalDifficuliesText1": "Try again in a few moments. welsh",
-    "technicalDifficuliesText2": "If this problem continues email enquiries@companieshouse.gov.uk. welsh"
+    "technicalDifficuliesTitle": "Mae'n ddrwg gennym ein bod yn profi anawsterau technegol",
+    "technicalDifficuliesText1": "Ceisiwch eto mewn ychydig funudau.",
+    "technicalDifficuliesText2": "Os yw'r broblem hon yn parhau anfonwch e-bost i enquiries@companieshouse.gov.uk."
     
 }

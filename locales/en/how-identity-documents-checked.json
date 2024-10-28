@@ -1,5 +1,5 @@
 {
-    "howIdentityDocsCheckedTabTitle": "How were their identity documents checked?",
+    "howIdentityDocsCheckedTabTitle": "Tell us about the identity checks you completed",
     "howIdentityDocsCheckedTitle": "Tell us about the identity checks you completed",
     "howIdentityDocsCheckedBodyText1": "To verify someone's identity for Companies House, you must have completed checks that meet our ",
     "howIdentityDocsCheckedVerificationStandardLink": "identity verification standard",
@@ -9,9 +9,5 @@
     "howIdentityDocsCheckedOption1hint": "Their identity documents were checked using identity document validation technology (IDVT).",
     "howIdentityDocsCheckedOption2": "Option 2",
     "howIdentityDocsCheckedOption2hint": "Their identity documents were checked by a person.",
-    "howIdentityDocsCheckedInfoHeading": "What is Companies House identity verification standard?",
-    "howIdentityDocsCheckedInfoText1": "The identity verification standard outlines the checks you must do to verify someone's identity for Comapnies House.",
-    "howIdentityDocsCheckedInfoText2": "Read the ",
-    "howIdentityDocsCheckedInfoText2Link": "guidance on how to meet the identity verification standard.",
-    "error-howIdentityDocsCheckedEmpty" : "Please select an option"
+    "error-howIdentityDocsCheckedEmpty" : "Select if you used option 1 or option 2 to verify their identity"
 }

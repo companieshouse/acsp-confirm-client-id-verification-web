@@ -1,13 +1,13 @@
 {
-    "confirmVerificationHeading": "Confirm you have verified this person's identity Welsh",
-    "confirmVerificationWarningText": "We could suspend or stop [ACSP NAME] from acting as an authorised agent if you have not met Companies House identity verification standard. welsh",
-    "declarationSubHeading": "Declaration Welsh",
-    "confirmationStatement1": "I confirm that Welsh",
-    "confirmationStatement2": "verified the identity of Welsh",
-    "confirmationStatement3": " to the standard set by Companies House and is satisfied that the required personal information is true. The verification checks were completed on Welsh",
-    "isSupervisedBy": "is supervised by Welsh",
-    "informationShownOnPublicRegister": "What information we'll show on the public register Welsh",
-    "showThisDeclaration": "We will show this declaration as part of any records about the person on the online Companies House register. Welsh",
+    "confirmVerificationHeading": "Cadarnhau eich bod wedi gwirio hunaniaeth y person hwn",
+    "confirmVerificationWarningText": "Gallwn stopio neu atal [ACSP NAME] rhag gweithredu fel asiant awdurdodedig os nad ydych wedi cyrraedd ein safon gwiriad hunaniaeth.",
+    "declarationSubHeading": "Datganiad",
+    "confirmationStatement1": "Rwy'n cadarnhau bod ",
+    "confirmationStatement2": "wedi gwirio hunaniaeth",
+    "confirmationStatement3": " i'r safon a osodwyd gan Dŷ'r Cwmnïau ac mae'n fodlon bod y wybodaeth bersonol ofynnol yn wir.  Cwblhawyd y gwiriadau gwirio ar ",
+    "isSupervisedBy": "yn cael ei oruchwylio gan ",
+    "informationShownOnPublicRegister": "Pa wybodaeth y byddwn yn dangos ar y gofrestr gyhoeddus",
+    "showThisDeclaration": "Byddwn yn dangos y datganiad hwn fel rhan o unrhyw gofnodion am y person ar gofrestr ar-lein Tŷ'r Cwmnïau.",
 
-    "error-declarationNotChecked": "Select to confirm you have verified their identity Welsh"
+    "error-declarationNotChecked": "Dewiswch i gadarnhau eich bod wedi gwirio ei hunaniaeth"
 }

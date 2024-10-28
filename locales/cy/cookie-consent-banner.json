@@ -1,15 +1,15 @@
 {
-  "cookiesHeader": "Cookies on Companies House services welsh",
-  "cookiesBanner1": "We use some essential cookies to make our services work. welsh",
-  "cookiesBanner2": "We'd also like to use analytics cookies so we can understand how you use our services and to make improvements. welsh",
-  "acceptAnalyticCookies": "Accept analytics cookies welsh",
-  "rejectAnalyticCookies": "Reject analytics cookies welsh",
-  "viewCookies": "View cookies welsh",
-  "acceptedAnalyticsCookies": "You've accepted analytics cookies. welsh",
-  "rejectedAnalyticsCookies": "You've rejected analytics cookies. welsh",
-  "changeCookie1": "You can welsh",
-  "changeCookie2": "change your cookie settings welsh",
-  "changeCookie3": "at any time. welsh",
-  "cookieNoJS": "We use cookies to make our services work and collect analytics information. To accept or reject analytics cookies, turn on JavaScript in your browser settings and reload this page. welsh",
-  "cookieHide": "Hide this message welsh"
+  "cookiesHeader": "Cwcis ar wasanaethau Tŷ'r Cwmnïau",
+  "cookiesBanner1": "Rydym yn defnyddio rhai cwcis hanfodol i wneud i'n gwasanaethau weithio",
+  "cookiesBanner2": "Hoffem hefyd ddefnyddio cwcis dadansoddol fel y gallwn ddeall sut rydych yn defnyddio ein gwasanaethau ac i wneud gwelliannau.",
+  "acceptAnalyticCookies": "Derbyn cwcis dadansoddol",
+  "rejectAnalyticCookies": "Gwrthod cwcis dadansoddol",
+  "viewCookies": "Gweld cwcis",
+  "acceptedAnalyticsCookies": "Rydych wedi derbyn cwcis dadansoddol.",
+  "rejectedAnalyticsCookies": "Rydych wedi gwrthod cwcis dadansoddol.",
+  "changeCookie1": "Gallwch",
+  "changeCookie2": "newid eich gosodiadau cwcis",
+  "changeCookie3": "ar unrhyw adeg.",
+  "cookieNoJS": "Rydym yn defnyddio cwcis i wneud i'n gwasanaethau weithio a chasglu gwybodaeth ddadansoddol. I dderbyn neu wrthod cwcis dadansoddol, trowch JavaScript ymlaen yn osodiadau eich porwr ac ail-lwytho'r dudalen hon.",
+  "cookieHide": "Cuddio'r neges hon"
 }

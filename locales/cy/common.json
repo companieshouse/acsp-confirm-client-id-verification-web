@@ -1,10 +1,10 @@
 {
-    "Continue": "Continue Welsh",
-    "SaveAndContinue": "Save and continue Welsh",
-    "ConfirmAndContinue": "Confirm and continue Welsh",
-    "EditAddress": "Edit address Welsh",
-    "Back" : "Back Welsh",
-    "SignOut": "Sign out Welsh",
-    "AcceptAndContinue": "Accept and Continue Welsh",
-    "warning": "Warning Welsh"
+    "Continue": "Pharhau",
+    "SaveAndContinue": "Cadw a pharhau",
+    "ConfirmAndContinue": "Cadarnhau a pharhau",
+    "EditAddress": "Golygu'r cyfeiriad",
+    "Back" : "Nôl",
+    "SignOut": "Allgofnodi",
+    "AcceptAndContinue": "Derbyn a pharhau",
+    "warning": "Rhybudd"
 }

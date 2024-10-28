@@ -1,15 +1,15 @@
 {
-    "homeAddressTitle": "What is their home address? welsh",
+    "homeAddressTitle": "Beth yw ei gyfeiriad cartref?",
     "homeAddressPostcode": "UK postcode welsh",
-    "homeAddressPostcodeHint": "You'll need to enter the address manually if it's not in the UK. welsh",
-    "homeAddressPremise": "Property name or number welsh",
-    "homeAddressPremiseHint": "For example, 'The Mill', '116' or 'Flat 37a' welsh",
+    "homeAddressPostcodeHint": "Bydd angen i chi cofnodi'r cyfeiriad â llaw os nad yw yn y Deyrnas Unedig.",
+    "homeAddressPremise": "Enw neu rif eiddo",
+    "homeAddressPremiseHint": "Er enghraifft, 'Y Felin' neu 'Fflat 37a'",
     "homeAddressManualLink": "Enter address manually welsh",
-    "homeAddressFindAddressBtn": "Find address welsh",
+    "homeAddressFindAddressBtn": "Dod o hyd i gyfeiriad",
 
-    "error-homeAddressEnterPostCode" : "Enter a postcode welsh",  
-    "error-homeAddressInvalidPostcodeFormat": "Postcode must only include letters a to z, numbers and spaces welsh",
-    "error-homeAddressEnterFullPostcode": "Enter a full UK postcode welsh",
-    "error-homeAddressInvalidPropertyDetails" : "Property name or number must only include letters a to z, numbers and common special characters such as hyphens, spaces and apostrophes welsh",
+    "error-homeAddressEnterPostCode" : "Cofnodwch god post",  
+    "error-homeAddressInvalidPostcodeFormat": "Rhaid i'r cod post gynnwys llythrennau a i z a rhifau a bylchau yn unig",
+    "error-homeAddressEnterFullPostcode": "Cofnodwch god post llawn yn y Deyrnas Unedig",
+    "error-homeAddressInvalidPropertyDetails" : "Rhaid i enw neu rif eiddo gynnwys llythrennau a i z a nodau arbennig cyffredin fel cysylltnodau, bylchau a chollnodau yn unig",
     "error-homeAddressNoPostcodeFound" : "We cannot find this postcode. Enter a different one, or enter the address manually welsh"
 }
