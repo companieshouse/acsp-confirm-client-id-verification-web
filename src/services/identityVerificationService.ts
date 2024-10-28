@@ -37,11 +37,13 @@ export const findIdentityByEmail = async (email: string): Promise<Identity | und
 };
 
 export const sendVerifiedClientDetails = async (verifiedClientData: VerifiedClientData): Promise<Identity | undefined> => {
+    const createUvidType = "acsp";
     const apiClient = createPrivateApiKeyClient();
 
     logger.debug(`Recieved Request to send verified client details ${verifiedClientData}`);
+    logger.debug(`Received Request to send create_uvid type: ${createUvidType}`);
 
-    const sdkResponse: Resource<Identity> | ApiErrorResponse = await apiClient.identityVerificationService.sendVerifiedClientDetails(verifiedClientData);
+    const sdkResponse: Resource<Identity> | ApiErrorResponse = await apiClient.identityVerificationService.sendVerifiedClientDetails(verifiedClientData, createUvidType);
 
     if (!sdkResponse) {
         logger.error(`send verified client data returned no response ${verifiedClientData}`);
@@ -68,7 +70,7 @@ export const sendVerifiedClientDetails = async (verifiedClientData: VerifiedClie
 };
 
 export class IdentityVerificationService {
-    public prepareVerifiedClientData (clientData: ClientData) : VerifiedClientData {
+    public prepareVerifiedClientData (clientData: ClientData): VerifiedClientData {
         const foreNames = [];
         foreNames.push(clientData.firstName!);
         if (clientData.middleName !== "") {

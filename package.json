@@ -47,7 +47,7 @@
     "js-yaml": "^3.14.0",
     "node-mocks-http": "^1.12.2",
     "nunjucks": "^3.2.3",
-    "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.37",
+    "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.40",
     "tslib": "^2.0.3",
     "uuid": "8.0.0",
     "yargs": "15.3.1"
