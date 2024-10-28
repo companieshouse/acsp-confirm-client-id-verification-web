@@ -1,10 +1,10 @@
 {
-    "signoutTitle": "Are you sure you want to sign out? welsh",
-    "signoutOptionHintText": "Your application will be saved in Your filings. welsh",
-    "signoutYesButtonText": "Yes welsh",
-    "signoutNoButtonText": "No welsh",
-    "signoutHowHintText": "How do I find my saved applications? welsh",
-    "signoutHowHintDetailsText": "Sign in to your Companies House account and select Your filings to access your saved applications. welsh",
+    "signoutTitle": "Ydych chi'n siwr eich bod eisiau allgofnodi?",
+    "signoutOptionHintText": "Bydd eich cais yn cael ei gadw yn Eich ffeilio.",
+    "signoutYesButtonText": "Ydw",
+    "signoutNoButtonText": "Na",
+    "signoutHowHintText": "Sut ydw i'n dod o hyd i'm ceisiadau wedi'u cadw?",
+    "signoutHowHintDetailsText": "Mewngofnodi i'ch cyfrif Tŷ'r Cwmnïau a dewiswch Eich ffeilio i gael mynediad i'ch ceisiadau wedi'u cadw.",
 
-    "error-signoutNoInputError": "Select yes if you want to sign out welsh"
+    "error-signoutNoInputError": "Dewiswch 'ydw' os ydych chi am allgofnodi"
 }

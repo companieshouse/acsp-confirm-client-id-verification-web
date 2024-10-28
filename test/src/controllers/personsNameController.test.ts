@@ -59,7 +59,7 @@ describe("POST" + PERSONS_NAME, () => {
         };
         const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
         expect(res.status).toBe(400);
-        expect(res.text).toContain("Enter your first name");
+        expect(res.text).toContain("Enter their first name");
     });
     it("should return status 400 after incorrect data entered", async () => {
         const sendData = {
@@ -69,7 +69,7 @@ describe("POST" + PERSONS_NAME, () => {
         };
         const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
         expect(res.status).toBe(400);
-        expect(res.text).toContain("Enter your last name");
+        expect(res.text).toContain("Enter their last name");
     });
 });
 

@@ -20,7 +20,7 @@
     "error-default" : "Your request contains validation errors",
     "error-invalid" : "Date of birth must be a real date",
     "error-dateInFuture" : "The date of birth must be in the past",
-    "error-noData" : "Enter your date of birth",
+    "error-noData" : "Enter their date of birth",
     "error-noDayMonth" : "Date of birth must include a day and a month",
     "error-noDayYear" : "Date of birth must include a day and a year",
     "error-noMonthYear" : "Date of birth must include a month and a year",

@@ -141,7 +141,7 @@ describe("FormatService tests", () => {
             const documents = ["biometricPassport", "irishPassport"];
             const result = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("cy"));
             const expected =
-        "• Biometric or machine readable passport Welsh<br>• Irish passport card Welsh";
+        "• Pasbort biometrig neu ddarllenadwy gan beiriant<br>• Cerdyn pasbort Gwyddelig";
             expect(result).toBe(expected);
         });
 
@@ -171,7 +171,7 @@ describe("FormatService tests", () => {
             const expectedEn =
         "• UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional)<br>• Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein";
             const expectedWelsh =
-        "• UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional) Welsh<br>• Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein welsh";
+        "• Trwydded yrru cerdyn-llun (llawn neu dros dro) y DU, Ynysoedd y Sianel, Ynys Manaw a'r UE<br>• Cerdyn adnabod gyda gwybodaeth fiometrig o'r UE, Norwy, Gwlad yr Iâ neu Liechtenstein";
             expect(resultWelsh).toBe(expectedWelsh);
             expect(resultEn).toBe(expectedEn);
         });

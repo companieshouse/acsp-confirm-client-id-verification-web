@@ -1,13 +1,13 @@
 {
-    "identityDocumentsIDVTitle": "Which documents did you check to verify their identity? Welsh",
-    "identityDocumentsIDVHint": "Select at least one document. Welsh",
-    "biometricPassport": "Biometric or machine readable passport Welsh",
-    "irishPassport": "Irish passport card Welsh",
-    "ukDriversLicence": "UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional) Welsh",
-    "identityCard": "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein Welsh",
-    "biometricPermit": "UK biometric residence permit (BRP) Welsh",
-    "biometricCard": "UK biometric residence card (BRC) Welsh",
-    "frontierPermit": "UK Frontier Worker permit Welsh",
+    "identityDocumentsIDVTitle": "Pa ddogfennau wnaethoch chi wirio i wirio ei hunaniaeth?",
+    "identityDocumentsIDVHint": "Dewiswch o leiaf un ddogfen.",
+    "biometricPassport": "Pasbort biometrig neu ddarllenadwy gan beiriant",
+    "irishPassport": "Cerdyn pasbort Gwyddelig",
+    "ukDriversLicence": "Trwydded yrru cerdyn-llun (llawn neu dros dro) y DU, Ynysoedd y Sianel, Ynys Manaw a'r UE",
+    "identityCard": "Cerdyn adnabod gyda gwybodaeth fiometrig o'r UE, Norwy, Gwlad yr Iâ neu Liechtenstein",
+    "biometricPermit": "Trwydded breswylio biometrig y DU (BRP)",
+    "biometricCard": "Cerdyn preswylio biometrig y DU (BRC)",
+    "frontierPermit": "Trwydded waith ffiniau'r DU",
 
-    "error-identityDocumentsGroup1Empty": "Select which documents you checked to verify their identity Welsh"
+    "error-identityDocumentsGroup1Empty": "Dewiswch pa ddogfennau y gwnaethoch eu gwirio i wirio ei hunaniaeth"
 }

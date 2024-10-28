@@ -1,14 +1,14 @@
 {
     "whatIs" : "What is welsh",
     "emailAddress" : "'s email address? welsh",
-    "theyMustAbleToAccess" : "They must be able to access emails sent to this address. welsh",
-    "confirmEmail" : "Confirm their email address welsh",
+    "theyMustAbleToAccess" : "Rhaid iddynt allu cael mynediad at e-byst sy'n cael eu hanfon i'r cyfeiriad hwn.",
+    "confirmEmail" : "Cadarnhau ei gyfeiriad e-bost",
 
-    "emailAddressCanOnlyUsedOnce" : "The email address you give can only be used once to verify someone’s identity. You will not be able to use it for anyone else whose identity you have verified. welsh",
-    "continue": "Continue welsh",
+    "emailAddressCanOnlyUsedOnce" : "Dim ond unwaith gallwch ddefnyddio'r cyfeiriad e-bost wnaethoch rhoi i wirio hunaniaeth rhywun. Ni allwch ei ddefnyddio ar gyfer unrhyw un arall yr ydych wedi gwirio ei hunaniaeth.",
+    "continue": "Pharhau",
 
-    "error-noEmailAddress" : "Enter their email address welsh",
-    "error-noConfirmAddress" : "Enter their email address welsh",
-    "error-invalidEmail" : "Enter an email address in the correct format, like name@example.com welsh",
-    "error-emailAddressDontMatch": "Email addresses must match welsh"
+    "error-noEmailAddress" : "Cofnodwch ei gyfeiriad e-bost",
+    "error-noConfirmAddress" : "Cofnodwch ei gyfeiriad e-bost",
+    "error-invalidEmail" : "Cofnodwch gyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com",
+    "error-emailAddressDontMatch": "Rhaid i gyfeiriadau e-bost cyd-fynd"
 }

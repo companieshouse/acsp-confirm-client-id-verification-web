@@ -1,14 +1,14 @@
 {
-    "identityChecksTitle" : "When were the identity checks completed? welsh",
-    "identityChecksCompletedInsetText" : "You must keep records of the identity checks you completed for 7 years from this date. We may ask to see these records to check you’ve met Companies House identity verification standard. welsh",
-    "error-invalidIdentity" : "The date must be a real date welsh",
-    "error-dateInFutureIdentity" : "The date must be in the past welsh",
-    "error-noDataIdentity" : "Enter the date the identity checks were completed welsh",
-    "error-noDayMonthIdentity" : "The date must include a day and a month welsh",
-    "error-noDayYearIdentity" : "The date must include a day and a year welsh",
-    "error-noMonthYearIdentity" : "The date must include a month and a year welsh",
-    "error-noDayIdentity" : "The date must include a day welsh",
-    "error-noMonthIdentity" : "The date must include a month welsh",
-    "error-noYearIdentity" : "The date must include a year welsh",
-    "error-nonNumericIdentity" : "The date must only include numbers welsh"
+    "identityChecksTitle" : "Pryd cafodd y gwiriadau hunaniaeth eu cwblhau?",
+    "identityChecksCompletedInsetText" : "ydd rhaid i chi gadw cofnodion o'r gwiriadau hunaniaeth am 7 mlynedd o'r dyddiad y gwnaethoch eu cwblhau. Efallai y byddwn yn gofyn am weld y cofnodion hyn i wirio eich bod wedi cyrraedd safon gwiriad hunaniaeth Tŷ'r Cwmnïau.",
+    "error-invalidIdentity" : "Rhaid i'r dyddiad fod yn ddyddiad real",
+    "error-dateInFutureIdentity" : "Rhaid i'r dyddiad fod yn y gorffennol",
+    "error-noDataIdentity" : "Cofnodwch y dyddiad y cwblhawyd y gwiriadau hunaniaeth",
+    "error-noDayMonthIdentity" : "Rhaid i'r dyddiad geni gynnwys diwrnod a mis",
+    "error-noDayYearIdentity" : "Rhaid i'r dyddiad gynnwys diwrnod a blwyddyn",
+    "error-noMonthYearIdentity" : "Rhaid i'r dyddiad gynnwys mis a blwyddyn",
+    "error-noDayIdentity" : "Rhaid i'r dyddiad gynnwys diwrnod",
+    "error-noMonthIdentity" : "Rhaid i'r dyddiad gynnwys mis",
+    "error-noYearIdentity" : "Rhaid i'r dyddiad gynnwys blwyddyn",
+    "error-nonNumericIdentity" : "Rhaid i'r dyddiad gynnwys rhifau yn unig"
 } 
