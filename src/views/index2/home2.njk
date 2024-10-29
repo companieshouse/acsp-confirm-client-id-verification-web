@@ -1,0 +1,49 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% extends "layouts/default.njk" %}
+{% set title = i18n.startPageTitle %}
+{% block backLink %}
+  {# Remove back button on this page by replacing it with nothing #}
+{% endblock %}
+{% block main_content %}
+  <form action="" method="POST">
+    <h1 class="govuk-heading-l">Enter the details exactly as they appear on the document</h1>
+
+                    {% for body in documentsChecked %}
+                        {{ govukInput({
+                            label: {
+                                text: body,
+                                classes: "govuk-label l govuk-label--m",
+                                isPageHeading: true
+                            },
+                            id: "membershipNumber_" + loop.index,
+                            name: "membershipNumber_" + loop.index,
+                            errorMessage: {
+                                text: errors["membershipNumber_" + loop.index].text
+                            } if errors["membershipNumber_" + loop.index]
+                        }) }}
+
+
+                        
+                        <div id="typeahead-form-group" class="govuk-form-group">
+                          {% set dropdownDefaultText = "Select where you live" %}
+                          <p class="govuk-hint" id="typeahead-hint">Choose country</p>
+                          <div id="my-autocomplete-container" class="autocomplete-wrapper govuk-!-width-two-thirds"></div>
+                          {% set errorMessage = errors %}
+                          {% include "partials/country-typeahead-input.njk" %}
+                        </div>
+                       
+
+
+
+                    {% endfor %}
+
+  </form>
+
+<!-- Calling Matomo event function to capture event actions based on page title -->
+<script>
+  trackEventBasedOnPageTitle("identity-verification-standard-link", "{{title}}", "{{matomoLinkClick}}", "Companies House identity verification standard");
+  trackEventBasedOnPageTitle("read-the-guidance-verification-link", "{{title}}", "{{matomoLinkClick}}", "Guidance about verifying someone's identity for Companies House");
+  trackEventBasedOnPageTitle("start-now", "{{title}}", "{{matomoButtonClick}}", "Start Now");
+</script>
+
+{% endblock %}

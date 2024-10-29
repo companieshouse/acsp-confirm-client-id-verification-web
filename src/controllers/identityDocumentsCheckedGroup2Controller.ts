@@ -23,6 +23,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         documentsGroup2B: clientData.documentsChecked
     };
 
+    console.log(payload);
     res.render(config.IDENTITY_DOCUMETS_GROUP_2, {
         ...getLocaleInfo(locales, lang),
         previousPage,

@@ -54,7 +54,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     } else {
         const checkedDocumentsService = new CheckedDocumentsService();
         checkedDocumentsService.saveDocuments(req, clientData, req.body.documentsGroup1);
-
+        console.log("ytgfyhvgjbkjnljouiytfyrchvgbjhkjnlohuiyutfyhvbjhkjhuiygtufy     " + req.body.documentsGroup1);
         const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
 
         if (checkYourAnswersFlag) {
