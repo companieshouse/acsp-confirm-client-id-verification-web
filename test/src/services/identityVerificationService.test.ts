@@ -20,6 +20,7 @@ mockCreatePrivateApiClient.mockReturnValue({
 
 let session;
 const MOCK_EMAIL = "demo@ch.gov.uk";
+const createUvidType = "acsp";
 
 describe("verification api service tests", () => {
     beforeEach(() => {
@@ -88,6 +89,7 @@ describe("verification api service tests", () => {
             const identity = await sendVerifiedClientDetails(verifiedClientDetails);
 
             expect(identity).toStrictEqual(dummyIdentity);
+            expect(mockSendVerifiedClientDetails).toHaveBeenCalledWith(verifiedClientDetails, createUvidType);
         });
 
         it("Should throw an error when no identity-verification-api response", async () => {
