@@ -1,6 +1,6 @@
 import { Session } from "@companieshouse/node-session-handler";
 import { NextFunction, Request, Response } from "express";
-import countryList from "../../lib/countryList";
+import countryList from "../lib/countryList";
 import * as config from "../config";
 import { BASE_URL, PERSONS_NAME } from "../types/pageURL";
 import { ClientData } from "../model/ClientData";

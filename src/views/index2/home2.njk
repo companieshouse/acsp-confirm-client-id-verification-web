@@ -9,32 +9,31 @@
     <h1 class="govuk-heading-l">Enter the details exactly as they appear on the document</h1>
 
                     {% for body in documentsChecked %}
+                    {% set index = loop.index %}
                         {{ govukInput({
                             label: {
-                                text: body,
+                                text: body + "details",
                                 classes: "govuk-label l govuk-label--m",
                                 isPageHeading: true
                             },
-                            id: "membershipNumber_" + loop.index,
-                            name: "membershipNumber_" + loop.index,
+                            id: "documentDetials_" + index,
+                            name: "documentDetials_" + index,
                             errorMessage: {
-                                text: errors["membershipNumber_" + loop.index].text
-                            } if errors["membershipNumber_" + loop.index]
+                                text: errors["documentDetials_" + index].text
+                            } if errors["documentDetials_" + index]
                         }) }}
-
-
-                        
+                        {% include "partials/date.njk" %}
+                   
                         <div id="typeahead-form-group" class="govuk-form-group">
-                          {% set dropdownDefaultText = "Select where you live" %}
-                          <p class="govuk-hint" id="typeahead-hint">Choose country</p>
-                          <div id="my-autocomplete-container" class="autocomplete-wrapper govuk-!-width-two-thirds"></div>
-                          {% set errorMessage = errors %}
-                          {% include "partials/country-typeahead-input.njk" %}
-                        </div>
-                       
+                              <label for="country_input_" class="govuk-label">Hello</label>
+                              <p class="govuk-hint" id="typeahead-hint">Choose </p>
+                              {% set dropdownDefaultText = i18n.whereDoYouLiveDefaultDropdownText %}
+                              <div id="my-autocomplete-container" class="autocomplete-wrapper govuk-!-width-two-thirds"></div>
+                              {% set errorMessage = errors %}
+                              {% include "partials/country-typeahead-input.njk" %}
+                            </div>
 
-
-
+                    
                     {% endfor %}
 
   </form>
