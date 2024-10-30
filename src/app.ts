@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, RequestHandler, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import * as nunjucks from "nunjucks";
 import path from "path";
 import logger from "./lib/Logger";
@@ -54,7 +54,7 @@ app.use(express.static(path.join(__dirname, "/../assets/public")));
 
 // Apply middleware
 app.use(cookieParser());
-app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware as RequestHandler);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, authenticationMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspAuthMiddleware);
 app.use(commonTemplateVariablesMiddleware);
