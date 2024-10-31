@@ -8,7 +8,7 @@
   <form action="" method="POST">
     <h1 class="govuk-heading-l">Enter the details exactly as they appear on the document</h1>
 
-                    {% for body in documentsChecked %}
+              {% for body in documentsChecked %}
                     {% set index = loop.index %}
                         {{ govukInput({
                             label: {
@@ -24,17 +24,21 @@
                         }) }}
                         {% include "partials/date.njk" %}
                    
-                        <div id="typeahead-form-group" class="govuk-form-group">
-                              <label for="country_input_" class="govuk-label">Hello</label>
-                              <p class="govuk-hint" id="typeahead-hint">Choose </p>
-                              {% set dropdownDefaultText = i18n.whereDoYouLiveDefaultDropdownText %}
-                              <div id="my-autocomplete-container" class="autocomplete-wrapper govuk-!-width-two-thirds"></div>
-                              {% set errorMessage = errors %}
+                      <div id="typeahead-form-group-{{index}}" class="govuk-form-group">
+                          <p class="govuk-hint-{{index}} govuk-hint" id="typeahead-hint-{{index}}">{{ i18n.firstNationalityHint }}</p>
+                          {% set dropdownDefaultText = i18n.whatIsYourNationalityDefaultDropdownText %}
+                          <div id="nationality-{{index}}" class="autocomplete-wrapper govuk-!-width-two-thirds"></div>
+                          <noscript>
+                              {% set dropdownNumber = {{index}} %}
+                              {% set errorMessage = dropdownOneError %}
                               {% include "partials/country-typeahead-input.njk" %}
-                            </div>
+                          </noscript>
+                      </div>
+                            
+                           
 
                     
-                    {% endfor %}
+              {% endfor %}
 
   </form>
 
