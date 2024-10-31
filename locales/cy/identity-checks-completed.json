@@ -1,6 +1,6 @@
 {
     "identityChecksTitle" : "Pryd cafodd y gwiriadau hunaniaeth eu cwblhau?",
-    "identityChecksCompletedInsetText" : "ydd rhaid i chi gadw cofnodion o'r gwiriadau hunaniaeth am 7 mlynedd o'r dyddiad y gwnaethoch eu cwblhau. Efallai y byddwn yn gofyn am weld y cofnodion hyn i wirio eich bod wedi cyrraedd safon gwiriad hunaniaeth Tŷ'r Cwmnïau.",
+    "identityChecksCompletedInsetText" : "Bydd rhaid i chi gadw cofnodion o'r gwiriadau hunaniaeth am 7 mlynedd o'r dyddiad y gwnaethoch eu cwblhau. Efallai y byddwn yn gofyn am weld y cofnodion hyn i wirio eich bod wedi cyrraedd safon gwiriad hunaniaeth Tŷ'r Cwmnïau.",
     "error-invalidIdentity" : "Rhaid i'r dyddiad fod yn ddyddiad real",
     "error-dateInFutureIdentity" : "Rhaid i'r dyddiad fod yn y gorffennol",
     "error-noDataIdentity" : "Cofnodwch y dyddiad y cwblhawyd y gwiriadau hunaniaeth",
