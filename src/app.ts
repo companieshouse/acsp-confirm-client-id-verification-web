@@ -20,6 +20,7 @@ import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT } from "./types/pageURL"
 import { commonTemplateVariablesMiddleware } from "./middleware/common_variables_middleware";
 import { getLocalesService, selectLang } from "./utils/localise";
 import { ErrorService } from "./services/errorService";
+import { acspAuthMiddleware } from "./middleware/acsp_authentication_middleware";
 const app = express();
 
 const nunjucksEnv = nunjucks.configure([path.join(__dirname, "views"),
@@ -55,6 +56,7 @@ app.use(express.static(path.join(__dirname, "/../assets/public")));
 app.use(cookieParser());
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, authenticationMiddleware);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspAuthMiddleware);
 app.use(commonTemplateVariablesMiddleware);
 
 // Channel all requests through router dispatch
@@ -64,7 +66,7 @@ routerDispatch(app);
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     logger.error(`${err.name} - appError: ${err.message} - ${err.stack}`);
     const errorService = new ErrorService();
-    errorService.renderErrorPage(res, getLocalesService(), selectLang(req.query.lang), req.url);
+      errorService.renderErrorPage(res, getLocalesService(), selectLang(req.query.lang), req.url);
 });
 
 // Unhandled exceptions

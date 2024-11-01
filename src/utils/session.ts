@@ -39,3 +39,8 @@ export const setAccessToken = (session: any, accessToken: any) => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   signInInfo[SignInInfoKeys.AccessToken]![AccessTokenKeys.AccessToken] = accessToken;
 };
+
+export const getLoggedInAcspNumber = (session: any | undefined): string => {
+    const signInInfo = getSignInInfo(session);
+    return signInInfo?.[SignInInfoKeys.AcspNumber] as string;
+};
