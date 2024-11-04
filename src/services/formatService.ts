@@ -59,6 +59,7 @@ export class FormatService {
     public static formatDocumentsChecked (
         documents: string[] | undefined,
         i18n: any
+
     ): string {
         if (!documents || documents.length === 0) {
             return "";

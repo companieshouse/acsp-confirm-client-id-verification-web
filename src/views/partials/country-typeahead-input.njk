@@ -1,35 +1,39 @@
 <script type="text/javascript" src="{{cdnHost}}/javascripts/app/accessible-autocomplete.min.js"></script>
 <script type="text/javascript">
-  const countryList = "{{countryList}}"
-  const nationalityValue = ["{{payload.nationality_input_0}}", "{{payload.nationality_input_1}}", "{{payload.nationality_input_2}}"]
-  const errors = ["{{ errors.nationality_input_0.text }}","{{ errors.nationality_input_1.text }}","{{ errors.nationality_input_2.text }}"];
-  
-  for (let i = 0; i < 3; i++) {
-    const autocompleteConfig = {
-      element: document.querySelector(`#nationality-${i}`),
-      id: `nationality_input_${i}`, // To match it to the existing <label>.
-      source: countryList.split(";"),
-      name: `nationality_input_${i}`,
-      defaultValue: nationalityValue[i]
-    };
-    accessibleAutocomplete(autocompleteConfig);
-    const nationality = document.getElementById(`nationality-${i}`);
-  }
 
+document.addEventListener("DOMContentLoaded", function() {
+  const countryList = "{{countryList}}";
+  //const error = "{{errors.countryInput.text}}"
+  //const countryDefaultValue1 = "{{countryInput_1}}";
+  //const countryDefaultValue2 = "{{countryInput_2}}";
+  const autocompleteContainers = document.querySelectorAll('[id^="my-autocomplete-container-"]');
+  autocompleteContainers.forEach((container, index) => {
+    const countryDefaultValue = "{{ payload['countryInput_' + (index + 1)] }}";
+
+
+    accessibleAutocomplete({
+      element: container,
+      id: `countryInput_${index + 1}`, // Using index + 1 to match with your payload
+      source: countryList.split(";"),
+      name: `countryInput_${index + 1}`,
+      defaultValue: countryDefaultValue
+    });
+  });
+});
+    
   // Mimic nunjucks error generation
-  window.onload = function () {
-    for (var i = 0; i < 3; i++) {
-      if (errors && errors[i] !== "") {
-        document.getElementById("typeahead-form-group-" + i).className = "govuk-form-group govuk-form-group--error";
-        const errorHtml = '<p class="govuk-error-message"> <span class="govuk-visually-hidden">Error:</span> ' + errors[i] + '</p>'
-        const element = document.getElementById("typeahead-hint-" + i);
-        element.insertAdjacentHTML("afterend", errorHtml);
-        document.getElementById("nationality_input_" + i).classList.add("govuk-input--error");
-      }
-  }
-}
+      //window.onload = function () {
+      //if (error) {
+      //  document.getElementById("typeahead-form-group").className = "govuk-form-group govuk-form-group--error";
+      //  const errorHtml = '<p class="govuk-error-message"> <span class="govuk-visually-hidden">Error:</span> ' + error + '</p>'
+      //  const element = document.getElementById("typeahead-hint");
+      //  element.insertAdjacentHTML("afterend", errorHtml);
+      //  document.getElementById("countryInput").classList.add("govuk-input--error");
+      //}
+//} 
 </script>
+
 <!-- Javascript disabled -->
 <noscript>
-  {% include "./country-typeahead-noscript-input.njk" %}
+    {% include "./country-typeahead-noscript-input.njk" %}
 </noscript>

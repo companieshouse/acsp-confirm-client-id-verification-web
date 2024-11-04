@@ -36,6 +36,7 @@ import { identityDocsGroup2Validator } from "../validations/identityDocumentsGro
 import { confirmIdentityVerificationValidator } from "../validations/confirmIdentityVerification";
 import { selectsignOutValidator } from "../validations/signOut";
 import { checkYourAnswerValidator } from "../validations/checkYourAnswer";
+import documentDetailsValidator from "../validations/amlBodyMembershipNumber";
 
 const routes = Router();
 
