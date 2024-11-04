@@ -1,6 +1,9 @@
 {
-
-    "chooseCountryText": "Choose a country",
+    "detailsMessage":"details",
+    "passportInputText":"This is a 9 character reference. It is usually shown in the top right hand corner of the photo page in the",
+    "chooseCountryText": "Country of issue",
+    "chooseCountryText1": "Choose a country",
+    "chooseCountryhint":"This is usually shown on the first page of the ",
     "error-doclIDNumberInput": "Enter the details for the document reference",
     "error-docIdLength": "The document reference must be exactly 9 characters long",
     "error-docIdFormat": "The document reference must only include letters and numbers"

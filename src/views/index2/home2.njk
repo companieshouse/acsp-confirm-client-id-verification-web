@@ -9,17 +9,17 @@
 
               {% for body in documentsChecked %}
                 {% set index = loop.index %}
-                <h2 class="govuk-heading-m"> {{body}} details </h2>
+                <h2 class="govuk-heading-m"> {{body}} {{i18n.detailsMessage}} </h2>
                 <!--Document Input-->
                 {{ govukInput({
                             label: {
-                                text: body + "details",
+                                text: body + " " +i18n.detailsMessage,
                                 classes: "govuk-label ",
                                 isPageHeading: true
                             },
                             classes: "govuk-input--width-10",
                             hint: {
-                              text: "This is a 9 character reference. It is usually shown in the top right hand corner of the photo page in the" + body+ "."
+                              text: i18n.passportInputText + " " +body + "."
                             },
                             id: "documentDetials_" + index,
                             name: "documentDetials_" + index,
@@ -34,19 +34,17 @@
                         <!--Country Input-->
 
                 <div id="typeahead-form-group-{{index}}" class="govuk-form-group">
-                  <label class="govuk-label" for="location">Country of issue</label>
-                  <p class="govuk-hint" id="typeahead-hint-{{index}}">This is usually shown on the first page of the {{body}}.</p>
-                  {% set dropdownDefaultText = i18n.chooseCountryText %}
+                  <label class="govuk-label" for="location">{{i18n.chooseCountryText}} </label>
+                  <p class="govuk-hint" id="typeahead-hint-{{index}}">{{i18n.chooseCountryhint}} {{body}}.</p>
+                  {% set dropdownDefaultText = i18n.chooseCountryText1 %}
                   <div id="my-autocomplete-container-{{index}}" class="autocomplete-wrapper govuk-input--width-10"></div>
                           <noscript>
                               {% set dropdownNumber = index %}
                               {% set errorMessage = dropdownOneError %}
                           </noscript>
-                          {% include "partials/country-typeahead-input.njk" %}
                 </div>
-
-
               {% endfor %}
+              {% include "partials/country-typeahead-input.njk" %}
 
         {{ govukButton({
             text: i18n.Continue,
