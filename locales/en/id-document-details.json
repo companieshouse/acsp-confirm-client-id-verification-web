@@ -6,5 +6,6 @@
     "chooseCountryhint":"This is usually shown on the first page of the ",
     "error-doclIDNumberInput": "Enter the details for the document reference",
     "error-docIdLength": "The document reference must be exactly 9 characters long",
-    "error-docIdFormat": "The document reference must only include letters and numbers"
+    "error-docIdFormat": "The document reference must only include letters and numbers",
+    "error-whereDoYouLiveNoData" : "Select where you live"
 }
