@@ -18,7 +18,7 @@ locals {
   use_set_environment_files  = var.use_set_environment_files
   s3_config_bucket           = data.vault_generic_secret.shared_s3.data["config_bucket_name"]
   app_environment_filename   = "acsp-confirm-client-id-verification-web.env"
-  vpc_name                   = data.aws_ssm_parameter.secret[format("/%s/%s", local.name_prefix, "vpc-name")].value
+  vpc_name                   = local.stack_secrets["vpc_name"]
   chs_api_key                = local.service_secrets["chs_api_key"]
 
   # create a map of secret name => secret arn to pass into ecs service module
