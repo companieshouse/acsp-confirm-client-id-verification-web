@@ -66,7 +66,7 @@ routerDispatch(app);
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     logger.error(`${err.name} - appError: ${err.message} - ${err.stack}`);
     const errorService = new ErrorService();
-      errorService.renderErrorPage(res, getLocalesService(), selectLang(req.query.lang), req.url);
+    errorService.renderErrorPage(res, getLocalesService(), selectLang(req.query.lang), req.url);
 });
 
 // Unhandled exceptions
