@@ -1,3 +1,4 @@
+import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
 import { homeAddressValidator } from "../../../src/validations/homeAddress";
@@ -36,7 +37,7 @@ describe("home Address Auto Lookup Validator", () => {
         for (const validationChain of homeAddressValidator) {
             await validationChain(req, res, () => {});
         }
-
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalledTimes(0);
         const errors = validationResult(req);
         expect(errors.isEmpty()).toBe(true);
     });
@@ -61,7 +62,7 @@ describe("home Address Auto Lookup Validator", () => {
         }
 
         const errors = validationResult(req);
-
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalledTimes(0);
         expect(errors.isEmpty()).toBe(false);
         expect(errors.array()).toHaveLength(1);
     });
