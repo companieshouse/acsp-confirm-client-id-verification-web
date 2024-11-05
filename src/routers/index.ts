@@ -20,7 +20,9 @@ import {
     signOutController,
     confirmationController,
     provideDifferentEmailController,
-    confirmationRedirectController
+    confirmationRedirectController,
+    idDocumentDetailsController
+
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -37,6 +39,7 @@ import { confirmIdentityVerificationValidator } from "../validations/confirmIden
 import { selectsignOutValidator } from "../validations/signOut";
 import { checkYourAnswerValidator } from "../validations/checkYourAnswer";
 import documentDetailsValidator from "../validations/amlBodyMembershipNumber";
+import idDocumentDetailsValidator from "../validations/idDocumentDetails";
 
 const routes = Router();
 
@@ -96,5 +99,8 @@ routes.get(urls.CHECK_YOUR_ANSWERS, checkYourAnswersController.get);
 routes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswerValidator, checkYourAnswersController.post);
 
 routes.get(urls.CONFIRMATION_REDIRECT, confirmationRedirectController.get);
+
+routes.get(urls.ID_DOCUMENT_DETAILS, idDocumentDetailsController.get);
+routes.post(urls.ID_DOCUMENT_DETAILS, idDocumentDetailsValidator.call(this), idDocumentDetailsController.post);
 
 export default routes;

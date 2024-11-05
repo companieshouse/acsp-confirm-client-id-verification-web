@@ -35,4 +35,5 @@ export const CONFIRM_IDENTITY_VERIFICATION = `${BASE_VIEWS_URL}/confirm-identity
 export const CHECK_YOUR_ANSWERS = `${BASE_VIEWS_URL}/check-your-answers/check-your-answers`;
 export const SIGN_OUT_PAGE = `${BASE_VIEWS_URL}/sign-out-page/sign-out`;
 
-export const ID_DOCUMENT_DETAILS = `${BASE_VIEWS_URL}/index2/home2`;
+// export const ID_DOCUMENT_DETAILS = `${BASE_VIEWS_URL}/index2/home2`;
+export const ID_DOCUMENT_DETAILS = `${BASE_VIEWS_URL}/id-document-details/id-document-details`;
