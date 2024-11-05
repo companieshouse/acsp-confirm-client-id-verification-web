@@ -1,4 +1,4 @@
-import { Identity, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity, VerificationEvidence, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 import logger from "../lib/Logger";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { ApiErrorResponse } from "@companieshouse/api-sdk-node/dist/services/resource";
@@ -76,12 +76,20 @@ export class IdentityVerificationService {
             foreNames.push(clientData.middleName!);
         }
 
+        const verificationEvidence = [];
+        for (const document in clientData.documentsChecked) {
+            const evidence: VerificationEvidence = {
+                type: document
+            };
+            verificationEvidence.push(evidence);
+        }
+
         return {
-            // below 3 fields are hardcoded. Need to replace with actual logic in future
+            // below 2 fields are hardcoded. Need to replace with actual logic in future
             acspId: "1234567890",
-            verificationEvidence: ["passport"],
             acspUserId: "1234",
 
+            verificationEvidence: verificationEvidence,
             verificationSource: "acsp",
             email: clientData.emailAddress!,
             currentName: {
