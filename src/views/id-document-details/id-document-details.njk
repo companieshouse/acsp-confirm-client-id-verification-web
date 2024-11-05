@@ -1,0 +1,31 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "layouts/default.njk" %}
+{% set title = "Enter the details exactly as they appear on the document" %}
+
+{% block main_content %}
+  <form action="" method="POST">
+    {% for body in documentsChecked %}
+      {% set index = loop.index %}
+        <h2 class="govuk-heading-m"> {{body}} details </h2>
+        <!--Document Input-->
+        {{ govukInput({
+            label: {
+                text: body + "details",
+                classes: "govuk-label "
+            },
+            classes: "govuk-input--width-10",
+            hint: {
+                text: "This is a 9 character reference. It is usually shown in the top right hand corner of the photo page in the" + body+ "."
+            },
+            id: "documentDetails_" + index,
+            name: "documentDetails_" + index,
+            value: payload["documentDetials_" + index]
+        }) }}
+    {% endfor %}
+    {{ govukButton({
+            text: i18n.Continue,
+            id: "continue-button"
+    }) }}
+  </form>
+{% endblock main_content %}  
