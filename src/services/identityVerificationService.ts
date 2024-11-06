@@ -81,8 +81,6 @@ export class IdentityVerificationService {
             return { type: document };
         });
 
-        console.log(JSON.stringify(verificationEvidence));
-
         return {
             // below 2 fields are hardcoded. Need to replace with actual logic in future
             acspId: "1234567890",
