@@ -75,7 +75,7 @@ export class FormatService {
             UK_or_EU_digital_tachograph_card: i18n.ukEuDigitalCard,
             UK_HM_forces_card: i18n.ukForceCard,
             UK_HM_veteran_card: i18n.ukArmedForceCard,
-            photoWorkPermit: i18n.photoWorkPermit,
+            work_permit_photo_id: i18n.photoWorkPermit,
             immigration_document_photo_id: i18n.photoimmigrationDoc,
             visa_photo_id: i18n.photoVisa,
             UK_firearms_licence: i18n.ukFirearmsLicence,
