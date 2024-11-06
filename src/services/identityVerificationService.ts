@@ -1,9 +1,11 @@
+import { Request } from "express";
 import { Identity, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 import logger from "../lib/Logger";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { ApiErrorResponse } from "@companieshouse/api-sdk-node/dist/services/resource";
 import { createPrivateApiKeyClient } from "./apiService";
 import { ClientData } from "model/ClientData";
+import { getLoggedInAcspNumber } from "../utils/session";
 
 export const findIdentityByEmail = async (email: string): Promise<Identity | undefined> => {
     const apiClient = createPrivateApiKeyClient();
@@ -69,7 +71,8 @@ export const sendVerifiedClientDetails = async (verifiedClientData: VerifiedClie
 };
 
 export class IdentityVerificationService {
-    public prepareVerifiedClientData (clientData: ClientData) : VerifiedClientData {
+    public prepareVerifiedClientData (clientData: ClientData, req: Request) : VerifiedClientData {
+        const acspNumber: string = getLoggedInAcspNumber(req.session);
         const foreNames = [];
         foreNames.push(clientData.firstName!);
         if (clientData.middleName !== "") {
@@ -82,10 +85,10 @@ export class IdentityVerificationService {
         });
 
         return {
-            // below 2 fields are hardcoded. Need to replace with actual logic in future
-            acspId: "1234567890",
+            // below field is hardcoded. Need to replace with actual logic in future
             acspUserId: "1234",
 
+            acspId: acspNumber,
             verificationEvidence: verificationEvidence,
             verificationSource: "acsp",
             email: clientData.emailAddress!,

@@ -91,7 +91,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         });
     } else {
         const identityVerificationService = new IdentityVerificationService();
-        const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData);
+        const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData, req);
 
         await sendVerifiedClientDetails(verifiedClientData).then(identity => {
             logger.info("response from verification api" + JSON.stringify(identity));
