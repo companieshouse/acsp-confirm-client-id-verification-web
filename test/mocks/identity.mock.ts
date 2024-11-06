@@ -52,7 +52,7 @@ export const verifiedClientDetails: VerifiedClientData = {
         locality: "locality",
         created: new Date()
     },
-    verificationEvidence: ["passport"],
+    verificationEvidence: [{ type: "passport" }],
     acspUserId: "",
     verificationDate: new Date(),
     validationMethod: ""

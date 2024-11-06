@@ -1,9 +1,11 @@
+import { Request } from "express";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { Session } from "@companieshouse/node-session-handler";
 import { createPrivateApiClient } from "private-api-sdk-node";
 import { Identity } from "private-api-sdk-node/dist/services/identity-verification/types";
 import { IdentityVerificationService, findIdentityByEmail, sendVerifiedClientDetails } from "../../../src/services/identityVerificationService";
 import { dummyIdentity, verifiedClientDetails, clientDetails } from "../../mocks/identity.mock";
+import { createRequest, MockRequest } from "node-mocks-http";
 
 jest.mock("private-api-sdk-node");
 
@@ -128,11 +130,15 @@ describe("verification api service tests", () => {
     });
 
     describe("prepare verified client details tests", () => {
+        let req: MockRequest<Request>;
+        beforeEach(() => {
+            req = createRequest({});
+        });
 
         it("should return verified client data", async () => {
 
             const identityVerificationService = new IdentityVerificationService();
-            const actualVerifiedClientData = identityVerificationService.prepareVerifiedClientData(clientDetails);
+            const actualVerifiedClientData = identityVerificationService.prepareVerifiedClientData(clientDetails, req);
 
             expect(actualVerifiedClientData.email).toEqual(verifiedClientDetails.email);
             expect(actualVerifiedClientData.currentName.forenames).toEqual(verifiedClientDetails.currentName.forenames);
