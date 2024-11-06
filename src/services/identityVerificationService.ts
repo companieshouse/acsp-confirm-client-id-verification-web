@@ -1,4 +1,4 @@
-import { Identity, VerificationEvidence, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 import logger from "../lib/Logger";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { ApiErrorResponse } from "@companieshouse/api-sdk-node/dist/services/resource";
