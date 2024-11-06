@@ -130,7 +130,7 @@ describe("FormatService tests", () => {
         });
 
         it("should return formatted documents in English", () => {
-            const documents = ["biometricPassport", "irishPassport"];
+            const documents = ["passport", "irish_passport_card"];
             const result = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("en"));
             const expected =
         "• Biometric or machine readable passport<br>• Irish passport card";
@@ -138,7 +138,7 @@ describe("FormatService tests", () => {
         });
 
         it("should return formatted documents in Welsh", () => {
-            const documents = ["biometricPassport", "irishPassport"];
+            const documents = ["passport", "irish_passport_card"];
             const result = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("cy"));
             const expected =
         "• Pasbort biometrig neu ddarllenadwy gan beiriant<br>• Cerdyn pasbort Gwyddelig";
@@ -158,14 +158,14 @@ describe("FormatService tests", () => {
         });
 
         it("should handle a single document in the array", () => {
-            const documents = ["biometricPassport"];
+            const documents = ["passport"];
             const result = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("en"));
             const expected = "• Biometric or machine readable passport";
             expect(result).toBe(expected);
         });
 
         it("should handle multiple documents with different languages", () => {
-            const documents = ["ukDriversLicence", "identityCard"];
+            const documents = ["UK_or_EU_driving_licence", "EEA_identity_card"];
             const resultEn = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("en"));
             const resultWelsh = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("cy"));
             const expectedEn =

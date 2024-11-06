@@ -76,13 +76,12 @@ export class IdentityVerificationService {
             foreNames.push(clientData.middleName!);
         }
 
-        const verificationEvidence = [];
-        for (const document in clientData.documentsChecked) {
-            const evidence: VerificationEvidence = {
-                type: document
-            };
-            verificationEvidence.push(evidence);
-        }
+        const documentsChecked = clientData.documentsChecked!;
+        const verificationEvidence = documentsChecked.map((document) => {
+            return { type: document };
+        });
+
+        console.log(JSON.stringify(verificationEvidence));
 
         return {
             // below 2 fields are hardcoded. Need to replace with actual logic in future
