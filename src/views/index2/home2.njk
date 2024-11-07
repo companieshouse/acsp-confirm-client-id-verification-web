@@ -41,10 +41,13 @@
                           <noscript>
                               {% set dropdownNumber = index %}
                               {% set errorMessage = dropdownOneError %}
+                              {% include "partials/country-typeahead-input.njk" %}
                           </noscript>
                 </div>
               {% endfor %}
+             
               {% include "partials/country-typeahead-input.njk" %}
+           
 
         {{ govukButton({
             text: i18n.Continue,
