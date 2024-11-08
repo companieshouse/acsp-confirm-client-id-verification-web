@@ -30,7 +30,19 @@
         <!--Date  Input-->
         {% include "partials/date.njk" %}
 
+        <!--Country  Input-->
+        <div id="typeahead-form-group-{{index}}" class="govuk-form-group">
+            <label class="govuk-label" for="location">{{i18n.chooseCountryText}} </label>
+            <p class="govuk-hint" id="typeahead-hint-{{index}}">{{i18n.chooseCountryhint}} {{body}}.</p>
+            {% set dropdownDefaultText = i18n.chooseCountryText1 %}
+            <div id="my-autocomplete-container-{{index}}" class="autocomplete-wrapper govuk-input--width-10"></div>
+              <noscript>
+                  {% set dropdownNumber = index %}
+                  {% set errorMessage = dropdownOneError %}
+              </noscript>
+        </div>               
     {% endfor %}
+    {% include "partials/country-typeahead-input.njk" %} 
     {{ govukButton({
             text: i18n.Continue,
             id: "continue-button"

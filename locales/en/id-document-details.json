@@ -1,4 +1,5 @@
 {
+    "idDocumentDetailstitle": "Enter the details exactly as they appear on the document",
     "detailsMessage":"details",
     "passportInputText":"This is a 9 character reference. It is usually shown in the top right hand corner of the photo page in the",
     "chooseCountryText": "Country of issue",

@@ -16,7 +16,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
     const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-
+    console.log("test------->", clientData.howIdentityDocsChecked);
     const payload = { documentsGroup1: clientData.documentsChecked };
 
     res.render(config.IDENTITY_DOCUMETS_GROUP_1, {

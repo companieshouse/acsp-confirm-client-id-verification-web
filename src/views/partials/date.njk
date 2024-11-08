@@ -1,5 +1,4 @@
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
 {% set errorPrefix = "dob" %}
 {% if errors[errorPrefix + "-day"] %}
     {% set errorMessageText = errors[errorPrefix + "-day"].text %}
@@ -9,53 +8,51 @@
     {% set errorMessageText = errors[errorPrefix + "-year"].text %}
 {% endif %}
 
-<div class="govuk-form-group">
-    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
         <legend class="govuk-fieldset__legend">
             Expiry date
         </legend>
         <div id="passport-issued-hint" class="govuk-hint">
             For example, 27 March 2035.
         </div>
-        <div class="govuk-date-input" id="dob">
+        <div class="govuk-date-input" id="expiryDate_{{index}}">
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="dob-day">
+                    <label class="govuk-label govuk-date-input__label" for="expiryDate_{{index}}">
                         {{ i18n.day }}
                     </label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}" id="dob-day" name="dob-day" value="{{ payload["dob-day"] | default('') }}"></div>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}" id="expiryDateDay_{{index}}" name="expiryDateDay_{{index}}" value="{{ payload["expiryDateDay_{{index}}"] | default('') }}">
                 </div>
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="dob-month">
+                        <label class="govuk-label govuk-date-input__label" for="expiryDateMonth_{{index}}">
                             {{ i18n.month }}
                         </label>
-                        <select class="govuk-select{% if errors %} govuk-select--error{% endif %}" id="dob-month" name="dob-month">
+                        <select class="govuk-select{% if errors %} govuk-select--error{% endif %}" id="expiryDateMonth_{{index}}" name="expiryDateMonth_{{index}}">
                             <option value="" disabled selected>{{ i18n.chooseMonth }}</option>
-                            <option value="01" {% if payload["dob-month"] == '01' %} selected {% endif %}>{{ i18n.january }}</option>
-                            <option value="02" {% if payload["dob-month"] == '02' %} selected {% endif %}>{{ i18n.february }}</option>
-                            <option value="03" {% if payload["dob-month"] == '03' %} selected {% endif %}>{{ i18n.march }}</option>
-                            <option value="04" {% if payload["dob-month"] == '04' %} selected {% endif %}>{{ i18n.april }}</option>
-                            <option value="05" {% if payload["dob-month"] == '05' %} selected {% endif %}>{{ i18n.may }}</option>
-                            <option value="06" {% if payload["dob-month"] == '06' %} selected {% endif %}>{{ i18n.june }}</option>
-                            <option value="07" {% if payload["dob-month"] == '07' %} selected {% endif %}>{{ i18n.july }}</option>
-                            <option value="08" {% if payload["dob-month"] == '08' %} selected {% endif %}>{{ i18n.august }}</option>
-                            <option value="09" {% if payload["dob-month"] == '09' %} selected {% endif %}>{{ i18n.september }}</option>
-                            <option value="10" {% if payload["dob-month"] == '10' %} selected {% endif %}>{{ i18n.october }}</option>
-                            <option value="11" {% if payload["dob-month"] == '11' %} selected {% endif %}>{{ i18n.november }}</option>
-                            <option value="12" {% if payload["dob-month"] == '12' %} selected {% endif %}>{{ i18n.december }}</option>
+                            <option value="01" {% if payload["expiryDateMonth_{{index}}"] == '01' %} selected {% endif %}>{{ i18n.january }}</option>
+                            <option value="02" {% if payload["expiryDateMonth_{{index}}"] == '02' %} selected {% endif %}>{{ i18n.february }}</option>
+                            <option value="03" {% if payload["expiryDateMonth_{{index}}"] == '03' %} selected {% endif %}>{{ i18n.march }}</option>
+                            <option value="04" {% if payload["expiryDateMonth_{{index}}"] == '04' %} selected {% endif %}>{{ i18n.april }}</option>
+                            <option value="05" {% if payload["expiryDateMonth_{{index}}"] == '05' %} selected {% endif %}>{{ i18n.may }}</option>
+                            <option value="06" {% if payload["expiryDateMonth_{{index}}"] == '06' %} selected {% endif %}>{{ i18n.june }}</option>
+                            <option value="07" {% if payload["expiryDateMonth_{{index}}"] == '07' %} selected {% endif %}>{{ i18n.july }}</option>
+                            <option value="08" {% if payload["expiryDateMonth_{{index}}"] == '08' %} selected {% endif %}>{{ i18n.august }}</option>
+                            <option value="09" {% if payload["expiryDateMonth_{{index}}"] == '09' %} selected {% endif %}>{{ i18n.september }}</option>
+                            <option value="10" {% if payload["expiryDateMonth_{{index}}"] == '10' %} selected {% endif %}>{{ i18n.october }}</option>
+                            <option value="11" {% if payload["expiryDateMonth_{{index}}"] == '11' %} selected {% endif %}>{{ i18n.november }}</option>
+                            <option value="12" {% if payload["expiryDateMonth_{{index}}"] == '12' %} selected {% endif %}>{{ i18n.december }}</option>
                         </select>
                     </div>
                 </div>
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="dob-year">
+                        <label class="govuk-label govuk-date-input__label" for="expiryDateYear_{{index}}">
                             {{ i18n.year }}
                         </label>
-                        <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors %} govuk-input--error{% endif %}" id="dob-year" name="dob-year" value="{{ payload["dob-year"] | default('') }}"></div>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors %} govuk-input--error{% endif %}" id="expiryDateYear_{{index}}" name="expiryDateYear_{{index}}" value="{{ payload["expiryDateYear_{{index}}"] | default('') }}">
                     </div>
                 </div>
             </div>
         </div>
-    </fieldset>
-</div>
+        </fieldset>

@@ -13,23 +13,30 @@ import {
     getLocalesService,
     selectLang
 } from "../utils/localise";
+import { FormatService } from "../services/formatService";
 import logger from "../lib/Logger";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
+    logger.info("reached here")
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
-    // console.log("back url------>", clientData.howIdentityDocsChecked);
-    // logger.info("back url------>" + clientData.howIdentityDocsChecked);
+    const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
+        clientData.documentsChecked,
+        locales.i18nCh.resolveNamespacesKeys(lang)
+    );
+
+    logger.info("reached here")
+    logger.info("values----->" + JSON.stringify(formattedDocumentsChecked))
     res.render(config.ID_DOCUMENT_DETAILS, {
         previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
         ...getLocaleInfo(locales, lang),
         // matomoLinkClick: MATOMO_LINK_CLICK,
         // matomoButtonClick: MATOMO_BUTTON_CLICK,
         currentUrl: BASE_URL + ID_DOCUMENT_DETAILS,
-        documentsChecked: clientData.documentsChecked,
+        documentsChecked: formattedDocumentsChecked,
         countryList: countryList
     });
 };
@@ -42,10 +49,10 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
     const errorList = validationResult(req);
-    console.log("error list------->", errorList);
     if (!errorList.isEmpty()) {
         errorListDisplay(errorList.array(), clientData.documentsChecked!, lang);
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+        console.log("body----->", req.body)
         res.status(400).render(config.ID_DOCUMENT_DETAILS, {
             previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
             ...getLocaleInfo(locales, lang),
@@ -61,7 +68,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const errorListDisplay = (errors: any[], documentsChecked: string[], lang: string) => {
-    console.log("error array----->", errors[0]);
     return errors.forEach((element) => {
         const index = element.param.substr("documentDetials_".length) - 1;
         const selection = documentsChecked[index];
@@ -73,9 +79,11 @@ const errorListDisplay = (errors: any[], documentsChecked: string[], lang: strin
 };
 
 const getBackUrl = (selectedOption: string) => {
+    console.log("back----->", selectedOption)
     if (selectedOption === "cryptographic_security_features_checked") {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
     } else {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
     }
 };
+
