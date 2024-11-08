@@ -101,7 +101,6 @@ export class FormatService {
         return formattedDocuments.join("<br>");
     }
 
-
     public static formatDocumentsCheckedText (
         documents: string[] | undefined,
         i18n: any
@@ -144,9 +143,9 @@ export class FormatService {
 
         var formattedDocuments:string[];
         documents!.map((doc) => {
-            formattedDocuments.push(documentMapping[doc])
+            formattedDocuments.push(documentMapping[doc]);
         });
 
-        return formattedDocuments!
+        return formattedDocuments!;
     }
 }

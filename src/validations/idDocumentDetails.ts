@@ -9,30 +9,30 @@ const idDocumentDetailsValidator = (): ValidationChain[] => {
                 body(`documentDetails_${i}`)
                     .if(body(`documentDetails_${i}`).exists()).trim().notEmpty().withMessage("Enter the details for the document reference")
                     .bail().isLength({ max: 9 }).withMessage("The document reference must be exactly 9 characters long")
-                    .bail().isAlphanumeric().withMessage("The document reference must only include letters and numbers") // Error for non-alphanumeric input   
+                    .bail().isAlphanumeric().withMessage("The document reference must only include letters and numbers") // Error for non-alphanumeric input
             ));
 
-        documentDetailsValidatorErrors.push(    
+        documentDetailsValidatorErrors.push(
             (
                 body(`expiryDate_${i}`).if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => dateDayChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${1}`], "expiryDate"))
-            ))
+            ));
 
-        documentDetailsValidatorErrors.push(    
+        documentDetailsValidatorErrors.push(
             (
                 body(`expiryDate_${i}`).if(body(`expiryDateMonth_${i}`).exists()).custom((value, { req }) => dateMonthChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${1}`], "expiryDate"))
-            ))
+            ));
 
-        documentDetailsValidatorErrors.push(    
+        documentDetailsValidatorErrors.push(
             (
                 body(`expiryDate_${i}`).if(body(`expiryDateYear_${i}`).exists()).custom((value, { req }) => dateYearChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${1}`], "expiryDate"))
-            ))
+            ));
 
-        documentDetailsValidatorErrors.push(    
+        documentDetailsValidatorErrors.push(
             (
                 body(`expiryDate_${i}`).if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => validDataChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${1}`], "expiryDate"))
-            ))
+            ));
     }
-    console.log("errors----->", documentDetailsValidatorErrors.length)
+    console.log("errors----->", documentDetailsValidatorErrors.length);
     return documentDetailsValidatorErrors;
 };
 

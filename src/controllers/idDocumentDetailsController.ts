@@ -17,7 +17,7 @@ import { FormatService } from "../services/formatService";
 import logger from "../lib/Logger";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
-    logger.info("reached here")
+    logger.info("reached here");
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
@@ -28,8 +28,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
 
-    logger.info("reached here")
-    logger.info("values----->" + JSON.stringify(formattedDocumentsChecked))
+    logger.info("reached here");
+    logger.info("values----->" + JSON.stringify(formattedDocumentsChecked));
     res.render(config.ID_DOCUMENT_DETAILS, {
         previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
         ...getLocaleInfo(locales, lang),
@@ -52,7 +52,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     if (!errorList.isEmpty()) {
         errorListDisplay(errorList.array(), clientData.documentsChecked!, lang);
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-        console.log("body----->", req.body)
+        console.log("body----->", req.body);
         res.status(400).render(config.ID_DOCUMENT_DETAILS, {
             previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
             ...getLocaleInfo(locales, lang),
@@ -79,11 +79,10 @@ const errorListDisplay = (errors: any[], documentsChecked: string[], lang: strin
 };
 
 const getBackUrl = (selectedOption: string) => {
-    console.log("back----->", selectedOption)
+    console.log("back----->", selectedOption);
     if (selectedOption === "cryptographic_security_features_checked") {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
     } else {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
     }
 };
-
