@@ -1,9 +1,9 @@
 {
-    "provideDifferentEmailTitle": "You need to provide a different email address welsh",
-    "cannotUseDynamicEmail": "You cannot use welsh ",
-    "invalidEmailReasonsLabel": "This could be for one of the following reasons: welsh",
-    "invalidEmailReasons1": "an authorised agent already provided this email address when they verified someone's identity welsh",
-    "invalidEmailReasons2": "someone has used this email address to verify their identity using GOV.UK One Login welsh",
-    "youNeedTo": "You'll need to welsh ",
-    "provideDifferentEmailLink": "provide a different email address for welsh "
+    "provideDifferentEmailTitle": "Mae angen i chi ddarparu cyfeiriad e-bost gwahanol",
+    "cannotUseDynamicEmail": "Ni allwch ddefnyddio ",
+    "invalidEmailReasonsLabel": "Gallai hyn fod am un o'r rhesymau canlynol:",
+    "invalidEmailReasons1": "Mae asiant awdurdodedig eisoes wedi darparu'r cyfeiriad e-bost hwn pan wiriodd hunaniaeth rhywun",
+    "invalidEmailReasons2": "mae rhywun wedi defnyddio'r cyfeiriad e-bost hwn i wirio ei hunaniaeth gan ddefnyddio GOV.UK One Login",
+    "youNeedTo": "Bydd angen i chi ",
+    "provideDifferentEmailLink": "darparu cyfeiriad e-bost gwahanol ar gyfer "
 }

@@ -6,7 +6,7 @@
 {% block main_content %}
     <form action="" method="POST">
         <div class="govuk-form-group">
-            <h1 class="govuk-heading-l">{{i18n.whatIs}} {{firstName}} {{lastName}}{{i18n.emailAddress}}</h1>
+            <h1 class="govuk-heading-l">{{i18n.whatIs}} {{firstName}} {{lastName}}{{i18n.emailAddress}} {{ lang }}</h1>
            
             {{ govukInput({
                 hint: {

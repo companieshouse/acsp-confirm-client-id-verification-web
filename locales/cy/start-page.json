@@ -1,8 +1,8 @@
 {
     "startPageTitle": "Dywedwch wrth Dŷ'r Cwmnïau eich bod wedi gwirio hunaniaeth rhywun",
     "useThisService": "Defnyddiwch y gwasanaeth hwn i ddweud wrthym pryd rydych wedi gwirio hunaniaeth rhywun ar gyfer Tŷ'r Cwmnïau.",
-    "guidePageVerificationServiceNote": "You must have verified the person's identity by completing the checks from welsh ",
-    "linkGuidePageVerificationService": "Companies House identity verification standard welsh",
+    "guidePageVerificationServiceNote": "Mae'n rhaid eich bod wedi gwirio hunaniaeth y person drwy gwblhau'r gwiriadau ",
+    "linkGuidePageVerificationService": "safon gwiriad hunaniaeth Tŷ'r Cwmnïau",
     "keepRecordsOfTheIdentityChecks": "Bydd angen i chi gadw cofnodion o'r gwiriadau hunaniaeth am 7 mlynedd o'r dyddiad y gwnaethoch eu cwblhau. Efallai y byddwn yn gofyn am weld y cofnodion hyn i wirio eich bod wedi cyrraedd ein safon.",
     "suspendOrStopBusinessWarningText": "Gallwn atal neu stopio eich busnes rhag gweithredu fel asiant awdurdodedig os nad ydych wedi cyrraedd ein safon gwiriad hunaniaeth.",
     "whatYoullNeedHeading": "Beth sydd angen i chi ddweud wrthym am y person",
@@ -18,6 +18,6 @@
     "checksDate": "y dyddiad y gwnaethoch gwblhau'r gwiriadau",
     "startTimeout": "Mae'n cymryd tua 10 munud i ddefnyddio'r gwasanaeth hwn.",
     "startNow": "Dechrau nawr",
-    "readText": "Read the welsh ",
-    "readThe": "guidance about verifying someone's identity for Companies House welsh"
+    "readText": "Darllenwch y ",
+    "readThe": "cyfarwyddyd ar wirio hunaniaeth rhywun ar gyfer Tŷ'r Cwmnïau"
 }
