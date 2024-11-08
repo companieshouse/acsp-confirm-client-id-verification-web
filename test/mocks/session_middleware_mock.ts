@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { sessionMiddleware } from "../../src/middleware/session_middleware";
-import { USER_DATA, ADDRESS_LIST, PREVIOUS_PAGE_URL } from "../../src/utils/constants";
+import { USER_DATA, ADDRESS_LIST, PREVIOUS_PAGE_URL, ACSP_DETAILS } from "../../src/utils/constants";
 import { getSessionRequestWithPermission } from "./session.mock";
 import { addressList } from "./address.mock";
+import { dummyFullProfile } from "./acsp_profile.mock";
 
 jest.mock("ioredis");
 jest.mock("../../src/middleware/session_middleware");
@@ -23,6 +24,7 @@ mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: Nex
     );
     session.setExtraData(ADDRESS_LIST, addressList);
     session.setExtraData(PREVIOUS_PAGE_URL, "tell-companies-house-you-have-verified-someones-identity/what-is-the-persons-name");
+    session.setExtraData(ACSP_DETAILS, dummyFullProfile);
 
     req.session = session;
     next();
