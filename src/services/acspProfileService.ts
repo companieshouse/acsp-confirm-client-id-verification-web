@@ -1,12 +1,12 @@
 import PrivateApiClient from "private-api-sdk-node/dist/client";
-import { createPrivateApiKeyClient } from "./apiService";
+import { createLocalApiKeyClient } from "./apiService";
 import logger from "../lib/Logger";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { AMLSupervioryBodies } from "../model/AMLSupervioryBodies";
 
 export const getAcspFullProfile = async (acspNumber: string):Promise<AcspFullProfile> => {
-    const apiClient: PrivateApiClient = createPrivateApiKeyClient();
+    const apiClient: PrivateApiClient = createLocalApiKeyClient();
 
     logger.debug(`Recieved request to get acsp full profile for acsp number: ${acspNumber}`);
 
