@@ -105,6 +105,11 @@ export class FormatService {
         documents: string[] | undefined,
         i18n: any
     ): string[] {
+        var formattedDocuments:string[] = [];
+
+        if (!documents || documents.length === 0) {
+            return formattedDocuments;
+        }
         const documentMapping: { [key: string]: string } = {
             biometricPassport: i18n.biometricPassport,
             irishPassport: i18n.irishPassport,
@@ -113,6 +118,7 @@ export class FormatService {
             biometricPermit: i18n.biometricPermit,
             biometricCard: i18n.biometricCard,
             frontierPermit: i18n.frontierPermit,
+
             passport: i18n.passport,
             IrishCard: i18n.IrishCard,
             ukBRP: i18n.ukBRP,
@@ -127,23 +133,13 @@ export class FormatService {
             photoimmigrationDoc: i18n.photoimmigrationDoc,
             photoVisa: i18n.photoVisa,
             ukFirearmsLicence: i18n.ukFirearmsLicence,
-            photoIdPrado: i18n.photoIdPrado,
-            photoIdPradoHint: i18n.photoIdPradoHint,
-            birthCert: i18n.birthCert,
-            marriageCert: i18n.marriageCert,
-            noPhotoimmigrationDoc: i18n.noPhotoimmigrationDoc,
-            noPhotoVisa: i18n.noPhotoVisa,
-            noPhotoWorkPermit: i18n.noPhotoWorkPermit,
-            bankStatement: i18n.bankStatement,
-            rentalAgreement: i18n.rentalAgreement,
-            morgageStatement: i18n.morgageStatement,
-            taxStatement: i18n.taxStatement,
-            utilityBill: i18n.utilityBill
+            photoIdPrado: i18n.photoIdPrado
         };
 
-        var formattedDocuments:string[];
         documents!.map((doc) => {
-            formattedDocuments.push(documentMapping[doc]);
+            if (documentMapping[doc]) {
+                formattedDocuments.push(documentMapping[doc]);
+            }
         });
 
         return formattedDocuments!;

@@ -14,22 +14,20 @@ import {
     selectLang
 } from "../utils/localise";
 import { FormatService } from "../services/formatService";
-import logger from "../lib/Logger";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
-    logger.info("reached here");
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
+    console.log("documents checked------>", JSON.stringify(clientData.documentsChecked));
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
 
-    logger.info("reached here");
-    logger.info("values----->" + JSON.stringify(formattedDocumentsChecked));
+    console.log("values----->" + JSON.stringify(formattedDocumentsChecked));
     res.render(config.ID_DOCUMENT_DETAILS, {
         previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
         ...getLocaleInfo(locales, lang),

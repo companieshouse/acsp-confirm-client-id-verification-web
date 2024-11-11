@@ -1,4 +1,5 @@
 import { body, ValidationChain } from "express-validator";
+import countryList from "../lib/countryList";
 
 const idDocumentDetailsValidator = (): ValidationChain[] => {
     const documentDetailsValidatorErrors: ValidationChain[] = [];
@@ -30,6 +31,11 @@ const idDocumentDetailsValidator = (): ValidationChain[] => {
         documentDetailsValidatorErrors.push(
             (
                 body(`expiryDate_${i}`).if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => validDataChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${1}`], "expiryDate"))
+            ));
+
+        documentDetailsValidatorErrors.push(
+            (
+                body(`countryInput_${i}`).if(body(`countryInput_${i}`).exists()).trim().notEmpty().withMessage("Enter the country")
             ));
     }
     console.log("errors----->", documentDetailsValidatorErrors.length);

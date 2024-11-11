@@ -3,7 +3,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
   const countryList = "{{countryList}}";
-  //const error = "{{errors.countryInput.text}}"
+  const error = "{{errors.countryInput.text}}"
   const autocompleteContainers = document.querySelectorAll('[id^="my-autocomplete-container-"]');
   autocompleteContainers.forEach((container, index) => {
     const countryDefaultValue = "{{ payload['countryInput_' + (index + 1)] }}";

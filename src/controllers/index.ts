@@ -19,4 +19,4 @@ export * as confirmationController from "./confirmationController";
 export * as confirmIdentityVerificationController from "./confirmIdentityVerificationController";
 export * as signOutController from "./signOutController";
 export * as confirmationRedirectController from "./confirmationRedirectController";
-export * as idDocumentDetailsController from "./indexController2";
+export * as idDocumentDetailsController from "./idDocumentDetailsController";
