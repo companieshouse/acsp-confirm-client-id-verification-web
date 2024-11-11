@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import * as config from "../config";
 import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, CONFIRMATION } from "../types/pageURL";
-import { USER_DATA, REFERENCE, MATOMO_BUTTON_CLICK, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
+import { USER_DATA, REFERENCE, MATOMO_BUTTON_CLICK, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS } from "../utils/constants";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../services/formatService";
@@ -12,6 +12,8 @@ import { IdentityVerificationService, sendVerifiedClientDetails } from "../servi
 import logger from "../lib/Logger";
 import { ErrorService } from "../services/errorService";
 import { saveDataInSession } from "../utils/sessionHelper";
+import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
+import { getAmlBodiesAsString } from "../services/acspProfileService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -20,6 +22,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+    const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
 
     // setting CYA flag to true when user reaches this page - used for routing back if they change a value
     saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, true);
@@ -37,6 +40,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         clientData.documentsChecked,
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
+
+    const amlBodies = getAmlBodiesAsString(acspDetails);
+
     res.render(config.CHECK_YOUR_ANSWERS, {
         ...getLocaleInfo(locales, lang),
         currentUrl,
@@ -48,7 +54,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             dateOfBirth: formattedDateOfBirth,
             whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
             documentsChecked: formattedDocumentsChecked
-        }
+        },
+        amlBodies,
+        acspName: acspDetails.name
     });
 };
 
@@ -60,6 +68,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+    const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
 
     if (!errorList.isEmpty()) {
         const formattedAddress = FormatService.formatAddress(clientData.address);
@@ -75,6 +84,9 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             clientData.documentsChecked,
             locales.i18nCh.resolveNamespacesKeys(lang)
         );
+
+        const amlBodies = getAmlBodiesAsString(acspDetails);
+
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
         res.status(400).render(config.CHECK_YOUR_ANSWERS, {
             previousPage,
@@ -87,7 +99,9 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 dateOfBirth: formattedDateOfBirth,
                 whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
                 documentsChecked: formattedDocumentsChecked
-            }
+            },
+            amlBodies,
+            acspName: acspDetails.name
         });
     } else {
         const identityVerificationService = new IdentityVerificationService();
