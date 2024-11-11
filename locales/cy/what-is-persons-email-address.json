@@ -1,7 +1,6 @@
 {
-    "emailAddressTitleWelsh": "Beth yw cyfeiriad e-bost",
-    "whatIs" : "What is welsh",
-    "emailAddress" : "'s email address? welsh",
+    "whatIs" : "Beth yw",
+    "emailAddress" : "cyfeiriad e-bost",
     "theyMustAbleToAccess" : "Rhaid iddynt allu cael mynediad at e-byst sy'n cael eu hanfon i'r cyfeiriad hwn.",
     "confirmEmail" : "Cadarnhau ei gyfeiriad e-bost",
 
