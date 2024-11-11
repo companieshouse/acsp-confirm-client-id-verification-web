@@ -2,11 +2,23 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "layouts/default.njk" %}
-{% set title = i18n.whatIs + ' ' + firstName + ' ' + lastName + i18n.emailAddress %}
+
+{% if "en" in lang %}
+    {% set title = i18n.whatIs + ' ' + firstName + ' ' + lastName + i18n.emailAddress %}
+{% else %}
+    {% set title = i18n.whatIs + ' ' + i18n.emailAddress + ' ' + firstName + ' ' + lastName %}
+{% endif %}
+
 {% block main_content %}
     <form action="" method="POST">
         <div class="govuk-form-group">
-            <h1 class="govuk-heading-l">{{i18n.whatIs}} {{firstName}} {{lastName}}{{i18n.emailAddress}}</h1>
+            <h1 class="govuk-heading-l">
+                {% if "en" in lang %}
+                    {{i18n.whatIs}} {{firstName}} {{lastName}}{{i18n.emailAddress}}
+                {% else %}
+                    {{i18n.whatIs}} {{i18n.emailAddress}} {{firstName}} {{lastName}}?
+                {% endif %}
+            </h1>
            
             {{ govukInput({
                 hint: {
