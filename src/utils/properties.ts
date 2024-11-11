@@ -8,6 +8,8 @@ export const SHOW_SERVICE_OFFLINE_PAGE = getEnvironmentVariable("SHOW_SERVICE_OF
 
 export const INTERNAL_API_URL = getEnvironmentVariable("INTERNAL_API_URL", "false");
 
+export const API_LOCAL_URL = getEnvironmentValue("API_LOCAL_URL", "false");
+
 export const LOCALES_ENABLED = getEnvironmentVariable("LOCALES_ENABLED", "true");
 
 export const LOCALES_PATH = getEnvironmentVariable("LOCALES_PATH", "locales");
