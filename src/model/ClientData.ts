@@ -1,4 +1,5 @@
 import { Address } from "./Address";
+import { DocumentDetails } from "./DocumentDetails";
 
 export interface ClientData {
     firstName?: string;
@@ -7,6 +8,7 @@ export interface ClientData {
     dateOfBirth?: Date;
     address?: Address;
     documentsChecked?: string[];
+    idDocumentDetails?: DocumentDetails[];
     emailAddress?: string;
     confirmEmailAddress?: string;
     howIdentityDocsChecked?: string;

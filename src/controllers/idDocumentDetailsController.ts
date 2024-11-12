@@ -14,6 +14,8 @@ import {
     selectLang
 } from "../utils/localise";
 import { FormatService } from "../services/formatService";
+import { idDocumentDetailsService } from "../services/idDocumentDetailsService";
+import { DocumentDetails } from "../model/DocumentDetails";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -21,13 +23,18 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
-    console.log("documents checked------>", JSON.stringify(clientData.documentsChecked));
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
 
-    console.log("values----->" + JSON.stringify(formattedDocumentsChecked));
+    // console.log("reached a------>")
+    // let payload;
+    // if(clientData.idDocumentDetails){
+    //     console.log("reached b------>")
+    //     payload = createPayload(clientData.idDocumentDetails);
+    // }
+
     res.render(config.ID_DOCUMENT_DETAILS, {
         previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
         ...getLocaleInfo(locales, lang),
@@ -50,7 +57,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     if (!errorList.isEmpty()) {
         errorListDisplay(errorList.array(), clientData.documentsChecked!, lang);
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-        console.log("body----->", req.body);
         res.status(400).render(config.ID_DOCUMENT_DETAILS, {
             previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
             ...getLocaleInfo(locales, lang),
@@ -61,6 +67,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             countryList: countryList
         });
     } else {
+        // const documentDetailsService = new idDocumentDetailsService();
+        // documentDetailsService.saveIdDocumentDetails(req, clientData, locales, lang);
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
     }
 };
@@ -77,10 +85,20 @@ const errorListDisplay = (errors: any[], documentsChecked: string[], lang: strin
 };
 
 const getBackUrl = (selectedOption: string) => {
-    console.log("back----->", selectedOption);
     if (selectedOption === "cryptographic_security_features_checked") {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
     } else {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
     }
+};
+const createPayload = (idDocumentDetails: DocumentDetails[]): { [key: string]: string | undefined } => {
+    const payload: { [key: string]: any | undefined } = {};
+    idDocumentDetails.forEach((body, index) => {
+
+        payload[`documentNumber_${index + 1}`] = body.documentNumber;
+        payload[`expiryDate_${index + 1}`] = body.expiryDate;
+        payload[`countryInput_${index + 1}`] = body.countryOfIssue;
+    });
+    console.log("payload---->", JSON.stringify(payload));
+    return payload;
 };

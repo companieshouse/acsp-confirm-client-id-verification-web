@@ -19,12 +19,12 @@
             hint: {
                 text: "This is a 9 character reference. It is usually shown in the top right hand corner of the photo page in the" + body+ "."
             },
-            id: "documentDetails_" + index,
-            name: "documentDetails_" + index,
-            value: payload["documentDetails_" + index],
+            id: "documentNumber_" + index,
+            name: "documentNumber_" + index,
+            value: payload["documentNumber_" + index],
             errorMessage: {
-                 text: errors["documentDetails_" + index].text
-            } if errors["documentDetails_" + index]
+                 text: errors["documentNumber_" + index].text
+            } if errors["documentNumber_" + index]
         }) }}
 
         <!--Date  Input-->

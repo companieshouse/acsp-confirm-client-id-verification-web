@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const error = "{{errors.countryInput.text}}"
   const autocompleteContainers = document.querySelectorAll('[id^="my-autocomplete-container-"]');
   autocompleteContainers.forEach((container, index) => {
-    const countryDefaultValue = "{{ payload['countryInput_' + (index + 1)] }}";
+  const countryDefaultValue = "{{countryInput_1}}";
 
 
     accessibleAutocomplete({
@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", function() {
   // Mimic nunjucks error generation
       window.onload = function () {
       if (error) {
-        document.getElementById("typeahead-form-group").className = "govuk-form-group govuk-form-group--error";
+        document.getElementById("typeahead-form-group-{{index}}").className = "govuk-form-group govuk-form-group--error";
         const errorHtml = '<p class="govuk-error-message"> <span class="govuk-visually-hidden">Error:</span> ' + error + '</p>'
-        const element = document.getElementById("typeahead-hint");
+        const element = document.getElementById("typeahead-hint-{{index}}");
         element.insertAdjacentHTML("afterend", errorHtml);
-        document.getElementById("countryInput").classList.add("govuk-input--error");
+        document.getElementById("countryInput_1").classList.add("govuk-input--error");
       }
 } 
 </script>
