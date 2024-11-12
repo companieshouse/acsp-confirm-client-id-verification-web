@@ -1,6 +1,7 @@
 {
     "confirmVerificationHeading": "Cadarnhau eich bod wedi gwirio hunaniaeth y person hwn",
-    "confirmVerificationWarningText": "Gallwn stopio neu atal [ACSP NAME] rhag gweithredu fel asiant awdurdodedig os nad ydych wedi cyrraedd ein safon gwiriad hunaniaeth.",
+    "confirmVerificationWarningText1": "Gallwn stopio neu atal",
+    "confirmVerificationWarningText2": "rhag gweithredu fel asiant awdurdodedig os nad ydych wedi cyrraedd ein safon gwiriad hunaniaeth.",
     "declarationSubHeading": "Datganiad",
     "confirmationStatement1": "Rwy'n cadarnhau bod ",
     "confirmationStatement2": "wedi gwirio hunaniaeth",

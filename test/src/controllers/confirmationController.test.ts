@@ -1,42 +1,29 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, CONFIRMATION, CHECK_YOUR_ANSWERS } from "../../../src/types/pageURL";
+import { BASE_URL, CONFIRMATION } from "../../../src/types/pageURL";
 import { ClientData } from "../../../src/model/ClientData";
 import { FormatService } from "../../../src/services/formatService";
 import { getLocalesService } from "../../../src/utils/localise";
+import { getSessionRequestWithPermission } from "../../mocks/session.mock";
+import { createRequest } from "node-mocks-http";
+import { session } from "../../mocks/session_middleware_mock";
+import { USER_DATA } from "../../../src/utils/constants";
 
 jest.mock("../../../src/services/formatService.ts");
 
 const router = supertest(app);
 
-const mockAddress = {
-    propertyDetails: "1",
-    line1: "Street",
-    line2: "Line 2",
-    town: "Town",
-    county: "County",
-    country: "Country",
-    postcode: "AB12CD"
-};
-
-const mockClientData: ClientData = {
-    address: mockAddress,
-    dateOfBirth: new Date("1990-01-01"),
-    whenIdentityChecksCompleted: new Date("2024-01-01"),
-    documentsChecked: ["biometricPassport"],
-    howIdentityDocsChecked: "cryptographic_security_features_checked"
-};
-
 describe("GET " + BASE_URL + CONFIRMATION, () => {
+    let req;
     beforeEach(() => {
         jest.clearAllMocks();
-        mocks.mockSessionMiddleware.mockImplementation((req, res, next) => {
-            req.session = {
-                getExtraData: jest.fn().mockReturnValue(mockClientData)
-            };
-            next();
+        req = createRequest({
+            method: "POST",
+            url: "/"
         });
+        const session = getSessionRequestWithPermission();
+        req.session = session;
     });
 
     it("should return status 200 and render the confirmation page with formatted data", async () => {
@@ -49,11 +36,12 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
     it("should format the client data correctly", async () => {
         const locales = getLocalesService();
         await router.get(BASE_URL + CONFIRMATION + "?lang=en");
+        const clientData: ClientData = session.getExtraData(USER_DATA)!;
         expect(FormatService.formatAddress).toHaveBeenCalledWith(
-            mockClientData.address
+            clientData.address
         );
         expect(FormatService.formatDocumentsChecked).toHaveBeenCalledWith(
-            mockClientData.documentsChecked,
+            clientData.documentsChecked,
             locales.i18nCh.resolveNamespacesKeys("en")
         );
     });
