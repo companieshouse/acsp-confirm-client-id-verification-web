@@ -6,5 +6,6 @@
     "Back" : "Back",
     "SignOut": "Sign out",
     "AcceptAndContinue": "Accept and Continue",
-    "warning": "Warning"
+    "warning": "Warning",
+    "companiesHouseDoesNotVerify": "Companies House does not verify the accuracy of the information filed"
 }

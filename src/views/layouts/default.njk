@@ -18,16 +18,11 @@
     <a href="#main-page-content" class="govuk-skip-link">Skip to main content</a>
     {% include "partials/__header.njk" %}
     <div class="govuk-width-container">
-      <nav>
-        {% block backLink %}
-          <a href="{{ previousPage }}" class="govuk-back-link">{{i18n.Back}}</a>
-        {% endblock %}
-        {% block signoutBar %}
-          {% include "partials/signout-bar.njk" %}
-          <hr class="govuk-section-break govuk-section-break--visible">
-        {% endblock %}
-      </nav>
+      {% include "partials/nav/top.njk" %}
       {% include "locales-banner.njk" %}
+      {% block backLink %}
+        <a href="{{ previousPage }}" class="govuk-back-link">{{i18n.Back}}</a>
+      {% endblock %}
       <main class="govuk-main-wrapper " id="main-content">
         <div class="govuk-grid-row">
           {% include "partials/error_summary.njk" %}
