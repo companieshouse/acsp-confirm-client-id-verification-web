@@ -9,7 +9,9 @@ describe("Home Page tests -", () => {
         it("should return status 200", async () => {
             const res = await router.get(BASE_URL + HOME_URL);
             await router.get(BASE_URL);
-            expect(mocks.mockSessionMiddleware).toHaveBeenCalledTimes(0);
+            expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+            expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+            expect(mocks.mockAcspAuthenticationMiddleware).toHaveBeenCalled();
             expect(200);
             expect(res.text).toContain("Tell Companies House you have verified someone’s identity");
         });
