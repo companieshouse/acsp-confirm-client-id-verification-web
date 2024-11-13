@@ -1,6 +1,6 @@
 import { Handler } from "express";
 import { CHS_MONITOR_GUI_URL } from "../utils/properties";
-import { getLoggedInUserEmail, getLoggedInUserId } from "../utils/session";
+import { getLoggedInUserEmail } from "../utils/session";
 
 /**
  * Populates variables for use in templates that are used on multiple pages.
