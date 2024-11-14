@@ -10,13 +10,11 @@ const getSignInInfo = (session: any): ISignInInfo => {
 };
 
 export const getLoggedInUserEmail = (session: any): string => {
-    session = getSessionRequestWithPermission();
     const signInInfo = getSignInInfo(session);
     return signInInfo?.[SignInInfoKeys.UserProfile]?.[UserProfileKeys.Email] as string;
 };
 
 export const getLoggedInUserId = (session: any): string => {
-    session = getSessionRequestWithPermission();
     const signInInfo = getSignInInfo(session);
     return signInInfo?.[SignInInfoKeys.UserProfile]?.[UserProfileKeys.UserId] as string;
 };
