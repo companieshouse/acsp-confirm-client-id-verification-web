@@ -1,13 +1,17 @@
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
-{% set errorPrefix = "dob" %}
-{% if errors[errorPrefix + "-day"] %}
-    {% set errorMessageText = errors[errorPrefix + "-day"].text %}
-{% elif errors[errorPrefix + "-month"] %}
-    {% set errorMessageText = errors[errorPrefix + "-month"].text %}
-{% elif errors[errorPrefix + "-year"] %}
-    {% set errorMessageText = errors[errorPrefix + "-year"].text %}
-{% endif %}
 
+  {% if errors["expiryDate_" + index] %}
+    {% set errorMessageText = errors["expiryDate_" + index].text %}
+  {% elif errors["expiryDateDay_" + index] %}
+    {% set errorMessageText = errors["expiryDateDay_" + index].text %}
+  {% elif errors["expiryDateMonth_" + index] %}
+    {% set errorMessageText = errors["expiryDateMonth_" + index].text %}
+  {% elif errors["expiryDateYear_" + index] %}
+    {% set errorMessageText = errors["expiryDateYear_" + index].text %}
+  {% endif %}
+
+
+   <div class="govuk-form-group {% if errorMessageText  %}govuk-form-group--error{% endif %}">
     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
         <legend class="govuk-fieldset__legend">
             Expiry date
@@ -15,6 +19,11 @@
         <div id="passport-issued-hint" class="govuk-hint">
             For example, 27 March 2035.
         </div>
+        {% if errorMessageText %}
+          <p id="expiry-date-error" class="govuk-error-message">
+             <span class="govuk-visually-hidden">Error:</span> {{ errorMessageText }}
+          </p>
+        {% endif %}
         <div class="govuk-date-input" id="expiryDate_{{index}}">
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
@@ -22,7 +31,7 @@
                         {{ i18n.day }}
                     </label>
                     {% set dayValue = payload["expiryDateDay_" + index] %}
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}" id="expiryDateDay_{{index}}" name="expiryDateDay_{{index}}" value="{{ dayValue }}">
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errorMessageText %} govuk-input--error{% endif %}" id="expiryDateDay_{{index}}" name="expiryDateDay_{{index}}" value="{{ dayValue }}">
                 </div>
             </div>    
             <div class="govuk-date-input__item">
@@ -30,7 +39,7 @@
                     <label class="govuk-label govuk-date-input__label" for="expiryDateMonth_{{index}}">
                         {{ i18n.month }}
                     </label>
-                    <select class="govuk-select{% if errors %} govuk-select--error{% endif %}" id="expiryDateMonth_{{index}}" name="expiryDateMonth_{{index}}">
+                    <select class="govuk-select{% if errorMessageText %} govuk-select--error{% endif %}" id="expiryDateMonth_{{index}}" name="expiryDateMonth_{{index}}">
                         <option value="" disabled selected>{{ i18n.chooseMonth }}</option>
                         <option value="01" {% if payload["expiryDateMonth_" + index] == '01' %} selected {% endif %}>{{ i18n.january }}</option>
                         <option value="02" {% if payload["expiryDateMonth_" + index] == '02' %} selected {% endif %}>{{ i18n.february }}</option>
@@ -53,8 +62,9 @@
                         {{ i18n.year }}
                     </label>
                     {% set yearValue = payload["expiryDateYear_" + index] %}
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors %} govuk-input--error{% endif %}" id="expiryDateYear_{{index}}" name="expiryDateYear_{{index}}" value="{{ yearValue }}">
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errorMessageText %} govuk-input--error{% endif %}" id="expiryDateYear_{{index}}" name="expiryDateYear_{{index}}" value="{{ yearValue }}">
                 </div>
             </div>
         </div>
     </fieldset>
+   </div> 

@@ -13,15 +13,24 @@ export class idDocumentDetailsService {
             locales.i18nCh.resolveNamespacesKeys(lang)
         );
 
-        const documentDetails: Array<DocumentDetails> = [];
+        const documentDetails: DocumentDetails[] = [];
         for (let i = 0; i < formattedDocumentsChecked.length; i++) {
             const j = i + 1;
             const docNumberId = "documentNumber_" + j;
-            const expiryDateId = "expiryDate_" + j;
+            const expiryDateDayId = "expiryDateDay_" + j;
+            const expiryDateMonthId = "expiryDateMonth_" + j;
+            const expiryDateYearId = "expiryDateYear_" + j;
             const countryOfIssueId = "countryInput_" + j;
+
+            const expiryDate = new Date(
+                req.body[expiryDateDayId],
+                req.body[expiryDateMonthId] -1,
+                req.body[expiryDateYearId]
+            );
+
             documentDetails.push({
                 documentNumber: req.body[docNumberId],
-                expiryDate: req.body[expiryDateId],
+                expiryDate: expiryDate,
                 countryOfIssue: req.body[countryOfIssueId]
             });
         }
@@ -29,7 +38,6 @@ export class idDocumentDetailsService {
             clientData.idDocumentDetails = documentDetails;
         }
 
-        console.log("saving----->", JSON.stringify(clientData.idDocumentDetails));
         saveDataInSession(req, USER_DATA, clientData);
     };
 }

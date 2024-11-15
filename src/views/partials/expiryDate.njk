@@ -1,51 +1,58 @@
-{% from "govuk/components/input/macro.njk" import govukInput %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{% extends "layouts/default.njk" %}
-{% set title = i18n.idDocumentDetailstitle %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
 
-{% block main_content %}
-  <form action="" method="POST">
-    <h1 class="govuk-heading-l"> {{ i18n.idDocumentDetailstitle }} </h1>
-    {% for body in documentsChecked %}
-      {% set index = loop.index %}
-        <h2 class="govuk-heading-m"> {{body}} details </h2>
-        <!--Document Input-->
-        {{ govukInput({
-            label: {
-                text: body + " number",
-                classes: "govuk-label "
+  {% if errors["expiryDateDay_1"] %}
+    {% set errorMessageText = errors["expiryDateDay_1"].text %}
+  {% elif errors["expiryDateMonth_1"] %}
+    {% set errorMessageText = errors["expiryDateMonth_1"].text %}
+  {% elif errors["expiryDateYear_1"] %}
+    {% set errorMessageText = errors["expiryDateYear_1"].text %}
+  {% endif %}
+
+  <div>    
+      {{ govukDateInput({
+          id: "expiryDate_{{index}}",
+          namePrefix: "dob",
+          fieldset: {
+            legend: {
+              text: i18n.dateOfBirthTitle,
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l"
+            }
+          },
+          hint: {
+            text: i18n.dateOfBirthHint
+          },
+          errorMessage: {
+            text: errorMessageText
+          } if errors | length,
+          
+          items: [
+            {
+              name: "day",
+              classes: "govuk-input--error govuk-input--width-2" if errors else "govuk-input--width-2",
+              autocomplete: "bday-day",
+              id: "dob-day",
+              value: payload["dob-day"],
+              label: i18n.day
             },
-            classes: "govuk-input--width-10",
-            hint: {
-                text: "This is a 9 character reference. It is usually shown in the top right hand corner of the photo page in the" + body+ "."
+            {
+              name: "month",
+              classes: "govuk-input--error govuk-input--width-2" if errors else "govuk-input--width-2",
+              autocomplete: "bday-month",
+              id: "dob-month",
+              value: payload["dob-month"],
+              label: i18n.month
             },
-            id: "documentDetails_" + index,
-            name: "documentDetails_" + index,
-            value: payload["documentDetails_" + index],
-            errorMessage: {
-                 text: errors["documentDetails_" + index].text
-            } if errors["documentDetails_" + index]
+            {
+              name: "year",
+              classes: "govuk-input--error govuk-input--width-4" if errors else "govuk-input--width-4",
+              autocomplete: "bday-year",
+              id: "dob-year",
+              value: payload["dob-year"],
+              label: i18n.year
+            }
+          ]
         }) }}
+  </div>
 
-        <!--Date  Input-->
-        {% include "partials/date.njk" %}
 
-        <!--Country  Input-->
-        <div id="typeahead-form-group-{{index}}" class="govuk-form-group">
-            <label class="govuk-label" for="location">{{i18n.chooseCountryText}} </label>
-            <p class="govuk-hint" id="typeahead-hint-{{index}}">{{i18n.chooseCountryhint}} {{body}}.</p>
-            {% set dropdownDefaultText = i18n.chooseCountryText1 %}
-            <div id="my-autocomplete-container-{{index}}" class="autocomplete-wrapper govuk-input--width-10"></div>
-              <noscript>
-                  {% set dropdownNumber = index %}
-                  {% set errorMessage = dropdownOneError %}
-              </noscript>
-        </div>               
-    {% endfor %}
-    {% include "partials/country-typeahead-input.njk" %} 
-    {{ govukButton({
-            text: i18n.Continue,
-            id: "continue-button"
-    }) }}
-  </form>
-{% endblock main_content %}  

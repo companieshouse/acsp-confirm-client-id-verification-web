@@ -5,8 +5,19 @@
     "chooseCountryText": "Country of issue",
     "chooseCountryText1": "Choose a country",
     "chooseCountryhint":"This is usually shown on the first page of the ",
-    "error-doclIDNumberInput": "Enter the details for the document reference",
-    "error-docIdLength": "The document reference must be exactly 9 characters long",
-    "error-docIdFormat": "The document reference must only include letters and numbers",
-    "error-whereDoYouLiveNoData" : "Select where you live"
+    "error-docNumberInput": "Enter the details for the ",
+    "error-docNumberLength": " must be 50 characters or fewer",
+    "error-docNumberFormat": " must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes",
+    "error-noExpiryDate" : "Enter the expiry date for ",
+    "error-noExpiryDayMonth" : " must include a day and a month",
+    "error-noExpiryDayYear" : " must include a day and a year",
+    "error-noExpiryDay" : " must include a day",
+    "error-noExpiryMonthYear" : " must include a month and a year",
+    "error-noExpiryMonth" : " must include a month",
+    "error-noExpiryYear" : " must include a year",
+    "error-expiryDateInvalid" : " must be a real date",
+    "error-expiryDateNonNumeric" : " must only include numbers",
+    "error-dateAfterIdChecksDone1" : "Expiry date must be after ", 
+    "error-dateAfterIdChecksDone2" : "when you completed the identity checks",
+    "error-noCountry" : "Choose a country for "
 }
