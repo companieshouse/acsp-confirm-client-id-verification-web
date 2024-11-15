@@ -22,7 +22,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-    console.log("client data in  a get----->", JSON.stringify(clientData))
+    console.log("client data in  a get----->", JSON.stringify(clientData));
 
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
@@ -65,7 +65,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const errorArray = errorListDisplay(errorList.array(), formattedDocumentsChecked!, lang, clientData.whenIdentityChecksCompleted!);
         console.log("before page prop------>", errorArray);
         const pageProperties = getPageProperties(formatValidationError(errorArray, lang));
-        console.log("page prop------>", pageProperties)
+        console.log("page prop------>", pageProperties);
         res.status(400).render(config.ID_DOCUMENT_DETAILS, {
             previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
             ...getLocaleInfo(locales, lang),
@@ -88,53 +88,53 @@ const errorListDisplay = (errors: any[], documentsChecked: string[], lang: strin
     const newErrorArray: any[] = [];
 
     errors.forEach((element) => {
-      const errorText = element.msg;  
-      element.msg = resolveErrorMessage(element.msg, lang);  
+        const errorText = element.msg;
+        element.msg = resolveErrorMessage(element.msg, lang);
 
-      if(element.param.includes("documentNumber_")){  
-        const index = element.param.substr("documentNumber_".length) - 1;
-        const selection = documentsChecked[index];
-        if( element.value === "")  {            
-            element.msg = element.msg + selection; 
-        } else {
-            element.msg = selection + element.msg;
-        }    
-      } else if (element.param.includes("expiryDate")){  
-        let index: number;
-        if (element.param.includes("expiryDateDay")){
-           index = element.param.substr("expiryDateDay_".length) - 1;
-        } else if (element.param.includes("expiryDateMonth")){
-           index = element.param.substr("expiryDateMonth_".length) - 1;
-        } else if (element.param.includes("expiryDateYear")){
-           index = element.param.substr("expiryDateYear_".length) - 1;
-        }
+        if (element.param.includes("documentNumber_")) {
+            const index = element.param.substr("documentNumber_".length) - 1;
+            const selection = documentsChecked[index];
+            if (element.value === "") {
+                element.msg = element.msg + selection;
+            } else {
+                element.msg = selection + element.msg;
+            }
+        } else if (element.param.includes("expiryDate")) {
+            let index: number;
+            if (element.param.includes("expiryDateDay")) {
+                index = element.param.substr("expiryDateDay_".length) - 1;
+            } else if (element.param.includes("expiryDateMonth")) {
+                index = element.param.substr("expiryDateMonth_".length) - 1;
+            } else if (element.param.includes("expiryDateYear")) {
+                index = element.param.substr("expiryDateYear_".length) - 1;
+            }
 
-        const selection = documentsChecked[index!];
-        if (selection === "UK accredited PASS card" || selection === "UK HM Armed Forces Veteran Card"){
-           return;
+            const selection = documentsChecked[index!];
+            if (selection === "UK accredited PASS card" || selection === "UK HM Armed Forces Veteran Card") {
+                return;
+            }
+            if (errorText === "noExpiryDate") {
+                element.msg = element.msg + selection;
+            } else if (errorText === "dateAfterIdChecksDone") {
+                const part1 = resolveErrorMessage("dateAfterIdChecksDone1", lang);
+                const part2 = resolveErrorMessage("dateAfterIdChecksDone2", lang);
+                element.msg = part1 + whenIdDocsChecked + part2;
+            } else {
+                element.msg = "Expiry date for " + selection + element.msg; // to do language
+            }
+        } else if (element.param.includes("countryInput")) {
+            const index = element.param.substr("countryInput_".length) - 1;
+            const selection = documentsChecked[index];
+            console.log("selection---->", selection);
+            if (selection === undefined) {
+                return;
+            }
+            element.msg = element.msg + selection;
         }
-        if( errorText === "noExpiryDate"){
-            element.msg = element.msg + selection
-        } else if(errorText === "dateAfterIdChecksDone"){
-            const part1 = resolveErrorMessage("dateAfterIdChecksDone1", lang);  
-            const part2 = resolveErrorMessage("dateAfterIdChecksDone2", lang);  
-            element.msg = part1 + whenIdDocsChecked + part2;
-        } else {
-            element.msg = "Expiry date for " + selection + element.msg // to do language
-        }
-      } else if (element.param.includes("countryInput")){
-        const index = element.param.substr("countryInput_".length) - 1;
-        const selection = documentsChecked[index];   
-        console.log("selection---->", selection)     
-        if(selection === undefined){
-            return;
-        }
-        element.msg = element.msg + selection; 
-      }
-      newErrorArray.push(element);
+        newErrorArray.push(element);
     });
-    console.log("new error array----->", newErrorArray)
-    return newErrorArray
+    console.log("new error array----->", newErrorArray);
+    return newErrorArray;
 };
 
 const getBackUrl = (selectedOption: string) => {

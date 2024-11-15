@@ -24,7 +24,7 @@ export class idDocumentDetailsService {
 
             const expiryDate = new Date(
                 req.body[expiryDateDayId],
-                req.body[expiryDateMonthId] -1,
+                req.body[expiryDateMonthId] - 1,
                 req.body[expiryDateYearId]
             );
 
