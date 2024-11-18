@@ -24,6 +24,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             "wicc-month": whenIdentityChecksCompleted.getMonth() + 1,
             "wicc-day": whenIdentityChecksCompleted.getDate()
         };
+        console.log("payload whendocs checked day---->", clientData.whenIdentityChecksCompleted);
+        console.log("payload whendocs checked---->", payload);
     }
 
     const previousPageUrl = getPreviousPageUrl(req, BASE_URL);

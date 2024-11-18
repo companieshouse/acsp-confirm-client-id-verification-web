@@ -2,16 +2,15 @@
     {% set DROPDOWN = [
       { value: '', text: dropdownDefaultText }
     ] %}
-  
+
     {% set dropdownArray = countryList.split(";") %}
-   
+
     {% for i in dropdownArray %}
       {% set dropdownObject = { value: i, text: i, selected: dropdownValue === i } %}
       {% set DROPDOWN = DROPDOWN.concat(dropdownObject) %}
-      
     {% endfor %}
 
-  
+
     {{ govukSelect({
       label: {
         html: dropdownTitle
@@ -27,3 +26,4 @@
       }if errors["countryInput_" + index],
       items: DROPDOWN
     }) }}
+

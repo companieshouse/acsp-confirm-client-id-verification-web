@@ -7,10 +7,10 @@ import { NextFunction, Request, Response } from "express";
 import { FormatService } from "../services/formatService";
 import { getLocalesService, selectLang } from "../utils/localise";
 
-const docCount: number = 0;
 const idDocumentDetailsValidator = (): ValidationChain[] => {
     const documentDetailsValidatorErrors: ValidationChain[] = [];
     const numberOfDocumentDetails = 16;
+    const docCount: number = 0;
 
     body(`documentNumber_1`).custom((value, { req }) => findDocCount(req.session, docCount));
     console.log("doc count------>", docCount);
@@ -55,7 +55,7 @@ const idDocumentDetailsValidator = (): ValidationChain[] => {
         if (body(`countryInput_${i}`).exists()) {
             documentDetailsValidatorErrors.push(
                 (
-                    body(`countryInput_${i}`).trim().custom((value, { req }) => test(req.body[`countryInput_${i}`]))
+                    body(`countryInput_${i}`).trim().notEmpty().withMessage("noCountry")
                 ));
         }
     }
@@ -101,9 +101,10 @@ export const validDataChecker = (day: string, month: string | undefined, year: s
 const validateAgainstWhenIdDocsChecked = (day: string, month: string, year: string, req: Session, expiryDate:Date): void => {
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
     const whenIdDocsChecked: Date = clientData.whenIdentityChecksCompleted!;
-
     expiryDate = new Date(Number(day), Number(month), Number(year));
-    if (expiryDate <= whenIdDocsChecked) {
+    console.log("id doc checked----->", whenIdDocsChecked);
+    console.log("expiry date------>", expiryDate);
+    if (expiryDate < whenIdDocsChecked) {
         throw new Error("dateAfterIdChecksDone");
     }
 };

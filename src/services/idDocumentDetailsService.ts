@@ -6,14 +6,15 @@ import { Request } from "express";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { USER_DATA } from "../utils/constants";
 
-export class idDocumentDetailsService {
+export class IdDocumentDetailsService {
     public saveIdDocumentDetails = (req: Request, clientData: ClientData, locales: LocalesService, lang: string) => {
+        const documentDetails: DocumentDetails[] = [];
+
         const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
             clientData.documentsChecked,
             locales.i18nCh.resolveNamespacesKeys(lang)
         );
 
-        const documentDetails: DocumentDetails[] = [];
         for (let i = 0; i < formattedDocumentsChecked.length; i++) {
             const j = i + 1;
             const docNumberId = "documentNumber_" + j;
@@ -23,9 +24,9 @@ export class idDocumentDetailsService {
             const countryOfIssueId = "countryInput_" + j;
 
             const expiryDate = new Date(
-                req.body[expiryDateDayId],
+                req.body[expiryDateYearId],
                 req.body[expiryDateMonthId] - 1,
-                req.body[expiryDateYearId]
+                req.body[expiryDateDayId]
             );
 
             documentDetails.push({
@@ -34,10 +35,11 @@ export class idDocumentDetailsService {
                 countryOfIssue: req.body[countryOfIssueId]
             });
         }
+
         if (clientData) {
             clientData.idDocumentDetails = documentDetails;
         }
 
         saveDataInSession(req, USER_DATA, clientData);
-    };
+    }
 }

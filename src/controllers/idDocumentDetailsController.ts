@@ -14,7 +14,7 @@ import {
     selectLang
 } from "../utils/localise";
 import { FormatService } from "../services/formatService";
-import { idDocumentDetailsService } from "../services/idDocumentDetailsService";
+import { IdDocumentDetailsService } from "../services/idDocumentDetailsService";
 import { DocumentDetails } from "../model/DocumentDetails";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
@@ -29,11 +29,10 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
 
-    // let payload;
-    // if(clientData.idDocumentDetails != null){
-    //     console.log("reached b------>")
-    //     payload = createPayload(clientData.idDocumentDetails);
-    // }
+    let payload;
+    if (clientData.idDocumentDetails != null) {
+        payload = createPayload(clientData.idDocumentDetails);
+    }
 
     res.render(config.ID_DOCUMENT_DETAILS, {
         previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
@@ -42,8 +41,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         // matomoButtonClick: MATOMO_BUTTON_CLICK,
         currentUrl: BASE_URL + ID_DOCUMENT_DETAILS,
         documentsChecked: formattedDocumentsChecked,
-        countryList: countryList
-        // payload
+        countryList: countryList,
+        payload
     });
 };
 
@@ -61,8 +60,9 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
     const errorList = validationResult(req);
     console.log("error list------->", errorList);
-    if (!errorList.isEmpty()) {
-        const errorArray = errorListDisplay(errorList.array(), formattedDocumentsChecked!, lang, clientData.whenIdentityChecksCompleted!);
+    const errorArray = errorListDisplay(errorList.array(), formattedDocumentsChecked!, lang, clientData.whenIdentityChecksCompleted!);
+    console.log("error array------->", JSON.stringify(errorArray));
+    if (errorArray.length !== 0) {
         console.log("before page prop------>", errorArray);
         const pageProperties = getPageProperties(formatValidationError(errorArray, lang));
         console.log("page prop------>", pageProperties);
@@ -76,10 +76,10 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             countryList: countryList
         });
     } else {
-        // const documentDetailsService = new idDocumentDetailsService();
-        // documentDetailsService.saveIdDocumentDetails(req, clientData, locales, lang);
-        // const clientData1: ClientData = session?.getExtraData(USER_DATA)!;
-        // console.log("client data in post----->", JSON.stringify(clientData1))
+        const documentDetailsService = new IdDocumentDetailsService();
+        documentDetailsService.saveIdDocumentDetails(req, clientData, locales, lang);
+        const clientData1: ClientData = session?.getExtraData(USER_DATA)!;
+        console.log("client data in post----->", JSON.stringify(clientData1));
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
     }
 };
@@ -144,16 +144,22 @@ const getBackUrl = (selectedOption: string) => {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
     }
 };
-// const createPayload = (idDocumentDetails: DocumentDetails[]): { [key: string]: string | undefined } => {
-//     const payload: { [key: string]: any | undefined } = {};
-//     idDocumentDetails.forEach((body, index) => {
 
-//         payload[`documentNumber_${index + 1}`] = body.documentNumber;
-//         payload[`expiryDateDay_${index + 1}`] = body.expiryDate!.getDay;
-//         payload[`expiryDateMonth_${index + 1}`] = body.expiryDate!.getMonth;
-//         payload[`expiryDateYear_${index + 1}`] = body.expiryDate!.getFullYear;
-//         payload[`countryInput_${index + 1}`] = body.countryOfIssue;
-//     });
-//     console.log("payload---->", JSON.stringify(payload));
-//     return payload;
-// };
+const createPayload = (idDocumentDetails: DocumentDetails[]): { [key: string]: string | undefined } => {
+    const payload: { [key: string]: any | undefined } = {};
+
+    idDocumentDetails.forEach((body, index) => {
+        console.log("date----->", body.expiryDate);
+        console.log("day----->", body.expiryDate!.getDate());
+        console.log("month----->", body.expiryDate!.getMonth());
+        console.log("year----->", body.expiryDate!.getFullYear());
+
+        payload[`documentNumber_${index + 1}`] = body.documentNumber;
+        payload[`expiryDateDay_${index + 1}`] = body.expiryDate!.getDate();
+        payload[`expiryDateMonth_${index + 1}`] = body.expiryDate!.getMonth() + 1;
+        payload[`expiryDateYear_${index + 1}`] = body.expiryDate!.getFullYear();
+        payload[`countryInput_${index + 1}`] = body.countryOfIssue;
+    });
+    console.log("payload---->", JSON.stringify(payload));
+    return payload;
+};
