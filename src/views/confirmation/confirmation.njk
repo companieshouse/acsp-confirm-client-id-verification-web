@@ -39,81 +39,81 @@
   {% set howIdentityDocsChecked = i18n.option2Confirmation %}
 {% endif %}
 
-{{ govukSummaryList({
-  rows: [
-    {
-      key: {
-        text: i18n.name
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: {
+          text: i18n.name
+        },
+        value: {
+          text: fullName
+        }
       },
-      value: {
-        text: fullName
-      }
-    },
-    {
-      key: {
-        text: i18n.emailAddressConfirmation
+      {
+        key: {
+          text: i18n.emailAddressConfirmation
+        },
+        value: {
+          text: clientData.emailAddress
+        }
       },
-      value: {
-        text: clientData.emailAddress
-      }
-    },
-    {
-      key: {
-        text: i18n.dateOfBirth
+      {
+        key: {
+          text: i18n.dateOfBirth
+        },
+        value: {
+          text: clientData.dateOfBirth
+        }
       },
-      value: {
-        text: clientData.dateOfBirth
-      }
-    },
-    {
-      key: {
-        text: i18n.homeAdd
+      {
+        key: {
+          text: i18n.homeAdd
+        },
+        value: {
+          text: clientData.address | safe
+        }
       },
-      value: {
-        text: clientData.address | safe
-      }
-    },
-    {
-      key: {
-        text: i18n.dateIdentityCompleted
+      {
+        key: {
+          text: i18n.dateIdentityCompleted
+        },
+        value: {
+          text: clientData.whenIdentityChecksCompleted
+        }
       },
-      value: {
-        text: clientData.whenIdentityChecksCompleted
-      }
-    },
-    {
-      key: {
-        text: i18n.optionUsed
+      {
+        key: {
+          text: i18n.optionUsed
+        },
+        value: {
+          text: howIdentityDocsChecked
+        }
       },
-      value: {
-        text: howIdentityDocsChecked
-      }
-    },
-    {
-      key: {
-        text: i18n.identityDoc
+      {
+        key: {
+          text: i18n.identityDoc
+        },
+        value: {
+          text: clientData.documentsChecked | safe
+        }
       },
-      value: {
-        text: clientData.documentsChecked | safe
+      {
+        key: {
+          text: i18n.identityVerification
+        },
+        value: {
+          html: i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe + " " + clientData.firstName + " " + clientData.lastName + " " + i18n.toTheStandard + "<br>" + acspName + " " + i18n.isSupervised + " " + amlBodies
+        }
       }
-    },
-    {
-      key: {
-        text: i18n.identityVerification
-      },
-      value: {
-        html: i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe + " " + clientData.firstName + " " + clientData.lastName + " " + i18n.toTheStandard + "<br>" + acspName + " " + i18n.isSupervised + " " + amlBodies
-      }
-    }
-  ]
-}) }}
+    ]
+  }) }}
 
-<h2 class="govuk-heading-m">{{ i18n.whatToDoNext }}</h2>
-<p class="govuk-body">
-  <a href="/tell-companies-house-you-have-verified-someones-identity/confirmation-redirect?id=verify-service-link" class="govuk-link" id="verify-service-link"">{{ i18n.linkToVerifyService }}</a>
-</p>
-<p class="govuk-body">
-  <a href="/tell-companies-house-you-have-verified-someones-identity/confirmation-redirect?id=authorised-agent-account-link" class="govuk-link" id="authorised-agent-account-link">{{ i18n.linkAuthorisedAgentAccount }}</a>
-</p>
+  <h2 class="govuk-heading-m">{{ i18n.whatToDoNext }}</h2>
+  <p class="govuk-body">
+    <a href="/tell-companies-house-you-have-verified-someones-identity/confirmation-redirect?id=verify-service-link" class="govuk-link" id="verify-service-link"">{{ i18n.linkToVerifyService }}</a>
+  </p>
+  <p class="govuk-body">
+    <a href="/tell-companies-house-you-have-verified-someones-identity/confirmation-redirect?id=authorised-agent-account-link" class="govuk-link" id="authorised-agent-account-link">{{ i18n.linkAuthorisedAgentAccount }}</a>
+  </p>
 
 {% endblock %}
