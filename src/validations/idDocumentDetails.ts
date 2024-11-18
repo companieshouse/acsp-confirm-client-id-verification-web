@@ -91,17 +91,20 @@ export const validDataChecker = (day: string, month: string | undefined, year: s
             validateMonthYearRange(month, year, type);
             validateDayLength(day, month, year, type);
             if (type === "expiryDate") {
-                validateAgainstWhenIdDocsChecked(day, month, year, req, expiryDate);
+                validateAgainstWhenIdDocsChecked(+day, +month, +year, req);
             }
         }
     }
     return true;
 };
 
-const validateAgainstWhenIdDocsChecked = (day: string, month: string, year: string, req: Session, expiryDate:Date): void => {
+const validateAgainstWhenIdDocsChecked = (day: number, month: number, year: number, req: Session): void => {
+    console.log("reached val1 here----->");
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
     const whenIdDocsChecked: Date = clientData.whenIdentityChecksCompleted!;
-    expiryDate = new Date(Number(day), Number(month), Number(year));
+    const expiryDate = new Date(year, month - 1, day);
+
+    console.log("reached val2 here----->");
     console.log("id doc checked----->", whenIdDocsChecked);
     console.log("expiry date------>", expiryDate);
     if (expiryDate < whenIdDocsChecked) {
