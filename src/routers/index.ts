@@ -19,7 +19,8 @@ import {
     confirmIdentityVerificationController,
     signOutController,
     confirmationController,
-    provideDifferentEmailController
+    provideDifferentEmailController,
+    confirmationRedirectController
 } from "../controllers";
 
 import * as urls from "../types/pageURL";
@@ -92,5 +93,7 @@ routes.post(urls.SIGN_OUT_URL, selectsignOutValidator, signOutController.post);
 routes.get(urls.CONFIRMATION, confirmationController.get);
 routes.get(urls.CHECK_YOUR_ANSWERS, checkYourAnswersController.get);
 routes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswerValidator, checkYourAnswersController.post);
+
+routes.get(urls.CONFIRMATION_REDIRECT, confirmationRedirectController.get);
 
 export default routes;

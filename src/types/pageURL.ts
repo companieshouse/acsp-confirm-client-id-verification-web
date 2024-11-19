@@ -47,3 +47,5 @@ export const WHICH_IDENTITY_DOCS_CHECKED_GROUP2 = "/identity-documents-checked-g
 export const CHECK_YOUR_ANSWERS = "/check-your-answers";
 
 export const CONFIRMATION = "/confirmation";
+
+export const CONFIRMATION_REDIRECT = "/confirmation-redirect";

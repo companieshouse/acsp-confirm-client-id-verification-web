@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { FormatService } from "../services/formatService";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
-import { CHECK_YOUR_ANSWERS, BASE_URL, CONFIRMATION } from "../types/pageURL";
+import { CHECK_YOUR_ANSWERS, BASE_URL, CONFIRMATION, CONFIRMATION_REDIRECT } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
 import { ACSP_DETAILS, REFERENCE, USER_DATA } from "../utils/constants";
 import { ClientData } from "../model/ClientData";
@@ -39,6 +39,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         reference,
         amlBodies,
         acspName: acspDetails.name,
+        verifyServiceLink: addLangToUrl(BASE_URL + CONFIRMATION_REDIRECT + "?id=verify-service-link", lang),
+        authorisedAgentLink: addLangToUrl(BASE_URL + CONFIRMATION_REDIRECT + "?id=authorised-agent-account-link", lang),
         clientData: {
             ...clientData,
             address: formattedAddress,
