@@ -25,5 +25,9 @@
   "printFromBrowser": "To print this page, select print from your browser menu.",
   "whatToDoNext": "What do you want to do next?",
   "linkToVerifyService": "Tell Companies House about another identity you have verified",
-  "linkAuthorisedAgentAccount": "View authorised agent account"
+  "linkAuthorisedAgentAccount": "View authorised agent account",
+  "feedbackSurveyTitle": "Feedback",
+  "feedbackSurveyLine1": "This is a new service.",
+  "feedbackSurveyLink": "Complete our quick survey (opens in a new tab)",
+  "feedbackSurveyLine2": "to help us improve it."
 }
