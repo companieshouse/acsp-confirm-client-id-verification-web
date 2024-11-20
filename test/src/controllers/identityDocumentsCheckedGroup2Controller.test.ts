@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../../../src/types/pageURL";
+import { BASE_URL, CHECK_YOUR_ANSWERS, ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../../../src/types/pageURL";
 import { sessionMiddleware } from "../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { CHECK_YOUR_ANSWERS_FLAG, USER_DATA } from "../../../src/utils/constants";
@@ -32,7 +32,7 @@ describe("POST" + WHICH_IDENTITY_DOCS_CHECKED_GROUP2, () => {
         };
         const res = await router.post(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2).send(inputData);
         expect(res.status).toBe(302);
-        expect(res.header.location).toBe(BASE_URL + CONFIRM_IDENTITY_VERIFICATION + "?lang=en");
+        expect(res.header.location).toBe(BASE_URL + ID_DOCUMENT_DETAILS + "?lang=en");
     });
 
     it("should return status 302 after redirecting to Check Your Answers", async () => {
