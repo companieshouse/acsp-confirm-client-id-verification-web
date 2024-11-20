@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { Session } from "@companieshouse/node-session-handler";
 import { CHECK_YOUR_ANSWERS_FLAG, USER_DATA } from "../utils/constants";
 import { addLangToUrl, selectLang } from "../utils/localise";
-import { BASE_URL } from "../types/pageURL";
+import { AUTHORISED_AGENT, BASE_URL } from "../types/pageURL";
 
 export const get = (req: Request, res: Response, next: NextFunction) => {
     const session = req.session as Session;
@@ -18,8 +18,7 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
     if (id === "verify-service-link") {
         redirectUrl = BASE_URL;
     } else if (id === "authorised-agent-account-link") {
-        // authorised agent link placeholder - need to update later
-        redirectUrl = "#";
+        redirectUrl = AUTHORISED_AGENT;
     }
 
     // Redirect to the desired URL
