@@ -1,11 +1,11 @@
 import { Session } from "@companieshouse/node-session-handler";
-import e, { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import countryList from "../lib/countryList";
 import * as config from "../config";
-import { BASE_URL, CONFIRM_IDENTITY_VERIFICATION, ID_DOCUMENT_DETAILS, PERSONS_NAME, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../types/pageURL";
+import { BASE_URL, CONFIRM_IDENTITY_VERIFICATION, ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../types/pageURL";
 import { ClientData } from "../model/ClientData";
-import { MATOMO_LINK_CLICK, MATOMO_BUTTON_CLICK, USER_DATA } from "../utils/constants";
-import { formatValidationError, getPageProperties, resolveErrorMessage } from "../validations/validation";
+import { USER_DATA } from "../utils/constants";
+import { formatValidationError, getPageProperties } from "../validations/validation";
 import { validationResult } from "express-validator";
 import {
     addLangToUrl,
@@ -22,16 +22,17 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-    console.log("client data in  a get----->", JSON.stringify(clientData));
 
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
 
+    console.log("formatted docs----->", formattedDocumentsChecked);
+
     let payload;
     if (clientData.idDocumentDetails != null) {
-        payload = createPayload(clientData.idDocumentDetails);
+        payload = createPayload(clientData.idDocumentDetails, formattedDocumentsChecked);
     }
 
     res.render(config.ID_DOCUMENT_DETAILS, {
@@ -53,17 +54,18 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const currentUrl: string = BASE_URL + ID_DOCUMENT_DETAILS;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
+    const errorList = validationResult(req);
+    console.log("error list------->", errorList);
+
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
 
-    const errorList = validationResult(req);
-    console.log("error list------->", errorList);
-    const errorArray = errorListDisplay(errorList.array(), formattedDocumentsChecked!, lang, clientData.whenIdentityChecksCompleted!);
-    console.log("error array------->", JSON.stringify(errorArray));
+    const documentDetailsService = new IdDocumentDetailsService();
+    const errorArray = documentDetailsService.errorListDisplay(errorList.array(), formattedDocumentsChecked!, lang, clientData.whenIdentityChecksCompleted!);
+    console.log("filtered error list------->", JSON.stringify(errorArray));
     if (errorArray.length !== 0) {
-        console.log("before page prop------>", errorArray);
         const pageProperties = getPageProperties(formatValidationError(errorArray, lang));
         console.log("page prop------>", pageProperties);
         res.status(400).render(config.ID_DOCUMENT_DETAILS, {
@@ -76,65 +78,11 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             countryList: countryList
         });
     } else {
-        const documentDetailsService = new IdDocumentDetailsService();
-        documentDetailsService.saveIdDocumentDetails(req, clientData, locales, lang);
+        documentDetailsService.saveIdDocumentDetails(req, clientData, locales, lang, formattedDocumentsChecked);
         const clientData1: ClientData = session?.getExtraData(USER_DATA)!;
-        console.log("client data in post----->", JSON.stringify(clientData1));
+        console.log("data saved in session----->", JSON.stringify(clientData1.idDocumentDetails));
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
     }
-};
-
-const errorListDisplay = (errors: any[], documentsChecked: string[], lang: string, whenIdDocsChecked: Date) => {
-    const newErrorArray: any[] = [];
-
-    errors.forEach((element) => {
-        const errorText = element.msg;
-        element.msg = resolveErrorMessage(element.msg, lang);
-
-        if (element.param.includes("documentNumber_")) {
-            const index = element.param.substr("documentNumber_".length) - 1;
-            const selection = documentsChecked[index];
-            if (element.value === "") {
-                element.msg = element.msg + selection;
-            } else {
-                element.msg = selection + element.msg;
-            }
-        } else if (element.param.includes("expiryDate")) {
-            let index: number;
-            if (element.param.includes("expiryDateDay")) {
-                index = element.param.substr("expiryDateDay_".length) - 1;
-            } else if (element.param.includes("expiryDateMonth")) {
-                index = element.param.substr("expiryDateMonth_".length) - 1;
-            } else if (element.param.includes("expiryDateYear")) {
-                index = element.param.substr("expiryDateYear_".length) - 1;
-            }
-
-            const selection = documentsChecked[index!];
-            if (selection === "UK accredited PASS card" || selection === "UK HM Armed Forces Veteran Card") {
-                return;
-            }
-            if (errorText === "noExpiryDate") {
-                element.msg = element.msg + selection;
-            } else if (errorText === "dateAfterIdChecksDone") {
-                const part1 = resolveErrorMessage("dateAfterIdChecksDone1", lang);
-                const part2 = resolveErrorMessage("dateAfterIdChecksDone2", lang);
-                element.msg = part1 + whenIdDocsChecked + part2;
-            } else {
-                element.msg = "Expiry date for " + selection + element.msg; // to do language
-            }
-        } else if (element.param.includes("countryInput")) {
-            const index = element.param.substr("countryInput_".length) - 1;
-            const selection = documentsChecked[index];
-            console.log("selection---->", selection);
-            if (selection === undefined) {
-                return;
-            }
-            element.msg = element.msg + selection;
-        }
-        newErrorArray.push(element);
-    });
-    console.log("new error array----->", newErrorArray);
-    return newErrorArray;
 };
 
 const getBackUrl = (selectedOption: string) => {
@@ -145,21 +93,19 @@ const getBackUrl = (selectedOption: string) => {
     }
 };
 
-const createPayload = (idDocumentDetails: DocumentDetails[]): { [key: string]: string | undefined } => {
+const createPayload = (idDocumentDetails: DocumentDetails[], formatDocumentsCheckedText: string[]): { [key: string]: string | undefined } => {
     const payload: { [key: string]: any | undefined } = {};
-
     idDocumentDetails.forEach((body, index) => {
-        console.log("date----->", body.expiryDate);
-        console.log("day----->", body.expiryDate!.getDate());
-        console.log("month----->", body.expiryDate!.getMonth());
-        console.log("year----->", body.expiryDate!.getFullYear());
-
-        payload[`documentNumber_${index + 1}`] = body.documentNumber;
-        payload[`expiryDateDay_${index + 1}`] = body.expiryDate!.getDate();
-        payload[`expiryDateMonth_${index + 1}`] = body.expiryDate!.getMonth() + 1;
-        payload[`expiryDateYear_${index + 1}`] = body.expiryDate!.getFullYear();
-        payload[`countryInput_${index + 1}`] = body.countryOfIssue;
+        for (let i = 0; i < formatDocumentsCheckedText.length; i++) {
+            if (formatDocumentsCheckedText[i] === body.docName) {
+                payload[`documentNumber_${i + 1}`] = body.documentNumber;
+                payload[`expiryDateDay_${i + 1}`] = body.expiryDate!.getDate();
+                payload[`expiryDateMonth_${i + 1}`] = body.expiryDate!.getMonth() + 1;
+                payload[`expiryDateYear_${i + 1}`] = body.expiryDate!.getFullYear();
+                payload[`countryInput_${i + 1}`] = body.countryOfIssue;
+            }
+        }
     });
-    console.log("payload---->", JSON.stringify(payload));
+    console.log("payload------>", JSON.stringify(payload));
     return payload;
 };
