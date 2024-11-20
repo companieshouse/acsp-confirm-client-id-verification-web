@@ -111,6 +111,7 @@ export class FormatService {
             return formattedDocuments;
         }
         const documentMapping: { [key: string]: string } = {
+            // option1 docs
             biometricPassport: i18n.biometricPassport,
             irishPassport: i18n.irishPassport,
             ukDriversLicence: i18n.ukDriversLicence,
@@ -119,6 +120,7 @@ export class FormatService {
             biometricCard: i18n.biometricCard,
             frontierPermit: i18n.frontierPermit,
 
+            // option2 groupA docs
             passport: i18n.passport,
             IrishCard: i18n.IrishCard,
             ukBRP: i18n.ukBRP,

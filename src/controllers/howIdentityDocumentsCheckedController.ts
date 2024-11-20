@@ -58,11 +58,9 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             lastName: clientData?.lastName
         });
     } else {
-        if (clientData.howIdentityDocsChecked != null) {
-            const storedOptionSelection = clientData.howIdentityDocsChecked;
-            if (storedOptionSelection !== selectedOption) {
-                clientData.documentsChecked = [];
-            }
+        const storedOptionSelection = clientData.howIdentityDocsChecked;
+        if (storedOptionSelection !== selectedOption) {
+            clientData.documentsChecked = [];
         }
         clientData.howIdentityDocsChecked = selectedOption;
         saveDataInSession(req, USER_DATA, clientData);

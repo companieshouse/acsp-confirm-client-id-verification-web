@@ -23,7 +23,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         documentsGroup2B: clientData.documentsChecked
     };
 
-    console.log(payload);
     res.render(config.IDENTITY_DOCUMETS_GROUP_2, {
         ...getLocaleInfo(locales, lang),
         previousPage,
@@ -71,7 +70,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         if (checkYourAnswersFlag) {
             res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
         } else {
-            // res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
             res.redirect(addLangToUrl(BASE_URL + ID_DOCUMENT_DETAILS, lang));
         }
     }
