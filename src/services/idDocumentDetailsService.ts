@@ -7,7 +7,7 @@ import { USER_DATA } from "../utils/constants";
 import { resolveErrorMessage } from "../validations/validation";
 
 export class IdDocumentDetailsService {
-    public saveIdDocumentDetails = (req: Request, clientData: ClientData, locales: LocalesService, lang: string, formattedDocumentsChecked: string[]) => {
+    public saveIdDocumentDetails = (req: Request, clientData: ClientData, formattedDocumentsChecked: string[]) => {
 
         const documentDetails: DocumentDetails[] = [];
         clientData.idDocumentDetails = documentDetails;
@@ -71,7 +71,6 @@ export class IdDocumentDetailsService {
                 }
 
                 if (errorText === "dateAfterIdChecksDone") {
-                    const month = whenIdDocsChecked.toLocaleString("default", { month: "long" });
                     const idChecksCompletedDate = whenIdDocsChecked.getDate() + " " +
                                                   whenIdDocsChecked.toLocaleString("default", { month: "long" }) + " " +
                                                   whenIdDocsChecked.getFullYear();

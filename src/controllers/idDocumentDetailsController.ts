@@ -60,7 +60,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
     const documentDetailsService = new IdDocumentDetailsService();
     const errorArray = documentDetailsService.errorListDisplay(errorList.array(), formattedDocumentsChecked!, lang, clientData.whenIdentityChecksCompleted!);
-    if (errorArray.length !== 0) {
+    if (errorArray.length) {
         const pageProperties = getPageProperties(formatValidationError(errorArray, lang));
         res.status(400).render(config.ID_DOCUMENT_DETAILS, {
             previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
@@ -72,8 +72,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             countryList: countryList
         });
     } else {
-        documentDetailsService.saveIdDocumentDetails(req, clientData, locales, lang, formattedDocumentsChecked);
-        const clientData1: ClientData = session?.getExtraData(USER_DATA)!;
+        documentDetailsService.saveIdDocumentDetails(req, clientData, formattedDocumentsChecked);
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
     }
 };

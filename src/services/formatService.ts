@@ -138,12 +138,12 @@ export class FormatService {
             photoIdPrado: i18n.photoIdPrado
         };
 
-        documents!.map((doc) => {
+        documents.map((doc) => {
             if (documentMapping[doc]) {
                 formattedDocuments.push(documentMapping[doc]);
             }
         });
 
-        return formattedDocuments!;
+        return formattedDocuments;
     }
 }
