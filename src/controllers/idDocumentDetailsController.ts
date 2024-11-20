@@ -28,8 +28,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
 
-    console.log("formatted docs----->", formattedDocumentsChecked);
-
     let payload;
     if (clientData.idDocumentDetails != null) {
         payload = createPayload(clientData.idDocumentDetails, formattedDocumentsChecked);
@@ -55,8 +53,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
     const errorList = validationResult(req);
-    console.log("error list------->", errorList);
-
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
         locales.i18nCh.resolveNamespacesKeys(lang)
@@ -64,10 +60,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
     const documentDetailsService = new IdDocumentDetailsService();
     const errorArray = documentDetailsService.errorListDisplay(errorList.array(), formattedDocumentsChecked!, lang, clientData.whenIdentityChecksCompleted!);
-    console.log("filtered error list------->", JSON.stringify(errorArray));
     if (errorArray.length !== 0) {
         const pageProperties = getPageProperties(formatValidationError(errorArray, lang));
-        console.log("page prop------>", pageProperties);
         res.status(400).render(config.ID_DOCUMENT_DETAILS, {
             previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
             ...getLocaleInfo(locales, lang),
@@ -80,7 +74,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     } else {
         documentDetailsService.saveIdDocumentDetails(req, clientData, locales, lang, formattedDocumentsChecked);
         const clientData1: ClientData = session?.getExtraData(USER_DATA)!;
-        console.log("data saved in session----->", JSON.stringify(clientData1.idDocumentDetails));
         res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
     }
 };
@@ -106,6 +99,5 @@ const createPayload = (idDocumentDetails: DocumentDetails[], formatDocumentsChec
             }
         }
     });
-    console.log("payload------>", JSON.stringify(payload));
     return payload;
 };

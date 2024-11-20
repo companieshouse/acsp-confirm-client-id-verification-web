@@ -91,7 +91,6 @@ export class IdDocumentDetailsService {
             }
             newErrorArray.push(element);
         });
-        console.log("new error array----->", newErrorArray);
         return newErrorArray;
     }
 }
