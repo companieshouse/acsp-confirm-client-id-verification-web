@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, CONFIRMATION_REDIRECT } from "../../../src/types/pageURL";
+import { AUTHORISED_AGENT, BASE_URL, CONFIRMATION_REDIRECT } from "../../../src/types/pageURL";
 import { createRequest, Session } from "node-mocks-http";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { CHECK_YOUR_ANSWERS_FLAG, USER_DATA } from "../../../src/utils/constants";
@@ -34,14 +34,14 @@ describe("GET " + CONFIRMATION_REDIRECT, () => {
         expect(session.getExtraData(CHECK_YOUR_ANSWERS_FLAG)).toBeUndefined();
     });
 
-    it("should redirect to Authorised Agent Account link and clear session data when id is authorised-agent-account-link", async () => {
+    it("should redirect to AUTHORISED_AGENT and clear session data when id is authorised-agent-account-link", async () => {
         const res = await router
             .get(BASE_URL + CONFIRMATION_REDIRECT)
             .query({ id: "authorised-agent-account-link" });
 
         expect(res.status).toBe(302);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
-        expect(res.header.location).toBe("#" + "?lang=en");
+        expect(res.header.location).toBe(AUTHORISED_AGENT + "?lang=en");
         expect(session.getExtraData(USER_DATA)).toBeUndefined();
         expect(session.getExtraData(CHECK_YOUR_ANSWERS_FLAG)).toBeUndefined();
     });

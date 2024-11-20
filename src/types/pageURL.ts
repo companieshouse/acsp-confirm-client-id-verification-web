@@ -49,3 +49,5 @@ export const CHECK_YOUR_ANSWERS = "/check-your-answers";
 export const CONFIRMATION = "/confirmation";
 
 export const CONFIRMATION_REDIRECT = "/confirmation-redirect";
+
+export const AUTHORISED_AGENT = "/authorised-agent";
