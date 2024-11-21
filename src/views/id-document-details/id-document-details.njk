@@ -1,0 +1,54 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set errors = pageProperties.errors %}
+{% extends "layouts/default.njk" %}
+{% set title = i18n.idDocumentDetailstitle %}
+
+{% block main_content %}
+  <form action="" method="POST">
+    <h1 class="govuk-heading-l"> {{ i18n.idDocumentDetailstitle }} </h1>
+    {% for body in documentsChecked %}
+      {% set index = loop.index %}
+        <h2 class="govuk-heading-m"> {{body}} {{i18n.detailsMessage}} </h2>
+        <!--Document Input-->
+        {{ govukInput({
+            label: {
+                text: body + i18n.number,
+                classes: "govuk-label "
+            },
+            classes: "govuk-input--width-10",
+            hint: {
+                text: i18n.docNumberHint + body + "."
+            },
+            id: "documentNumber_" + index,
+            name: "documentNumber_" + index,
+            value: payload["documentNumber_" + index],
+            errorMessage: {
+                 text: errors["documentNumber_" + index].text
+            } if errors["documentNumber_" + index]
+        }) }}
+
+        <!--Date  Input-->
+        {% include "partials/date.njk" %}
+
+        <!--Country  Input-->
+        <div id="typeahead-form-group-{{index}}" class="govuk-form-group
+          {% if errors["countryInput_" + index] %} govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="location">{{i18n.chooseCountryText}} </label>
+            <p class="govuk-hint" id="typeahead-hint-{{index}}">{{i18n.chooseCountryhint}} {{body}}.</p>
+            {% set dropdownDefaultText = i18n.chooseCountryText1 %}
+            {% set dropdownValue = payload["countryInput_" + index] %}
+            <div id="my-autocomplete-container-{{index}}" class="autocomplete-wrapper govuk-input--width-10">
+            </div>
+                  {% set dropdownNumber = index %}            
+                  {% include "partials/country-typeahead-noscript-input.njk" %} 
+        </div>
+    {% endfor %}
+   
+    {{ govukButton({
+            text: i18n.Continue,
+            id: "continue-button"
+    }) }}
+  </form>
+{% endblock main_content %}  

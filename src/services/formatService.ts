@@ -59,6 +59,7 @@ export class FormatService {
     public static formatDocumentsChecked (
         documents: string[] | undefined,
         i18n: any
+
     ): string {
         if (!documents || documents.length === 0) {
             return "";
@@ -98,5 +99,51 @@ export class FormatService {
         });
 
         return formattedDocuments.join("<br>");
+    }
+
+    public static formatDocumentsCheckedText (
+        documents: string[] | undefined,
+        i18n: any
+    ): string[] {
+        var formattedDocuments:string[] = [];
+
+        if (!documents || documents.length === 0) {
+            return formattedDocuments;
+        }
+        const documentMapping: { [key: string]: string } = {
+            // option1 docs
+            biometricPassport: i18n.biometricPassport,
+            irishPassport: i18n.irishPassport,
+            ukDriversLicence: i18n.ukDriversLicence,
+            identityCard: i18n.identityCard,
+            biometricPermit: i18n.biometricPermit,
+            biometricCard: i18n.biometricCard,
+            frontierPermit: i18n.frontierPermit,
+
+            // option2 groupA docs
+            passport: i18n.passport,
+            IrishCard: i18n.IrishCard,
+            ukBRP: i18n.ukBRP,
+            ukBRC: i18n.ukBRC,
+            passCard: i18n.passCard,
+            ukEuDigitalCard: i18n.ukEuDigitalCard,
+            fullDrivingLicense: i18n.fullDrivingLicense,
+            ukForceCard: i18n.ukForceCard,
+            ukArmedForceCard: i18n.ukArmedForceCard,
+            ukFrontierPermit: i18n.ukFrontierPermit,
+            photoWorkPermit: i18n.photoWorkPermit,
+            photoimmigrationDoc: i18n.photoimmigrationDoc,
+            photoVisa: i18n.photoVisa,
+            ukFirearmsLicence: i18n.ukFirearmsLicence,
+            photoIdPrado: i18n.photoIdPrado
+        };
+
+        documents.forEach((doc) => {
+            if (documentMapping[doc]) {
+                formattedDocuments.push(documentMapping[doc]);
+            }
+        });
+
+        return formattedDocuments;
     }
 }

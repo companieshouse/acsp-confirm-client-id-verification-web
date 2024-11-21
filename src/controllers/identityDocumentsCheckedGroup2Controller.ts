@@ -2,7 +2,7 @@
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../config";
 import { NextFunction, Request, Response } from "express";
-import { BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP2, HOW_IDENTITY_DOCUMENTS_CHECKED, CONFIRM_IDENTITY_VERIFICATION, CHECK_YOUR_ANSWERS } from "../types/pageURL";
+import { BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP2, HOW_IDENTITY_DOCUMENTS_CHECKED, CHECK_YOUR_ANSWERS, ID_DOCUMENT_DETAILS } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { ClientData } from "../model/ClientData";
 import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
@@ -70,7 +70,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         if (checkYourAnswersFlag) {
             res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
         } else {
-            res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
+            res.redirect(addLangToUrl(BASE_URL + ID_DOCUMENT_DETAILS, lang));
         }
     }
 };

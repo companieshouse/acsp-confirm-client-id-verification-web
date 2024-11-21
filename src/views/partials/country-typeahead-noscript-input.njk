@@ -1,0 +1,29 @@
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+    {% set DROPDOWN = [
+      { value: '', text: dropdownDefaultText }
+    ] %}
+
+    {% set dropdownArray = countryList.split(";") %}
+
+    {% for i in dropdownArray %}
+      {% set dropdownObject = { value: i, text: i, selected: dropdownValue === i } %}
+      {% set DROPDOWN = DROPDOWN.concat(dropdownObject) %}
+    {% endfor %}
+
+
+    {{ govukSelect({
+      label: {
+        html: dropdownTitle
+      },
+      id: "countryInput_" +  index,
+      name: "countryInput_" +  index,
+      value: dropdownValue,
+      hint: {
+        text: dropdownHint
+      },
+      errorMessage: {
+               text: errors["countryInput_" + index].text
+      }if errors["countryInput_" + index],
+      items: DROPDOWN
+    }) }}
+
