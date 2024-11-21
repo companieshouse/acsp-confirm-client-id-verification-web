@@ -181,24 +181,27 @@ describe("FormatService tests", () => {
         const locales = getLocalesService();
 
         it("should return string array for the selected documents in English", () => {
-            const documents = ["biometricPassport", "irishPassport"];
-            const result = FormatService.formatDocumentsCheckedText(documents, locales.i18nCh.resolveNamespacesKeys("en"));
+            const documents = ["passport", "irish_passport_card"];
+            const howIdentityDocsChecked = "cryptographic_security_features_checked";
+            const result = FormatService.formatDocumentsCheckedText(documents, howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys("en"));
             const expected = ["Biometric or machine readable passport", "Irish passport card"];
             expect(result[0]).toBe(expected[0]);
             expect(result[1]).toBe(expected[1]);
         });
 
         it("should return string array for the selected documents in Welsh", () => {
-            const documents = ["biometricPassport", "irishPassport"];
-            const result = FormatService.formatDocumentsCheckedText(documents, locales.i18nCh.resolveNamespacesKeys("cy"));
+            const documents = ["passport", "irish_passport_card"];
+            const howIdentityDocsChecked = "cryptographic_security_features_checked";
+            const result = FormatService.formatDocumentsCheckedText(documents, howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys("cy"));
             const expected = ["Pasbort biometrig neu ddarllenadwy gan beiriant", "Cerdyn pasbort Gwyddelig"];
             expect(result[0]).toBe(expected[0]);
             expect(result[1]).toBe(expected[1]);
         });
 
         it("should return string array which does not include option2 groupB documents", () => {
-            const documents = ["ukBRP", "ukBRC", "marriageCert"];
-            const result = FormatService.formatDocumentsCheckedText(documents, locales.i18nCh.resolveNamespacesKeys("en"));
+            const documents = ["UK_biometric_residence_permit", "UK_biometric_residence_card", "marriage_certificate"];
+            const howIdentityDocsChecked = "";
+            const result = FormatService.formatDocumentsCheckedText(documents, howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys("en"));
             const expected = ["UK biometric residence permit (BRP)", "UK biometric residence card (BRC)"];
             expect(result[0]).toBe(expected[0]);
             expect(result[1]).toBe(expected[1]);
@@ -206,7 +209,8 @@ describe("FormatService tests", () => {
 
         it("should return empty array for no documents", () => {
             const documents: string[] = [];
-            const result = FormatService.formatDocumentsCheckedText(documents, locales.i18nCh.resolveNamespacesKeys("en"));
+            const howIdentityDocsChecked = "";
+            const result = FormatService.formatDocumentsCheckedText(documents, howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys("en"));
             expect(result.length).toBe(0);
         });
     });
