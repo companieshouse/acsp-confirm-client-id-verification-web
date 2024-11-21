@@ -22,13 +22,11 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-    console.log("client data----->", clientData);
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
         clientData.howIdentityDocsChecked,
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
-    console.log("formattedDocumentsChecked----->", formattedDocumentsChecked);
     let payload;
     if (clientData.idDocumentDetails != null) {
         payload = createPayload(clientData.idDocumentDetails, formattedDocumentsChecked);
