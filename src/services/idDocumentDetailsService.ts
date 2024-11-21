@@ -58,8 +58,8 @@ export class IdDocumentDetailsService {
 }
 
 const getErrorForExpiryDate = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date) => {
-    if ((docName === "UK accredited PASS card" && errorText !== "dateAfterIdChecksDone") ||
-        (docName === "UK HM Armed Forces Veteran Card" && errorText !== "dateAfterIdChecksDone")) {
+    if ((docName === "UK accredited PASS card" && errorText === "noExpiryDate") ||
+        (docName === "UK HM Armed Forces Veteran Card" && errorText === "noExpiryDate")) {
         return "";
     }
     if (errorText === "dateAfterIdChecksDone") {
@@ -69,9 +69,4 @@ const getErrorForExpiryDate = (docName:string, errorMessage: string, errorText: 
         errorMessage = errorMessage.replace("{id checks completed}", idChecksCompletedDate);
     }
     return errorMessage.replace("{doc selected}", docName);
-};
-
-const getIndex = (param: any): number => {
-    const parts: string[] = param.split("_");
-    return Number(parts[1]);
 };

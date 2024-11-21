@@ -203,5 +203,11 @@ describe("FormatService tests", () => {
             expect(result[0]).toBe(expected[0]);
             expect(result[1]).toBe(expected[1]);
         });
+
+        it("should return empty array for no documents", () => {
+            const documents: string[] = [];
+            const result = FormatService.formatDocumentsCheckedText(documents, locales.i18nCh.resolveNamespacesKeys("en"));
+            expect(result.length).toBe(0);
+        });
     });
 });

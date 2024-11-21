@@ -138,7 +138,7 @@ export class FormatService {
             photoIdPrado: i18n.photoIdPrado
         };
 
-        documents.map((doc) => {
+        documents.forEach((doc) => {
             if (documentMapping[doc]) {
                 formattedDocuments.push(documentMapping[doc]);
             }

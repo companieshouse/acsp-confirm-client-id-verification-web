@@ -10,16 +10,16 @@
     <h1 class="govuk-heading-l"> {{ i18n.idDocumentDetailstitle }} </h1>
     {% for body in documentsChecked %}
       {% set index = loop.index %}
-        <h2 class="govuk-heading-m"> {{body}} details </h2>
+        <h2 class="govuk-heading-m"> {{body}} {{i18n.detailsMessage}} </h2>
         <!--Document Input-->
         {{ govukInput({
             label: {
-                text: body + " number",
+                text: body + i18n.number,
                 classes: "govuk-label "
             },
             classes: "govuk-input--width-10",
             hint: {
-                text: "This is a 9 character reference. It is usually shown in the top right hand corner of the photo page in the" + body+ "."
+                text: i18n.docNumberHint + body + "."
             },
             id: "documentNumber_" + index,
             name: "documentNumber_" + index,

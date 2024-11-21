@@ -15,30 +15,28 @@ describe("IdDocumentDetailsService tests", () => {
         service = new IdDocumentDetailsService();
     });
 
-    // it("should save id document details to the session", () => {
-    //     req = createRequest({
+    it("should save id document details to the session", () => {
+        req = createRequest({});
+        const session = getSessionRequestWithPermission();
+        req.session = session;
+        req.body.documentNumber_1 = "1234";
+        req.body.expiryDateDay_1 = "28";
+        req.body.expiryDateMonth_1 = "2";
+        req.body.expiryDateYear_1 = "2025";
+        req.body.countryInput_1 = "India";
+        const formattedDocs = ["UK biometric residence permit (BRP)"];
 
-    //     });
-    //     const session: Session = req.session as any as Session;
-    //     req.session = session;
-    //     req.body.documentNumber_1 = "1234";
-    //     req.body.expiryDateDay_1 = "28";
-    //     req.body.expiryDateMonth_1 = "2";
-    //     req.body.expiryDateYear_1 = "2025";
-    //     req.body.countryInput_1 = "India";
-    //     const formattedDocs = ["UK biometric residence permit (BRP)"];
-
-    //     service.saveIdDocumentDetails(req, {}, formattedDocs);
-    //     const date = new Date(2025, 1, 28);
-    //     expect(session.getExtraData(USER_DATA)).toEqual({
-    //         idDocumentDetails: [{
-    //             docName: "UK biometric residence permit (BRP)",
-    //             documentNumber: "1234",
-    //             expiryDate: date,
-    //             countryOfIssue: "India"
-    //         }]
-    //     });
-    // });
+        service.saveIdDocumentDetails(req, {}, formattedDocs);
+        const date = new Date(2025, 1, 28);
+        expect(session.getExtraData(USER_DATA)).toEqual({
+            idDocumentDetails: [{
+                docName: "UK biometric residence permit (BRP)",
+                documentNumber: "1234",
+                expiryDate: date,
+                countryOfIssue: "India"
+            }]
+        });
+    });
 
     it("should return an error array for expiry date errors", () => {
         const errors = [{ msg: "expiryDateInvalid", param: "expiryDateDay_1" }];
@@ -58,9 +56,17 @@ describe("IdDocumentDetailsService tests", () => {
         expect(actual[0].msg).toBe(expected[0].msg);
     });
 
-    it("should not return an error array for expiry date non mandatory docs ", () => {
+    it("should not return an error array for expiry date non mandatory docs when expiry date not given", () => {
         const errors = [{ msg: "noExpiryDate", param: "expiryDateDay_1" }];
         const documentsChecked = ["UK accredited PASS card"];
+        const whenIdDocsChecked = new Date(2025, 1, 28);
+        const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked);
+        expect(actual.length).toBe(0);
+    });
+
+    it("should not return an error array for expiry date non mandatory docs when expiry date not given", () => {
+        const errors = [{ msg: "noExpiryDate", param: "expiryDateDay_1" }];
+        const documentsChecked = ["UK HM Armed Forces Veteran Card"];
         const whenIdDocsChecked = new Date(2025, 1, 28);
         const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked);
         expect(actual.length).toBe(0);
@@ -72,6 +78,15 @@ describe("IdDocumentDetailsService tests", () => {
         const whenIdDocsChecked = new Date(2025, 2, 28);
         const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked);
         const expected = [{ msg: "Expiry date for UK accredited PASS card must be after 28 March 2025 when you completed the identity checks" }];
+        expect(actual[0].msg).toBe(expected[0].msg);
+    });
+
+    it("should return an error array for expiry date non mandatory docs if error expiry date given ", () => {
+        const errors = [{ msg: "expiryDateNonNumeric", param: "expiryDateDay_1" }];
+        const documentsChecked = ["UK accredited PASS card"];
+        const whenIdDocsChecked = new Date(2025, 2, 28);
+        const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked);
+        const expected = [{ msg: "UK accredited PASS card must only include numbers" }];
         expect(actual[0].msg).toBe(expected[0].msg);
     });
 });

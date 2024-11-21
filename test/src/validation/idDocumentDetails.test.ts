@@ -11,6 +11,7 @@ import { Session } from "@companieshouse/node-session-handler";
 import { MockRequest, createRequest } from "node-mocks-http";
 import { ClientData } from "../../../src/model/ClientData";
 import { USER_DATA } from "../../../src/utils/constants";
+import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 
 describe("idDocumentDetailsValidator", () => {
     it("should return an array of ValidationChain objects", () => {
@@ -116,12 +117,24 @@ describe("Valid data input tests", () => {
         expect(() => validDataChecker("1a", "01", "2020", session)).toThrow(new Error("expiryDateNonNumeric"));
     });
 
-    // test("Error if date is not future to when id checks completed", () => {
-    // let req: MockRequest<Request>;
-    // req = createRequest({
+    test("Error if expiry date is before when the id docs are checked", () => {
+        const clientData = { whenIdentityChecksCompleted: new Date(2024, 2, 5) };
+        const session = getSessionRequestWithPermission();
+        session.setExtraData(USER_DATA, clientData);
+        expect(() => validDataChecker("05", "02", "2023", session)).toThrow(new Error("dateAfterIdChecksDone"));
+    });
 
-    // });
-    // const session: Session = req.session as any as Session;
-    // expect(() => validDataChecker("1a", "01", "2020", session)).toThrow(new Error("expiryDateNonNumeric"));
-    // });
+    test("Error if expiry date is equal to when the id docs are checked", () => {
+        const clientData = { whenIdentityChecksCompleted: new Date(2024, 2, 5) };
+        const session = getSessionRequestWithPermission();
+        session.setExtraData(USER_DATA, clientData);
+        expect(() => validDataChecker("05", "03", "2024", session)).toThrow(new Error("dateAfterIdChecksDone"));
+    });
+
+    test("Error if expiry date is after when the id docs are checked", () => {
+        const clientData = { whenIdentityChecksCompleted: new Date(2024, 2, 5) };
+        const session = getSessionRequestWithPermission();
+        session.setExtraData(USER_DATA, clientData);
+        expect(() => validDataChecker("05", "04", "2024", session)).toBeTruthy();
+    });
 });

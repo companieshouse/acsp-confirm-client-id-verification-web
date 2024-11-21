@@ -97,7 +97,7 @@ const validateAgainstWhenIdDocsChecked = (day: number, month: number, year: numb
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
     const whenIdDocsChecked: Date = clientData.whenIdentityChecksCompleted!;
     const expiryDate = new Date(year, month - 1, day);
-    if (expiryDate < whenIdDocsChecked) {
+    if (expiryDate <= whenIdDocsChecked) {
         throw new Error("dateAfterIdChecksDone");
     }
 };
