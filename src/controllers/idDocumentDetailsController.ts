@@ -24,9 +24,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
+        clientData.howIdentityDocsChecked,
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
-
     let payload;
     if (clientData.idDocumentDetails != null) {
         payload = createPayload(clientData.idDocumentDetails, formattedDocumentsChecked);
@@ -54,6 +54,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const errorList = validationResult(req);
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
+        clientData.howIdentityDocsChecked,
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
 
