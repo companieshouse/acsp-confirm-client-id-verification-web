@@ -8,7 +8,7 @@ export const acspAuthMiddleware = (req: Request, res: Response, next: NextFuncti
     const acspNumber: string = getLoggedInAcspNumber(req.session);
     const authMiddlewareConfig: AuthOptions = {
         chsWebUrl: CHS_URL,
-        returnUrl: BASE_URL + PERSONS_NAME,
+        returnUrl: BASE_URL,
         acspNumber
     };
     return acspManageUsersAuthMiddleware(authMiddlewareConfig)(req, res, next);
