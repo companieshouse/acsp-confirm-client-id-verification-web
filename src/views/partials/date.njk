@@ -31,7 +31,7 @@
                         {{ i18n.day }}
                     </label>
                     {% set dayValue = payload["expiryDateDay_" + index] %}
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errorMessageText %} govuk-input--error{% endif %}" id="expiryDateDay_{{index}}" name="expiryDateDay_{{index}}" value="{{ dayValue }}">
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errorMessageText %} govuk-input--error{% endif %}" id="expiryDateDay_{{index}}" name="expiryDateDay_{{index}}" value="{{ dayValue }}">
                 </div>
             </div>    
             <div class="govuk-date-input__item">
