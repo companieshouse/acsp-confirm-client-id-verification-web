@@ -110,6 +110,13 @@ $govuk-global-styles: true;
   border-bottom: 10px solid #005ea5;
 }
 
+@media (min-width: 769px) {
+  #global-nav nav #navigation {
+      border-bottom: 1px solid #b1b4b6;
+      padding-bottom: 10px;
+  }
+}
+
 ul#navigation {
   font-size: 0.9em;
   margin-top: 15px;
