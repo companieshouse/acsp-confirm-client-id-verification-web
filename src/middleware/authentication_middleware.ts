@@ -7,7 +7,7 @@ export const authenticationMiddleware = (req: Request, res: Response, next: Next
 
     const authMiddlewareConfig: AuthOptions = {
         chsWebUrl: CHS_URL,
-        returnUrl: BASE_URL + PERSONS_NAME
+        returnUrl: BASE_URL
     };
     return authMiddleware(authMiddlewareConfig)(req, res, next);
 };

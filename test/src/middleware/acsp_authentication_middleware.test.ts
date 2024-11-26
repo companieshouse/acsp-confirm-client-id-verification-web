@@ -23,7 +23,7 @@ const next = jest.fn();
 
 const expectedAuthMiddlewareConfig: AuthOptions = {
     chsWebUrl: "http://chs.local",
-    returnUrl: BASE_URL + PERSONS_NAME,
+    returnUrl: BASE_URL,
     acspNumber: "ABC123"
 };
 
