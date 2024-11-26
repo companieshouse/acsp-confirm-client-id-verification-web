@@ -16,11 +16,12 @@ import {
     PIWIK_URL,
     PIWIK_SITE_ID
 } from "./utils/properties";
-import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT } from "./types/pageURL";
+import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT, CONFIRMATION, CONFIRMATION_REDIRECT } from "./types/pageURL";
 import { commonTemplateVariablesMiddleware } from "./middleware/common_variables_middleware";
 import { getLocalesService, selectLang } from "./utils/localise";
 import { ErrorService } from "./services/errorService";
 import { acspAuthMiddleware } from "./middleware/acsp_authentication_middleware";
+import { applicationSubmittedMiddlware } from "./middleware/application_submitted_middleware";
 const app = express();
 
 const nunjucksEnv = nunjucks.configure([path.join(__dirname, "views"),
@@ -57,6 +58,7 @@ app.use(cookieParser());
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, authenticationMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspAuthMiddleware);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}${CONFIRMATION}|${BASE_URL}${CONFIRMATION_REDIRECT}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, applicationSubmittedMiddlware);
 app.use(commonTemplateVariablesMiddleware);
 
 // Channel all requests through router dispatch
