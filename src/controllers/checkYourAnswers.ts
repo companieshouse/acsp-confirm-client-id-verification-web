@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import * as config from "../config";
-import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, CONFIRMATION } from "../types/pageURL";
+import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, CONFIRMATION, PROVIDE_DIFFERENT_EMAIL } from "../types/pageURL";
 import { USER_DATA, REFERENCE, MATOMO_BUTTON_CLICK, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS } from "../utils/constants";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../services/formatService";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
-import { IdentityVerificationService, sendVerifiedClientDetails } from "../services/identityVerificationService";
+import { findIdentityByEmail, IdentityVerificationService, sendVerifiedClientDetails } from "../services/identityVerificationService";
 import logger from "../lib/Logger";
 import { ErrorService } from "../services/errorService";
 import { saveDataInSession } from "../utils/sessionHelper";
@@ -104,17 +104,22 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             acspName: acspDetails.name
         });
     } else {
-        const identityVerificationService = new IdentityVerificationService();
-        const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData, req);
+        try {
+            const identityFromEmail = await findIdentityByEmail(clientData.emailAddress!);
+            if (identityFromEmail !== undefined) {
+                res.redirect(addLangToUrl(BASE_URL + PROVIDE_DIFFERENT_EMAIL, lang));
+            } else {
+                const identityVerificationService = new IdentityVerificationService();
+                const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData, req);
 
-        await sendVerifiedClientDetails(verifiedClientData).then(identity => {
-            logger.info("response from verification api" + JSON.stringify(identity));
-            saveDataInSession(req, REFERENCE, identity?.id);
-            res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
-        }).catch(error => {
+                const verifiedIdentity = await sendVerifiedClientDetails(verifiedClientData);
+                saveDataInSession(req, REFERENCE, verifiedIdentity?.id);
+                res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
+            }
+        } catch (error) {
             logger.error("Verification-Api error" + JSON.stringify(error));
             const errorService = new ErrorService();
             errorService.renderErrorPage(res, locales, lang, BASE_URL + CHECK_YOUR_ANSWERS);
-        });
+        }
     }
 };
