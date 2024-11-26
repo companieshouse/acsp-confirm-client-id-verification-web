@@ -24,7 +24,7 @@ describe("GET" + CHECK_YOUR_ANSWERS, () => {
 
 describe("POST " + CHECK_YOUR_ANSWERS, () => {
     it("should return status 302 after redirect", async () => {
-        await mockSendVerifiedClientDetails.mockResolvedValueOnce(undefined);
+        await mockSendVerifiedClientDetails.mockResolvedValueOnce({ id: "12345" });
         await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
         const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS).send({
             address: "Flat 1 Baker Street<br>Second Floor<br>London<br>Greater London<br>United Kingdom<br>NW1 6XE",
