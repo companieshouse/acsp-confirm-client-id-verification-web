@@ -1,16 +1,10 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, CHECK_YOUR_ANSWERS, ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1 } from "../../../src/types/pageURL";
-import { sessionMiddleware } from "../../../src/middleware/session_middleware";
-import { getSessionRequestWithPermission } from "../../mocks/session.mock";
-import { CHECK_YOUR_ANSWERS_FLAG, USER_DATA } from "../../../src/utils/constants";
-import { Request, Response, NextFunction } from "express";
+import { BASE_URL, ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1 } from "../../../src/types/pageURL";
 jest.mock("@companieshouse/api-sdk-node");
 
 const router = supertest(app);
-
-let customMockSessionMiddleware: any;
 
 describe("GET" + WHICH_IDENTITY_DOCS_CHECKED_GROUP1, () => {
     it("should return status 200", async () => {
