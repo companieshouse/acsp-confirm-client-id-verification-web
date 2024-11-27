@@ -2,9 +2,9 @@ import { Session } from "@companieshouse/node-session-handler";
 import { NextFunction, Request, Response } from "express";
 import countryList from "../lib/countryList";
 import * as config from "../config";
-import { BASE_URL, CONFIRM_IDENTITY_VERIFICATION, ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../types/pageURL";
+import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../types/pageURL";
 import { ClientData } from "../model/ClientData";
-import { USER_DATA } from "../utils/constants";
+import { CHECK_YOUR_ANSWERS_FLAG, USER_DATA } from "../utils/constants";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { validationResult } from "express-validator";
 import {
@@ -73,7 +73,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         });
     } else {
         documentDetailsService.saveIdDocumentDetails(req, clientData, formattedDocumentsChecked);
-        res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
+        const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
+
+        if (checkYourAnswersFlag) {
+            res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
+        } else {
+            res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
+        }
     }
 };
 
