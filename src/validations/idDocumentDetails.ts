@@ -95,7 +95,7 @@ export const validDataChecker = (day: string, month: string | undefined, year: s
 
 const validateAgainstWhenIdDocsChecked = (day: number, month: number, year: number, req: Session): void => {
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
-    const whenIdDocsChecked: Date = clientData.whenIdentityChecksCompleted!;
+    const whenIdDocsChecked: Date | string = clientData.whenIdentityChecksCompleted!;
     const expiryDate = new Date(year, month - 1, day);
     if (expiryDate <= whenIdDocsChecked) {
         throw new Error("dateAfterIdChecksDone");
