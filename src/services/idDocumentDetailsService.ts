@@ -34,7 +34,7 @@ export class IdDocumentDetailsService {
         saveDataInSession(req, USER_DATA, clientData);
     }
 
-    public errorListDisplay = (errors: any[], documentsChecked: string[], lang: string, whenIdDocsChecked: Date | string): any[] => {
+    public errorListDisplay = (errors: any[], documentsChecked: string[], lang: string, whenIdDocsChecked: Date): any[] => {
         const newErrorArray: any[] = [];
         errors.forEach((element) => {
             const errorText = element.msg;
@@ -57,7 +57,7 @@ export class IdDocumentDetailsService {
     };
 }
 
-const getErrorForExpiryDate = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date | string) => {
+const getErrorForExpiryDate = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date) => {
     whenIdDocsChecked = new Date(whenIdDocsChecked);
     if ((docName === "UK accredited PASS card" && errorText === "noExpiryDate") ||
         (docName === "UK HM Armed Forces Veteran Card" && errorText === "noExpiryDate")) {
