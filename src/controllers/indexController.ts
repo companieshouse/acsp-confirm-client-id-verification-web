@@ -8,6 +8,7 @@ import {
     getLocalesService,
     selectLang
 } from "../utils/localise";
+import { PIWIK_START_GOAL_ID } from "../utils/properties";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -17,6 +18,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         ...getLocaleInfo(locales, lang),
         matomoLinkClick: MATOMO_LINK_CLICK,
         matomoButtonClick: MATOMO_BUTTON_CLICK,
+        PIWIK_START_GOAL_ID,
         currentUrl: BASE_URL
     });
 };
