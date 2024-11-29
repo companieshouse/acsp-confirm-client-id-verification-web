@@ -74,7 +74,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 req.body["wicc-month"] - 1,
                 req.body["wicc-day"]
             );
-            clientData.whenIdentityChecksCompleted = whenIdentityChecksCompleted;
+            clientData.whenIdentityChecksCompleted = whenIdentityChecksCompleted.toISOString();
         }
         saveDataInSession(req, USER_DATA, clientData);
 

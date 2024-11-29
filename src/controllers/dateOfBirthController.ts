@@ -78,7 +78,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 req.body["dob-month"] - 1,
                 req.body["dob-day"]
             );
-            clientData.dateOfBirth = dateOfBirth;
+            clientData.dateOfBirth = dateOfBirth.toISOString();
         }
 
         if (previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)) {

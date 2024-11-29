@@ -96,9 +96,9 @@ export class IdentityVerificationService {
                 surname: clientData.lastName!,
                 created: new Date()
             },
-            verificationDate: clientData.whenIdentityChecksCompleted!,
+            verificationDate: new Date(clientData.whenIdentityChecksCompleted!),
             validationMethod: clientData.howIdentityDocsChecked!,
-            dateOfBirth: clientData.dateOfBirth!,
+            dateOfBirth: new Date(clientData.dateOfBirth!),
             currentAddress: {
                 addressLine1: clientData.address?.line1!,
                 addressLine2: clientData.address?.line2,

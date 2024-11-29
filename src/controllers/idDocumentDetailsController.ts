@@ -59,7 +59,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     );
 
     const documentDetailsService = new IdDocumentDetailsService();
-    const errorArray = documentDetailsService.errorListDisplay(errorList.array(), formattedDocumentsChecked, lang, clientData.whenIdentityChecksCompleted!);
+    const whenIdentityChecksCompleted = new Date(clientData.whenIdentityChecksCompleted!);
+    const errorArray = documentDetailsService.errorListDisplay(errorList.array(), formattedDocumentsChecked, lang, whenIdentityChecksCompleted);
     if (errorArray.length) {
         const pageProperties = getPageProperties(formatValidationError(errorArray, lang));
         res.status(400).render(config.ID_DOCUMENT_DETAILS, {
