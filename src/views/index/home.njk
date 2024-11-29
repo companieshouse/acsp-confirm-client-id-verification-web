@@ -41,7 +41,7 @@
     </ul>
     <p class="govuk-body">{{ i18n.startTimeout }}</p>
 
-    <button class="govuk-button govuk-button--start" data-module="govuk-button" id="start-now" onClick="_paq.push(['trackGoal', '15'])">
+    <button class="govuk-button govuk-button--start" data-module="govuk-button" id="start-now" onClick="_paq.push(['trackGoal', '{{ PIWIK_START_GOAL_ID }}'])">
       {{ i18n.startNow }}
       <svg
         class="govuk-button__start-icon"
