@@ -12,7 +12,7 @@ const idDocumentDetailsValidator = (): ValidationChain[] => {
             (
                 body(`documentNumber_${i}`)
                     .if(body(`documentNumber_${i}`).exists()).trim().notEmpty().withMessage("docNumberInput")
-                    .bail().isLength({ max: 9 }).withMessage("docNumberLength")
+                    .bail().isLength({ max: 50 }).withMessage("docNumberLength")
                     .bail().isAlphanumeric().withMessage("docNumberFormat")
             ));
 
