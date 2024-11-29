@@ -58,7 +58,6 @@ export class IdDocumentDetailsService {
 }
 
 const getErrorForExpiryDate = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date) => {
-    whenIdDocsChecked = new Date(whenIdDocsChecked);
     if ((docName === "UK accredited PASS card" && errorText === "noExpiryDate") ||
         (docName === "UK HM Armed Forces Veteran Card" && errorText === "noExpiryDate")) {
         return "";
