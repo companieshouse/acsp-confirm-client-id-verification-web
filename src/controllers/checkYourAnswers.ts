@@ -36,10 +36,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             ? new Date(clientData.whenIdentityChecksCompleted)
             : undefined
     );
-    const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
-        clientData.documentsChecked,
-        locales.i18nCh.resolveNamespacesKeys(lang)
-    );
+
+    const groupBDocuments = FormatService.groupBIdentityDocuments(clientData.documentsChecked!, locales.i18nCh.resolveNamespacesKeys(lang));
+    const formattedDocumentsChecked = FormatService.formatDateIdentityDocuments(clientData.idDocumentDetails!);
 
     const amlBodies = getAmlBodiesAsString(acspDetails);
 
@@ -53,8 +52,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             address: formattedAddress,
             dateOfBirth: formattedDateOfBirth,
             whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
-            documentsChecked: formattedDocumentsChecked
+            idDocumentDetails: formattedDocumentsChecked
         },
+        groupBDocuments,
         amlBodies,
         acspName: acspDetails.name
     });
@@ -80,10 +80,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 ? new Date(clientData.whenIdentityChecksCompleted)
                 : undefined
         );
-        const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
-            clientData.documentsChecked,
-            locales.i18nCh.resolveNamespacesKeys(lang)
-        );
+        const formattedDocumentsChecked = FormatService.formatDateIdentityDocuments(clientData.idDocumentDetails!);
 
         const amlBodies = getAmlBodiesAsString(acspDetails);
 
@@ -98,7 +95,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 address: formattedAddress,
                 dateOfBirth: formattedDateOfBirth,
                 whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
-                documentsChecked: formattedDocumentsChecked
+                idDocumentDetails: formattedDocumentsChecked
             },
             amlBodies,
             acspName: acspDetails.name

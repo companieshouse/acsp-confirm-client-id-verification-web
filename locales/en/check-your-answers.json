@@ -6,5 +6,7 @@
     "checkYourAnswersDeclarationText2" : " has delivered the date of birth and required contact information for"  ,
     "checkYourAnswersDeclarationText3" : ", and a description of the information and evidence used to satisfy that the required personal information is true."  ,
     "confirmSend": "Confirm and send",
+    "details": "details",
+    "number": "number",
     "error-checkYourAnswerEmpty":"Select to confirm the declaration"
 }

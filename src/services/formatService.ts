@@ -1,3 +1,4 @@
+import { DocumentDetails } from "model/DocumentDetails";
 import { Address } from "../model/Address";
 
 export class FormatService {
@@ -54,6 +55,21 @@ export class FormatService {
             year: "numeric"
         };
         return new Intl.DateTimeFormat("en-GB", options).format(date);
+    }
+
+    public static formatDateIdentityDocuments (documents: DocumentDetails[]) {
+        const formattedDocument = [];
+        for (const document of documents) {
+            formattedDocument.push(
+                {
+                    docName: document.docName,
+                    documentNumber: document.documentNumber,
+                    expiryDate: this.formatDate(document.expiryDate),
+                    countryOfIssue: document.countryOfIssue
+                }
+            );
+        }
+        return formattedDocument;
     }
 
     public static formatDocumentsChecked (
@@ -150,5 +166,29 @@ export class FormatService {
             }
         });
         return formattedDocuments;
+    }
+
+    public static groupBIdentityDocuments (documents: string[], i18n: any) {
+        const documentMapping:{ [key: string]: string } = {
+            birth_certificate: i18n.birthCert,
+            marriage_certificate: i18n.marriageCert,
+            immigration_document_non_photo_id: i18n.noPhotoimmigrationDoc,
+            visa_non_photo_id: i18n.noPhotoVisa,
+            work_permit_non_photo_id: i18n.noPhotoWorkPermit,
+            bank_statement: i18n.bankStatement,
+            rental_agreement: i18n.rentalAgreement,
+            mortgage_statement: i18n.morgageStatement,
+            UK_council_tax_statement: i18n.taxStatement,
+            utility_bill: i18n.utilityBill
+        };
+
+        const formattedDocuments: string[] = [];
+        documents.forEach((doc) => {
+            if (documentMapping[doc]) {
+                formattedDocuments.push(`• ${documentMapping[doc]}`);
+            }
+        });
+
+        return formattedDocuments.join("<br>");
     }
 }
