@@ -57,8 +57,11 @@ export class FormatService {
         return new Intl.DateTimeFormat("en-GB", options).format(date);
     }
 
-    public static formatDateIdentityDocuments (documents: DocumentDetails[]) {
-        const formattedDocument = [];
+    public static formatDateIdentityDocuments (documents?: DocumentDetails[]) {
+        const formattedDocument: any[] = [];
+        if (!documents || documents.length === 0) {
+            return formattedDocument;
+        }
         for (const document of documents) {
             formattedDocument.push(
                 {
@@ -168,7 +171,7 @@ export class FormatService {
         return formattedDocuments;
     }
 
-    public static groupBIdentityDocuments (documents: string[], i18n: any) {
+    public static groupBIdentityDocuments (documents: string[] | undefined, i18n: any) {
         const documentMapping:{ [key: string]: string } = {
             birth_certificate: i18n.birthCert,
             marriage_certificate: i18n.marriageCert,
@@ -183,6 +186,9 @@ export class FormatService {
         };
 
         const formattedDocuments: string[] = [];
+        if (!documents || documents.length === 0) {
+            return formattedDocuments;
+        }
         documents.forEach((doc) => {
             if (documentMapping[doc]) {
                 formattedDocuments.push(`• ${documentMapping[doc]}`);
