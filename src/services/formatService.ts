@@ -1,4 +1,3 @@
-import { DocumentDetails } from "model/DocumentDetails";
 import { Address } from "../model/Address";
 
 export class FormatService {
