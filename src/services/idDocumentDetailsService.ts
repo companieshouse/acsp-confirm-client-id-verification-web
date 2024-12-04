@@ -4,6 +4,7 @@ import { Request } from "express";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { USER_DATA } from "../utils/constants";
 import { resolveErrorMessage } from "../validations/validation";
+import { FormatService } from "./formatService";
 
 export class IdDocumentDetailsService {
     public saveIdDocumentDetails = (req: Request, clientData: ClientData, formattedDocumentsChecked: string[]) => {
@@ -25,7 +26,8 @@ export class IdDocumentDetailsService {
                 documentNumber: req.body[docNumberId],
                 expiryDate: expiryDate,
                 countryOfIssue: req.body[countryOfIssueId],
-                docName: formattedDocumentsChecked[i]
+                docName: formattedDocumentsChecked[i],
+                formattedExpiryDate: FormatService.formatDate(expiryDate)
             });
         }
         if (clientData) {

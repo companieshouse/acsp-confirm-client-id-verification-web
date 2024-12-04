@@ -57,24 +57,6 @@ export class FormatService {
         return new Intl.DateTimeFormat("en-GB", options).format(date);
     }
 
-    public static formatDateIdentityDocuments (documents?: DocumentDetails[]) {
-        const formattedDocument: any[] = [];
-        if (!documents || documents.length === 0) {
-            return formattedDocument;
-        }
-        for (const document of documents) {
-            formattedDocument.push(
-                {
-                    docName: document.docName,
-                    documentNumber: document.documentNumber,
-                    expiryDate: this.formatDate(document.expiryDate),
-                    countryOfIssue: document.countryOfIssue
-                }
-            );
-        }
-        return formattedDocument;
-    }
-
     public static formatDocumentsChecked (
         documents: string[] | undefined,
         i18n: any
