@@ -33,7 +33,8 @@ describe("IdDocumentDetailsService tests", () => {
                 docName: "UK biometric residence permit (BRP)",
                 documentNumber: "1234",
                 expiryDate: date,
-                countryOfIssue: "India"
+                countryOfIssue: "India",
+                formattedExpiryDate: "28 February 2025"
             }]
         });
     });
