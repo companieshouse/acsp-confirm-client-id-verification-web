@@ -1,4 +1,5 @@
 import { FormatService } from "../../../src/services/formatService";
+import { DocumentDetails } from "../../../src/model/DocumentDetails";
 import { Address } from "../../../src/model/Address";
 import { getLocalesService } from "../../../src/utils/localise";
 
@@ -212,6 +213,61 @@ describe("FormatService tests", () => {
             const howIdentityDocsChecked = "";
             const result = FormatService.formatDocumentsCheckedText(documents, howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys("en"));
             expect(result.length).toBe(0);
+        });
+    });
+
+    describe("groupBIdentityDocuments", () => {
+        const locales = getLocalesService();
+        it("should return an empty array if no Group B documents are provided", () => {
+            const result = FormatService.groupBIdentityDocuments(undefined, locales.i18nCh.resolveNamespacesKeys("en"));
+            expect(result).toEqual([]);
+        });
+
+        it("should return formatted Group B documents in English", () => {
+            const documents = ["birth_certificate", "marriage_certificate"];
+            const result = FormatService.groupBIdentityDocuments(documents, locales.i18nCh.resolveNamespacesKeys("en"));
+            const expected =
+        "• Birth or adoption certificate<br>• Marriage or civil partnership certificate";
+            expect(result).toBe(expected);
+        });
+
+        it("should return formatted Group B documents in Welsh", () => {
+            const documents = ["birth_certificate", "marriage_certificate"];
+            const result = FormatService.groupBIdentityDocuments(documents, locales.i18nCh.resolveNamespacesKeys("cy"));
+            const expected =
+        "• Tystysgrif geni neu fabwysiadu<br>• Tystysgrif priodas neu bartneriaeth sifil";
+            expect(result).toBe(expected);
+        });
+
+        it("should handle unknown document keys and return an empty string", () => {
+            const documents = ["unknownDoc"];
+            const result = FormatService.groupBIdentityDocuments(documents, locales.i18nCh.resolveNamespacesKeys("en"));
+            expect(result).toBe("");
+        });
+
+        it("should handle an empty documents array", () => {
+            const documents: string[] = [];
+            const result = FormatService.groupBIdentityDocuments(documents, locales.i18nCh.resolveNamespacesKeys("cy"));
+            expect(result).toEqual([]);
+        });
+
+        it("should handle a single Group B document in the array", () => {
+            const documents = ["bank_statement"];
+            const result = FormatService.groupBIdentityDocuments(documents, locales.i18nCh.resolveNamespacesKeys("en"));
+            const expected = "• Bank or building society statement";
+            expect(result).toBe(expected);
+        });
+
+        it("should handle multiple documents with English and Welsh languages", () => {
+            const documents = ["rental_agreement", "utility_bill"];
+            const resultEn = FormatService.groupBIdentityDocuments(documents, locales.i18nCh.resolveNamespacesKeys("en"));
+            const resultWelsh = FormatService.groupBIdentityDocuments(documents, locales.i18nCh.resolveNamespacesKeys("cy"));
+            const expectedEn =
+        "• UK local authority or social housing rental agreement (for the person’s current address)<br>• Utility bill (for the person’s current address)";
+            const expectedWelsh =
+        "• Awdurdod Lleol y DU neu gytundeb rhentu tai cymdeithasol (ar gyfer cyfeiriad cyfredol y person)<br>• Bil cyfleustodau (ar gyfer cyfeiriad cyfredol y person)";
+            expect(resultWelsh).toBe(expectedWelsh);
+            expect(resultEn).toBe(expectedEn);
         });
     });
 });

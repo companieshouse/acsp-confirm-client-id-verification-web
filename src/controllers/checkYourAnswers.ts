@@ -36,10 +36,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             ? new Date(clientData.whenIdentityChecksCompleted)
             : undefined
     );
-    const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
-        clientData.documentsChecked,
-        locales.i18nCh.resolveNamespacesKeys(lang)
-    );
+
+    const groupBDocuments = FormatService.groupBIdentityDocuments(clientData.documentsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
+    const formattedIdentityDocumentsChecked = clientData.idDocumentDetails!;
 
     const amlBodies = getAmlBodiesAsString(acspDetails);
 
@@ -53,8 +52,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             address: formattedAddress,
             dateOfBirth: formattedDateOfBirth,
             whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
-            documentsChecked: formattedDocumentsChecked
+            idDocumentDetails: formattedIdentityDocumentsChecked
         },
+        groupBDocuments,
         amlBodies,
         acspName: acspDetails.name
     });
@@ -80,12 +80,9 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 ? new Date(clientData.whenIdentityChecksCompleted)
                 : undefined
         );
-        const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
-            clientData.documentsChecked,
-            locales.i18nCh.resolveNamespacesKeys(lang)
-        );
 
         const amlBodies = getAmlBodiesAsString(acspDetails);
+        const formattedIdentityDocumentsChecked = clientData.idDocumentDetails!;
 
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
         res.status(400).render(config.CHECK_YOUR_ANSWERS, {
@@ -98,7 +95,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 address: formattedAddress,
                 dateOfBirth: formattedDateOfBirth,
                 whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
-                documentsChecked: formattedDocumentsChecked
+                idDocumentDetails: formattedIdentityDocumentsChecked
             },
             amlBodies,
             acspName: acspDetails.name
