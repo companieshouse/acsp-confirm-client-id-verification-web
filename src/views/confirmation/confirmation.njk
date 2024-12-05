@@ -120,5 +120,8 @@
   <p class="govuk-body">
     {{ i18n.feedbackSurveyLine1 }} <a href="#" class="govuk-link" target="_blank">{{i18n.feedbackSurveyLink}}</a> {{ i18n.feedbackSurveyLine2 }}
   </p>
-
+  <script>
+    trackEventBasedOnPageTitle("verify-service-link", "{{title}}", "{{matomoLinkClick}}", "Tell Companies House about another identity you have verified");
+    trackEventBasedOnPageTitle("authorised-agent-account-link", "{{title}}", "{{matomoLinkClick}}", "View authorised agent account");
+  </script>
 {% endblock %}
