@@ -108,6 +108,11 @@
     ]
   }) }}
 
+  <h2 class="govuk-heading-m">{{ i18n.feedbackSurveyTitle }}</h2>
+  <p class="govuk-body">
+    {{ i18n.feedbackSurveyBodyText }} <a href={{feedbackSurveyLink}} class="govuk-link" id="feedback-survey-link" target="_blank">{{i18n.feedbackSurveyLink}}</a>.
+  </p>
+
   <h2 class="govuk-heading-m">{{ i18n.whatToDoNext }}</h2>
   <p class="govuk-body">
     <a href={{verifyServiceLink}} class="govuk-link" id="verify-service-link">{{ i18n.linkToVerifyService }}</a>
@@ -115,13 +120,9 @@
   <p class="govuk-body">
     <a href={{authorisedAgentLink}} class="govuk-link" id="authorised-agent-account-link">{{ i18n.linkAuthorisedAgentAccount }}</a>
   </p>
-
-  <h2 class="govuk-heading-m">{{ i18n.feedbackSurveyTitle }}</h2>
-  <p class="govuk-body">
-    {{ i18n.feedbackSurveyLine1 }} <a href="#" class="govuk-link" target="_blank">{{i18n.feedbackSurveyLink}}</a> {{ i18n.feedbackSurveyLine2 }}
-  </p>
   <script>
     trackEventBasedOnPageTitle("verify-service-link", "{{title}}", "{{matomoLinkClick}}", "Tell Companies House about another identity you have verified");
     trackEventBasedOnPageTitle("authorised-agent-account-link", "{{title}}", "{{matomoLinkClick}}", "View authorised agent account");
+    trackEventBasedOnPageTitle("feedback-survey-link", "{{title}}", "{{matomoLinkClick}}", "Survey link");
   </script>
 {% endblock %}
