@@ -3,6 +3,8 @@ import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA } from "../utils/constants";
 
+const documentNumberFormat:RegExp = /^[A-Za-z0-9\-',\s]*$/;
+
 const idDocumentDetailsValidator = (): ValidationChain[] => {
     const documentDetailsValidatorErrors: ValidationChain[] = [];
     const numberOfDocumentDetails = 16;
@@ -12,8 +14,8 @@ const idDocumentDetailsValidator = (): ValidationChain[] => {
             (
                 body(`documentNumber_${i}`)
                     .if(body(`documentNumber_${i}`).exists()).trim().notEmpty().withMessage("docNumberInput")
+                    .matches(documentNumberFormat).withMessage("docNumberFormat").bail()
                     .bail().isLength({ max: 50 }).withMessage("docNumberLength")
-                    .bail().isAlphanumeric().withMessage("docNumberFormat")
             ));
 
         documentDetailsValidatorErrors.push(
