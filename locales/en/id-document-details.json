@@ -10,7 +10,7 @@
     "chooseCountryhint":"This is usually shown on the first page of the ",
     "error-docNumberInput": "Enter the details for the {doc selected}",
     "error-docNumberLength": "{doc selected} must be 50 characters or fewer",
-    "error-docNumberFormat": "{doc selected} must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes",
+    "error-docNumberFormat": "{doc selected} must only include letters a to z, numbers and common special characters such as hyphens, spaces and apostrophes",
     "error-noExpiryDate" : "Enter the expiry date for {doc selected}",
     "error-noExpiryDayMonth" : "{doc selected} must include a day and a month",
     "error-noExpiryDayYear" : "{doc selected} must include a day and a year",
