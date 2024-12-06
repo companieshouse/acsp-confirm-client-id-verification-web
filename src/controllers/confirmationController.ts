@@ -40,6 +40,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         amlBodies,
         acspName: acspDetails.name,
         matomoLinkClick: MATOMO_LINK_CLICK,
+        feedbackSurveyLink: "https://www.smartsurvey.co.uk/s/tell-ch-verified-someones-id-conf/",
         verifyServiceLink: addLangToUrl(BASE_URL + CONFIRMATION_REDIRECT + "?id=verify-service-link", lang),
         authorisedAgentLink: addLangToUrl(BASE_URL + CONFIRMATION_REDIRECT + "?id=authorised-agent-account-link", lang),
         clientData: {
