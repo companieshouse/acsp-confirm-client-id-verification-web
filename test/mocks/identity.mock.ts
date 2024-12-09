@@ -41,7 +41,6 @@ export const verifiedClientDetails: VerifiedClientData = {
         surname: "USER",
         created: new Date()
     },
-    useNameOnPublicRegister: "use_name_on_public_register_yes",
     dateOfBirth: new Date(),
     currentAddress: {
         addressLine1: "Address 1",

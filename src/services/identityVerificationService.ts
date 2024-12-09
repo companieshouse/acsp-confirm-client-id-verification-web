@@ -96,7 +96,6 @@ export class IdentityVerificationService {
                 surname: clientData.lastName!,
                 created: new Date()
             },
-            useNameOnPublicRegister: clientData.useNameOnPublicRegister!,
             verificationDate: new Date(clientData.whenIdentityChecksCompleted!),
             validationMethod: clientData.howIdentityDocsChecked!,
             dateOfBirth: new Date(clientData.dateOfBirth!),
