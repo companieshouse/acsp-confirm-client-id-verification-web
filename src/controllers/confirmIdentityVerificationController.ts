@@ -28,7 +28,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, false);
     try {
 
-        const acspDetails = await getAcspFullProfile(getLoggedInAcspNumber(req.session));
+        // const acspDetails = await getAcspFullProfile(getLoggedInAcspNumber(req.session));
+        const acspDetails = await getAcspFullProfile("AP123456");
         session.setExtraData(ACSP_DETAILS, acspDetails);
 
         const amlBodies = getAmlBodiesAsString(acspDetails);

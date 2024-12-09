@@ -2,50 +2,69 @@ import { body, ValidationChain } from "express-validator";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA } from "../utils/constants";
+import { Request } from "express";
+import { FormatService } from "../services/formatService";
+import { getLocalesService, selectLang } from "../utils/localise";
 
-const idDocumentDetailsValidator = (): ValidationChain[] => {
-    const documentDetailsValidatorErrors: ValidationChain[] = [];
-    const numberOfDocumentDetails = 16;
+const idDocumentDetailsValidator = () => {
+    console.log("reached return");
+    return (req: Request) : ValidationChain[] => {
+        //  const idDocumentDetailsValidator = () : ValidationChain[] =>  {
+        const documentDetailsValidatorErrors: ValidationChain[] = [];
+        const numberOfDocumentDetails = 16;
 
-    for (let i = 1; i <= numberOfDocumentDetails; i++) {
-        documentDetailsValidatorErrors.push(
-            (
-                body(`documentNumber_${i}`)
-                    .if(body(`documentNumber_${i}`).exists()).trim().notEmpty().withMessage("docNumberInput")
-                    .bail().isLength({ max: 50 }).withMessage("docNumberLength")
-                    .bail().isAlphanumeric().withMessage("docNumberFormat")
-            ));
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session.getExtraData(USER_DATA)!;
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const formattedDocumentsChecked = FormatService.formatDocsCheckedExcludingGroupBDocs(
+            clientData.documentsChecked,
+            clientData.howIdentityDocsChecked,
+            locales.i18nCh.resolveNamespacesKeys(lang)
+        );
+        console.log("loop count----->", formattedDocumentsChecked.length);
 
-        documentDetailsValidatorErrors.push(
-            (
-                body(`expiryDateDay_${i}`)
-                    .if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => dateDayChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`]))
-            ));
+        for (let i = 1; i <= formattedDocumentsChecked.length; i++) {
+            documentDetailsValidatorErrors.push(
+                (
+                    body(`documentNumber_${i}`)
+                        .if(body(`documentNumber_${i}`).exists()).trim().notEmpty().withMessage("docNumberInput")
+                        .bail().isLength({ max: 50 }).withMessage("docNumberLength")
+                        .bail().isAlphanumeric().withMessage("docNumberFormat")
+                ));
 
-        documentDetailsValidatorErrors.push(
-            (
-                body(`expiryDateMonth_${i}`).custom((value, { req }) => dateMonthChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`]))
-            ));
+            // documentDetailsValidatorErrors.push(
+            //     (
+            //         body(`expiryDateDay_${i}`)
+            //             .if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => dateDayChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`]))
+            //     ));
 
-        documentDetailsValidatorErrors.push(
-            (
-                body(`expiryDateYear_${i}`)
-                    .if(body(`expiryDateYear_${i}`).exists()).custom((value, { req }) => dateYearChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`]))
-            ));
+            // documentDetailsValidatorErrors.push(
+            //     (
+            //         body(`expiryDateMonth_${i}`).custom((value, { req }) => dateMonthChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`]))
+            //     ));
 
-        documentDetailsValidatorErrors.push(
-            (
-                body(`expiryDateDay_${i}`)
-                    .if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => validDataChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`], req.session))
-            ));
+            // documentDetailsValidatorErrors.push(
+            //     (
+            //         body(`expiryDateYear_${i}`)
+            //             .if(body(`expiryDateYear_${i}`).exists()).custom((value, { req }) => dateYearChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`]))
+            //     ));
 
-        documentDetailsValidatorErrors.push(
-            (
-                body(`countryInput_${i}`)
-                    .if(body(`countryInput_${i}`).exists()).trim().notEmpty().withMessage("noCountry")
-            ));
-    }
-    return documentDetailsValidatorErrors;
+            // documentDetailsValidatorErrors.push(
+            //     (
+            //         body(`expiryDateDay_${i}`)
+            //             .if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => validDataChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`], req.session))
+            //     ));
+
+        // documentDetailsValidatorErrors.push(
+        //     (
+        //         body(`countryInput_${i}`)
+        //             .if(body(`countryInput_${i}`).exists()).trim().notEmpty().withMessage("noCountry")
+        //     ));
+        }
+        console.log("documentDetailsValidatorErrors----->", documentDetailsValidatorErrors);
+        return documentDetailsValidatorErrors;
+    };
 };
 
 export default idDocumentDetailsValidator;

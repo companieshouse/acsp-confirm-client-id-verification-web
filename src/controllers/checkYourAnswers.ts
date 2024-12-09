@@ -37,7 +37,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             : undefined
     );
 
-    const groupBDocuments = FormatService.groupBIdentityDocuments(clientData.documentsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
+    const groupBDocuments = FormatService.groupBIdentityDocuments(clientData.documentsChecked, "physical_security_features_checked", locales.i18nCh.resolveNamespacesKeys(lang));
     const formattedIdentityDocumentsChecked = clientData.idDocumentDetails!;
 
     const amlBodies = getAmlBodiesAsString(acspDetails);
