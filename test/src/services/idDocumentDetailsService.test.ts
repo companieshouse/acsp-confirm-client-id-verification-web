@@ -44,7 +44,7 @@ describe("IdDocumentDetailsService tests", () => {
         const documentsChecked = ["UK biometric residence permit (BRP)"];
         const whenIdDocsChecked = new Date(2025, 1, 28);
         const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked);
-        const expected = [{ msg: "UK biometric residence permit (BRP) must be a real date" }];
+        const expected = [{ msg: "UK biometric residence permit (BRP) expiry date must be a real date" }];
         expect(actual[0].msg).toBe(expected[0].msg);
     });
 

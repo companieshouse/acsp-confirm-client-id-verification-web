@@ -111,7 +111,7 @@ const validateNumeric = (day: string, month: string, year: string): void => {
 };
 
 const validateMonthYearRange = (month: string, year: string): void => {
-    if (+month < 1 || +month > 12 || +year < 1000 || +year > 9999) {
+    if (+month < 1 || +month > 12 || +year < 1970 || +year > 2070) {
         throw new Error("expiryDateInvalid");
     }
 };

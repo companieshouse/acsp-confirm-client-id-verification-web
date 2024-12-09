@@ -18,7 +18,7 @@
     "error-noExpiryMonthYear" : "{doc selected} must include a month and a year welsh",
     "error-noExpiryMonth" : "{doc selected} must include a month welsh",
     "error-noExpiryYear" : "{doc selected} must include a year welsh",
-    "error-expiryDateInvalid" : "{doc selected} must be a real date welsh",
+    "error-expiryDateInvalid" : "{doc selected} expiry date must be a real date welsh",
     "error-expiryDateNonNumeric" : "{doc selected} must only include numbers welsh",
     "error-dateAfterIdChecksDone" : "Expiry date for {doc selected} must be after {id checks completed} when you completed the identity checks welsh",
     "error-noCountry" : "Choose a country for {doc selected} welsh"
