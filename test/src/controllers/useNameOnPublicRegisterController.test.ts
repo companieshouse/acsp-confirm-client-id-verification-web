@@ -23,10 +23,10 @@ describe("POST" + USE_NAME_ON_PUBLIC_REGISTER, () => {
         expect(res.header.location).toBe(BASE_URL + PERSONAL_CODE + "?lang=en");
     });
 
-    it("should return status 302 after redirect", async () => {
+    it("should return status 302 after redirect - option 2 selected", async () => {
         const res = await router.post(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER).send({ useNameOnPublicRegisterRadio: "use_name_on_public_register_no" });
         expect(res.status).toBe(302);
-        expect(res.header.location).toBe(BASE_URL + PERSONAL_CODE + "?lang=en");
+        expect(res.header.location).toBe(BASE_URL + "#" + "?lang=en");
     });
 
     it("should return status 400 after no radio button selected entered", async () => {

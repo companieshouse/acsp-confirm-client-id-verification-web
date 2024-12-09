@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
-import { BASE_URL, PERSONS_NAME, PERSONAL_CODE, CHECK_YOUR_ANSWERS, USE_NAME_ON_PUBLIC_REGISTER } from "../types/pageURL";
+import { BASE_URL, PERSONS_NAME, CHECK_YOUR_ANSWERS, USE_NAME_ON_PUBLIC_REGISTER } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA, MATOMO_BUTTON_CLICK, PREVIOUS_PAGE_URL } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
