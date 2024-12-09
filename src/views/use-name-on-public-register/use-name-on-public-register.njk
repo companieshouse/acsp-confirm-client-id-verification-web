@@ -1,0 +1,50 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set errors = pageProperties.errors %}
+{% extends "layouts/default.njk" %}
+{% set title = i18n.useNameOnPublicRegisterTitle1 + firstName + ' ' + lastName + i18n.useNameOnPublicRegisterTitle2  %}
+{% set matomoTitle = i18n.useNameOnPublicRegisterTitle1 + i18n.useNameOnPublicRegisterTitle2  %}
+
+{% block main_content %}
+  <form action="" method="POST">
+    <div class="govuk-form-group">
+        <h1 class="govuk-heading-l">{{ i18n.useNameOnPublicRegisterTitle1 }}{{ firstName }} {{ lastName }}{{ i18n.useNameOnPublicRegisterTitle2 }}</h1>
+        <p class="govuk-body">{{ i18n.selectYesOptionExplanation }}</p>
+
+        {{ govukRadios({
+            errorMessage: errors.useNameOnPublicRegisterRadio if errors,
+            classes: "govuk-radios",
+            id: "use-name-on-public-register-radios",
+            name: "useNameOnPublicRegisterRadio",
+            value: selectedOption,
+            items: [
+                {
+                    value: "use_name_on_public_register_yes",
+                    text: i18n.useNameOption1,
+                    id: "option-1"
+                },
+                {
+                    value: "use_name_on_public_register_no",
+                    text: i18n.useNameOption2,
+                    id: "option-2"
+                }
+            ]
+        }) }}
+    </div>
+
+        {{ govukButton({
+            text: i18n.Continue,
+            id: "continue-button"
+        }) }}
+  </form>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+    _paq.push(["setDocumentTitle", "{{matomoTitle}}" + " - Tell Companies House you have verified someone’s identity"]);
+    trackEventBasedOnPageTitle("option-1", "{{matomoTitle}}", "{{matomoRadioSelection}}", "Option 1");
+    trackEventBasedOnPageTitle("option-2", "{{matomoTitle}}", "Option 2");
+    trackEventBasedOnPageTitle("continue-button", "{{matomoTitle}}", "{{matomoButtonClick}}", "Continue");
+</script>
+
+{% endblock main_content %}

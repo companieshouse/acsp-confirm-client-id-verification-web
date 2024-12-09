@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
-import { BASE_URL, PERSONS_NAME, PERSONAL_CODE, EMAIL_ADDRESS } from "../types/pageURL";
+import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, USE_NAME_ON_PUBLIC_REGISTER } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA, MATOMO_BUTTON_CLICK } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
@@ -13,7 +13,7 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
     res.render(config.PERSONAL_CODE, {
-        previousPage: addLangToUrl(BASE_URL + PERSONS_NAME, lang),
+        previousPage: addLangToUrl(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER, lang),
         ...getLocaleInfo(locales, lang),
         matomoButtonClick: MATOMO_BUTTON_CLICK,
         currentUrl: BASE_URL + PERSONAL_CODE,

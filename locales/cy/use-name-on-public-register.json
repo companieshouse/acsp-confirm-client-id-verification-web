@@ -1,0 +1,8 @@
+{
+    "useNameOnPublicRegisterTitle1" : "Can we use the name welsh ",
+    "useNameOnPublicRegisterTitle2" : " on the public register? welsh",
+    "selectYesOptionExplanation" : "If you select 'yes', we'll include this name in the identity verification declaration for this person on the online Companies House register. welsh",
+    "useNameOption1" : "Yes welsh",
+    "useNameOption2" : "No, this name cannot be shown on the public register welsh",
+    "error-noOptionSelected" : "Select if we can use the name on the public register welsh"
+}

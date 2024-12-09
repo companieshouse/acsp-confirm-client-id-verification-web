@@ -31,3 +31,4 @@ export const CONFIRM_IDENTITY_VERIFICATION = `${BASE_VIEWS_URL}/confirm-identity
 export const CHECK_YOUR_ANSWERS = `${BASE_VIEWS_URL}/check-your-answers/check-your-answers`;
 export const SIGN_OUT_PAGE = `${BASE_VIEWS_URL}/sign-out-page/sign-out`;
 export const ID_DOCUMENT_DETAILS = `${BASE_VIEWS_URL}/id-document-details/id-document-details`;
+export const USE_NAME_ON_PUBLIC_REGISTER = `${BASE_VIEWS_URL}/use-name-on-public-register/use-name-on-public-register`;

@@ -53,3 +53,5 @@ export const CONFIRMATION_REDIRECT = "/confirmation-redirect";
 export const AUTHORISED_AGENT = "/authorised-agent";
 
 export const ID_DOCUMENT_DETAILS = "/id-document-details";
+
+export const USE_NAME_ON_PUBLIC_REGISTER = "/use-name-on-public-register";

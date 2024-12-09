@@ -5,6 +5,7 @@ export interface ClientData {
     firstName?: string;
     middleName?: string;
     lastName?: string;
+    useNameOnPublicRegister?: string;
     dateOfBirth?: Date | string;
     address?: Address;
     documentsChecked?: string[];
