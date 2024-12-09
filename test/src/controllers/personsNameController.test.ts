@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, PERSONS_NAME, PERSONAL_CODE, CHECK_YOUR_ANSWERS } from "../../../src/types/pageURL";
+import { BASE_URL, PERSONS_NAME, CHECK_YOUR_ANSWERS, USE_NAME_ON_PUBLIC_REGISTER } from "../../../src/types/pageURL";
 import { PREVIOUS_PAGE_URL } from "../../../src/utils/constants";
 import { sessionMiddleware } from "../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
@@ -34,7 +34,7 @@ describe("POST" + PERSONS_NAME, () => {
         expect(res.status).toBe(302);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
-        expect(res.header.location).toBe(BASE_URL + PERSONAL_CODE + "?lang=en");
+        expect(res.header.location).toBe(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER + "?lang=en");
     });
 
     it("should return status 302 after redirect to Check Your Answers", async () => {

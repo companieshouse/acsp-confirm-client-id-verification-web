@@ -21,7 +21,8 @@ import {
     confirmationController,
     provideDifferentEmailController,
     confirmationRedirectController,
-    idDocumentDetailsController
+    idDocumentDetailsController,
+    useNameOnPublicRegisterController
 
 } from "../controllers";
 
@@ -39,6 +40,7 @@ import { confirmIdentityVerificationValidator } from "../validations/confirmIden
 import { selectsignOutValidator } from "../validations/signOut";
 import { checkYourAnswerValidator } from "../validations/checkYourAnswer";
 import idDocumentDetailsValidator from "../validations/idDocumentDetails";
+import { useNameOnPublicRegisterValidator } from "../validations/useNameOnPublicRegister";
 
 const routes = Router();
 
@@ -101,5 +103,8 @@ routes.get(urls.CONFIRMATION_REDIRECT, confirmationRedirectController.get);
 
 routes.get(urls.ID_DOCUMENT_DETAILS, idDocumentDetailsController.get);
 routes.post(urls.ID_DOCUMENT_DETAILS, idDocumentDetailsValidator.call(this), idDocumentDetailsController.post);
+
+routes.get(urls.USE_NAME_ON_PUBLIC_REGISTER, useNameOnPublicRegisterController.get);
+routes.post(urls.USE_NAME_ON_PUBLIC_REGISTER, useNameOnPublicRegisterValidator, useNameOnPublicRegisterController.post);
 
 export default routes;

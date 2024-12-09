@@ -34,6 +34,9 @@
         {% if "s personal code" in title %}
             {% set templateTitle = "User's personal code" %}
         {% endif %}
+        {% if "use the name" in title %}
+            {% set templateTitle = "Can we use the name on the public register?" %}
+        {% endif %}
 
 
 <div id="templateName" data-id='{{templateTitle}}' hidden></div>
