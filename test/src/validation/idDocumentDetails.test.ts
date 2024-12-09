@@ -65,8 +65,12 @@ describe("Valid data input tests", () => {
         expect(() => validDataChecker("11", "11", "10000", session)).toThrow(new Error("expiryDateInvalid"));
     });
 
-    test("Error if year is less than 1000", () => {
-        expect(() => validDataChecker("11", "11", "999", session)).toThrow(new Error("expiryDateInvalid"));
+    test("Error if year is less than 1970", () => {
+        expect(() => validDataChecker("11", "11", "1969", session)).toThrow(new Error("expiryDateInvalid"));
+    });
+
+    test("Error if year is more than 2070", () => {
+        expect(() => validDataChecker("11", "11", "2071", session)).toThrow(new Error("expiryDateInvalid"));
     });
 
     test("Error if month is greater than 12", () => {
