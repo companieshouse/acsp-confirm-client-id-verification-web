@@ -2,18 +2,13 @@ import { body, ValidationChain } from "express-validator";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA } from "../utils/constants";
-import { Request } from "express";
-import { FormatService } from "../services/formatService";
-import { getLocalesService, selectLang } from "../utils/localise";
 
-const idDocumentDetailsValidator = () => {
-    console.log("reached return");
-    return (req: Request) : ValidationChain[] => {
-        //  const idDocumentDetailsValidator = () : ValidationChain[] =>  {
-        const documentDetailsValidatorErrors: ValidationChain[] = [];
-        const numberOfDocumentDetails = 16;
+const idDocumentDetailsValidator = (): ValidationChain[] => {
+    //  const idDocumentDetailsValidator = () : ValidationChain[] =>  {
+    const documentDetailsValidatorErrors: ValidationChain[] = [];
+    const numberOfDocumentDetails = 16;
 
-        const session: Session = req.session as any as Session;
+    /* const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA)!;
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
@@ -22,9 +17,23 @@ const idDocumentDetailsValidator = () => {
             clientData.howIdentityDocsChecked,
             locales.i18nCh.resolveNamespacesKeys(lang)
         );
-        console.log("loop count----->", formattedDocumentsChecked.length);
+        console.log("loop count----->", formattedDocumentsChecked.length); */
 
-        for (let i = 1; i <= formattedDocumentsChecked.length; i++) {
+    documentDetailsValidatorErrors.push(
+        body().customSanitizer((value, { req }) => {
+            console.log("-------------------------------" + JSON.stringify(Object.keys(req.body)));
+            // Iterate over each field in the request body and validate dynamically
+            Object.keys(req.body).forEach(field => {
+                console.log("----------------inside for loop-------------------" + JSON.stringify(field));
+                body(field).notEmpty().withMessage("docNumberInput")
+                    .bail().isLength({ max: 50 }).withMessage("docNumberLength")
+                    .bail().isAlphanumeric().withMessage("docNumberFormat");
+            });
+            return value;
+        })
+    );
+
+    /* for (let i = 1; i <= formattedDocumentsChecked.length; i++) {
             documentDetailsValidatorErrors.push(
                 (
                     body(`documentNumber_${i}`)
@@ -61,10 +70,9 @@ const idDocumentDetailsValidator = () => {
         //         body(`countryInput_${i}`)
         //             .if(body(`countryInput_${i}`).exists()).trim().notEmpty().withMessage("noCountry")
         //     ));
-        }
-        console.log("documentDetailsValidatorErrors----->", documentDetailsValidatorErrors);
-        return documentDetailsValidatorErrors;
-    };
+        } */
+    console.log("documentDetailsValidatorErrors----->", documentDetailsValidatorErrors);
+    return documentDetailsValidatorErrors;
 };
 
 export default idDocumentDetailsValidator;
