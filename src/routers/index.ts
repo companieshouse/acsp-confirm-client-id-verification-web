@@ -22,7 +22,8 @@ import {
     provideDifferentEmailController,
     confirmationRedirectController,
     idDocumentDetailsController,
-    useNameOnPublicRegisterController
+    useNameOnPublicRegisterController,
+    personsPublicRegisterNameController
 
 } from "../controllers";
 
@@ -106,5 +107,8 @@ routes.post(urls.ID_DOCUMENT_DETAILS, idDocumentDetailsValidator.call(this), idD
 
 routes.get(urls.USE_NAME_ON_PUBLIC_REGISTER, useNameOnPublicRegisterController.get);
 routes.post(urls.USE_NAME_ON_PUBLIC_REGISTER, useNameOnPublicRegisterValidator, useNameOnPublicRegisterController.post);
+
+routes.get(urls.PERSONS_NAME_ON_PUBLIC_REGISTER, personsPublicRegisterNameController.get);
+routes.post(urls.PERSONS_NAME_ON_PUBLIC_REGISTER, nameValidator, personsPublicRegisterNameController.post);
 
 export default routes;

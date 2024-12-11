@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, USE_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE } from "../../../src/types/pageURL";
+import { BASE_URL, USE_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE, PERSONS_NAME_ON_PUBLIC_REGISTER } from "../../../src/types/pageURL";
 
 jest.mock("../../../src/services/identityVerificationService");
 
@@ -26,7 +26,7 @@ describe("POST" + USE_NAME_ON_PUBLIC_REGISTER, () => {
     it("should return status 302 after redirect - option 2 selected", async () => {
         const res = await router.post(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER).send({ useNameOnPublicRegisterRadio: "use_name_on_public_register_no" });
         expect(res.status).toBe(302);
-        expect(res.header.location).toBe(BASE_URL + "#" + "?lang=en");
+        expect(res.header.location).toBe(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER + "?lang=en");
     });
 
     it("should return status 400 after no radio button selected entered", async () => {

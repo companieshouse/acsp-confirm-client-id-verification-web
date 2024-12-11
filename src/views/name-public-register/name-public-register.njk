@@ -1,0 +1,66 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% extends "layouts/default.njk" %}
+{% set title = i18n.whatIsYourNameTitle %}
+{% block main_content %}
+    <form action="" method="POST">
+        <div class="govuk-form-group">
+            <h1 class="govuk-heading-l">{{ i18n.namePublicRegisterTitle }}</h1>
+
+            {{ govukInput({
+                label: {
+                    text: i18n.whatIsYourNameFirstName
+                },
+                errorMessage: {
+                    text: errors["first-name"].text
+                } if errors["first-name"] | length,
+                classes: "govuk-input--width-20",
+                id: "first-name",
+                name: "first-name",
+                autocomplete: "given-name",
+                value: payload["first-name"]
+            }) }}
+            {{ govukInput({
+                label: {
+                    text: i18n.whatIsYourNameMiddleNames
+                },
+                errorMessage: {
+                    text: errors["middle-names"].text
+                } if errors["middle-names"] | length,
+                classes: "govuk-input--width-20",
+                id: "middle-names",
+                name: "middle-names",
+                autocomplete: "additional-name",
+                value: payload["middle-names"]
+            }) }}
+            {{ govukInput({
+                label: {
+                    text: i18n.whatIsYourNameLastName
+                },
+                errorMessage: {
+                    text: errors["last-name"].text
+                } if errors["last-name"] | length or errors["first-name"].text === i18n.error-enterFullName,
+                classes: "govuk-input--width-20",
+                id: "last-name",
+                name: "last-name",
+                autocomplete: "family-name",
+                value: payload["last-name"]
+            }) }}
+            
+            {{ govukInsetText({
+            text: i18n.namePublicRegisterInformation
+            }) }}
+        </div>
+        {{ govukButton({
+            text: i18n.SaveAndContinue,
+            id: "save-continue-button"
+        }) }}
+    </form>
+
+<!-- Calling Matomo event script to capture event actions based on page title -->
+<script>
+    trackEventBasedOnPageTitle("save-continue-button", "{{title}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Save-and-continue- public name");
+</script>
+
+{% endblock main_content %}
