@@ -4,11 +4,11 @@ import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { BASE_URL, CHECK_YOUR_ANSWERS, PERSONS_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA, MATOMO_BUTTON_CLICK, PREVIOUS_PAGE_URL } from "../utils/constants";
-import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { ClientData } from "../model/ClientData";
 import { getPreviousPageUrl } from "../services/url";
+import { USER_DATA, MATOMO_BUTTON_CLICK, PREVIOUS_PAGE_URL } from "../utils/constants";
+import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 
 export const get = (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
