@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, PERSONS_NAME, CHECK_YOUR_ANSWERS, USE_NAME_ON_PUBLIC_REGISTER, PERSONS_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE } from "../../../src/types/pageURL";
+import { BASE_URL, CHECK_YOUR_ANSWERS, PERSONS_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE } from "../../../src/types/pageURL";
 import { PREVIOUS_PAGE_URL } from "../../../src/utils/constants";
 import { sessionMiddleware } from "../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
