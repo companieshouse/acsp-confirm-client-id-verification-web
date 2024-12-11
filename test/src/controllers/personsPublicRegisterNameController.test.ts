@@ -22,8 +22,7 @@ describe("GET" + PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
 });
 
 describe("POST" + PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
-    // Test for correct form details entered, will return 302 after redirecting to the next page.
-    it("should return status 302 after redirect", async () => {
+    it("should return status 302 after redirect to the next page", async () => {
         session.setExtraData(PREVIOUS_PAGE_URL, "/tell-companies-house-you-have-verified-someones-identity?lang=en");
         const res = await router.post(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER)
             .send({
@@ -50,7 +49,6 @@ describe("POST" + PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
         expect(res.header.location).toBe(BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
     });
 
-    // Test for incorrect form details entered, will return 400.
     it("should return status 400 after incorrect data entered", async () => {
         const sendData = {
             "first-name": "",
