@@ -16,9 +16,9 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
     const payload = {
-        "first-name": clientData.preferredFirstName,
-        "middle-names": clientData.preferredMiddleName,
-        "last-name": clientData.preferredLastName
+        "first-name": clientData.PublicRegisterName,
+        "middle-names": clientData.PublicRegisterMiddleName,
+        "last-name": clientData.PublicRegisterLastName
     };
 
     const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
@@ -61,9 +61,9 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
-        clientData.preferredFirstName = req.body["first-name"];
-        clientData.preferredMiddleName = req.body["middle-names"];
-        clientData.preferredLastName = req.body["last-name"];
+        clientData.PublicRegisterName = req.body["first-name"];
+        clientData.PublicRegisterMiddleName = req.body["middle-names"];
+        clientData.PublicRegisterLastName = req.body["last-name"];
 
         saveDataInSession(req, USER_DATA, clientData);
 
