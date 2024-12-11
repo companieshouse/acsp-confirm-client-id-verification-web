@@ -38,14 +38,14 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const post = (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
+    const lang = selectLang(req.query.lang);
     const errorList = validationResult(req);
     if (!errorList.isEmpty()) {
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
         const session: Session = req.session as any as Session;
-        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
 
+        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
         const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
             ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
             : addLangToUrl(BASE_URL, lang);
