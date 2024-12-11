@@ -12,5 +12,8 @@
     "error-invalidLastNameFormat": "Last name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes",
     "error-invalidFirstNameLength": "First name must be 50 characters or less",
     "error-invalidMiddleNameLength": "Middle names must be 50 characters or less",
-    "error-invalidLastNameLength": "Last name must be 160 characters or less"
+    "error-invalidLastNameLength": "Last name must be 160 characters or less",
+
+    "namePublicRegisterTitle": "What name can we use for this person on the public register?",
+    "namePublicRegisterInformation":"We'll use this name in the identity verification declaration that's displayed as part of this person's records on the online Companies House register."
 }
