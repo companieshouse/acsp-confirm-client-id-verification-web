@@ -56,7 +56,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         if (selectedOption === "use_name_on_public_register_yes") {
             res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
         } else if (selectedOption === "use_name_on_public_register_no") {
-            // Needs updated when new name input screen is added
             res.redirect(addLangToUrl(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER, lang));
         }
     }
