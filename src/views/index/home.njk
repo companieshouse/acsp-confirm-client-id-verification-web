@@ -1,70 +1,92 @@
 {% extends "layouts/default.njk" %}
 {% set title = i18n.startPageTitle %}
+
 {% block backLink %}
-  {# Remove back button on this page by replacing it with nothing #}
+    {# Remove back button on this page by replacing it with nothing #}
 {% endblock %}
+
 {% block main_content %}
-  <form action="" method="POST">
-    <h1 class="govuk-heading-l">{{ i18n.startPageTitle }}</h1>
+    <form action="" method="POST">
+        <h1 class="govuk-heading-l">{{ i18n.startPageTitle }}</h1>
 
-    <p class="govuk-body">{{ i18n.useThisService }}</p>
-    <p class="govuk-body">{{ i18n.guidePageVerificationServiceNote }}
-      <a href="https://www.gov.uk/guidance/companies-house-identity-verification-standard" id="identity-verification-standard-link">{{ i18n.linkGuidePageVerificationService }}</a>.
-    </p>
-    <p class="govuk-body">{{ i18n.keepRecordsOfTheIdentityChecks }}</p>
+        <p class="govuk-body">{{ i18n.useThisService }}</p>
 
-    <div class="govuk-warning-text">
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-      <strong class="govuk-warning-text__text">
-        <span class="govuk-visually-hidden">{{ i18n.warning }}</span>
-        {{ i18n.suspendOrStopBusinessWarningText }}
-      </strong>
-    </div>
+        <h2 class="govuk-heading-m">{{ i18n.whatYoullNeedPersonHeading }}</h2>
+        <p class="govuk-body">{{ i18n.youllNeedToTellUsTheir }}</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>{{ i18n.fullName }}</li>
+            <li>{{ i18n.dob }}</li>
+            <li>{{ i18n.homeAddress }}</li>
+            <li>{{ i18n.emailAddress1 }}</li>
+        </ul>
 
-    <h2 class="govuk-heading-m">{{ i18n.whatYoullNeedHeading }}</h2>
-    <p class="govuk-body">{{ i18n.youllNeed }}</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>{{ i18n.fullName }}</li>
-      <li>{{ i18n.dob }}</li>
-      <li>{{ i18n.homeAddress }}</li>
-      <li>{{ i18n.emailAddress1 }}</li>
-    </ul>
+        <p class="govuk-body">{{ i18n.theEmailCanOnlyBeUsedOnce }}</p>
 
-    <h2 class="govuk-heading-m">{{ i18n.whatYoullNeedIdentityHeading }}</h2>
-    <p class="govuk-body">
-      {{ i18n.thereAre2OptionsForChecking }}
-    </p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>{{ i18n.option1or2 }}</li>
-      <li>{{ i18n.documentChecked }}</li>
-      <li>{{ i18n.checksDate }}</li>
-    </ul>
-    <p class="govuk-body">{{ i18n.startTimeout }}</p>
+        <details class="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    {{ i18n.whatIsACompaniesHousePersonalCode }}
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                <p>
+                    {{ i18n.thisIsACharacterCode }} <br><br> {{ i18n.itCanBeUsedToConnect }}
+                </p>
+        </details>
 
-    <button class="govuk-button govuk-button--start" data-module="govuk-button" id="start-now" onClick="_paq.push(['trackGoal', '{{ PIWIK_START_GOAL_ID }}'])">
-      {{ i18n.startNow }}
-      <svg
-        class="govuk-button__start-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        width="17.5"
-        height="19"
-        viewBox="0 0 33 40"
-        aria-hidden="true"
-        focusable="false">
-        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
-      </svg>
-    </button>
-    
-    <p>
-      {{ i18n.readText }}<a href="https://www.gov.uk/guidance/verify-someones-identity" id="read-the-guidance-verification-link">{{ i18n.readThe }}</a>.
-    </p>
-  </form>
+        <h2 class="govuk-heading-m">{{ i18n.whatYoullNeedIdentityHeading }}</h2>
+        <p class="govuk-body">
+            {{ i18n.theChecksYouCompleteMustMeet }}
+            <a href="https://www.gov.uk/guidance/companies-house-identity-verification-standard" id="identity-verification-standard-link">{{ i18n.ourIdentityVerificationLink }}</a>.
+            {{ i18n.thisListsWhichDocuments }}
+        </p>
+        <p class="govuk-body">{{ i18n.youllNeedToTellUs }}</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>{{ i18n.ifTheDocumentsWereCheckedBullet }}</li>
+            <li>{{ i18n.whichDocumentsProvidedBullet }}</li>
+            <li>{{ i18n.theDatesYouCompletedIDChecksBullet }}</li>
+        </ul>
+        <p class="govuk-body">{{ i18n.forMostDocuments }}</p>
+        <p class="govuk-body">{{ i18n.whereRelevantYoullNeedToProvide }}</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>{{ i18n.documentReferenceBullet }}</li>
+            <li>{{ i18n.expiryDateBullet }}</li>
+            <li>{{ i18n.countryOfIssueBullet }}</li>
+        </ul>
+        <p class="govuk-body">{{ i18n.youDoNotNeedToUploadCopies }}</p>
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-visually-hidden">{{ i18n.warning }}</span>
+                {{ i18n.suspendOrStopBusinessWarningText }}
+            </strong>
+        </div>
+        <p class="govuk-body">{{ i18n.startTimeout }}</p>
 
-<!-- Calling Matomo event function to capture event actions based on page title -->
-<script>
-  trackEventBasedOnPageTitle("identity-verification-standard-link", "{{title}}", "{{matomoLinkClick}}", "Companies House identity verification standard");
-  trackEventBasedOnPageTitle("read-the-guidance-verification-link", "{{title}}", "{{matomoLinkClick}}", "Guidance about verifying someone's identity for Companies House");
-  trackEventBasedOnPageTitle("start-now", "{{title}}", "{{matomoButtonClick}}", "Start Now");
-</script>
+        <button class="govuk-button govuk-button--start" data-module="govuk-button" id="start-now" onClick="_paq.push(['trackGoal', '{{ PIWIK_START_GOAL_ID }}'])">
+            {{ i18n.startNow }}
+            <svg 
+                class="govuk-button__start-icon" 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="17.5" 
+                height="19"
+                viewBox="0 0 33 40" 
+                aria-hidden="true" 
+                focusable="false">
+                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+            </svg>
+        </button>
+
+        <p>
+            {{ i18n.readThe}}<a href="https://www.gov.uk/guidance/verify-someones-identity" id="read-the-guidance-verification-link">{{ i18n.guidanceAboutVerifyingLink }}</a>.
+        </p>
+    </form>
+
+    <!-- Calling Matomo event function to capture event actions based on page title -->
+    <script>
+        trackEventBasedOnPageTitle("identity-verification-standard-link", "{{title}}", "{{matomoLinkClick}}", "Our identity verification standard");
+        trackEventBasedOnPageTitle("read-the-guidance-verification-link", "{{title}}", "{{matomoLinkClick}}", "Guidance about verifying someone's identity for Companies House");
+        trackEventBasedOnPageTitle("start-now", "{{title}}", "{{matomoButtonClick}}", "Start Now");
+    </script>
 
 {% endblock %}
