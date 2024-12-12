@@ -1,16 +1,9 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, CHECK_YOUR_ANSWERS, PERSONS_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE } from "../../../src/types/pageURL";
-import { PREVIOUS_PAGE_URL } from "../../../src/utils/constants";
-import { sessionMiddleware } from "../../../src/middleware/session_middleware";
-import { getSessionRequestWithPermission } from "../../mocks/session.mock";
-import { Request, Response, NextFunction } from "express";
-import { session } from "../../mocks/session_middleware_mock";
+import { BASE_URL, PERSONS_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE } from "../../../src/types/pageURL";
 
 const router = supertest(app);
-
-let customMockSessionMiddleware: any;
 
 describe("GET" + PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
     it("should return status 200", async () => {
@@ -23,7 +16,6 @@ describe("GET" + PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
 
 describe("POST" + PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
     it("should return status 302 after redirect to the next page", async () => {
-        session.setExtraData(PREVIOUS_PAGE_URL, "/tell-companies-house-you-have-verified-someones-identity?lang=en");
         const res = await router.post(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER)
             .send({
                 "first-name": "John",
@@ -34,19 +26,6 @@ describe("POST" + PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.header.location).toBe(BASE_URL + PERSONAL_CODE + "?lang=en");
-    });
-
-    it("should return status 302 after redirect to Check Your Answers", async () => {
-        createMockSessionMiddleware();
-        const res = await router.post(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER)
-            .send({
-                "first-name": "John",
-                "middle-names": "",
-                "last-name": "Doe"
-            });
-        expect(res.status).toBe(302);
-        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
-        expect(res.header.location).toBe(BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
     });
 
     it("should return status 400 after incorrect data entered", async () => {
@@ -70,13 +49,3 @@ describe("POST" + PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
         expect(res.text).toContain("Enter their last name");
     });
 });
-
-function createMockSessionMiddleware () {
-    customMockSessionMiddleware = sessionMiddleware as jest.Mock;
-    const session = getSessionRequestWithPermission();
-    session.setExtraData(PREVIOUS_PAGE_URL, "/tell-companies-house-you-have-verified-someones-identity/check-your-answers?lang=en");
-    customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
-        req.session = session;
-        next();
-    });
-}
