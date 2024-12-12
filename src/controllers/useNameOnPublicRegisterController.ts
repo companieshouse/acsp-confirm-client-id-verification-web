@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { BASE_URL, PERSONAL_CODE, PERSONS_NAME, USE_NAME_ON_PUBLIC_REGISTER } from "../types/pageURL";
+import { BASE_URL, PERSONAL_CODE, PERSONS_NAME, PERSONS_NAME_ON_PUBLIC_REGISTER, USE_NAME_ON_PUBLIC_REGISTER } from "../types/pageURL";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
@@ -56,8 +56,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         if (selectedOption === "use_name_on_public_register_yes") {
             res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
         } else if (selectedOption === "use_name_on_public_register_no") {
-            // Needs updated when new name input screen is added
-            res.redirect(addLangToUrl(BASE_URL + "#", lang));
+            res.redirect(addLangToUrl(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER, lang));
         }
     }
 };

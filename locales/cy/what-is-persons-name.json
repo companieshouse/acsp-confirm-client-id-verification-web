@@ -12,5 +12,8 @@
     "error-invalidLastNameFormat": "Rhaid i'r cyfenw gynnwys llythrennau a i z yn unig, a nodau arbennig cyffredin fel cysylltnodau, bylchau a chollnodau",
     "error-invalidFirstNameLength": "Rhaid i'r enw cyntaf fod yn 50 nod neu lai",
     "error-invalidMiddleNameLength": "Rhaid i’r enwau canol fod yn 50 nod neu lai",
-    "error-invalidLastNameLength": "Rhaid i'r cyfenw fod yn 160 nod neu lai"
+    "error-invalidLastNameLength": "Rhaid i'r cyfenw fod yn 160 nod neu lai",
+
+    "namePublicRegisterTitle": "What name can we use for this person on the public register? welsh",
+    "namePublicRegisterInformation":"We'll use this name in the identity verification declaration that's displayed as part of this person's records on the online Companies House register. welsh"
 }
