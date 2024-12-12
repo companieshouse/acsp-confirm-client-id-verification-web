@@ -10,6 +10,26 @@
     {% set fullName = fullName + ' ' + clientData.middleName %}
   {% endif %}
   {% set fullName = fullName + ' ' + clientData.lastName %}
+
+  {% set useNameOnVerificationStatement = clientData.useNameOnPublicRegister %}
+
+  {% set useNameOnVerificationStatement = clientData.useNameOnPublicRegister %}
+  {% if useNameOnVerificationStatement == "use_name_on_public_register_yes" %}
+    {% set useNameOnVerificationStatement = i18n.useNameOption1 %}
+  {% elseif useNameOnVerificationStatement == "use_name_on_public_register_no" %}
+    {% set useNameOnVerificationStatement = i18n.useNameOption2 %}
+  {% endif %}
+
+  {% if clientData.publicRegisterName %}
+    {% set fullPreferredName = clientData.publicRegisterName %}
+    {% if clientData.publicRegisterMiddleName %}
+      {% set fullPreferredName = fullPreferredName + ' ' + clientData.publicRegisterMiddleName %}
+    {% endif %}
+    {% set fullPreferredName = fullPreferredName + ' ' + clientData.publicRegisterLastName %}
+  {% else %}
+    {% set fullPreferredName = fullName %}
+  {% endif %}
+
   {% set identityDocHref = "" %}
 
   {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
@@ -45,6 +65,40 @@
                 href: "/tell-companies-house-you-have-verified-someones-identity/what-is-the-persons-name" + "?lang=" + lang,
                 text: i18n.checkAnswerDetailsChange,
                 visuallyHiddenText: i18n.name
+              }
+            ]
+          }
+      },
+      {
+        key: {
+          text: i18n.useNameOnVerificationStatement
+        },
+        value: {
+          text: useNameOnVerificationStatement
+        },
+        actions: {
+            items: [
+              {
+                href: "/tell-companies-house-you-have-verified-someones-identity/name-on-public-register" + "?lang=" + lang,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: i18n.useNameOnVerificationStatement
+              }
+            ]
+          }
+      },
+      {
+        key: {
+          text: i18n.preferredName
+        },
+        value: {
+          text: fullPreferredName
+        },
+        actions: {
+            items: [
+              {
+                href: "/tell-companies-house-you-have-verified-someones-identity/name-on-public-register" + "?lang=" + lang,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: i18n.preferredName
               }
             ]
           }

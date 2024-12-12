@@ -8,6 +8,8 @@
   "toLet": " to let them know you've verified their identity. Their Companies House personal code is included in the email. This may be needed to make a filing with Companies House for this person.",
   "personDetails": "Person's details",
   "name": "Name",
+  "useNameOnVerificationStatement": "Can we use this name in the identity verification statement for this person?",
+  "preferredName": "What name can we use for the identity verification statement?",
   "emailAddressConfirmation": "Email address",
   "dateOfBirth": "Date of birth",
   "homeAdd": "Home address",
