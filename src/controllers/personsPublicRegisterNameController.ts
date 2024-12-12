@@ -2,31 +2,24 @@ import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
-import { BASE_URL, CHECK_YOUR_ANSWERS, PERSONS_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE } from "../types/pageURL";
+import { BASE_URL, PERSONS_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE, USE_NAME_ON_PUBLIC_REGISTER } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { ClientData } from "../model/ClientData";
-import { getPreviousPageUrl } from "../services/url";
-import { USER_DATA, MATOMO_BUTTON_CLICK, PREVIOUS_PAGE_URL } from "../utils/constants";
+import { USER_DATA, MATOMO_BUTTON_CLICK } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 
-export const get = (req: Request, res: Response, next: NextFunction) => {
+export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
-    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+    const clientData: ClientData = session.getExtraData(USER_DATA)!;
+    const previousPage: string = addLangToUrl(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER, lang);
     const payload = {
-        "first-name": clientData.PublicRegisterName,
-        "middle-names": clientData.PublicRegisterMiddleName,
-        "last-name": clientData.PublicRegisterLastName
+        "first-name": clientData.publicRegisterName,
+        "middle-names": clientData.publicRegisterMiddleName,
+        "last-name": clientData.publicRegisterLastName
     };
-
-    const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
-    saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
-
-    const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        : addLangToUrl(BASE_URL, lang);
 
     res.render(config.PERSONS_NAME_ON_PUBLIC_REGISTER, {
         previousPage: previousPage,
@@ -37,18 +30,13 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-export const post = (req: Request, res: Response, next: NextFunction) => {
+export const post = async (req: Request, res: Response, next: NextFunction) => {
     const locales = getLocalesService();
     const lang = selectLang(req.query.lang);
     const errorList = validationResult(req);
     if (!errorList.isEmpty()) {
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-        const session: Session = req.session as any as Session;
-
-        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
-        const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-            ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(BASE_URL, lang);
+        const previousPage: string = addLangToUrl(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER, lang);
 
         res.status(400).render(config.PERSONS_NAME_ON_PUBLIC_REGISTER, {
             ...getLocaleInfo(locales, lang),
@@ -59,20 +47,13 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
         });
     } else {
         const session: Session = req.session as any as Session;
-        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+        const clientData: ClientData = session.getExtraData(USER_DATA)!;
 
-        clientData.PublicRegisterName = req.body["first-name"];
-        clientData.PublicRegisterMiddleName = req.body["middle-names"];
-        clientData.PublicRegisterLastName = req.body["last-name"];
+        clientData.publicRegisterName = req.body["first-name"];
+        clientData.publicRegisterMiddleName = req.body["middle-names"];
+        clientData.publicRegisterLastName = req.body["last-name"];
 
         saveDataInSession(req, USER_DATA, clientData);
-
-        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
-
-        if (previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)) {
-            res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
-        } else {
-            res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
-        }
+        res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
     }
 };
