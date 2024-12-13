@@ -17,7 +17,7 @@ describe("common template variables middleware tests", () => {
         });
     });
 
-    it("should display 'Your companies' navbar link when acsp number is valid", () => {
+    it("should display 'Authorised agent' navbar link when acsp number is valid", () => {
         getLoggedInAcspNumberSpy.mockReturnValue("AP12345");
 
         commonTemplateVariablesMiddleware(req, res, next);
@@ -26,7 +26,7 @@ describe("common template variables middleware tests", () => {
         expect(res.locals.displayAuthorisedAgent).toBe("yes");
     });
 
-    it("should not display 'Your companies' navbar link when acsp number is undefined", () => {
+    it("should not display 'Authorised agent' navbar link when acsp number is undefined", () => {
         getLoggedInAcspNumberSpy.mockReturnValue(undefined);
 
         commonTemplateVariablesMiddleware(req, res, next);
