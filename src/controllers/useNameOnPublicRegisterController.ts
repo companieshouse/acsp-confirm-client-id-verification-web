@@ -14,7 +14,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session.getExtraData(USER_DATA)!;
     const currentUrl: string = BASE_URL + USE_NAME_ON_PUBLIC_REGISTER;
-    const previousPage: string = BASE_URL + PERSONS_NAME;
+    const previousPage: string = addLangToUrl(BASE_URL + PERSONS_NAME, lang);
     const selectedOption = clientData.useNameOnPublicRegister;
 
     res.render(config.USE_NAME_ON_PUBLIC_REGISTER, {
@@ -36,7 +36,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
     const selectedOption = req.body.useNameOnPublicRegisterRadio;
     const currentUrl: string = BASE_URL + USE_NAME_ON_PUBLIC_REGISTER;
-    const previousPage: string = BASE_URL + PERSONS_NAME;
+    const previousPage: string = addLangToUrl(BASE_URL + PERSONS_NAME, lang);
     const errorList = validationResult(req);
     if (!errorList.isEmpty()) {
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));

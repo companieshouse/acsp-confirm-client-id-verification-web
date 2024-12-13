@@ -8,6 +8,8 @@
   "toLet": " i roi gwybod iddynt eich bod wedi gwirio ei hunaniaeth. Mae ei god personol Tŷ 'r Cwmnïau wedi'i gynnwys yn yr e-bost. Efallai y bydd angen hyn i wneud ffeilio gyda Thŷ'r Cwmnïau ar gyfer y person hwn.",
   "personDetails": "Manylion y person",
   "name": "Enw",
+  "useNameOnVerificationStatement": "Can we use this name in the identity verification statement for this person? welsh",
+  "preferredName": "What name can we use for the identity verification statement? welsh",
   "emailAddressConfirmation": "Cyfeiriad e-bost",
   "dateOfBirth": "Dyddiad geni",
   "homeAdd": "Cyfeiriad cartref",
