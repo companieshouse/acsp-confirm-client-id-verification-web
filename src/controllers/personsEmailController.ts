@@ -3,7 +3,7 @@ import * as config from "../config";
 import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, DATE_OF_BIRTH, PROVIDE_DIFFERENT_EMAIL, CHECK_YOUR_ANSWERS } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { formatValidationError, getPageProperties } from "../validations/validation";
-import { ValidationError, validationResult } from "express-validator";
+import { validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
 import { USER_DATA, MATOMO_BUTTON_CLICK, PREVIOUS_PAGE_URL } from "../utils/constants";

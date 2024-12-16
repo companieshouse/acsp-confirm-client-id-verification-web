@@ -1,5 +1,3 @@
-import { getEnvironmentValue } from "../utils/environment/environment_value";
-
 const BASE_VIEWS_URL = "../views";
 const BASE_PARTIALS_URL = `../views/partials`;
 
