@@ -41,9 +41,9 @@ export class FormatService {
         return parts.join("<br>");
     }
 
-    public static formatDate (date?: Date): string {
+    public static formatDate (date?: Date, i18n?: any): string {
         if (!date) {
-            return "";
+            return i18n ? i18n.dateNotProvided : "";
         }
         if (!(date instanceof Date) || isNaN(date.getTime())) {
             throw new Error("Invalid date");
