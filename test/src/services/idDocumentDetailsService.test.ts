@@ -26,7 +26,7 @@ describe("IdDocumentDetailsService tests", () => {
         req.body.countryInput_1 = "India";
         const formattedDocs = ["UK biometric residence permit (BRP)"];
 
-        service.saveIdDocumentDetails(req, {}, formattedDocs);
+        service.saveIdDocumentDetails(req, {}, formattedDocs, {});
         const date = new Date(2025, 1, 28);
         expect(session.getExtraData(USER_DATA)).toEqual({
             idDocumentDetails: [{
