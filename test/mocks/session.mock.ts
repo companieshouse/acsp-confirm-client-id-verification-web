@@ -17,7 +17,6 @@ const SIGN_IN_INFO = {
     [SignInInfoKeys.SignedIn]: 1,
     [SignInInfoKeys.UserProfile]: { [UserProfileKeys.Email]: userMail, [UserProfileKeys.UserId]: userId },
     [SignInInfoKeys.AcspNumber]: acspNumber,
-    [SignInInfoKeys.UserProfile]: { [UserProfileKeys.Email]: userMail },
     [SignInInfoKeys.AccessToken]: {
         ...ACCESS_TOKEN_MOCK,
         ...REFRESH_TOKEN_MOCK
