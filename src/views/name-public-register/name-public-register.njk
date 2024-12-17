@@ -2,7 +2,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "layouts/default.njk" %}
-{% set title = i18n.whatIsYourNameTitle %}
+{% set title = i18n.namePublicRegisterTitle %}
 {% block main_content %}
     <form action="" method="POST">
         <div class="govuk-form-group">
@@ -53,14 +53,14 @@
             }) }}
         </div>
         {{ govukButton({
-            text: i18n.SaveAndContinue,
-            id: "save-continue-button"
+            text: i18n.Continue,
+            id: "continue-button"
         }) }}
     </form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
 <script>
-    trackEventBasedOnPageTitle("save-continue-button", "{{title}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Save-and-continue- public name");
+    trackEventBasedOnPageTitle("continue-button", "{{title}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Continue - public name");
 </script>
 
 {% endblock main_content %}
