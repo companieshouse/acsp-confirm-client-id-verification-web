@@ -9,7 +9,7 @@ import { FormatService } from "../services/formatService";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { findIdentityByEmail, IdentityVerificationService, sendVerifiedClientDetails } from "../services/identityVerificationService";
-import logger from "../lib/Logger";
+import logger from "../utils/logger";
 import { ErrorService } from "../services/errorService";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";

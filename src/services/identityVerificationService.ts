@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { Identity, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
-import logger from "../lib/Logger";
+import logger from "../utils/logger";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { ApiErrorResponse } from "@companieshouse/api-sdk-node/dist/services/resource";
 import { createPrivateApiKeyClient } from "./apiService";

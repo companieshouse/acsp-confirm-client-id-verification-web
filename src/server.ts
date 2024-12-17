@@ -1,7 +1,7 @@
 import fs from "fs";
 import http from "http";
 import https from "https";
-import logger from "./lib/Logger";
+import logger from "./utils/logger";
 import app from "./app";
 
 // start the HTTP server

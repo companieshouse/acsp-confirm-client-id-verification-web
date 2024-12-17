@@ -9,7 +9,7 @@ import { ClientData } from "model/ClientData";
 import { USER_DATA, MATOMO_BUTTON_CLICK, PREVIOUS_PAGE_URL } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { findIdentityByEmail } from "../services/identityVerificationService";
-import logger from "../lib/Logger";
+import logger from "../utils/logger";
 import { ErrorService } from "../services/errorService";
 import { LocalesService } from "@companieshouse/ch-node-utils";
 import { getPreviousPageUrl } from "../services/url";
