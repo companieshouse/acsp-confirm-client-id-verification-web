@@ -40,7 +40,6 @@ describe("IdDocumentDetailsService tests", () => {
     });
 
     it("should set formattedExpiryDate to 'Not provided' when expiry date is not given", () => {
-        // Arrange
         req = createRequest({});
         const session = getSessionRequestWithPermission();
         req.session = session;
