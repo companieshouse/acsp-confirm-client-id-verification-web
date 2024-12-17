@@ -60,7 +60,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             ...pageProperties
         });
     } else {
-        const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA)!;
 
         clientData.publicRegisterName = req.body["first-name"];

@@ -20,13 +20,13 @@ mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: Nex
         middleName: "",
         lastName: "Doe",
         howIdentityDocsChecked: "cryptographic_security_features_checked",
-        whenIdentityChecksCompleted: new Date(2024,2,5)
+        whenIdentityChecksCompleted: new Date(2024, 2, 5)
     }
     );
     session.setExtraData(ADDRESS_LIST, addressList);
     session.setExtraData(PREVIOUS_PAGE_URL, "tell-companies-house-you-have-verified-someones-identity/what-is-the-persons-name");
     session.setExtraData(ACSP_DETAILS, dummyFullProfile);
-    
+
     req.session = session;
     next();
 });

@@ -12,21 +12,21 @@ export const API_LOCAL_URL = getEnvironmentValue("API_LOCAL_URL", "false");
 
 export const INTERNAL_API_URL = getEnvironmentVariable("INTERNAL_API_URL", "false");
 
-export const CACHE_SERVER = getEnvironmentValue("CACHE_SERVER", "localhost:6379");
+export const CACHE_SERVER = getEnvironmentValue("CACHE_SERVER", "false");
 
 export const CDN_HOST = getEnvironmentValue("CDN_HOST", "//d3miau0r8stw5u.cloudfront.net");
 
-export const CHS_URL = getEnvironmentValue("CHS_URL", "chs.local");
+export const CHS_URL = getEnvironmentValue("CHS_URL", "false");
 
-export const COOKIE_DOMAIN = getEnvironmentValue("COOKIE_DOMAIN", "chs.local");
+export const COOKIE_DOMAIN = getEnvironmentValue("COOKIE_DOMAIN", "false");
 
 export const CHS_MONITOR_GUI_URL = getEnvironmentValue("CHS_MONITOR_GUI_URL");
 
 export const CDN_URL_CSS = getEnvironmentValue("CDN_URL_CSS", "//d3miau0r8stw5u.cloudfront.net/stylesheets/services/acsp");
 
-export const CDN_URL_JS = getEnvironmentValue("CDN_URL_JS", "chs.local");
+export const CDN_URL_JS = getEnvironmentValue("CDN_URL_JS", "false");
 
-export const POSTCODE_ADDRESSES_LOOKUP_URL = getEnvironmentVariable("POSTCODE_ADDRESSES_LOOKUP_URL", "http://postcode.cidev.aws.chdev.org");
+export const POSTCODE_ADDRESSES_LOOKUP_URL = getEnvironmentVariable("POSTCODE_ADDRESSES_LOOKUP_URL", "false");
 
 // Misc Config
 

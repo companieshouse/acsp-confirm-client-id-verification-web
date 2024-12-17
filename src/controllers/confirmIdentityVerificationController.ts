@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
-import { BASE_URL, CONFIRM_IDENTITY_VERIFICATION, CHECK_YOUR_ANSWERS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2, ID_DOCUMENT_DETAILS } from "../types/pageURL";
+import { BASE_URL, CONFIRM_IDENTITY_VERIFICATION, CHECK_YOUR_ANSWERS, ID_DOCUMENT_DETAILS } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA, MATOMO_BUTTON_CLICK, ACSP_DETAILS, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
 import { ClientData } from "../model/ClientData";

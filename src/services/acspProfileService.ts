@@ -1,6 +1,6 @@
 import PrivateApiClient from "private-api-sdk-node/dist/client";
 import { createLocalApiKeyClient } from "./apiService";
-import logger from "../lib/Logger";
+import logger from "../utils/logger";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { AMLSupervioryBodies } from "../model/AMLSupervioryBodies";
