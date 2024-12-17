@@ -32,8 +32,6 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
 export const getPreviousPage = (selectedOption: string): string => {
     if (selectedOption === "use_name_on_public_register_no") {
         return BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER;
-    } else if (selectedOption === "use_name_on_public_register_yes") {
-        return BASE_URL + USE_NAME_ON_PUBLIC_REGISTER;
     } else {
         return BASE_URL + USE_NAME_ON_PUBLIC_REGISTER;
 
