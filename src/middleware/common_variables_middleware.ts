@@ -1,6 +1,6 @@
 import { Handler } from "express";
 import { CHS_MONITOR_GUI_URL } from "../utils/properties";
-import { getLoggedInUserEmail } from "../utils/session";
+import { getLoggedInAcspNumber, getLoggedInUserEmail } from "../utils/session";
 
 /**
  * Populates variables for use in templates that are used on multiple pages.
@@ -13,11 +13,20 @@ import { getLoggedInUserEmail } from "../utils/session";
  */
 export const commonTemplateVariablesMiddleware: Handler = (req, res, next) => {
 
+    const acspNumber: string = getLoggedInAcspNumber(req.session);
+
     // Populate user email for use in signout bar.
     const email = getLoggedInUserEmail(req.session);
     if (email !== undefined) {
         res.locals.userEmail = email;
     }
+
     res.locals.chsMonitorGuiUrl = CHS_MONITOR_GUI_URL;
+
+    // Setting value for 'Authorised agent' link to show/hide on navbar
+    if (acspNumber !== undefined) {
+        res.locals.displayAuthorisedAgent = "yes";
+    }
+
     next();
 };
