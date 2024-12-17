@@ -1,7 +1,8 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS } from "../../../src/types/pageURL";
+import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, USE_NAME_ON_PUBLIC_REGISTER, PERSONS_NAME_ON_PUBLIC_REGISTER } from "../../../src/types/pageURL";
+import { getPreviousPage } from "../../../src/controllers/personalCodeController";
 
 const router = supertest(app);
 
@@ -23,5 +24,19 @@ describe("POST " + PERSONAL_CODE, () => {
         expect(res.status).toBe(302);
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.header.location).toBe(BASE_URL + EMAIL_ADDRESS + "?lang=en");
+    });
+});
+
+describe("getPreviousPage function", () => {
+    it("should return the correct previous page URL when selectedOption is 'use_name_on_public_register_no'", () => {
+        const selectedOption = "use_name_on_public_register_no";
+        const result = getPreviousPage(selectedOption);
+        expect(result).toBe(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER);
+    });
+
+    it("should return the correct previous page URL when selectedOption is not 'use_name_on_public_register_no'", () => {
+        const selectedOption = "use_name_on_public_register_yes";
+        const result = getPreviousPage(selectedOption);
+        expect(result).toBe(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER);
     });
 });
