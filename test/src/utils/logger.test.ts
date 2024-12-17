@@ -1,5 +1,5 @@
 import ApplicationLogger from "@companieshouse/structured-logging-node/lib/ApplicationLogger";
-import { createAndLogError, logger } from "../../src/utils/logger";
+import { createAndLogError, logger } from "../../../src/utils/logger";
 
 const ERROR_MESSAGE = "Error: Something went wrong";
 

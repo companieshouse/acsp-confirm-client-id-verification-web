@@ -37,7 +37,7 @@ export const verifiedClientDetails: VerifiedClientData = {
     acspId: "1234567890",
     email: "demo@ch.gov.uk",
     currentName: {
-        forenames: ["DEMO"],
+        forenames: ["DEMO", "1"],
         surname: "USER",
         created: new Date()
     },
@@ -60,7 +60,7 @@ export const verifiedClientDetails: VerifiedClientData = {
 
 export const clientDetails = {
     firstName: "DEMO",
-    middleName: "",
+    middleName: "1",
     lastName: "USER",
     dateOfBirth: new Date(),
     address: {
