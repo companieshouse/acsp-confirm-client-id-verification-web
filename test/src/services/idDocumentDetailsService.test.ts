@@ -39,7 +39,8 @@ describe("IdDocumentDetailsService tests", () => {
         });
     });
 
-    it("should set formattedExpiryDate to 'Not provided' when expiry date is not given", () => {
+    it("should set formattedExpiryDate to 'Not provided' when expiry date is not given for optional expiry date ID doc", () => {
+        // Arrange
         req = createRequest({});
         const session = getSessionRequestWithPermission();
         req.session = session;
@@ -49,14 +50,14 @@ describe("IdDocumentDetailsService tests", () => {
         req.body.expiryDateYear_1 = undefined;
         req.body.countryInput_1 = "England";
 
-        const formattedDocs = ["UK accredited PASS card"];
+        const formattedDocs = ["UK HM Armed Forces Veteran Card"];
         const i18n = { dateNotProvided: "Not provided" };
 
         service.saveIdDocumentDetails(req, {}, formattedDocs, i18n);
 
         expect(session.getExtraData(USER_DATA)).toEqual({
             idDocumentDetails: [{
-                docName: "UK accredited PASS card",
+                docName: "UK HM Armed Forces Veteran Card",
                 documentNumber: "123456789",
                 expiryDate: undefined,
                 countryOfIssue: "England",
