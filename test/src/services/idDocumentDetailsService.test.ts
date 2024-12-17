@@ -26,7 +26,7 @@ describe("IdDocumentDetailsService tests", () => {
         req.body.countryInput_1 = "India";
         const formattedDocs = ["UK biometric residence permit (BRP)"];
 
-        service.saveIdDocumentDetails(req, {}, formattedDocs);
+        service.saveIdDocumentDetails(req, {}, formattedDocs, {});
         const date = new Date(2025, 1, 28);
         expect(session.getExtraData(USER_DATA)).toEqual({
             idDocumentDetails: [{
@@ -35,6 +35,33 @@ describe("IdDocumentDetailsService tests", () => {
                 expiryDate: date,
                 countryOfIssue: "India",
                 formattedExpiryDate: "28 February 2025"
+            }]
+        });
+    });
+
+    it("should set formattedExpiryDate to 'Not provided' when expiry date is not given for optional expiry date ID doc", () => {
+        // Arrange
+        req = createRequest({});
+        const session = getSessionRequestWithPermission();
+        req.session = session;
+        req.body.documentNumber_1 = "123456789";
+        req.body.expiryDateDay_1 = undefined;
+        req.body.expiryDateMonth_1 = undefined;
+        req.body.expiryDateYear_1 = undefined;
+        req.body.countryInput_1 = "England";
+
+        const formattedDocs = ["UK HM Armed Forces Veteran Card"];
+        const i18n = { dateNotProvided: "Not provided" };
+
+        service.saveIdDocumentDetails(req, {}, formattedDocs, i18n);
+
+        expect(session.getExtraData(USER_DATA)).toEqual({
+            idDocumentDetails: [{
+                docName: "UK HM Armed Forces Veteran Card",
+                documentNumber: "123456789",
+                expiryDate: undefined,
+                countryOfIssue: "England",
+                formattedExpiryDate: "Not provided"
             }]
         });
     });

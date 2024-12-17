@@ -8,5 +8,6 @@
     "confirmSend": "Confirm and send",
     "details": "details",
     "number": "number",
+    "dateNotProvided": "Not provided",
     "error-checkYourAnswerEmpty":"Select to confirm the declaration"
 }
