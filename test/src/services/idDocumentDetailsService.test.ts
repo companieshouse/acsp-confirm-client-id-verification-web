@@ -39,6 +39,33 @@ describe("IdDocumentDetailsService tests", () => {
         });
     });
 
+    it("should set formattedExpiryDate to 'Not provided' when expiry date is not given", () => {
+        // Arrange
+        req = createRequest({});
+        const session = getSessionRequestWithPermission();
+        req.session = session;
+        req.body.documentNumber_1 = "123456789";
+        req.body.expiryDateDay_1 = undefined;
+        req.body.expiryDateMonth_1 = undefined;
+        req.body.expiryDateYear_1 = undefined;
+        req.body.countryInput_1 = "England";
+
+        const formattedDocs = ["UK accredited PASS card"];
+        const i18n = { dateNotProvided: "Not provided" };
+
+        service.saveIdDocumentDetails(req, {}, formattedDocs, i18n);
+
+        expect(session.getExtraData(USER_DATA)).toEqual({
+            idDocumentDetails: [{
+                docName: "UK accredited PASS card",
+                documentNumber: "123456789",
+                expiryDate: undefined,
+                countryOfIssue: "England",
+                formattedExpiryDate: "Not provided"
+            }]
+        });
+    });
+
     it("should return an error array for expiry date errors", () => {
         const errors = [{ msg: "expiryDateInvalid", param: "expiryDateDay_1" }];
         const documentsChecked = ["UK biometric residence permit (BRP)"];
