@@ -4,7 +4,7 @@ import app from "../../../src/app";
 import { BASE_URL, WHEN_IDENTITY_CHECKS_COMPLETED, HOW_IDENTITY_DOCUMENTS_CHECKED, CHECK_YOUR_ANSWERS } from "../../../src/types/pageURL";
 import { sessionMiddleware } from "../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
-import { PREVIOUS_PAGE_URL } from "../../../src/utils/constants";
+import { PREVIOUS_PAGE_URL, USER_DATA } from "../../../src/utils/constants";
 import { Request, Response, NextFunction } from "express";
 
 const router = supertest(app);
@@ -63,6 +63,13 @@ function createMockSessionMiddleware () {
     customMockSessionMiddleware = sessionMiddleware as jest.Mock;
     const session = getSessionRequestWithPermission();
     session.setExtraData(PREVIOUS_PAGE_URL, "/tell-companies-house-you-have-verified-someones-identity/check-your-answers?lang=en");
+    const clientData = {
+        firstName: "John",
+        middleName: "",
+        lastName: "Doe",
+        dateOfBirth: new Date(2000, 2, 5)
+    };
+    session.setExtraData(USER_DATA, clientData);
     customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
         req.session = session;
         next();

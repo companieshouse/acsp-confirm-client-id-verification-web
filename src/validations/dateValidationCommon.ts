@@ -1,4 +1,7 @@
+import { Session } from "@companieshouse/node-session-handler";
 import { body, ValidationChain } from "express-validator";
+import { ClientData } from "../model/ClientData";
+import { USER_DATA } from "../utils/constants";
 
 type ValidationType = "dob" | "wicc";
 
@@ -6,7 +9,7 @@ export const dateValidator = (type: ValidationType): ValidationChain[] => [
     body(`${type}-day`).custom((value, { req }) => dateDayChecker(req.body[`${type}-day`], req.body[`${type}-month`], req.body[`${type}-year`], type)),
     body(`${type}-month`).custom((value, { req }) => dateMonthChecker(req.body[`${type}-day`], req.body[`${type}-month`], req.body[`${type}-year`], type)),
     body(`${type}-year`).custom((value, { req }) => dateYearChecker(req.body[`${type}-day`], req.body[`${type}-month`], req.body[`${type}-year`], type)),
-    body(`${type}-day`).custom((value, { req }) => validDataChecker(req.body[`${type}-day`], req.body[`${type}-month`], req.body[`${type}-year`], type))
+    body(`${type}-day`).custom((value, { req }) => validDataChecker(req.body[`${type}-day`], req.body[`${type}-month`], req.body[`${type}-year`], type, req.session))
 ];
 
 export const dateDayChecker = (day: string, month: string | undefined, year: string, type: ValidationType): boolean => {
@@ -41,7 +44,7 @@ export const dateYearChecker = (day: string, month: string | undefined, year: st
     return true;
 };
 
-export const validDataChecker = (day: string, month: string | undefined, year: string, type: ValidationType): boolean => {
+export const validDataChecker = (day: string, month: string | undefined, year: string, type: ValidationType, req: Session): boolean => {
 
     if (day !== "" && month !== undefined && year !== "") {
         validateNumeric(day, month, year, type);
@@ -50,9 +53,41 @@ export const validDataChecker = (day: string, month: string | undefined, year: s
         validateDate(day, month, year, type);
         if (type === "dob") {
             validateDobAge(day, month, year);
+        } else if (type === "wicc") {
+            validateWiccAgainstDob(+day, +month, +year, req);
         }
     }
     return true;
+};
+
+const validateWiccAgainstDob = (day: number, month: number, year: number, req: Session): void => {
+    const clientData: ClientData = req?.getExtraData(USER_DATA)!;
+    const dob:Date = new Date(clientData.dateOfBirth!);
+    const wicc = new Date(year, month - 1, day);
+
+    if (wicc <= dob) {
+        throw new Error("dateAfterDob");
+    } else if (!isOldEnoughAfterDob(wicc, dob)) {
+        throw new Error("tooYoungWicc");
+    }
+};
+
+export const isOldEnoughAfterDob = (wicc:Date, dob: Date): boolean => {
+    let age = wicc.getFullYear() - dob.getFullYear();
+    if (wicc.getMonth() < dob.getMonth() || (wicc.getMonth() === dob.getMonth() && wicc.getDate() < dob.getDate())) {
+        age--;
+    }
+    return age >= 16;
+};
+
+export const wiccIsNotValid = (day: number, month: number, year: number): boolean => {
+    const currentDate = new Date();
+    const inputDate = new Date(year, month - 1, day);
+    let age = currentDate.getFullYear() - inputDate.getFullYear();
+    if (currentDate.getMonth() < inputDate.getMonth() || (currentDate.getMonth() === inputDate.getMonth() && currentDate.getDate() < inputDate.getDate())) {
+        age--;
+    }
+    return age >= 16;
 };
 
 const validateNumeric = (day: string, month: string, year: string, type: ValidationType): void => {
