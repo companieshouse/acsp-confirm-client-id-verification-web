@@ -92,7 +92,7 @@ const getBackUrl = (selectedOption: string) => {
     }
 };
 
-const createPayload = (idDocumentDetails: DocumentDetails[], formatDocumentsCheckedText: string[]): { [key: string]: string | undefined } => {
+export const createPayload = (idDocumentDetails: DocumentDetails[], formatDocumentsCheckedText: string[]): { [key: string]: string | undefined } => {
     const payload: { [key: string]: any | undefined } = {};
     idDocumentDetails.forEach((body, index) => {
         for (let i = 0; i < formatDocumentsCheckedText.length; i++) {
