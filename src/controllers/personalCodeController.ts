@@ -29,11 +29,10 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
     res.redirect(addLangToUrl(BASE_URL + EMAIL_ADDRESS, lang));
 };
 
-export const getPreviousPage = (selectedOption: string): string => {
+const getPreviousPage = (selectedOption: string): string => {
     if (selectedOption === "use_name_on_public_register_no") {
         return BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER;
     } else {
         return BASE_URL + USE_NAME_ON_PUBLIC_REGISTER;
-
     }
 };
