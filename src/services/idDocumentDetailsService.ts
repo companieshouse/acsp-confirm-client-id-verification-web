@@ -7,7 +7,7 @@ import { resolveErrorMessage } from "../validations/validation";
 import { FormatService } from "./formatService";
 
 export class IdDocumentDetailsService {
-    public saveIdDocumentDetails = (req: Request, clientData: ClientData, formattedDocumentsChecked: string[]) => {
+    public saveIdDocumentDetails = (req: Request, clientData: ClientData, formattedDocumentsChecked: string[], i18n: any) => {
         const documentDetails: DocumentDetails[] = [];
         clientData.idDocumentDetails = documentDetails;
         for (let i = 0; i < formattedDocumentsChecked.length; i++) {
@@ -17,17 +17,20 @@ export class IdDocumentDetailsService {
             const expiryDateMonthId = "expiryDateMonth_" + j;
             const expiryDateYearId = "expiryDateYear_" + j;
             const countryOfIssueId = "countryInput_" + j;
-            const expiryDate = new Date(
-                req.body[expiryDateYearId],
-                req.body[expiryDateMonthId] - 1,
-                req.body[expiryDateDayId]
-            );
+            let expiryDate;
+            if (req.body[expiryDateYearId] && req.body[expiryDateMonthId] && req.body[expiryDateDayId]) {
+                expiryDate = new Date(
+                    req.body[expiryDateYearId],
+                    req.body[expiryDateMonthId] - 1,
+                    req.body[expiryDateDayId]
+                );
+            }
             documentDetails.push({
                 documentNumber: req.body[docNumberId],
                 expiryDate: expiryDate,
                 countryOfIssue: req.body[countryOfIssueId],
                 docName: formattedDocumentsChecked[i],
-                formattedExpiryDate: FormatService.formatDate(expiryDate)
+                formattedExpiryDate: FormatService.formatDate(expiryDate, i18n)
             });
         }
         if (clientData) {

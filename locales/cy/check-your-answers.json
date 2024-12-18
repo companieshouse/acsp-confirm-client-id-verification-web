@@ -1,16 +1,14 @@
 {
     "checkYourAnswersHeading": "Gwiriwch eich atebion cyn anfon eich cais",
-    "checkYourAnswersDocHeading": "Manylion am",
+    "checkYourAnswersDetailsTableHeading": "'s details welsh",
     "checkAnswerDetailsChange": "Newid",
-    "checkYourAnswersDeclarationText1" : "Rwy'n cadarnhau bod"  ,
-    "checkYourAnswersDeclarationText2" : " wedi cyflwyno'r dyddiad geni a'r wybodaeth gyswllt ofynnol ar gyfer "  ,
-    "checkYourAnswersDeclarationText3" : ", a disgrifiad o'r wybodaeth a'r dystiolaeth a ddefnyddir i fodloni bod y wybodaeth bersonol ofynnol yn wir.",
-    "confirmSend": "Cadarnhau ac anfon",
+    "checkYourAnswersDeclarationText1": "Rwy'n cadarnhau bod"  ,
+    "checkYourAnswersDeclarationText2": " wedi cyflwyno'r dyddiad geni a'r wybodaeth gyswllt ofynnol ar gyfer "  ,
+    "checkYourAnswersDeclarationText3": ", a disgrifiad o'r wybodaeth a'r dystiolaeth a ddefnyddir i fodloni bod y wybodaeth bersonol ofynnol yn wir.",
+    "checkYourAnswersIDCheckTableHeading": "Identity check details welsh",
     "details": "details welsh",
     "number": "number welsh",
+    "confirmSend": "Cadarnhau ac anfon",
+    "dateNotProvided": "Not provided welsh",
     "error-checkYourAnswerEmpty":"Dewiswch i gadarnhau'r datganiad"
-
-
-
-
 }
