@@ -30,6 +30,7 @@
     {% set fullPreferredName = fullName %}
   {% endif %}
 
+  {% set identityChecksCompletedDate = clientData.whenIdentityChecksCompleted %}
   {% set identityDocHref = "" %}
 
   {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
@@ -41,16 +42,17 @@
     {% set howIdentityDocsChecked = i18n.option2Confirmation %}
   {% endif %}
 
-  {% set textContent = i18n.checkYourAnswersDeclarationText1 + " " + acspName + " " + i18n.checkYourAnswersDeclarationText2 + " " + fullName + "" + i18n.checkYourAnswersDeclarationText3 %}
+  {% set textContent = i18n.checkYourAnswersDeclarationText1 + " " + acspName + " " + i18n.checkYourAnswersDeclarationText2 + " " + fullName + i18n.checkYourAnswersDeclarationText3 %}
 
-  {% set verificationStatement1 = i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe +  " " + fullName + " " + i18n.toTheStandard %}
+  {% set verificationStatement1 = i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe +  " " + fullName + " " + i18n.toTheStandard + " " + identityChecksCompletedDate + "." %}
 
   {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies +"."%}
 
   <form action="" method="POST">
     <h1 class="govuk-heading-xl">{{ i18n.checkYourAnswersHeading }}</h1>
-    <h2 class="govuk-heading-m">{{ i18n.checkYourAnswersDocHeading + " " + fullName }}</h2>
+    <h2 class="govuk-heading-m">{{ fullName + i18n.checkYourAnswersDetailsTableHeading }}</h2>
     {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-9',
     rows: [
       {
         key: {
@@ -60,14 +62,14 @@
           text: fullName
         },
         actions: {
-            items: [
-              {
-                href: "/tell-companies-house-you-have-verified-someones-identity/what-is-the-persons-name" + "?lang=" + lang,
-                text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.name
-              }
-            ]
-          }
+          items: [
+            {
+              href: "/tell-companies-house-you-have-verified-someones-identity/what-is-the-persons-name" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.name
+            }
+          ]
+        }
       },
       {
         key: {
@@ -77,14 +79,14 @@
           text: useNameOnVerificationStatement
         },
         actions: {
-            items: [
-              {
-                href: "/tell-companies-house-you-have-verified-someones-identity/name-on-public-register" + "?lang=" + lang,
-                text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.useNameOnVerificationStatement
-              }
-            ]
-          }
+          items: [
+            {
+              href: "/tell-companies-house-you-have-verified-someones-identity/name-on-public-register" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.useNameOnVerificationStatement
+            }
+          ]
+        }
       },
       {
         key: {
@@ -94,14 +96,14 @@
           text: fullPreferredName
         },
         actions: {
-            items: [
-              {
-                href: "/tell-companies-house-you-have-verified-someones-identity/name-on-public-register" + "?lang=" + lang,
-                text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.preferredName
-              }
-            ]
-          }
+          items: [
+            {
+              href: "/tell-companies-house-you-have-verified-someones-identity/name-on-public-register" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.preferredName
+            }
+          ]
+        }
       },
       {
         key: {
@@ -128,13 +130,13 @@
           text: clientData.dateOfBirth
         },
         actions: {
-            items: [
-              {
-                href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-date-of-birth" + "?lang=" + lang,
-                text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.dateOfBirth
-          }
-        ]
+          items: [
+            {
+              href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-date-of-birth" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.dateOfBirth
+            }
+          ]
         } 
       },
       {
@@ -145,21 +147,28 @@
           text: clientData.address | safe
         },
         actions: {
-            items: [
-              {
-                href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-home-address" + "?lang=" + lang,
-                text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.homeAdd
-              }
-            ]
-          }
-      },
-      {
+          items: [
+            {
+              href: "/tell-companies-house-you-have-verified-someones-identity/what-is-their-home-address" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.homeAdd
+            }
+          ]
+        }
+      }
+    ]
+  }) }}
+
+<h2 class="govuk-heading-m">{{ i18n.checkYourAnswersIDCheckTableHeading }}</h2>
+  {{ govukSummaryList({
+  classes: 'govuk-!-margin-bottom-9',
+  rows: [      
+    {
       key: {
         text: i18n.dateIdentityCompleted
       },
       value: {
-        html: clientData.whenIdentityChecksCompleted
+        text: identityChecksCompletedDate
       },
       actions: {
         items: [
@@ -173,7 +182,7 @@
     },
     {
       key: {
-        text: i18n.optionUsed
+        text: i18n.howTheIdentityDocsWereChecked
       },
       value: {
         text: howIdentityDocsChecked
@@ -190,10 +199,10 @@
     },
     {
       key: {
-        text: i18n.identityDoc
+        text: i18n.identityDocsThatWereChecked
       },
       value: {
-        html: groupBDocuments
+        html: clientData.documentsChecked | safe
       },
       actions: {
         items: [
@@ -204,7 +213,7 @@
           }
         ]
       }
-    } if groupBDocuments | length,
+    },
     {
       key: {
         text: i18n.identityVerification
@@ -222,12 +231,13 @@
         ]
       }
     }
-  ]
-}) }}
+    ]
+  }) }}
 
 {% for item in clientData.idDocumentDetails %}
   <h2 class="govuk-heading-m">{{ item.docName + " " + i18n.details }}</h2>
     {{ govukSummaryList({
+      classes: 'govuk-!-margin-bottom-9',
       rows: [
         {
           key: {
