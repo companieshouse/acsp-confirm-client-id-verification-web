@@ -71,7 +71,7 @@ describe("POST " + ID_DOCUMENT_DETAILS, () => {
     });
 });
 
-describe("createPayload - Method that handles optional expiryDate for identity documents", () => {
+describe("createPayload tests", () => {
     it("should handle UK accredited PASS card identity document with optional expiryDate correctly", () => {
         const idDocumentDetails = [
             {
@@ -113,6 +113,50 @@ describe("createPayload - Method that handles optional expiryDate for identity d
             expiryDateMonth_1: undefined,
             expiryDateYear_1: undefined,
             countryInput_1: "United Kingdom"
+        });
+    });
+
+    it("should handle UK HM Armed Forces Veteran Card identity document with optional expiryDate correctly", () => {
+        const idDocumentDetails = [
+            {
+                docName: "UK HM Armed Forces Veteran Card",
+                documentNumber: "12345678",
+                expiryDate: undefined,
+                countryOfIssue: "United Kingdom"
+            }
+        ];
+        const formatDocumentsCheckedText = ["UK HM Armed Forces Veteran Card"];
+
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText);
+
+        expect(result).toEqual({
+            documentNumber_1: "12345678",
+            expiryDateDay_1: undefined,
+            expiryDateMonth_1: undefined,
+            expiryDateYear_1: undefined,
+            countryInput_1: "United Kingdom"
+        });
+    });
+
+    it("should construct payload correctly when expiryDate is provided", () => {
+        const idDocumentDetails = [
+            {
+                docName: "Irish passport card",
+                documentNumber: "12345678",
+                expiryDate: new Date(2030, 9, 10),
+                countryOfIssue: "Ireland"
+            }
+        ];
+        const formatDocumentsCheckedText = ["Irish passport card"];
+
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText);
+
+        expect(result).toEqual({
+            documentNumber_1: "12345678",
+            expiryDateDay_1: 10,
+            expiryDateMonth_1: 10,
+            expiryDateYear_1: 2030,
+            countryInput_1: "Ireland"
         });
     });
 });
