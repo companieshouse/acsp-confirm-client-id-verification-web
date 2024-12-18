@@ -98,9 +98,15 @@ const createPayload = (idDocumentDetails: DocumentDetails[], formatDocumentsChec
         for (let i = 0; i < formatDocumentsCheckedText.length; i++) {
             if (formatDocumentsCheckedText[i] === body.docName) {
                 payload[`documentNumber_${i + 1}`] = body.documentNumber;
-                payload[`expiryDateDay_${i + 1}`] = body.expiryDate!.getDate();
-                payload[`expiryDateMonth_${i + 1}`] = body.expiryDate!.getMonth() + 1;
-                payload[`expiryDateYear_${i + 1}`] = body.expiryDate!.getFullYear();
+                if (body.expiryDate) {
+                    payload[`expiryDateDay_${i + 1}`] = body.expiryDate!.getDate();
+                    payload[`expiryDateMonth_${i + 1}`] = body.expiryDate!.getMonth() + 1;
+                    payload[`expiryDateYear_${i + 1}`] = body.expiryDate!.getFullYear();
+                } else {
+                    payload[`expiryDateDay_${i + 1}`] = undefined;
+                    payload[`expiryDateMonth_${i + 1}`] = undefined;
+                    payload[`expiryDateYear_${i + 1}`] = undefined;
+                }
                 payload[`countryInput_${i + 1}`] = body.countryOfIssue;
             }
         }
