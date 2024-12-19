@@ -22,6 +22,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
+    const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
         clientData.howIdentityDocsChecked,
@@ -35,10 +36,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     res.render(config.ID_DOCUMENT_DETAILS, {
         previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
         ...getLocaleInfo(locales, lang),
-        // matomoLinkClick: MATOMO_LINK_CLICK,
-        // matomoButtonClick: MATOMO_BUTTON_CLICK,
         currentUrl: BASE_URL + ID_DOCUMENT_DETAILS,
         documentsChecked: formattedDocumentsChecked,
+        hintText: formattedHintText,
         countryList: countryList,
         payload
     });
@@ -52,6 +52,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
     const errorList = validationResult(req);
+    const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
         clientData.howIdentityDocsChecked,
@@ -70,6 +71,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             payload: req.body,
             currentUrl,
             documentsChecked: formattedDocumentsChecked,
+            hintText: formattedHintText,
             countryList: countryList
         });
     } else {
