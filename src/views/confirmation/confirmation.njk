@@ -14,100 +14,167 @@
     titleText: i18n.identityTitle
   }) }}
 
-  <p class="govuk-body">{{ i18n.yourRef }} {{ reference }}.  {{ i18n.thisIsNot }}</p>
-  <p class="govuk-body">{{ i18n.emailConfirmation }} <strong>{{ userEmail }}</strong>.</p>
-
-  <h2 class="govuk-heading-m">{{ i18n.whatHappens }}</h2>
-  <p class="govuk-body">{{ i18n.weWillEmailed }} <strong>{{ clientData.emailAddress }}</strong> {{ i18n.toLet }}</p>
-
-  {% include "partials/print_button.njk" %} 
-
-  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-
-  <h2 class="govuk-heading-m">{{ i18n.personDetails }}</h2>
-
   {% set fullName = clientData.firstName %}
   {% if clientData.middleName %}
     {% set fullName = fullName + ' ' + clientData.middleName %}
   {% endif %}
   {% set fullName = fullName + ' ' + clientData.lastName %}
 
- {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
-{% if howIdentityDocsChecked == "cryptographic_security_features_checked" %}
-  {% set howIdentityDocsChecked = i18n.option1Confirmation %}
-{% elseif howIdentityDocsChecked == "physical_security_features_checked" %}
-  {% set howIdentityDocsChecked = i18n.option2Confirmation %}
-{% endif %}
+  {% set useNameOnVerificationStatement = clientData.useNameOnPublicRegister %}
+  {% if useNameOnVerificationStatement == "use_name_on_public_register_yes" %}
+    {% set useNameOnVerificationStatement = i18n.useNameOption1 %}
+  {% elseif useNameOnVerificationStatement == "use_name_on_public_register_no" %}
+    {% set useNameOnVerificationStatement = i18n.useNameOption2 %}
+  {% endif %}
 
+  {% if clientData.publicRegisterName %}
+    {% set fullPreferredName = clientData.publicRegisterName %}
+    {% if clientData.publicRegisterMiddleName %}
+      {% set fullPreferredName = fullPreferredName + ' ' + clientData.publicRegisterMiddleName %}
+    {% endif %}
+    {% set fullPreferredName = fullPreferredName + ' ' + clientData.publicRegisterLastName %}
+  {% else %}
+    {% set fullPreferredName = fullName %}
+  {% endif %}
+
+  {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
+  {% if howIdentityDocsChecked == "cryptographic_security_features_checked" %}
+    {% set howIdentityDocsChecked = i18n.option1Confirmation %}
+  {% elseif howIdentityDocsChecked == "physical_security_features_checked" %}
+    {% set howIdentityDocsChecked = i18n.option2Confirmation %}
+  {% endif %}
+
+  {% set verificationStatement1 = i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe +  " " + fullName + " " + i18n.toTheStandard + " " + clientData.whenIdentityChecksCompleted + "." %}
+
+  {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
+
+  <p class="govuk-body">{{ i18n.yourRef }} {{ reference }}.  {{ i18n.thisIsNot }}</p>
+  <p class="govuk-body">{{ i18n.emailConfirmation }} <strong>{{ userEmail }}</strong>.</p>
+
+  <h2 class="govuk-heading-m">{{ i18n.whatHappens }}</h2>
+  <p class="govuk-body">{{ i18n.weWillEmailed }} <strong>{{ clientData.emailAddress }}</strong> {{ i18n.toLet }}</p>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <h2 class="govuk-heading-m">{{ i18n.identityVerificationHeading + " " + fullName }}</h2>
+  {% include "partials/print_button.njk" %}
   {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-0',
     rows: [
-      {
-        key: {
-          text: i18n.name
-        },
-        value: {
-          text: fullName
-        }
+    {
+      key: {
+        text: i18n.name
       },
-      {
-        key: {
-          text: i18n.emailAddressConfirmation
-        },
-        value: {
-          text: clientData.emailAddress
-        }
-      },
-      {
-        key: {
-          text: i18n.dateOfBirth
-        },
-        value: {
-          text: clientData.dateOfBirth
-        }
-      },
-      {
-        key: {
-          text: i18n.homeAdd
-        },
-        value: {
-          text: clientData.address | safe
-        }
-      },
-      {
-        key: {
-          text: i18n.dateIdentityCompleted
-        },
-        value: {
-          text: clientData.whenIdentityChecksCompleted
-        }
-      },
-      {
-        key: {
-          text: i18n.optionUsed
-        },
-        value: {
-          text: howIdentityDocsChecked
-        }
-      },
-      {
-        key: {
-          text: i18n.identityDoc
-        },
-        value: {
-          text: clientData.documentsChecked | safe
-        }
-      },
-      {
-        key: {
-          text: i18n.identityVerification
-        },
-        value: {
-          html: i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe + " " + clientData.firstName + " " + clientData.lastName + " " + i18n.toTheStandard + "<br>" + acspName + " " + i18n.isSupervised + " " + amlBodies
-        }
+      value: {
+        text: fullName
       }
+    },
+    {
+      key: {
+        text: i18n.useNameOnVerificationStatement
+      },
+      value: {
+        text: useNameOnVerificationStatement
+      }
+    },
+    {
+      key: {
+        text: i18n.preferredName
+      },
+      value: {
+        text: fullPreferredName
+      }
+    },
+    {
+      key: {
+        text: i18n.emailAddressConfirmation
+      },
+      value: {
+        text: clientData.emailAddress
+      }
+    },
+    {
+      key: {
+        text: i18n.dateOfBirth
+      },
+      value: {
+        text: clientData.dateOfBirth
+      }
+    },
+    {
+      key: {
+        text: i18n.homeAdd
+      },
+      value: {
+        text: clientData.address | safe
+      }
+    },
+    {
+      key: {
+        text: i18n.dateIdentityCompleted
+      },
+      value: {
+        text: clientData.whenIdentityChecksCompleted
+      }
+    },
+    {
+      key: {
+        text: i18n.howTheIdentityDocsWereChecked
+      },
+      value: {
+        text: howIdentityDocsChecked
+      }
+    },
+    {
+      key: {
+        text: i18n.identityDocsThatWereChecked
+      },
+      value: {
+        text: clientData.documentsChecked | safe
+      }
+    },
+    {
+      key: {
+        text: i18n.identityVerification
+      },
+      value: {
+        text: ("<p>" + verificationStatement1 + "</p>" + verificationStatement2 + "</p>") | safe
+      }
+    }
     ]
   }) }}
-
+  {% for item in clientData.idDocumentDetails %}
+  {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-0',
+    rows: [
+    {
+      key: {
+        text: item.docName + " " + i18n.number
+      },
+      value: {
+        text: item.documentNumber
+      }
+    },
+    {
+      key: {
+        text: item.docName + " " + i18n.ExpiryDate
+      },
+      value: {
+        text: item.formattedExpiryDate
+      }
+    },
+    {
+      key: {
+        text: item.docName + " " + i18n.chooseCountryText
+      },
+      value: {
+        text: item.countryOfIssue
+      }
+    }
+    ]
+  }) }}
+  {% endfor %}
+  <br><br>
   <h2 class="govuk-heading-m">{{ i18n.feedbackSurveyTitle }}</h2>
   <p class="govuk-body">
     {{ i18n.feedbackSurveyBodyText }} <a href={{feedbackSurveyLink}} class="govuk-link" id="feedback-survey-link" target="_blank">{{i18n.feedbackSurveyLink}}</a>.
