@@ -12,8 +12,6 @@
   {% set fullName = fullName + ' ' + clientData.lastName %}
 
   {% set useNameOnVerificationStatement = clientData.useNameOnPublicRegister %}
-
-  {% set useNameOnVerificationStatement = clientData.useNameOnPublicRegister %}
   {% if useNameOnVerificationStatement == "use_name_on_public_register_yes" %}
     {% set useNameOnVerificationStatement = i18n.useNameOption1 %}
   {% elseif useNameOnVerificationStatement == "use_name_on_public_register_no" %}
@@ -46,7 +44,7 @@
 
   {% set verificationStatement1 = i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe +  " " + fullName + " " + i18n.toTheStandard + " " + identityChecksCompletedDate + "." %}
 
-  {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies +"."%}
+  {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
 
   <form action="" method="POST">
     <h1 class="govuk-heading-xl">{{ i18n.checkYourAnswersHeading }}</h1>
