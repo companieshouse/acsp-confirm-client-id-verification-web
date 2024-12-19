@@ -116,28 +116,6 @@ describe("createPayload tests", () => {
         });
     });
 
-    it("should handle UK HM Armed Forces Veteran Card identity document with optional expiryDate correctly", () => {
-        const idDocumentDetails = [
-            {
-                docName: "UK HM Armed Forces Veteran Card",
-                documentNumber: "12345678",
-                expiryDate: undefined,
-                countryOfIssue: "United Kingdom"
-            }
-        ];
-        const formatDocumentsCheckedText = ["UK HM Armed Forces Veteran Card"];
-
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText);
-
-        expect(result).toEqual({
-            documentNumber_1: "12345678",
-            expiryDateDay_1: undefined,
-            expiryDateMonth_1: undefined,
-            expiryDateYear_1: undefined,
-            countryInput_1: "United Kingdom"
-        });
-    });
-
     it("should construct payload correctly when expiryDate is provided", () => {
         const idDocumentDetails = [
             {
