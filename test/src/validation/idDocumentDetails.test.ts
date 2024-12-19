@@ -5,11 +5,7 @@ import idDocumentDetailsValidator, {
     dateYearChecker,
     validDataChecker
 } from "../../../src/validations/idDocumentDetails";
-
-import { Request } from "express";
 import { Session } from "@companieshouse/node-session-handler";
-import { MockRequest, createRequest } from "node-mocks-http";
-import { ClientData } from "../../../src/model/ClientData";
 import { USER_DATA } from "../../../src/utils/constants";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 

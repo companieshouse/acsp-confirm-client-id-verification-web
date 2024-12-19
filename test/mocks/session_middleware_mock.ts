@@ -20,7 +20,8 @@ mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: Nex
         middleName: "",
         lastName: "Doe",
         howIdentityDocsChecked: "cryptographic_security_features_checked",
-        whenIdentityChecksCompleted: new Date(2024, 2, 5)
+        whenIdentityChecksCompleted: new Date(2024, 2, 5),
+        dateOfBirth: new Date(2000, 2, 5)
     }
     );
     session.setExtraData(ADDRESS_LIST, addressList);

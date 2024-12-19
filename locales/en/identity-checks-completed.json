@@ -10,5 +10,7 @@
     "error-noDayIdentity" : "The date must include a day",
     "error-noMonthIdentity" : "The date must include a month",
     "error-noYearIdentity" : "The date must include a year",
-    "error-nonNumericIdentity" : "The date must only include numbers"
+    "error-nonNumericIdentity" : "The date must only include numbers",
+    "error-dateAfterDob": "The date must be after Date of birth",
+    "error-tooYoungWicc": "You must be at least 16 years old when the identity checks were completed"
 }
