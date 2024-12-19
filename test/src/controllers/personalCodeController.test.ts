@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS } from "../../../src/types/pageURL";
+import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, USE_NAME_ON_PUBLIC_REGISTER, PERSONS_NAME_ON_PUBLIC_REGISTER } from "../../../src/types/pageURL";
 
 const router = supertest(app);
 
@@ -13,6 +13,38 @@ describe("GET " + PERSONAL_CODE, () => {
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
     });
+});
+
+it("should return the correct previous page URL when selectedOption is 'use_name_on_public_register_no'", async () => {
+    const mockSessionData = {
+        getExtraData: jest.fn().mockReturnValue({
+            useNameOnPublicRegister: "use_name_on_public_register_no"
+        })
+    };
+    mocks.mockSessionMiddleware.mockImplementation((req, res, next) => {
+        req.session = mockSessionData;
+        next();
+    });
+
+    const res = await router.get(BASE_URL + PERSONAL_CODE).query({ lang: "en" });
+    expect(res.status).toBe(200);
+    expect(res.text).toContain(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER);
+});
+
+it("should return the correct previous page URL when selectedOption is 'use_name_on_public_register_no'", async () => {
+    const mockSessionData = {
+        getExtraData: jest.fn().mockReturnValue({
+            useNameOnPublicRegister: "use_name_on_public_register_yes"
+        })
+    };
+    mocks.mockSessionMiddleware.mockImplementation((req, res, next) => {
+        req.session = mockSessionData;
+        next();
+    });
+
+    const res = await router.get(BASE_URL + PERSONAL_CODE).query({ lang: "en" });
+    expect(res.status).toBe(200);
+    expect(res.text).toContain(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER);
 });
 
 describe("POST " + PERSONAL_CODE, () => {
