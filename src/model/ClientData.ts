@@ -15,7 +15,7 @@ export interface ClientData {
     howIdentityDocsChecked?: string;
     whenIdentityChecksCompleted?: Date | string;
     confirmIdentityVerified?: string;
-    publicRegisterName?: string;
-    publicRegisterMiddleName?: string;
-    publicRegisterLastName?: string;
+    preferredFirstName?: string;
+    preferredMiddleName?: string;
+    preferredLastName?: string;
 }

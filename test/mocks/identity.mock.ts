@@ -1,8 +1,8 @@
-import { Identity, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity, VerificationType, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 
 export const dummyIdentity: Identity = {
     id: "23456",
-    created: new Date(),
+    created: new Date().toDateString(),
     status: "valid",
     statusDate: new Date(),
     userId: "1234567",
@@ -28,8 +28,15 @@ export const dummyIdentity: Identity = {
         created: new Date()
     },
     previousAddresses: [],
-    verificationEvidence: ["passport"],
-    lastUpdated: new Date()
+    verificationEvidence: [{ type: VerificationType.passport }],
+    lastUpdated: new Date(),
+    preferredName: {
+        forenames: ["DEMO"],
+        surname: "USER",
+        created: new Date()
+    },
+    assuranceLevel: "medium",
+    secureIndicator: false
 };
 
 export const verifiedClientDetails: VerifiedClientData = {
@@ -37,6 +44,11 @@ export const verifiedClientDetails: VerifiedClientData = {
     acspId: "1234567890",
     email: "demo@ch.gov.uk",
     currentName: {
+        forenames: ["DEMO", "1"],
+        surname: "USER",
+        created: new Date()
+    },
+    preferredName: {
         forenames: ["DEMO", "1"],
         surname: "USER",
         created: new Date()
@@ -52,7 +64,7 @@ export const verifiedClientDetails: VerifiedClientData = {
         locality: "locality",
         created: new Date()
     },
-    verificationEvidence: [{ type: "passport" }],
+    verificationEvidence: [{ type: VerificationType.passport }],
     acspUserId: "",
     verificationDate: new Date(),
     validationMethod: ""
