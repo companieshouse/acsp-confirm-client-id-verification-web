@@ -43,7 +43,10 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             formattedDate,
             payload,
             acspName: acspDetails.name,
-            amlBodies
+            amlBodies,
+            publicRegisterName: clientData?.publicRegisterName,
+            publicRegisterLastName: clientData?.publicRegisterLastName,
+            useNameOnPublicRegister: clientData.useNameOnPublicRegister
         });
     } catch (error) {
         logger.error("acsp profile data api error" + JSON.stringify(error));
@@ -75,7 +78,10 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             formattedDate,
             ...pageProperties,
             amlBodies,
-            acspName: acspDetails.name
+            acspName: acspDetails.name,
+            publicRegisterName: clientData?.publicRegisterName,
+            publicRegisterLastName: clientData?.publicRegisterLastName,
+            useNameOnPublicRegister: clientData.useNameOnPublicRegister
         });
     } else {
         if (clientData) {

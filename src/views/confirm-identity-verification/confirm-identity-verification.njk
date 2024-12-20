@@ -5,7 +5,7 @@
 {% set title = i18n.confirmVerificationHeading %}
 {% block main_content %}
 {% set displayedName = " " %}
-    {% if publicRegisterName %}
+    {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
         {% set displayedName = publicRegisterName + " " %}
     {% else %}   
         {% set displayedName = firstName  + " " %}
@@ -13,7 +13,7 @@
 
 
 {% set displayedLastName = " " %}
-    {% if publicRegisterLastName %}
+    {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
         {% set displayedLastName =  publicRegisterLastName + " " %}
     {% else %}   
         {% set displayedLastName =  lastName + " " %}
