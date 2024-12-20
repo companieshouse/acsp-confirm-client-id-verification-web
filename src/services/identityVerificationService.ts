@@ -94,7 +94,7 @@ export class IdentityVerificationService {
 
         const documentsChecked = clientData.documentsChecked!;
         const verificationEvidence = documentsChecked.map((document) => {
-            return { type: VerificationType[document as keyof typeof VerificationType] };
+            return { type: document as unknown as VerificationType };
         });
 
         return {
@@ -106,12 +106,12 @@ export class IdentityVerificationService {
             currentName: {
                 forenames: foreNames,
                 surname: clientData.lastName!,
-                created: new Date().toDateString()
+                created: new Date()
             },
             preferredName: {
                 forenames: preferredForeNames,
                 surname: clientData.preferredLastName!,
-                created: new Date().toDateString()
+                created: new Date()
             },
             verificationDate: new Date(clientData.whenIdentityChecksCompleted!),
             validationMethod: clientData.howIdentityDocsChecked!,
@@ -124,7 +124,7 @@ export class IdentityVerificationService {
                 country: clientData.address?.country!,
                 postalCode: clientData.address?.postcode!,
                 premises: clientData.address?.propertyDetails!,
-                created: new Date().toDateString()
+                created: new Date()
             }
         };
     }

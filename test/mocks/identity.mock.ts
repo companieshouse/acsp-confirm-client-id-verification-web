@@ -4,7 +4,7 @@ export const dummyIdentity: Identity = {
     id: "23456",
     created: new Date().toDateString(),
     status: "valid",
-    statusDate: new Date().toDateString(),
+    statusDate: new Date(),
     userId: "1234567",
     sub: "",
     verificationSource: "acsp",
@@ -13,10 +13,10 @@ export const dummyIdentity: Identity = {
     currentName: {
         forenames: ["DEMO"],
         surname: "USER",
-        created: new Date().toDateString()
+        created: new Date()
     },
     previousNames: [],
-    dateOfBirth: new Date().toDateString(),
+    dateOfBirth: new Date(),
     currentAddress: {
         addressLine1: "Address 1",
         addressLine2: "Address 2",
@@ -25,15 +25,15 @@ export const dummyIdentity: Identity = {
         postalCode: "Postcode",
         premises: "Premise",
         locality: "locality",
-        created: new Date().toDateString()
+        created: new Date()
     },
     previousAddresses: [],
     verificationEvidence: [{ type: VerificationType.passport }],
-    lastUpdated: new Date().toDateString(),
+    lastUpdated: new Date(),
     preferredName: {
         forenames: ["DEMO"],
         surname: "USER",
-        created: new Date().toDateString()
+        created: new Date()
     },
     assuranceLevel: "medium",
     secureIndicator: false
@@ -46,12 +46,12 @@ export const verifiedClientDetails: VerifiedClientData = {
     currentName: {
         forenames: ["DEMO", "1"],
         surname: "USER",
-        created: new Date().toDateString()
+        created: new Date()
     },
     preferredName: {
         forenames: ["DEMO", "1"],
         surname: "USER",
-        created: new Date().toDateString()
+        created: new Date()
     },
     dateOfBirth: new Date(),
     currentAddress: {
@@ -62,7 +62,7 @@ export const verifiedClientDetails: VerifiedClientData = {
         postalCode: "Postcode",
         premises: "Premise",
         locality: "locality",
-        created: new Date().toDateString()
+        created: new Date()
     },
     verificationEvidence: [{ type: VerificationType.passport }],
     acspUserId: "",
