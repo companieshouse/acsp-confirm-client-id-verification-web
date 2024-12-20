@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { Identity, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity, VerificationType, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 import logger from "../utils/logger";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { ApiErrorResponse } from "@companieshouse/api-sdk-node/dist/services/resource";
@@ -71,18 +71,30 @@ export const sendVerifiedClientDetails = async (verifiedClientData: VerifiedClie
 };
 
 export class IdentityVerificationService {
-    public prepareVerifiedClientData (clientData: ClientData, req: Request) : VerifiedClientData {
+    public prepareVerifiedClientData (clientData: ClientData, req: Request): VerifiedClientData {
         const acspNumber: string = getLoggedInAcspNumber(req.session);
         const acspUserId: string = getLoggedInUserId(req.session);
-        const foreNames = [];
+        const foreNames: string[] = [];
         foreNames.push(clientData.firstName!);
         if (clientData.middleName !== "") {
             foreNames.push(clientData.middleName!);
         }
 
+        if (!clientData.preferredFirstName) {
+            clientData.preferredFirstName = clientData.firstName;
+            clientData.preferredMiddleName = clientData.middleName;
+            clientData.preferredLastName = clientData.lastName;
+        }
+
+        const preferredForeNames: string[] = [];
+        preferredForeNames.push(clientData.preferredFirstName!);
+        if (clientData.preferredMiddleName !== "") {
+            preferredForeNames.push(clientData.preferredMiddleName!);
+        }
+
         const documentsChecked = clientData.documentsChecked!;
         const verificationEvidence = documentsChecked.map((document) => {
-            return { type: document };
+            return { type: VerificationType[document as keyof typeof VerificationType] };
         });
 
         return {
@@ -94,7 +106,12 @@ export class IdentityVerificationService {
             currentName: {
                 forenames: foreNames,
                 surname: clientData.lastName!,
-                created: new Date()
+                created: new Date().toDateString()
+            },
+            preferredName: {
+                forenames: preferredForeNames!,
+                surname: clientData.preferredLastName!,
+                created: new Date().toDateString()
             },
             verificationDate: new Date(clientData.whenIdentityChecksCompleted!),
             validationMethod: clientData.howIdentityDocsChecked!,
@@ -102,12 +119,12 @@ export class IdentityVerificationService {
             currentAddress: {
                 addressLine1: clientData.address?.line1!,
                 addressLine2: clientData.address?.line2,
-                region: clientData.address?.county,
-                locality: clientData.address?.town,
+                region: clientData.address?.county!,
+                locality: clientData.address?.town!,
                 country: clientData.address?.country!,
                 postalCode: clientData.address?.postcode!,
                 premises: clientData.address?.propertyDetails!,
-                created: new Date()
+                created: new Date().toDateString()
             }
         };
     }
