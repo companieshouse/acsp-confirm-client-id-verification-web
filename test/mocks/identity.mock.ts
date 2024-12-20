@@ -1,10 +1,10 @@
-import { Identity, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity, VerificationType, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 
 export const dummyIdentity: Identity = {
     id: "23456",
-    created: new Date(),
+    created: new Date().toDateString(),
     status: "valid",
-    statusDate: new Date(),
+    statusDate: new Date().toDateString(),
     userId: "1234567",
     sub: "",
     verificationSource: "acsp",
@@ -13,10 +13,10 @@ export const dummyIdentity: Identity = {
     currentName: {
         forenames: ["DEMO"],
         surname: "USER",
-        created: new Date()
+        created: new Date().toDateString()
     },
     previousNames: [],
-    dateOfBirth: new Date(),
+    dateOfBirth: new Date().toDateString(),
     currentAddress: {
         addressLine1: "Address 1",
         addressLine2: "Address 2",
@@ -25,11 +25,18 @@ export const dummyIdentity: Identity = {
         postalCode: "Postcode",
         premises: "Premise",
         locality: "locality",
-        created: new Date()
+        created: new Date().toDateString()
     },
     previousAddresses: [],
-    verificationEvidence: ["passport"],
-    lastUpdated: new Date()
+    verificationEvidence: [{ type: VerificationType.passport }],
+    lastUpdated: new Date().toDateString(),
+    preferredName: {
+        forenames: ["DEMO"],
+        surname: "USER",
+        created: new Date().toDateString()
+    },
+    assuranceLevel: "medium",
+    secureIndicator: false
 };
 
 export const verifiedClientDetails: VerifiedClientData = {
@@ -39,7 +46,12 @@ export const verifiedClientDetails: VerifiedClientData = {
     currentName: {
         forenames: ["DEMO", "1"],
         surname: "USER",
-        created: new Date()
+        created: new Date().toDateString()
+    },
+    preferredName: {
+        forenames: ["DEMO", "1"],
+        surname: "USER",
+        created: new Date().toDateString()
     },
     dateOfBirth: new Date(),
     currentAddress: {
@@ -50,9 +62,9 @@ export const verifiedClientDetails: VerifiedClientData = {
         postalCode: "Postcode",
         premises: "Premise",
         locality: "locality",
-        created: new Date()
+        created: new Date().toDateString()
     },
-    verificationEvidence: [{ type: "passport" }],
+    verificationEvidence: [{ type: VerificationType.passport }],
     acspUserId: "",
     verificationDate: new Date(),
     validationMethod: ""
