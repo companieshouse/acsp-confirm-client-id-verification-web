@@ -4,24 +4,24 @@
 {% extends "layouts/default.njk" %}
 {% set title = i18n.confirmVerificationHeading %}
 {% block main_content %}
-{% set displayedName = " " %}
+{% set displayedFirstName = " " %}
     {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
-        {% set displayedName = publicRegisterName + " " %}
+        {% set displayedFirstName = preferredFirstName + " " %}
     {% else %}   
-        {% set displayedName = firstName  + " " %}
+        {% set displayedFirstName = firstName  + " " %}
     {% endif %}
 
 
 {% set displayedLastName = " " %}
     {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
-        {% set displayedLastName =  publicRegisterLastName + " " %}
+        {% set displayedLastName =  preferredLastName + " " %}
     {% else %}   
         {% set displayedLastName =  lastName + " " %}
     {% endif %}
 
 
 
-{% set checkBoxText = "<p>" + i18n.confirmationStatement1 + " " + acspName + " " + i18n.confirmationStatement2 + " " + displayedName + displayedLastName + i18n.confirmationStatement3 + " " + formattedDate + "." + 
+{% set checkBoxText = "<p>" + i18n.confirmationStatement1 + " " + acspName + " " + i18n.confirmationStatement2 + " " + displayedFirstName + displayedLastName + i18n.confirmationStatement3 + " " + formattedDate + "." + 
     "</p><br><p>" + i18n.Mae + acspName + " " + i18n.isSupervisedBy + " " + amlBodies + ".</p>"%}
 
 {% include "partials/user_name.njk" %}

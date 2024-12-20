@@ -44,8 +44,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             payload,
             acspName: acspDetails.name,
             amlBodies,
-            publicRegisterName: clientData?.publicRegisterName,
-            publicRegisterLastName: clientData?.publicRegisterLastName,
+            preferredFirstName: clientData?.preferredFirstName,
+            preferredLastName: clientData?.preferredLastName,
             useNameOnPublicRegister: clientData?.useNameOnPublicRegister
         });
     } catch (error) {
@@ -79,8 +79,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             ...pageProperties,
             amlBodies,
             acspName: acspDetails.name,
-            publicRegisterName: clientData?.publicRegisterName,
-            publicRegisterLastName: clientData?.publicRegisterLastName,
+            preferredFirstName: clientData?.preferredFirstName,
+            preferredLastName: clientData?.preferredLastName,
             useNameOnPublicRegister: clientData?.useNameOnPublicRegister
         });
     } else {
