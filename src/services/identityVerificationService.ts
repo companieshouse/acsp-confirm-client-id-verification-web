@@ -109,7 +109,7 @@ export class IdentityVerificationService {
                 created: new Date().toDateString()
             },
             preferredName: {
-                forenames: preferredForeNames!,
+                forenames: preferredForeNames,
                 surname: clientData.preferredLastName!,
                 created: new Date().toDateString()
             },
