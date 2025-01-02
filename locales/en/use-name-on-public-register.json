@@ -1,8 +1,11 @@
 {
-    "useNameOnPublicRegisterTitle1" : "Can we use the name ",
-    "useNameOnPublicRegisterTitle2" : " on the public register?",
+    "useNameOnPublicRegisterTitle" : "Can we use this name in the identity verification statement for this person?",
     "selectYesOptionExplanation" : "If you select 'yes', we'll include this name in the identity verification declaration for this person on the online Companies House register.",
+    "selectNoOptionExplanation" : "You can provide a different name if, for example, it’s not the one they’re usually known by.",
     "useNameOption1" : "Yes",
-    "useNameOption2" : "No, this name cannot be shown on the public register",
+    "useNameOption2" : "No, I need to provide a different name",
+    "detailsHeading" : "What is the identity verification statement?",
+    "detailsText1" : "Later in this service, you'll be asked to confirm a statement that you are satisfied this person is who they claim to be. The statement will include this person’s name.",
+    "detailsText2" : "If the person connects their verified identity to their Companies House record as a director or person with significant control (PSC), we’ll show the statement on the public register to confirm they are verified.",
     "error-useNameOnPublicRegisterNoRadioBtnSelected" : "Select if we can use the name on the public register"
 }
