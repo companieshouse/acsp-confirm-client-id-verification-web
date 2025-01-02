@@ -1,17 +1,21 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+
 
 {% set errors = pageProperties.errors %}
 {% extends "layouts/default.njk" %}
-{% set title = i18n.useNameOnPublicRegisterTitle1 + firstName + ' ' + lastName + i18n.useNameOnPublicRegisterTitle2  %}
-{% set matomoTitle = i18n.useNameOnPublicRegisterTitle1 + i18n.useNameOnPublicRegisterTitle2  %}
+{% set title = i18n.useNameOnPublicRegisterTitle  %}
+{% set matomoTitle = i18n.useNameOnPublicRegisterTitle  %}
 
 {% block main_content %}
   <form action="" method="POST">
+    {% include "partials/user_name.njk" %}
     <div class="govuk-form-group">
-        <h1 class="govuk-heading-l">{{ i18n.useNameOnPublicRegisterTitle1 }}{{ firstName }} {{ lastName }}{{ i18n.useNameOnPublicRegisterTitle2 }}</h1>
-        <p class="govuk-body">{{ i18n.selectYesOptionExplanation }}</p>
-
+        <h1 class="govuk-heading-l">{{ i18n.useNameOnPublicRegisterTitle }}</h1>
+        <div class="govuk-hint govuk-!-margin-bottom-6">
+            {{ i18n.selectNoOptionExplanation }}
+        </div>
         {{ govukRadios({
             errorMessage: errors.useNameOnPublicRegisterRadio if errors,
             classes: "govuk-radios",
@@ -32,6 +36,18 @@
             ]
         }) }}
     </div>
+
+        <details class="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  {{i18n.detailsHeading}}
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+             <p class="govuk-body">{{i18n.detailsText1}}</p>
+             <p>{{i18n.detailsText2}}</p>
+            </div>
+        </details>
 
         {{ govukButton({
             text: i18n.Continue,
