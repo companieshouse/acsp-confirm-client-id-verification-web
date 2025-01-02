@@ -152,29 +152,43 @@ export class FormatService {
         return formattedDocuments;
     }
 
-    public static formatDocumentHintText (documents: string[] | undefined, i18n: any): string[] {
+    public static formatDocumentHintText (documents: string[] | undefined, howIdentityDocsChecked: string | undefined, i18n: any): string[] {
         const documentHintText: string[] = [];
         if (!documents || documents.length === 0) {
             return documentHintText;
         }
-        const hintMapping:{ [key: string]: string } = {
-            passport: i18n.biometricPassportHint,
-            irish_passport_card: i18n.irishPassportHint,
-            UK_or_EU_driving_licence: i18n.ukDriversLicenceHint,
-            EEA_identity_card: i18n.identityCardHint,
-            UK_biometric_residence_permit: i18n.biometricPermitHint,
-            UK_biometric_residence_card: i18n.biometricPermitHint,
-            UK_frontier_worker_permit: i18n.frontierPermitHintHint,
-            UK_PASS_card: i18n.passCardHint,
-            UK_or_EU_digital_tachograph_card: i18n.ukEuDigitalCardHint,
-            UK_HM_forces_card: i18n.ukForceCardHint,
-            UK_HM_veteran_card: i18n.ukArmedForceCardHint,
-            work_permit_photo_id: i18n.photoWorkPermitHint,
-            immigration_document_photo_id: i18n.photoimmigrationDocHint,
-            visa_photo_id: i18n.photoVisaHint,
-            UK_firearms_licence: i18n.ukFirearmsLicenceHint,
-            PRADO_supported_photo_id: i18n.photoIdPradoHint
-        };
+        let hintMapping:{ [key: string]: string };
+        if (howIdentityDocsChecked === "cryptographic_security_features_checked") {
+            // option1
+            hintMapping = {
+                passport: i18n.biometricPassportHint,
+                irish_passport_card: i18n.irishPassportHint,
+                UK_or_EU_driving_licence: i18n.ukDriversLicenceHint,
+                EEA_identity_card: i18n.identityCardHint,
+                UK_biometric_residence_permit: i18n.biometricPermitHint,
+                UK_biometric_residence_card: i18n.biometricCardHint,
+                UK_frontier_worker_permit: i18n.frontierPermitHint
+            };
+        } else {
+            hintMapping = {
+                passport: i18n.biometricPassportHint,
+                irish_passport_card: i18n.irishPassportHint,
+                EEA_identity_card: i18n.identityCardHint,
+                UK_biometric_residence_permit: i18n.biometricPermitHint,
+                UK_biometric_residence_card: i18n.biometricCardHint,
+                UK_PASS_card: i18n.passCardHint,
+                UK_or_EU_digital_tachograph_card: i18n.ukEuDigitalCardHint,
+                UK_or_EU_driving_licence: i18n.ukDriversLicenceHint,
+                UK_HM_forces_card: i18n.ukForceCardHint,
+                UK_HM_veteran_card: i18n.ukArmedForceCardHint,
+                UK_frontier_worker_permit: i18n.frontierPermitHint,
+                work_permit_photo_id: i18n.photoWorkPermitHint,
+                immigration_document_photo_id: i18n.photoimmigrationDocHint,
+                visa_photo_id: i18n.photoVisaHint,
+                UK_firearms_licence: i18n.ukFirearmsLicenceHint,
+                PRADO_supported_photo_id: i18n.photoIdPradoHint
+            };
+        }
         documents.forEach((doc) => {
             if (hintMapping[doc]) {
                 documentHintText.push(hintMapping[doc]);

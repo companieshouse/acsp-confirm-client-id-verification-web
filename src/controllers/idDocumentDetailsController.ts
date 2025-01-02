@@ -22,7 +22,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const locales = getLocalesService();
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-    const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
+    const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked, clientData.howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
         clientData.howIdentityDocsChecked,
@@ -52,7 +52,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
     const errorList = validationResult(req);
-    const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
+    const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked, clientData.howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
     const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
         clientData.documentsChecked,
         clientData.howIdentityDocsChecked,
