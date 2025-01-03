@@ -14,6 +14,7 @@
     "error-invalidMiddleNameLength": "Middle names must be 50 characters or less",
     "error-invalidLastNameLength": "Last name must be 160 characters or less",
 
-    "namePublicRegisterTitle": "What name can we use for this person on the public register?",
-    "namePublicRegisterInformation":"We'll use this name in the identity verification declaration that's displayed as part of this person's records on the online Companies House register."
+    "namePublicRegisterTitle": "What name can we use for the identity verification statement?",
+    "namePublicRegisterHint":"This should be the name they're usually known by.",
+    "namePublicRegisterInformation":"We'll include this name in the statement, which will be shown on the Companies House public register if this person connects their verified identity to our records."
 }

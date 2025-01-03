@@ -14,6 +14,7 @@
     "error-invalidMiddleNameLength": "Rhaid i’r enwau canol fod yn 50 nod neu lai",
     "error-invalidLastNameLength": "Rhaid i'r cyfenw fod yn 160 nod neu lai",
 
-    "namePublicRegisterTitle": "What name can we use for this person on the public register? welsh",
-    "namePublicRegisterInformation":"We'll use this name in the identity verification declaration that's displayed as part of this person's records on the online Companies House register. welsh"
+    "namePublicRegisterTitle": "What name can we use for the identity verification statement? welsh",
+    "namePublicRegisterHint":"This should be the name they're usually known by. welsh",
+    "namePublicRegisterInformation":"We'll include this name in the statement, which will be shown on the Companies House public register if this person connects their verified identity to our records. welsh"
 }
