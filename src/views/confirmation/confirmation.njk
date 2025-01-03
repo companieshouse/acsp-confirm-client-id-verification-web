@@ -27,12 +27,13 @@
     {% set useNameOnVerificationStatement = i18n.useNameOption2 %}
   {% endif %}
 
-  {% if clientData.publicRegisterName %}
-    {% set fullPreferredName = clientData.publicRegisterName %}
-    {% if clientData.publicRegisterMiddleName %}
-      {% set fullPreferredName = fullPreferredName + ' ' + clientData.publicRegisterMiddleName %}
+  {% set useNameOnPublicRegister = clientData.useNameOnPublicRegister %}
+  {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
+    {% set fullPreferredName = clientData.preferredFirstName %}
+    {% if clientData.preferredMiddleName %}
+      {% set fullPreferredName = fullPreferredName + ' ' + clientData.preferredMiddleName %}
     {% endif %}
-    {% set fullPreferredName = fullPreferredName + ' ' + clientData.publicRegisterLastName %}
+    {% set fullPreferredName = fullPreferredName + ' ' + clientData.preferredLastName %}
   {% else %}
     {% set fullPreferredName = fullName %}
   {% endif %}
