@@ -1,7 +1,6 @@
 {
     "useNameOnPublicRegisterTitle" : "Can we use this name in the identity verification statement for this person? welsh",
-    "selectYesOptionExplanation" : "If you select 'yes', we'll include this name in the identity verification declaration for this person on the online Companies House register. welsh",
-    "selectNoOptionExplanation" : "You can provide a different name if, for example, it’s not the one they’re usually known by. welsh",
+    "selectNoOptionExplanation" : "You can provide a different name if, for example, if they use a different name for their professional activities. welsh",
     "useNameOption1" : "Yes welsh",
     "useNameOption2" : "No, I need to provide a different name welsh",
     "detailsHeading" : "What is the identity verification statement? welsh",
