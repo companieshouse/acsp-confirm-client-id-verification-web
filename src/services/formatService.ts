@@ -186,7 +186,7 @@ export class FormatService {
                 immigration_document_photo_id: i18n.photoimmigrationDocHint,
                 visa_photo_id: i18n.photoVisaHint,
                 UK_firearms_licence: i18n.ukFirearmsLicenceHint,
-                PRADO_supported_photo_id: i18n.photoIdPradoHint
+                PRADO_supported_photo_id: i18n.photoIdPradoDetailsHint
             };
         }
         documents.forEach((doc) => {

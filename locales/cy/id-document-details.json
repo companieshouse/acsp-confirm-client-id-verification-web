@@ -24,7 +24,7 @@
     "photoimmigrationDocHint": "This is 9 characters long. Welsh",
     "photoVisaHint": "This will have between 8 and 9 characters. Welsh",
     "ukFirearmsLicenceHint": "This will have between 6 and 10 characters. Welsh",
-    "photoIdPradoHint": "This needs to be a unique reference or number that is shown on the document. Welsh",
+    "photoIdPradoDetailsHint": "This needs to be a unique reference or number that is shown on the document. Welsh",
 
 
     "error-docNumberInput": "Enter the details for the {doc selected} welsh",
