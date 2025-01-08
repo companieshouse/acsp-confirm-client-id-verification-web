@@ -36,6 +36,8 @@ export const LOCALES_PATH = getEnvironmentVariable("LOCALES_PATH", "locales");
 
 export const DEFAULT_SESSION_EXPIRATION = getEnvironmentValue("DEFAULT_SESSION_EXPIRATION", "3600");
 
+export const COOKIE_SECURE_ONLY = getEnvironmentValue("COOKIE_SECURE_ONLY");
+
 // API Keys and Secrets
 
 export const CHS_API_KEY = getEnvironmentValue("CHS_API_KEY", "chs.api.key");
