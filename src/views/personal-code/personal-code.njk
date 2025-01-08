@@ -46,7 +46,7 @@
     </form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
+<script nonce={{ nonce | dump | safe }}>
     // Overriding page title to remove user's personal details
     _paq.push(["setDocumentTitle", "User's " + "{{i18n.codePageTitle}}" + " - Tell Companies House you have verified someone’s identity"]);
     trackEventBasedOnPageTitle("continue-button", "User's " + "{{i18n.codePageTitle}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Continue-PC");

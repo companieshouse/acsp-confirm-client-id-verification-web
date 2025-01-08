@@ -47,7 +47,7 @@
 	</form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
+<script nonce={{ nonce | dump | safe }}>
 	    trackEventBasedOnPageTitle("signout-yes", "{{title}}", "{{matomoRadioSelect}}", "Signout-yes");
 		trackEventBasedOnPageTitle("signout-no", "{{title}}", "{{matomoRadioSelect}}", "Signout-no");
 		trackEventBasedOnPageTitle("save-and-continue", "{{title}}", "{{matomoButtonClick}}", "Save and continue");

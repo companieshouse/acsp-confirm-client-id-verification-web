@@ -49,7 +49,7 @@
   </form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
+<script nonce={{ nonce | dump | safe }}>
   trackEventBasedOnPageTitle("find-address-button", "{{title}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Find address");
   trackEventBasedOnPageTitle("enter-address-manually-link", "{{title}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoLinkClick}}", "Enter address manually");
 </script>

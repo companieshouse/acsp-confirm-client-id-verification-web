@@ -40,7 +40,7 @@
 
 
 <div id="templateName" data-id='{{templateTitle}}' hidden></div>
-<script type="application/javascript">
+<script nonce={{ nonce | dump | safe }} type="application/javascript">
   window.SERVICE_NAME = "Tell Companies House you have verified someone's identity";
   window.PIWIK_URL = '{{ PIWIK_URL }}'
   window.PIWIK_SITE_ID = '{{ PIWIK_SITE_ID }}'
@@ -51,4 +51,4 @@
 <script src="{{ cdnHost }}/javascripts/app/cookie-consent/matomo-only-cookie-consent.js"></script>
 <script src="{{ cdnHost }}/javascripts/vendor/jquery-3.3.1.min.js"></script>
 <script src="{{ cdnHost }}/javascripts/lib/navbar.js"></script>
-<script>window.GOVUKFrontend.initAll()</script>
+<script nonce={{ nonce | dump | safe }}>window.GOVUKFrontend.initAll()</script>

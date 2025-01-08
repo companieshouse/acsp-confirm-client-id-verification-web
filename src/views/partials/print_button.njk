@@ -1,6 +1,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 <noscript>
-  <style>
+  <style nonce={{ nonce | dump | safe }}>
     a[id="print-button"] {
       display: none;
     }
@@ -10,7 +10,7 @@
   </style>
 </noscript>
 
-<style>
+<style nonce={{ nonce | dump | safe }}>
   .check-your-answers-javascript-disabled-text-style {
     display: none;
   }
@@ -28,6 +28,6 @@
 <p class="govuk-body govuk-!-font-size-20 check-your-answers-javascript-disabled-text-style">{{i18n.printFromBrowser}}</p>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
+<script nonce={{ nonce | dump | safe }}>
   trackEventBasedOnPageTitle("print-button", "{{title}}", "pageview", "Print identity verification details");
 </script>

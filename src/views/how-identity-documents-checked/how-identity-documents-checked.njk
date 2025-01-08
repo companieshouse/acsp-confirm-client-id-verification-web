@@ -58,7 +58,7 @@
   </form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
+<script nonce={{ nonce | dump | safe }}>
     trackEventBasedOnPageTitle("identity-verification-standard-link-id", "{{title}}", "click-link", "Identity verification standard link");
     trackEventBasedOnPageTitle("option-1", "{{title}}", "{{matomoRadioSelection}}", "Option 1");
     trackEventBasedOnPageTitle("option-2", "{{title}}", "{{matomoRadioSelection}}", "Option 2");

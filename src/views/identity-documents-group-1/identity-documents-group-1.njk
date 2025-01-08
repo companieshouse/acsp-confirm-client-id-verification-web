@@ -64,7 +64,7 @@
     </form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
+<script nonce={{ nonce | dump | safe }}>
     trackEventBasedOnPageTitle("biometric-passport", "{{title}}", "{{matomoRadioSelection}}", "Biometric or machine readable passport");
     trackEventBasedOnPageTitle("irish-passport", "{{title}}", "{{matomoRadioSelection}}", "Irish Passport Card");
     trackEventBasedOnPageTitle("uk-drivers-licence", "{{title}}", "{{matomoRadioSelection}}", "UK, Channel Islands,  Isle of Man, and EU photocard driving license (full or provisional)");

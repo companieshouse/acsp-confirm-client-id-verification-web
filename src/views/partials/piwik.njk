@@ -1,7 +1,7 @@
 <script src="{{ cdnHost }}/javascripts/app/piwik-enable.js"></script>
 
 <!-- Matomo -->
-<script>
+<script nonce={{ nonce | dump | safe }}>
     var _paq = window._paq = window._paq || [];
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     
@@ -20,10 +20,10 @@
   </script>
   <noscript>
     <p>
-        <img src="{{PIWIK_URL}}/piwik.php?idsite={{PIWIK_SITE_ID}}" style="border:0;" alt="" />
+        <img src="{{PIWIK_URL}}/piwik.php?idsite={{PIWIK_SITE_ID}}" style="border:0;" nonce={{ nonce | dump | safe }} alt="" />
     </p>
 </noscript>
-<script>
+<script nonce={{ nonce | dump | safe }}>
 // Function to add event categories based on page title
 function trackEventBasedOnPageTitle(elementId, eventCategory, eventAction, eventName) {
     document.getElementById(elementId)
