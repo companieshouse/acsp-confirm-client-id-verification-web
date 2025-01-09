@@ -16,6 +16,8 @@ export const CACHE_SERVER = getEnvironmentValue("CACHE_SERVER", "false");
 
 export const CDN_HOST = getEnvironmentValue("CDN_HOST", "//d3miau0r8stw5u.cloudfront.net");
 
+export const ANY_PROTOCOL_CDN_HOST = getEnvironmentValue("ANY_PROTOCOL_CDN_HOST", "false");
+
 export const CHS_URL = getEnvironmentValue("CHS_URL", "false");
 
 export const COOKIE_DOMAIN = getEnvironmentValue("COOKIE_DOMAIN", "false");
@@ -35,6 +37,8 @@ export const LOCALES_ENABLED = getEnvironmentVariable("LOCALES_ENABLED", "true")
 export const LOCALES_PATH = getEnvironmentVariable("LOCALES_PATH", "locales");
 
 export const DEFAULT_SESSION_EXPIRATION = getEnvironmentValue("DEFAULT_SESSION_EXPIRATION", "3600");
+
+export const COOKIE_SECURE_ONLY = getEnvironmentValue("COOKIE_SECURE_ONLY");
 
 // API Keys and Secrets
 

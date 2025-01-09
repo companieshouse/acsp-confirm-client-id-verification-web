@@ -11,17 +11,24 @@ import {
     APPLICATION_NAME,
     CDN_URL_CSS,
     CDN_URL_JS,
-    CDN_HOST,
     CHS_URL,
     PIWIK_URL,
-    PIWIK_SITE_ID
+    PIWIK_SITE_ID,
+    ANY_PROTOCOL_CDN_HOST
 } from "./utils/properties";
 import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT } from "./types/pageURL";
 import { commonTemplateVariablesMiddleware } from "./middleware/common_variables_middleware";
 import { getLocalesService, selectLang } from "./utils/localise";
 import { ErrorService } from "./services/errorService";
 import { acspAuthMiddleware } from "./middleware/acsp_authentication_middleware";
+import helmet from "helmet";
+import { v4 as uuidv4 } from "uuid";
+import nocache from "nocache";
+import { prepareCSPConfig } from "./middleware/content_security_policy_middleware_config";
+
 const app = express();
+
+const nonce: string = uuidv4();
 
 const nunjucksEnv = nunjucks.configure([path.join(__dirname, "views"),
     path.join(__dirname, "/../node_modules/govuk-frontend"),
@@ -36,7 +43,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "njk");
 nunjucksEnv.addGlobal("cdnUrlCss", CDN_URL_CSS);
 nunjucksEnv.addGlobal("cdnUrlJs", CDN_URL_JS);
-nunjucksEnv.addGlobal("cdnHost", CDN_HOST);
+nunjucksEnv.addGlobal("cdnHost", ANY_PROTOCOL_CDN_HOST);
 nunjucksEnv.addGlobal("chsUrl", CHS_URL);
 nunjucksEnv.addGlobal("SERVICE_NAME", APPLICATION_NAME);
 
@@ -54,10 +61,17 @@ app.use(express.static(path.join(__dirname, "/../assets/public")));
 
 // Apply middleware
 app.use(cookieParser());
+app.use(nocache());
+app.use(helmet(prepareCSPConfig(nonce)));
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, authenticationMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspAuthMiddleware);
 app.use(commonTemplateVariablesMiddleware);
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.locals.nonce = nonce;
+    next();
+});
 
 // Channel all requests through router dispatch
 routerDispatch(app);

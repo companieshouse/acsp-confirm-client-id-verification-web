@@ -15,7 +15,7 @@
         <a id="provide-different-email-link-id" href="/tell-companies-house-you-have-verified-someones-identity/what-is-their-email-address">{{ i18n.provideDifferentEmailLink }}{{ firstName }} {{ lastName }}</a>.
     </p>
 
-    <script>
+    <script nonce={{ nonce | dump | safe }}>
         trackEventBasedOnPageTitle("provide-different-email-link-id", "{{title}}", "click-link", "provide different email link");
     </script>
 

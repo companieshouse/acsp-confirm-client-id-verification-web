@@ -319,7 +319,7 @@
   </form>
   
 <!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
+<script nonce={{ nonce | dump | safe }}>
     trackEventBasedOnPageTitle("confirm-send-button", "{{title}}", "{{matomoButtonClick}}", "Confirm and Send");
 </script>
 

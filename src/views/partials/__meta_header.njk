@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta name="format-detection" content="telephone=no">
     {# Set the page object to hold values exported from server to JS files #}
-    <script>
+    <script nonce={{ nonce | dump | safe }}>
         var page = page || {};
     </script>
     <!-- Matomo script to run function trackEventBasedOnPageTitle on each page -->

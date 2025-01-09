@@ -176,7 +176,7 @@ i18n.identityDocumentsIDVTitle %}
     </form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
+<script nonce={{ nonce | dump | safe }}>
     trackEventBasedOnPageTitle("passport", "{{title}}", "{{matomoRadioSelection}}", "Passport");
     trackEventBasedOnPageTitle("irish-passport-card", "{{title}}", "{{matomoRadioSelection}}", "Irish passport card");
     trackEventBasedOnPageTitle("identity-card", "{{title}}", "{{matomoRadioSelection}}", "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein");
