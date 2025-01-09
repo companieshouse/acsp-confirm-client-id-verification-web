@@ -11,10 +11,10 @@ import {
     APPLICATION_NAME,
     CDN_URL_CSS,
     CDN_URL_JS,
-    CDN_HOST,
     CHS_URL,
     PIWIK_URL,
-    PIWIK_SITE_ID
+    PIWIK_SITE_ID,
+    ANY_PROTOCOL_CDN_HOST
 } from "./utils/properties";
 import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT } from "./types/pageURL";
 import { commonTemplateVariablesMiddleware } from "./middleware/common_variables_middleware";
@@ -43,7 +43,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "njk");
 nunjucksEnv.addGlobal("cdnUrlCss", CDN_URL_CSS);
 nunjucksEnv.addGlobal("cdnUrlJs", CDN_URL_JS);
-nunjucksEnv.addGlobal("cdnHost", CDN_HOST);
+nunjucksEnv.addGlobal("cdnHost", ANY_PROTOCOL_CDN_HOST);
 nunjucksEnv.addGlobal("chsUrl", CHS_URL);
 nunjucksEnv.addGlobal("SERVICE_NAME", APPLICATION_NAME);
 

@@ -16,6 +16,8 @@ export const CACHE_SERVER = getEnvironmentValue("CACHE_SERVER", "false");
 
 export const CDN_HOST = getEnvironmentValue("CDN_HOST", "//d3miau0r8stw5u.cloudfront.net");
 
+export const ANY_PROTOCOL_CDN_HOST = getEnvironmentValue("ANY_PROTOCOL_CDN_HOST", "false");
+
 export const CHS_URL = getEnvironmentValue("CHS_URL", "false");
 
 export const COOKIE_DOMAIN = getEnvironmentValue("COOKIE_DOMAIN", "false");
