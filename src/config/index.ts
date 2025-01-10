@@ -10,6 +10,7 @@ export const CONFIRM_HOME_ADDRESS = `${BASE_VIEWS_URL}/confirm-home-address/conf
 export const ERROR_400 = `${BASE_PARTIALS_URL}/error_400`;
 export const ERROR_404 = `${BASE_PARTIALS_URL}/error_404`;
 export const ERROR_500 = `${BASE_PARTIALS_URL}/error_500`;
+export const ERROR_403 = `${BASE_PARTIALS_URL}/error_403`;
 
 export const PERSONS_NAME = `${BASE_VIEWS_URL}/persons-name/persons-name`;
 export const PERSONAL_CODE = `${BASE_VIEWS_URL}/personal-code/personal-code`;

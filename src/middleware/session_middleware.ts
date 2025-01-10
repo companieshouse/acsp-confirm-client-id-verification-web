@@ -3,7 +3,7 @@ import Redis from "ioredis";
 import { CACHE_SERVER, COOKIE_DOMAIN, COOKIE_NAME, COOKIE_SECRET, COOKIE_SECURE_ONLY, DEFAULT_SESSION_EXPIRATION } from "../utils/properties";
 
 const redis = new Redis(CACHE_SERVER);
-const sessionStore = new SessionStore(redis);
+export const sessionStore = new SessionStore(redis);
 
 export const sessionMiddleware = SessionMiddleware({
     cookieDomain: COOKIE_DOMAIN,

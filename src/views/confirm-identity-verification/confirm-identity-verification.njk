@@ -36,6 +36,7 @@
 </div>
 
 <form action="" method="POST">
+    {% include "partials/csrf_token.njk" %}
     {{ govukCheckboxes({
         name: "declaration",
         errorMessage: errors.declaration if errors,

@@ -7,6 +7,13 @@
 
     "technicalDifficuliesTitle": "Sorry we are experiencing technical difficulties",
     "technicalDifficuliesText1": "Try again in a few moments.",
-    "technicalDifficuliesText2": "If this problem continues email enquiries@companieshouse.gov.uk."
-    
+    "technicalDifficuliesText2": "If this problem continues email enquiries@companieshouse.gov.uk.",
+    "sorrySomethingWentWrong":"Sorry, something went wrong",
+    "weHaveNotBeenAbleToSave":"We have not been able to save the information you submitted on the previous screen. This may be because the page was inactive for too long, or because of a technical issue.",
+    "tryTheFollowing":"Try the following:",
+    "useTheBackLink":"use the back link to return to the previous screen and resubmit the information",
+    "signOutOfTheService":"sign out of the service, and then sign back in",
+    "ifTheProblemContinues":"If the problem continues,",
+    "contactUsLink":"contact us",
+    "forHelp":"for help."
 }

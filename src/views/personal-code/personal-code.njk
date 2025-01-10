@@ -9,6 +9,7 @@
 
 {% block main_content %}
     <form action="" method="POST">
+        {% include "partials/csrf_token.njk" %}
         <h1 class="govuk-heading-l">
             {% if "en" in lang %}
                 {{ firstName }} {{ lastName }}{{ i18n.codePageHeading }}

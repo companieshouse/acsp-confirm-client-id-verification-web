@@ -11,6 +11,7 @@
 {% set title = i18n.signoutTitle %}
 {% block main_content %}
 	<form action="" method="POST">
+	    {% include "partials/csrf_token.njk" %}
 		{{ govukRadios({
 			errorMessage: errors.signout if errors,
 			classes: "govuk-radios--inline",

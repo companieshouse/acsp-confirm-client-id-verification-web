@@ -7,6 +7,14 @@
 
     "technicalDifficuliesTitle": "Mae'n ddrwg gennym ein bod yn profi anawsterau technegol",
     "technicalDifficuliesText1": "Ceisiwch eto mewn ychydig funudau.",
-    "technicalDifficuliesText2": "Os yw'r broblem hon yn parhau anfonwch e-bost i enquiries@companieshouse.gov.uk."
+    "technicalDifficuliesText2": "Os yw'r broblem hon yn parhau anfonwch e-bost i enquiries@companieshouse.gov.uk.",
+    "sorrySomethingWentWrong":"Sorry, something went wrong welsh",
+    "weHaveNotBeenAbleToSave":"We have not been able to save the information you submitted on the previous screen. This may be because the page was inactive for too long, or because of a technical issue. welsh",
+    "tryTheFollowing":"Try the following: welsh",
+    "useTheBackLink":"use the back link to return to the previous screen and resubmit the information welsh",
+    "signOutOfTheService":"sign out of the service, and then sign back in welsh",
+    "ifTheProblemContinues":"If the problem continues, welsh",
+    "contactUsLink":"contact us welsh",
+    "forHelp":"for help. welsh"
     
 }

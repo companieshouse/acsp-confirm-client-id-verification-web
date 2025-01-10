@@ -25,7 +25,8 @@ import helmet from "helmet";
 import { v4 as uuidv4 } from "uuid";
 import nocache from "nocache";
 import { prepareCSPConfig } from "./middleware/content_security_policy_middleware_config";
-
+import { csrfProtectionMiddleware } from "./middleware/csrf_protection_middleware";
+import errorHandler from "../src/controllers/csrfErrorController";
 const app = express();
 
 const nonce: string = uuidv4();
@@ -34,7 +35,10 @@ const nunjucksEnv = nunjucks.configure([path.join(__dirname, "views"),
     path.join(__dirname, "/../node_modules/govuk-frontend"),
     path.join(__dirname, "./node_modules/govuk-frontend"),
     path.join(__dirname, "/../node_modules/@companieshouse/ch-node-utils/templates"),
-    path.join(__dirname, "./node_modules/@companieshouse/ch-node-utils/templates")], {
+    path.join(__dirname, "./node_modules/@companieshouse/ch-node-utils/templates"),
+    path.join(__dirname, "/../../node_modules/@companieshouse/ch-node-utils/templates"),
+    path.join(__dirname, "/../node_modules/@companieshouse"),
+    path.join(__dirname, "/../../node_modules/@companieshouse")], {
     autoescape: true,
     express: app
 });
@@ -64,6 +68,7 @@ app.use(cookieParser());
 app.use(nocache());
 app.use(helmet(prepareCSPConfig(nonce)));
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, csrfProtectionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, authenticationMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspAuthMiddleware);
 app.use(commonTemplateVariablesMiddleware);
@@ -82,6 +87,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     const errorService = new ErrorService();
     errorService.renderErrorPage(res, getLocalesService(), selectLang(req.query.lang), req.url);
 });
+
+app.use(...errorHandler);
 
 // Unhandled exceptions
 process.on("uncaughtException", (err: any) => {
