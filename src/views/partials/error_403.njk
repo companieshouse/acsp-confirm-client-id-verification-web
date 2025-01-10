@@ -1,0 +1,22 @@
+{% extends "layouts/default.njk" %}	
+
+{% block backLink %}
+  {# Remove back button on this page by replacing it with nothing #}
+{% endblock %}
+
+{% block main_content %}	
+        <h1 class="govuk-heading-l">{{i18n.sorrySomethingWentWrong}}</h1>
+        <p class="govuk-body">{{i18n.weHaveNotBeenAbleToSave}}</p>
+
+        <p class="govuk-body">{{i18n.tryTheFollowing}}</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>{{i18n.useTheBackLink}}</li>
+            <li>{{i18n.signOutOfTheService}}</li>
+        </ul>
+
+        <p class="govuk-body">{{i18n.ifTheProblemContinues}}
+            <a href="https://www.gov.uk/contact-companies-house">{{i18n.contactUsLink}}</a>
+            {{i18n.forHelp}}
+        </p>
+{% endblock %}

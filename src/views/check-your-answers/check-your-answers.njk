@@ -48,6 +48,7 @@
   {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
 
   <form action="" method="POST">
+    {% include "partials/csrf_token.njk" %}
     <h1 class="govuk-heading-xl">{{ i18n.checkYourAnswersHeading }}</h1>
     <h2 class="govuk-heading-m">{{ fullName + i18n.checkYourAnswersDetailsTableHeading }}</h2>
     {{ govukSummaryList({

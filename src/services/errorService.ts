@@ -21,4 +21,12 @@ export class ErrorService {
             currentUrl: req.url
         });
     }
+
+    public render403Page = (res:Response, locales:LocalesService, lang:string, currentUrl: string) => {
+        res.status(403).render(config.ERROR_403, {
+            title: "Sorry, something went wrong",
+            ...getLocaleInfo(locales, lang),
+            currentUrl: currentUrl
+        });
+    }
 }

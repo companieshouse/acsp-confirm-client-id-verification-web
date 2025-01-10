@@ -7,6 +7,7 @@
 
 {% block main_content %}
     <form action="" method="POST">
+        {% include "partials/csrf_token.njk" %}
         <h1 class="govuk-heading-l">{{ i18n.startPageTitle }}</h1>
 
         <p class="govuk-body">{{ i18n.useThisService }}</p>

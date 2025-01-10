@@ -19,6 +19,7 @@
 
   <div>
     <form action="" method="POST">
+      {% include "partials/csrf_token.njk" %}
       {% include "partials/user_name.njk" %}
       
       <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">

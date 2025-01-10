@@ -1,0 +1,7 @@
+{% from "web-security-node/components/csrf-token-input/macro.njk" import csrfTokenInput %}
+
+{{
+    csrfTokenInput({
+      csrfToken: csrfToken
+    })
+}} 
