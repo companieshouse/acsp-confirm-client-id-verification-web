@@ -26,7 +26,7 @@ import { v4 as uuidv4 } from "uuid";
 import nocache from "nocache";
 import { prepareCSPConfig } from "./middleware/content_security_policy_middleware_config";
 import { csrfProtectionMiddleware } from "./middleware/csrf_protection_middleware";
-import errorHandler from "../src/controllers/csrfErrorController";
+import errorHandler from "./controllers/csrfErrorController";
 const app = express();
 
 const nonce: string = uuidv4();
