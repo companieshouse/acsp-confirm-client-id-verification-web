@@ -64,7 +64,7 @@
         </div>
         <p class="govuk-body">{{ i18n.startTimeout }}</p>
 
-        <button class="govuk-button govuk-button--start" data-module="govuk-button" id="start-now" onClick="_paq.push(['trackGoal', '{{ PIWIK_START_GOAL_ID }}'])">
+        <button class="govuk-button govuk-button--start" data-module="govuk-button" id="start-now">
             {{ i18n.startNow }}
             <svg 
                 class="govuk-button__start-icon" 
@@ -88,6 +88,18 @@
         trackEventBasedOnPageTitle("identity-verification-standard-link", "{{title}}", "{{matomoLinkClick}}", "Our identity verification standard");
         trackEventBasedOnPageTitle("read-the-guidance-verification-link", "{{title}}", "{{matomoLinkClick}}", "Guidance about verifying someone's identity for Companies House");
         trackEventBasedOnPageTitle("start-now", "{{title}}", "{{matomoButtonClick}}", "Start Now");
+
+        function trackStartNowEvent() {
+            _paq.push(['trackGoal', "{{ PIWIK_START_GOAL_ID }}"]);
+        };
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", function (e) {
+                startNowEventListener()
+            });
+        } else {
+            startNowEventListener()
+        }
     </script>
 
 {% endblock %}
