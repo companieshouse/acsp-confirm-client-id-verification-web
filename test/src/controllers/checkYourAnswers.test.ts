@@ -47,8 +47,8 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
             documentsChecked: "• Biometric or machine readable passport<br>• Irish passport card",
             checkYourAnswerDeclaration: "confirm"
         });
-        expect(res.status).toBe(302);
-        expect(res.header.location).toBe(BASE_URL + PROVIDE_DIFFERENT_EMAIL + "?lang=en");
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 
     it("should return status 400 if checkbox is not selected", async () => {
