@@ -4,6 +4,7 @@
 {% set title = i18n.addressConfirmTitle %}
 {% block main_content %}
   <form class="form" action="" method="post">
+    {% include "partials/csrf_token.njk" %}
     {% include "partials/user_name.njk" %}
     {% set addressField = address.propertyDetails + " " + address.line1 + ", " %}
     <h1 class="govuk-heading-l">{{ i18n.addressConfirmTitle }}</h1>
