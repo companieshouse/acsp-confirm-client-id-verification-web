@@ -114,7 +114,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const identityFromEmail = await findIdentityByEmail(clientData.emailAddress!);
             if (identityFromEmail !== undefined) {
-                res.redirect(addLangToUrl(BASE_URL + PROVIDE_DIFFERENT_EMAIL, lang));
+                throw new Error("Email address already exists");
             } else {
                 const identityVerificationService = new IdentityVerificationService();
                 const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData, req);
