@@ -1,5 +1,6 @@
 {
     "thereIsAProblemError": "There is a problem ",
     "error-invalidPostcodeFormat": "Postcode must only include letters a to z, numbers and spaces",
-    "error-invalidAddressPostcode": "Enter a full UK postcode"
+    "error-invalidAddressPostcode": "Enter a full UK postcode",
+    "error": "Error"
 }
