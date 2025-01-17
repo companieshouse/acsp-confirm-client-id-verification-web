@@ -5,7 +5,7 @@ import { sessionMiddleware } from "../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { Request, NextFunction } from "express";
 import { BASE_URL, PERSONS_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE, CHECK_YOUR_ANSWERS } from "../../../src/types/pageURL";
-import { PREVIOUS_PAGE_URL, USER_DATA } from "../../../src/utils/constants";
+import { PREVIOUS_PAGE_URL, USER_DATA, CHECK_YOUR_ANSWERS_FLAG } from "../../../src/utils/constants";
 
 const router = supertest(app);
 
@@ -78,6 +78,7 @@ function createMockSessionMiddleware () {
         middleName: "",
         lastName: "Doe"
     });
+    session.setExtraData(CHECK_YOUR_ANSWERS_FLAG, true);
     customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
         req.session = session;
         next();
