@@ -50,10 +50,7 @@
                 id: "confirm",
                 name: "confirm",
                 value: payload["confirm"],
-                autocomplete: "off",
-                attributes: {
-                    onpaste: "return false"
-                }
+                autocomplete: "off"
             }) }}
 
             {{ govukInsetText({
@@ -71,6 +68,16 @@
     // Overriding page title to remove user's personal details
     _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - Tell Companies House you have verified someone’s identity"]);
     trackEventBasedOnPageTitle("continue-button", "User" + "{{i18n.emailAddress}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Continue-EA");
+
+    // Add event listener to disable paste
+    document.addEventListener('DOMContentLoaded', function() {
+        var confirmInput = document.getElementById('confirm');
+        if (confirmInput) {
+            confirmInput.onpaste = function() {
+                return false;
+            };
+        }
+    });
 </script>
 
 {% endblock main_content %}
