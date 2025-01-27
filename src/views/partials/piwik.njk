@@ -1,7 +1,10 @@
+<script src="{{ cdnHost }}/javascripts/vendor/jquery-3.3.1.min.js"></script>
 <script src="{{ cdnHost }}/javascripts/app/piwik-enable.js"></script>
+
 
 <!-- Matomo -->
 <script nonce={{ nonce | dump | safe }}>
+  var eventCategory = matomoObliteration($(document).find("title").text().split(' -')[0]);
     var _paq = window._paq = window._paq || [];
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     
@@ -10,6 +13,11 @@
       var u = "//matomo.identity.aws.chdev.org/";
       _paq.push(['setTrackerUrl', u + 'matomo.php']);
       _paq.push(['setSiteId', '1']);
+
+     
+       _paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
+    
+
       var d = document,
         g = d.createElement('script'),
         s = d.getElementsByTagName('script')[0];
@@ -17,19 +25,149 @@
       g.src = u + 'matomo.js';
       s.parentNode.insertBefore(g, s);
     })();
+
+//  Matomo automation -- this is to remove all the Matomo calls with the hardcoded analytics texts from the njk pages.
+//  In a situation where Matomo analytics needs a non generic customization, the existing hardcoded Matomo calls are still possible.
+    var textOnRadioSelection = "";
+    var buttonSuffix = "";
+
+    $(function() {
+      //  The condition below checks and prioritizes the customized Matomo analytics calls.
+      //  It has to be defined under "analyticsWithCustomisedMatomoText()" function in the page where the customization is needed.
+      if (!$.isFunction(window.analyticsWithCustomisedMatomoText)){
+        $("form").on("submit",function() {
+          
+          //  The block below covers the Matomo analysis for the readio element.
+          if ($("input[type='radio']:checked").length > 0) {
+              buttonSuffix = "-"+$(this).find("input[type='radio']:checked").attr('value');
+              textOnRadioSelection = matomoObliteration($(this).find("input[type='radio']:checked").siblings("label").text().trim());
+          }
+          //  For other elements like check box and/or hrefs can be added further below like above.
+
+
+
+          //  Finally Matomo analytics are recorded on page submission.
+          if(textOnRadioSelection){
+          alert(eventCategory+" : "+textOnRadioSelection);
+            _paq.push(["trackEvent", eventCategory, textOnRadioSelection]);
+          }
+
+          eventNameBtn = eventNameBtn+buttonSuffix;
+          if(eventNameBtn){
+          alert(eventCategory+" : "+eventNameBtn);
+            _paq.push(["trackEvent", eventCategory, eventNameBtn]);
+          }
+        });
+      }
+      //  On the button click the button details are recorder.
+      $("button").click(function() {
+        eventNameBtn = $(this).text().toUpperCase();
+      });
+    });
+
+
+
+    function matomoObliteration(textToBeChecked){
+        var replacedRestrictedText = "<obliterated>";
+        
+        //  Complete obliteration for personal identifiable data 
+        //  email and address for now, 
+        //  new blocks can be added further below, e.g. phone number
+        
+        //  for Email
+        if(/^\S+@\S+\.\S+$/.test(textToBeChecked)){
+          buttonSuffix = "";
+          return replacedRestrictedText;
+        }
+        
+        //  for address
+        if(/,\s[A-Z0-9]+[A-Z0-9]+/.test(textToBeChecked)){
+          return replacedRestrictedText;
+        }
+
+    // Regex to check for "e-bost" or "Cwmnïau" and remove the last two words (for personal code and email in Welsh)
+
+const regexPattern = /\b(Cwmnïau|Beth yw cyfeiriad e-bost)\b/;
+
+if (regexPattern.test(textToBeChecked)) {
+    // Check which phrase(s) exist and handle them
+    ["Cwmnïau", "Beth yw cyfeiriad e-bost"].forEach(phrase => {
+        if (textToBeChecked.includes(phrase)) {
+            let words = textToBeChecked.split(" ");
+            let userName = words.splice(-2, 2).join(" ");
+            textToBeChecked = textToBeChecked.replace(userName, replacedRestrictedText);
+        }
+    });
+
+    return textToBeChecked;
+}
+
+
+
+// Regex to check for personal code and email (in english)
+    const regexEmailAddress = /email address\?/;  
+    if (regexEmailAddress.test(textToBeChecked)) {
+        let words = textToBeChecked.split(" ");
+        let userName = words.splice(3, 2).join(" ");
+        textToBeChecked = textToBeChecked.replace(userName, replacedRestrictedText);
+        return textToBeChecked;
+    }
+
+    const regexPersonalCode = /\b\w+\s+\w+\s+Companies House Personal Code/;
+    if (regexPersonalCode.test(textToBeChecked)) {
+        let words = textToBeChecked.split(" ");
+        let userName = words.splice(0, 2).join(" ");
+        textToBeChecked = textToBeChecked.replace(userName, replacedRestrictedText);
+        return textToBeChecked;
+    }
+
+  
+
+
+
+        //  Patterns for some existing customised obliterations, 
+        //  new patterns can be added in this array when needed.
+        var restrictedTextPatternsForPartialObliteration = [/(( [A-Z0-9']+)+)\s\(([A-Z0-9]{8,})+\)/,
+                                                            /([A-Z0-9']+( [A-Z0-9']+)+)/,
+                                                            /(( [A-Z0-9']{3,})\S+)/];
+
+        restrictedTextPatternsForPartialObliteration.some(rx => {if(rx.test(textToBeChecked)){
+                                            textToBeChecked = textToBeChecked.replace(rx, " " +replacedRestrictedText);
+                                          }
+                                        }
+                                      );
+        return textToBeChecked;
+    }
+//  End of Matomo automation snippet
+
   </script>
   <noscript>
     <p>
-        <img src="{{PIWIK_URL}}/piwik.php?idsite={{PIWIK_SITE_ID}}" alt="" class="piwik-img" />
+        <img src="{{PIWIK_URL}}/piwik.php?idsite={{PIWIK_SITE_ID}}" class="piwik-img" alt="" />
     </p>
 </noscript>
 <script nonce={{ nonce | dump | safe }}>
-// Function to add event categories based on page title
+// Function to add event categories base on page title
 function trackEventBasedOnPageTitle(elementId, eventCategory, eventAction, eventName) {
     document.getElementById(elementId)
     .addEventListener("click", () => {
         _paq.push(["trackEvent", eventCategory, eventAction, eventName]);
     });
+}
+
+// Matomo function for use on Work Sector page as it is now optional
+function trackEventWorkSector(elementId, eventCategory, eventAction, eventName) {
+  document.getElementById(elementId);
+        _paq.push(["trackEvent", eventCategory, eventAction, eventName]);
+}
+
+// Matomo function to capture radio button selection
+function trackEventBasedOnRadioId(elementId, eventCategory, eventAction) {
+    const radioButton = document.getElementById(elementId);
+    if (radioButton) {
+      const labelText = document.querySelector(`label[for="${radioButton.id}"]`).textContent.trim();
+      _paq.push(["trackEvent", eventCategory, eventAction, labelText]);
+    }
 }
 </script>
 <!-- Matomo Ends -->

@@ -6,7 +6,7 @@ import { BASE_URL, PERSONS_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE, USE_NAME_ON_P
 import { Session } from "@companieshouse/node-session-handler";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { ClientData } from "../model/ClientData";
-import { USER_DATA, MATOMO_BUTTON_CLICK, PREVIOUS_PAGE_URL, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
+import { USER_DATA, PREVIOUS_PAGE_URL, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { getPreviousPageUrl } from "../services/url";
 
@@ -31,7 +31,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     res.render(config.PERSONS_NAME_ON_PUBLIC_REGISTER, {
         previousPage: previousPage,
         ...getLocaleInfo(locales, lang),
-        matomoButtonClick: MATOMO_BUTTON_CLICK,
         currentUrl: BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER,
         payload
     });

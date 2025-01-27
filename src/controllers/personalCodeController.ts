@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, PERSONS_NAME_ON_PUBLIC_REGISTER, USE_NAME_ON_PUBLIC_REGISTER } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA, MATOMO_BUTTON_CLICK } from "../utils/constants";
+import { USER_DATA } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { ClientData } from "../model/ClientData";
 
@@ -17,7 +17,6 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
     res.render(config.PERSONAL_CODE, {
         previousPage: addLangToUrl(previousPage, lang),
         ...getLocaleInfo(locales, lang),
-        matomoButtonClick: MATOMO_BUTTON_CLICK,
         currentUrl: BASE_URL + PERSONAL_CODE,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName

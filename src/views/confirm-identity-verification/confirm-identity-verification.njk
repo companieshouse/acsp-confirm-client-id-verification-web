@@ -66,9 +66,5 @@
     }) }}
 </form>
 
-<!-- Calling Matomo event script to capture event actions based on page title -->
-<script nonce={{ nonce | dump | safe }}>
-    trackEventBasedOnPageTitle("continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue");
-</script>
 
 {% endblock main_content %}
