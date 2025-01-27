@@ -22,7 +22,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
     const session: Session = req.session as any as Session;
     const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
-    // const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
+    const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
 
     // setting CYA flag to true when user reaches this page - used for routing back if they change a value
     saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, true);
@@ -44,7 +44,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
     const formattedIdentityDocuments = clientData.idDocumentDetails!;
 
-    // const amlBodies = getAmlBodiesAsString(acspDetails);
+    const amlBodies = getAmlBodiesAsString(acspDetails);
 
     res.render(config.CHECK_YOUR_ANSWERS, {
         ...getLocaleInfo(locales, lang),
@@ -57,9 +57,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
             documentsChecked: formattedDocumentsChecked,
             idDocumentDetails: formattedIdentityDocuments
-        }
-        // amlBodies,
-        // acspName: acspDetails.name
+        },
+        amlBodies,
+        acspName: acspDetails.name
     });
 };
 

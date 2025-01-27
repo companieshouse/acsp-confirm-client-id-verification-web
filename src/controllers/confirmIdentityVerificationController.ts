@@ -41,8 +41,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             lastName: clientData?.lastName,
             formattedDate,
             payload,
-            // acspName: acspDetails.name,
-            // amlBodies,
+            acspName: acspDetails.name,
+            amlBodies,
             preferredFirstName: clientData?.preferredFirstName,
             preferredLastName: clientData?.preferredLastName,
             useNameOnPublicRegister: clientData?.useNameOnPublicRegister
