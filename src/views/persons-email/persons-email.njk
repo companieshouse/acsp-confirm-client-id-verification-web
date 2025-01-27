@@ -2,24 +2,26 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "layouts/default.njk" %}
-
 {% if "en" in lang %}
     {% set title = i18n.whatIs + ' ' + firstName + ' ' + lastName + i18n.emailAddress %}
 {% else %}
     {% set title = i18n.whatIs + ' ' + i18n.emailAddress + ' ' + firstName + ' ' + lastName %}
 {% endif %}
-
 {% block main_content %}
     <form action="" method="POST">
         <div class="govuk-form-group">
             <h1 class="govuk-heading-l">
                 {% if "en" in lang %}
-                    {{i18n.whatIs}} {{firstName}} {{lastName}}{{i18n.emailAddress}}
+                    {{ i18n.whatIs }}
+                    {{ firstName }}
+                    {{ lastName }}{{ i18n.emailAddress }}
                 {% else %}
-                    {{i18n.whatIs}} {{i18n.emailAddress}} {{firstName}} {{lastName}}?
+                    {{ i18n.whatIs }}
+                    {{ i18n.emailAddress }}
+                    {{ firstName }}
+                    {{ lastName }}?
                 {% endif %}
             </h1>
-           
             {{ govukInput({
                 hint: {
                     text: i18n.theyMustAbleToAccess
@@ -36,8 +38,7 @@
                     "aria-label": "email-address"
                 }
             }) }}
-
-             {{ govukInput({
+            {{ govukInput({
                 label: {
                     text: i18n.confirmEmail,
                     classes: "govuk-label--s"
@@ -54,7 +55,6 @@
                     onpaste: "return false"
                 }
             }) }}
-
             {{ govukInsetText({
               text: i18n.emailAddressCanOnlyUsedOnce
             }) }}
@@ -64,12 +64,4 @@
             id: "continue-button"
         }) }}
     </form>
-
-<!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
-    // Overriding page title to remove user's personal details
-    _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - Tell Companies House you have verified someone’s identity"]);
-    trackEventBasedOnPageTitle("continue-button", "User" + "{{i18n.emailAddress}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Continue-EA");
-</script>
-
 {% endblock main_content %}

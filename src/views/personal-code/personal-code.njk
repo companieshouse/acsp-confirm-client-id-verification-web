@@ -1,23 +1,26 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "layouts/default.njk" %}
-
 {% if "en" in lang %}
     {% set title =  firstName + ' ' + lastName + ' ' + i18n.codePageTitle %}
 {% else %}
     {% set title = i18n.codePageTitle + ' ' + firstName + ' ' + lastName %}
 {% endif %}
-
 {% block main_content %}
     <form action="" method="POST">
         <h1 class="govuk-heading-l">
             {% if "en" in lang %}
-                {{ firstName }} {{ lastName }}{{ i18n.codePageHeading }}
+                {{ firstName }}
+                {{ lastName }}{{ i18n.codePageHeading }}
             {% else %}
-                {{ i18n.codePageHeading }} {{ firstName }} {{ lastName }}
-            {% endif %}            
+                {{ i18n.codePageHeading }}
+                {{ firstName }}
+                {{ lastName }}
+            {% endif %}
         </h1>
         <p class="govuk-body">
-            {{ i18n.onceYou }} {{ firstName }} {{ lastName }}{{ i18n.identity }}
+            {{ i18n.onceYou }}
+            {{ firstName }}
+            {{ lastName }}{{ i18n.identity }}
         </p>
         <p class="govuk-body">
             {{ i18n.weWill }}
@@ -44,12 +47,4 @@
             id: "continue-button"
         }) }}
     </form>
-
-<!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
-    // Overriding page title to remove user's personal details
-    _paq.push(["setDocumentTitle", "User's " + "{{i18n.codePageTitle}}" + " - Tell Companies House you have verified someone’s identity"]);
-    trackEventBasedOnPageTitle("continue-button", "User's " + "{{i18n.codePageTitle}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Continue-PC");
-</script>
-
 {% endblock main_content %}

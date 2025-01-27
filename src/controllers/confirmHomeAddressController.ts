@@ -3,7 +3,7 @@ import * as config from "../config";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { HOME_ADDRESS, BASE_URL, CONFIRM_HOME_ADDRESS, WHEN_IDENTITY_CHECKS_COMPLETED, HOME_ADDRESS_MANUAL, CHECK_YOUR_ANSWERS } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_LINK_CLICK, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
+import { USER_DATA, CHECK_YOUR_ANSWERS_FLAG } from "../utils/constants";
 import { ClientData } from "model/ClientData";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
@@ -17,8 +17,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         editPage: addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang),
         ...getLocaleInfo(locales, lang),
         currentUrl: BASE_URL + CONFIRM_HOME_ADDRESS,
-        matomoButtonClick: MATOMO_BUTTON_CLICK,
-        matomoLinkClick: MATOMO_LINK_CLICK,
         address: clientData?.address,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName

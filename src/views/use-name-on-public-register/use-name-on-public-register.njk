@@ -55,12 +55,5 @@
         }) }}
   </form>
 
-<!-- Calling Matomo event script to capture event actions based on page title -->
-<script>
-    _paq.push(["setDocumentTitle", "{{matomoTitle}}" + " - Tell Companies House you have verified someone’s identity"]);
-    trackEventBasedOnPageTitle("option-1", "{{matomoTitle}}", "{{matomoRadioSelection}}", "Option 1");
-    trackEventBasedOnPageTitle("option-2", "{{matomoTitle}}", "Option 2");
-    trackEventBasedOnPageTitle("continue-button", "{{matomoTitle}}", "{{matomoButtonClick}}", "Continue");
-</script>
 
 {% endblock main_content %}

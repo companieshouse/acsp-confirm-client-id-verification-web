@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 import { BASE_URL, CONFIRM_HOME_ADDRESS, HOME_ADDRESS, HOME_ADDRESS_MANUAL } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { ClientData } from "../model/ClientData";
-import { USER_DATA, MATOMO_BUTTON_CLICK } from "../utils/constants";
+import { USER_DATA } from "../utils/constants";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { AddressManualService } from "../services/addressManualService";
@@ -24,7 +24,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         ...getLocaleInfo(locales, lang),
         previousPage,
         currentUrl,
-        matomoButtonClick: MATOMO_BUTTON_CLICK,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName,
         payload
