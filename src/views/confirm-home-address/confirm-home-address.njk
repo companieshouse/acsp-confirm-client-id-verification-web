@@ -27,7 +27,6 @@
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
 <script nonce={{ nonce | dump | safe }}>
-  trackEventBasedOnPageTitle("confirm-and-continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue-confirm address");
   trackEventBasedOnPageTitle("edit-address-link", "{{title}}", "{{matomoLinkClick}}", "Edit address");
 </script>
 

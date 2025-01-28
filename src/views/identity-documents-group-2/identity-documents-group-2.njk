@@ -176,35 +176,5 @@ i18n.identityDocumentsIDVTitle %}
         }) }}
     </form>
 
-<!-- Calling Matomo event script to capture event actions based on page title -->
-<script nonce={{ nonce | dump | safe }}>
-    trackEventBasedOnPageTitle("passport", "{{title}}", "{{matomoRadioSelection}}", "Passport");
-    trackEventBasedOnPageTitle("irish-passport-card", "{{title}}", "{{matomoRadioSelection}}", "Irish passport card");
-    trackEventBasedOnPageTitle("identity-card", "{{title}}", "{{matomoRadioSelection}}", "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein");
-    trackEventBasedOnPageTitle("uk-biometric-residence-permit", "{{title}}", "{{matomoRadioSelection}}", "UK biometric residence permit (BRP)");
-    trackEventBasedOnPageTitle("uk-biometric-residence-card", "{{title}}", "{{matomoRadioSelection}}", "UK biometric residence card (BRC)");
-    trackEventBasedOnPageTitle("uk-accredited-pass-card", "{{title}}", "{{matomoRadioSelection}}", "UK accredited PASS card");
-    trackEventBasedOnPageTitle("uk-eu-driver-digital-tacograph-card", "{{title}}", "{{matomoRadioSelection}}", "UK or EU driver digital tachograph card");
-    trackEventBasedOnPageTitle("uk-drivers-licence", "{{title}}", "{{matomoRadioSelection}}", "UK, Channel Islands,  Isle of Man, and EU photocard driving license (full or provisional)");
-    trackEventBasedOnPageTitle("uk-forces-id-card", "{{title}}", "{{matomoRadioSelection}}", "UK HM Forces ID card");
-    trackEventBasedOnPageTitle("uk-armed-forces-veteran-card", "{{title}}", "{{matomoRadioSelection}}", "UK HM Armed Forces Veteran Card");
-    trackEventBasedOnPageTitle("uk-frontier-worker-permit", "{{title}}", "{{matomoRadioSelection}}", "UK Frontier worker permit");
-    trackEventBasedOnPageTitle("photo-work-permit", "{{title}}", "{{matomoRadioSelection}}", "Photographic work permit (government issued)");
-    trackEventBasedOnPageTitle("photo-immigration-doc", "{{title}}", "{{matomoRadioSelection}}", "Photographic immigration document");
-    trackEventBasedOnPageTitle("photo-visa", "{{title}}", "{{matomoRadioSelection}}", "Photographic visa");
-    trackEventBasedOnPageTitle("uk-firearms-licence", "{{title}}", "{{matomoRadioSelection}}", "PUK, Channel Islands and Isle of Man Firearms Licence");
-    trackEventBasedOnPageTitle("photo-id-prado", "{{title}}", "{{matomoRadioSelection}}", "Photographic ID listed on PRADO");
-    trackEventBasedOnPageTitle("birth-cert", "{{title}}", "{{matomoRadioSelection}}", "Birth or adoption certificate");
-    trackEventBasedOnPageTitle("marriage-cert", "{{title}}", "{{matomoRadioSelection}}", "Marriage or civil partnership certificate");
-    trackEventBasedOnPageTitle("non-photo-immigration-doc", "{{title}}", "{{matomoRadioSelection}}", "Non-photographic immigration document");
-    trackEventBasedOnPageTitle("non-photo-visa", "{{title}}", "{{matomoRadioSelection}}", "Non-photographic visa");
-    trackEventBasedOnPageTitle("non-photo-work-permit", "{{title}}", "{{matomoRadioSelection}}", "Non-photographic work permit");
-    trackEventBasedOnPageTitle("bank-statement", "{{title}}", "{{matomoRadioSelection}}", "Bank or building society statement");
-    trackEventBasedOnPageTitle("rental-agreement", "{{title}}", "{{matomoRadioSelection}}", "UK local authority or social housing rental agreement (for the person's current address)");
-    trackEventBasedOnPageTitle("mortgage-statement", "{{title}}", "{{matomoRadioSelection}}", "Mortgage statement (for the person's current address)");
-    trackEventBasedOnPageTitle("council-tax-statement", "{{title}}", "{{matomoRadioSelection}}", "UK Council Tax statement (for the person's current address)");
-    trackEventBasedOnPageTitle("utility-bill", "{{title}}", "{{matomoRadioSelection}}", "Utility bill (for the person's current address)");
-    trackEventBasedOnPageTitle("continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue-DC2");
-</script>
 
 {% endblock main_content %}
