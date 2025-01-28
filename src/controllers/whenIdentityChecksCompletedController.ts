@@ -5,7 +5,7 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { BASE_URL, CONFIRM_HOME_ADDRESS, WHEN_IDENTITY_CHECKS_COMPLETED, HOW_IDENTITY_DOCUMENTS_CHECKED, CHECK_YOUR_ANSWERS } from "../types/pageURL";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA, PREVIOUS_PAGE_URL } from "../utils/constants";
+import { PREVIOUS_PAGE_URL, USER_DATA } from "../utils/constants";
 import { ClientData } from "model/ClientData";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { getPreviousPageUrl } from "../services/url";
