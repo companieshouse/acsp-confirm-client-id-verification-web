@@ -4,7 +4,7 @@
 
 <!-- Matomo -->
 <script nonce={{ nonce | dump | safe }}>
-  var eventCategory = matomoObliteration($(document).find("title").text().split(' -')[0]);
+    var eventCategory = matomoObliteration($(document).find("title").text().split(' -')[0]);
     var _paq = window._paq = window._paq || [];
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     
@@ -14,10 +14,9 @@
       _paq.push(['setTrackerUrl', u + 'matomo.php']);
       _paq.push(['setSiteId', '1']);
 
-     
-       _paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
-    
-
+     //ovveride page title 
+      _paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
+  
       var d = document,
         g = d.createElement('script'),
         s = d.getElementsByTagName('script')[0];
@@ -48,13 +47,11 @@
 
           //  Finally Matomo analytics are recorded on page submission.
           if(textOnRadioSelection){
-          alert(eventCategory+" : "+textOnRadioSelection);
             _paq.push(["trackEvent", eventCategory, textOnRadioSelection]);
           }
 
           eventNameBtn = eventNameBtn+buttonSuffix;
           if(eventNameBtn){
-          alert(eventCategory+" : "+eventNameBtn);
             _paq.push(["trackEvent", eventCategory, eventNameBtn]);
           }
         });
@@ -85,45 +82,44 @@
           return replacedRestrictedText;
         }
 
-    // Regex to check for "e-bost" or "Cwmnïau" and remove the last two words (for personal code and email in Welsh)
 
-const regexPattern = /\b(Cwmnïau|Beth yw cyfeiriad e-bost)\b/;
 
-if (regexPattern.test(textToBeChecked)) {
-    // Check which phrase(s) exist and handle them
-    ["Cwmnïau", "Beth yw cyfeiriad e-bost"].forEach(phrase => {
+      // Regex to check for personal code and email (Welsh)
+
+      const regexPattern = /\b(Cwmnïau|Beth yw cyfeiriad e-bost)\b/;
+
+      if (regexPattern.test(textToBeChecked)) {
+        ["Cwmnïau", "Beth yw cyfeiriad e-bost"].forEach(phrase => {
         if (textToBeChecked.includes(phrase)) {
             let words = textToBeChecked.split(" ");
             let userName = words.splice(-2, 2).join(" ");
             textToBeChecked = textToBeChecked.replace(userName, replacedRestrictedText);
-        }
-    });
+          } 
+        });
 
-    return textToBeChecked;
-}
+      return textToBeChecked;
+      }
 
 
 
-// Regex to check for personal code and email (in english)
-    const regexEmailAddress = /email address\?/;  
-    if (regexEmailAddress.test(textToBeChecked)) {
+        // Regex to check for personal code and email (English)
+      const regexEmailAddress = /email address\?/;  
+      if (regexEmailAddress.test(textToBeChecked)) {
         let words = textToBeChecked.split(" ");
         let userName = words.splice(3, 2).join(" ");
         textToBeChecked = textToBeChecked.replace(userName, replacedRestrictedText);
         return textToBeChecked;
-    }
+      }
 
-    const regexPersonalCode = /\b\w+\s+\w+\s+Companies House Personal Code/;
-    if (regexPersonalCode.test(textToBeChecked)) {
+      const regexPersonalCode = /\b\w+\s+\w+\s+Companies House Personal Code/;
+      if (regexPersonalCode.test(textToBeChecked)) {
         let words = textToBeChecked.split(" ");
         let userName = words.splice(0, 2).join(" ");
         textToBeChecked = textToBeChecked.replace(userName, replacedRestrictedText);
         return textToBeChecked;
-    }
+      }
 
   
-
-
 
         //  Patterns for some existing customised obliterations, 
         //  new patterns can be added in this array when needed.
@@ -153,21 +149,6 @@ function trackEventBasedOnPageTitle(elementId, eventCategory, eventAction, event
     .addEventListener("click", () => {
         _paq.push(["trackEvent", eventCategory, eventAction, eventName]);
     });
-}
-
-// Matomo function for use on Work Sector page as it is now optional
-function trackEventWorkSector(elementId, eventCategory, eventAction, eventName) {
-  document.getElementById(elementId);
-        _paq.push(["trackEvent", eventCategory, eventAction, eventName]);
-}
-
-// Matomo function to capture radio button selection
-function trackEventBasedOnRadioId(elementId, eventCategory, eventAction) {
-    const radioButton = document.getElementById(elementId);
-    if (radioButton) {
-      const labelText = document.querySelector(`label[for="${radioButton.id}"]`).textContent.trim();
-      _paq.push(["trackEvent", eventCategory, eventAction, labelText]);
-    }
 }
 </script>
 <!-- Matomo Ends -->
