@@ -12,7 +12,7 @@ export enum AMLSupervioryBodies {
     "faculty-office-of-the-archbishop-of-canterbury" = "Faculty Office of the Archbishop of Canterbury",
     "financial-conduct-authority-fca" = "Financial Conduct Authority (FCA)",
     "gambling-commission" = "Gambling Commission",
-    "general-council-of-the-bar" = "General Council of the Bar",
+    "bar-standards-board-bsb" = "Bar Standards Board (BSB)",
     "general-council-of-the-bar-of-northern-ireland" = "General Council of the Bar of Northern Ireland",
     "institute-of-accountants-bookkeepers-iab" = "Institute of Accountants and Bookkeepers (IAB)",
     "insolvency-practitioners-association-ipa" = "Insolvency Practitioners Association (IPA)",
