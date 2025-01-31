@@ -64,16 +64,6 @@
         }) }}
     </form>
 
-<!-- Calling Matomo event script to capture event actions based on page title -->
-<script nonce={{ nonce | dump | safe }}>
-    trackEventBasedOnPageTitle("biometric-passport", "{{title}}", "{{matomoRadioSelection}}", "Biometric or machine readable passport");
-    trackEventBasedOnPageTitle("irish-passport", "{{title}}", "{{matomoRadioSelection}}", "Irish Passport Card");
-    trackEventBasedOnPageTitle("uk-drivers-licence", "{{title}}", "{{matomoRadioSelection}}", "UK, Channel Islands,  Isle of Man, and EU photocard driving license (full or provisional)");
-    trackEventBasedOnPageTitle("identity-card", "{{title}}", "{{matomoRadioSelection}}", "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein");
-    trackEventBasedOnPageTitle("uk-biometric-residence-permit", "{{title}}", "{{matomoRadioSelection}}", "UK biometric residence permit (BRP)");
-    trackEventBasedOnPageTitle("uk-biometric-residence-card", "{{title}}", "{{matomoRadioSelection}}", "UK biometric residence card (BRC)");
-    trackEventBasedOnPageTitle("uk-frontier-worker-permit", "{{title}}", "{{matomoRadioSelection}}", "UK Frontier worker permit");
-    trackEventBasedOnPageTitle("continue-button", "{{title}}", "{{matomoButtonClick}}", "Continue-DC1");
-</script>
+
     
 {% endblock main_content %}

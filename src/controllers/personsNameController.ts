@@ -4,7 +4,7 @@ import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { BASE_URL, PERSONS_NAME, CHECK_YOUR_ANSWERS, USE_NAME_ON_PUBLIC_REGISTER } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA, MATOMO_BUTTON_CLICK, PREVIOUS_PAGE_URL } from "../utils/constants";
+import { USER_DATA, PREVIOUS_PAGE_URL } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { ClientData } from "../model/ClientData";
@@ -31,7 +31,6 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
     res.render(config.PERSONS_NAME, {
         previousPage: previousPage,
         ...getLocaleInfo(locales, lang),
-        matomoButtonClick: MATOMO_BUTTON_CLICK,
         currentUrl: BASE_URL + PERSONS_NAME,
         payload
     });
