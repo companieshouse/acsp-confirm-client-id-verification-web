@@ -73,13 +73,16 @@ describe("acsp profile api service tests", () => {
                 }, {
                     supervisoryBody: "gambling-commission",
                     membershipDetails: ""
+                }, {
+                    supervisoryBody: "bar-standards-board-bsb",
+                    membershipDetails: ""
                 }],
                 registeredOfficeAddress: {}
             };
 
             const bodyList = getAmlBodiesAsString(acspDetails);
 
-            expect(bodyList).toEqual("Association of Chartered Certified Accountants (ACCA), Gambling Commission");
+            expect(bodyList).toEqual("Association of Chartered Certified Accountants (ACCA), Gambling Commission, Bar Standards Board (BSB)");
         });
     });
 });
