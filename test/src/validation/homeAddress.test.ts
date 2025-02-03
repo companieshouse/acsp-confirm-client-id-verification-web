@@ -17,6 +17,7 @@ describe("home Address Auto Lookup Validator", () => {
                         premise: "10",
                         addressLine1: "DOWN STREET",
                         addressLine2: "",
+                        county: "south-west",
                         postTown: "LONDON",
                         country: "UNITED KINGDOM"
                     }];
