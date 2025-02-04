@@ -74,7 +74,7 @@ describe("acsp profile api service tests", () => {
                     supervisoryBody: "gambling-commission",
                     membershipDetails: ""
                 }, {
-                    supervisoryBody: "bar-standards-board-bsb",
+                    supervisoryBody: "bar-standards-board",
                     membershipDetails: ""
                 }],
                 registeredOfficeAddress: {}
