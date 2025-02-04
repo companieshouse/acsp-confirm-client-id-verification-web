@@ -144,10 +144,10 @@
 </noscript>
 <script nonce={{ nonce | dump | safe }}>
 // Function to add event categories base on page title
-function trackEventBasedOnPageTitle(elementId, eventCategory, eventAction, eventName) {
+function trackEventBasedOnPageTitle(elementId, eventCategory, eventName) {
     document.getElementById(elementId)
     .addEventListener("click", () => {
-        _paq.push(["trackEvent", eventCategory, eventAction, eventName]);
+        _paq.push(["trackEvent", eventCategory, eventName]);
     });
 }
 </script>
