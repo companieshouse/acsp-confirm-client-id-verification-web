@@ -85,7 +85,9 @@
 
 
       // Regex to check for personal code and email (Welsh)
-      const regexPattern = /\b([A-Za-z0-9|!@#$%^&*()_+={}\[\]:;"'<>,.?\/\\-]+)\b/;
+
+      const regexPattern = /\b(Cwmnïau|Beth yw cyfeiriad e-bost)\b/;
+
       if (regexPattern.test(textToBeChecked)) {
         ["Cwmnïau", "Beth yw cyfeiriad e-bost"].forEach(phrase => {
         if (textToBeChecked.includes(phrase)) {
