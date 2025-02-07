@@ -31,6 +31,9 @@
     var buttonSuffix = "";
 
     $(function() {
+      if($("h1").children("span").attr("id") === "partial_obliteration"){
+        alert($("h1").children("span").html());
+      }
       //  The condition below checks and prioritizes the customized Matomo analytics calls.
       //  It has to be defined under "analyticsWithCustomisedMatomoText()" function in the page where the customization is needed.
       if (!$.isFunction(window.analyticsWithCustomisedMatomoText)){
@@ -129,6 +132,7 @@
                                                             /(( [A-Z0-9']{3,})\S+)/];
 
         restrictedTextPatternsForPartialObliteration.some(rx => {if(rx.test(textToBeChecked)){
+          alert(textToBeChecked+" Common Regex "+rx);
                                             textToBeChecked = textToBeChecked.replace(rx, " " +replacedRestrictedText);
                                           }
                                         }
