@@ -51,9 +51,4 @@
         <a href= {{ manualAddressLink }} class="govuk-link" id="enter-address-manually-link">{{ i18n.homeAddressManualLink }}</a>
     </p>
 
-<!-- Calling Matomo event script to capture event actions based on page title -->
-<script nonce={{ nonce | dump | safe }}>
-    trackEventBasedOnPageTitle("enter-address-manually-link", "{{title}}", "{{matomoLinkClick}}", "Enter address manually");
-</script>
-
 {% endblock main_content %}

@@ -58,10 +58,4 @@
         }) }}
   </form>
 
-<!-- Calling Matomo event script to capture event actions based on page title -->
-<script nonce={{ nonce | dump | safe }}>
-    trackEventBasedOnPageTitle("identity-verification-standard-link-id", "{{title}}", "click-link", "Identity verification standard link");
-
-</script>
-
 {% endblock main_content %}

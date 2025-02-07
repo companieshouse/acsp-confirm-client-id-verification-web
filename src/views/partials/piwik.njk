@@ -30,24 +30,39 @@
     var textOnRadioSelection = "";
     var buttonSuffix = "";
 
+//  Dynamic text to be obtained from the label of an href.
+    var textOnHrefClick = "";
+//  Dynamic text(s) and the id(s) to be obtained from the selected checkbox(es).
+    var boxDetailsForAnalytics = new Map();
+
     $(function() {
       //  The condition below checks and prioritizes the customized Matomo analytics calls.
       //  It has to be defined under "analyticsWithCustomisedMatomoText()" function in the page where the customization is needed.
       if (!$.isFunction(window.analyticsWithCustomisedMatomoText)){
         $("form").on("submit",function() {
           
-          //  The block below covers the Matomo analysis for the readio element.
+          //  The block below covers the Matomo analysis for the selected radio element.
           if ($("input[type='radio']:checked").length > 0) {
               buttonSuffix = "-"+$(this).find("input[type='radio']:checked").attr('value');
               textOnRadioSelection = matomoObliteration($(this).find("input[type='radio']:checked").siblings("label").text().trim());
           }
-          //  For other elements like check box and/or hrefs can be added further below like above.
-
-
+          
+          //  The block below covers the Matomo analysis for the selected checkbox elements.
+          if ($("input[type='checkbox']:checked").length > 0) {
+                $("input[type='checkbox']:checked").each(function() {
+                boxDetailsForAnalytics.set($(this).val(),$(this).siblings("label").text().trim());
+              });
+          }
 
           //  Finally Matomo analytics are recorded on page submission.
           if(textOnRadioSelection){
             _paq.push(["trackEvent", eventCategory, textOnRadioSelection]);
+          }
+
+          if(boxDetailsForAnalytics.size > 0){
+            boxDetailsForAnalytics.forEach((values, keys) => {
+              _paq.push(["trackEvent", eventCategory,values, keys]);
+            });
           }
 
           eventNameBtn = eventNameBtn+buttonSuffix;
@@ -60,6 +75,14 @@
       $("button").click(function() {
         eventNameBtn = $(this).text().toUpperCase();
       });
+
+      //  The block below covers the Matomo analysis for the href clicks.
+      $(document).on("click", "a", function() {
+            textOnHrefClick = $(this).text();
+            if(textOnHrefClick){
+              _paq.push(["trackEvent", eventCategory, textOnHrefClick]);
+            }
+          });
     });
 
 
@@ -143,13 +166,4 @@
         <img src="{{PIWIK_URL}}/piwik.php?idsite={{PIWIK_SITE_ID}}" class="piwik-img" alt="" />
     </p>
 </noscript>
-<script nonce={{ nonce | dump | safe }}>
-// Function to add event categories base on page title
-function trackEventBasedOnPageTitle(elementId, eventCategory, eventName) {
-    document.getElementById(elementId)
-    .addEventListener("click", () => {
-        _paq.push(["trackEvent", eventCategory, eventName]);
-    });
-}
-</script>
 <!-- Matomo Ends -->
