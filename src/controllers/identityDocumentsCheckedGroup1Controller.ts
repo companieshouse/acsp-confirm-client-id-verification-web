@@ -6,7 +6,7 @@ import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../u
 import { CheckedDocumentsService } from "../services/checkedDocumentsService";
 import { ClientData } from "../model/ClientData";
 import { formatValidationError, getPageProperties } from "../validations/validation";
-import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT } from "../utils/constants";
+import { USER_DATA } from "../utils/constants";
 import { validationResult } from "express-validator";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
@@ -22,8 +22,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         ...getLocaleInfo(locales, lang),
         previousPage,
         currentUrl,
-        matomoButtonClick: MATOMO_BUTTON_CLICK,
-        matomoRadioSelection: MATOMO_RADIO_OPTION_SELECT,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName,
         payload

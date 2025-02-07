@@ -6,7 +6,7 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
-import { USER_DATA, MATOMO_BUTTON_CLICK, PREVIOUS_PAGE_URL } from "../utils/constants";
+import { USER_DATA, PREVIOUS_PAGE_URL } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { findIdentityByEmail } from "../services/identityVerificationService";
 import logger from "../utils/logger";
@@ -34,7 +34,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
     res.render(config.PERSONS_EMAIL, {
         ...getLocaleInfo(locales, lang),
-        matomoButtonClick: MATOMO_BUTTON_CLICK,
         previousPage: previousPage,
         currentUrl: BASE_URL + EMAIL_ADDRESS,
         payload,
