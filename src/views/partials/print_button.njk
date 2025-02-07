@@ -26,7 +26,6 @@
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
 <script nonce={{ nonce | dump | safe }}>
-  trackEventBasedOnPageTitle("print-button", "{{title}}", "Print identity verification details");
   // Add event listener to print screen button
   document.getElementById("print-button")
     .addEventListener("click", () => {

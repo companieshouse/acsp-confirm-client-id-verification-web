@@ -84,10 +84,7 @@
     </form>
 
     <!-- Calling Matomo event function to capture event actions based on page title -->
-    <script nonce={{ nonce | dump | safe }}>
-        trackEventBasedOnPageTitle("identity-verification-standard-link", "{{title}}", "{{matomoLinkClick}}", "Our identity verification standard");
-        trackEventBasedOnPageTitle("read-the-guidance-verification-link", "{{title}}", "{{matomoLinkClick}}", "Guidance about verifying someone's identity for Companies House");
-  
+    <script nonce={{ nonce | dump | safe }}>  
 
         function trackStartNowEvent() {
             _paq.push(['trackGoal', "{{ PIWIK_START_GOAL_ID }}"]);

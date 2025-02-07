@@ -188,9 +188,4 @@
   <p class="govuk-body">
     <a href={{authorisedAgentLink}} class="govuk-link" id="authorised-agent-account-link">{{ i18n.linkAuthorisedAgentAccount }}</a>
   </p>
-  <script nonce={{ nonce | dump | safe }}>
-    trackEventBasedOnPageTitle("verify-service-link", "{{title}}", "{{matomoLinkClick}}", "Tell Companies House about another identity you have verified");
-    trackEventBasedOnPageTitle("authorised-agent-account-link", "{{title}}", "{{matomoLinkClick}}", "View authorised agent account");
-    trackEventBasedOnPageTitle("feedback-survey-link", "{{title}}", "{{matomoLinkClick}}", "Survey link");
-  </script>
 {% endblock %}
