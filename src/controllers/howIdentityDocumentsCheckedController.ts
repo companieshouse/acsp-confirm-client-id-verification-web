@@ -6,7 +6,7 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
-import { USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT, PREVIOUS_PAGE_URL } from "../utils/constants";
+import { USER_DATA, PREVIOUS_PAGE_URL } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
@@ -26,8 +26,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         previousPage: previousPage,
         currentUrl: BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED,
         selectedOption: clientData?.howIdentityDocsChecked,
-        matomoButtonClick: MATOMO_BUTTON_CLICK,
-        matomoRadioSelection: MATOMO_RADIO_OPTION_SELECT,
         firstName: clientData?.firstName,
         lastName: clientData?.lastName
     });

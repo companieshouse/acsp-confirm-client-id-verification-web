@@ -192,7 +192,7 @@
           {
             href: "/tell-companies-house-you-have-verified-someones-identity/how-were-identity-documents-checked" + "?lang=" + lang,
             text: i18n.checkAnswerDetailsChange,
-            visuallyHiddenText: i18n.optionUsed
+            visuallyHiddenText: i18n.howTheIdentityDocsWereChecked
           }
         ]
       }
@@ -209,7 +209,7 @@
           {
             href: identityDocHref,
             text: i18n.checkAnswerDetailsChange,
-            visuallyHiddenText: i18n.identityDoc
+            visuallyHiddenText: i18n.identityDocsThatWereChecked
           }
         ]
       }
@@ -319,9 +319,5 @@
 
   </form>
   
-<!-- Calling Matomo event script to capture event actions based on page title -->
-<script nonce={{ nonce | dump | safe }}>
-    trackEventBasedOnPageTitle("confirm-send-button", "{{title}}", "{{matomoButtonClick}}", "Confirm and Send");
-</script>
 
 {% endblock main_content %}

@@ -5,7 +5,7 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { HOME_ADDRESS_MANUAL, HOME_ADDRESS, BASE_URL, CHOOSE_AN_ADDRESS, CONFIRM_HOME_ADDRESS } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { ADDRESS_LIST, USER_DATA, MATOMO_BUTTON_CLICK, MATOMO_LINK_CLICK } from "../utils/constants";
+import { ADDRESS_LIST, USER_DATA, MATOMO_LINK_CLICK } from "../utils/constants";
 import { ClientData } from "model/ClientData";
 import { Address } from "model/Address";
 import { saveDataInSession } from "../utils/sessionHelper";
@@ -26,7 +26,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         currentUrl,
         previousPage,
         addresses: addressList,
-        matomoButtonClick: MATOMO_BUTTON_CLICK,
         matomoLinkClick: MATOMO_LINK_CLICK,
         manualAddressLink,
         firstname: clientData.firstName,
