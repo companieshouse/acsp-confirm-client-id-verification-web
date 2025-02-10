@@ -61,10 +61,12 @@
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
     <script nonce={{ nonce | dump | safe }}>
+        _paq.push(["setDocumentTitle", "User's " + "{{i18n.codePageTitle}}" + " - Tell Companies House you have verified someone’s identity"]);
         $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
         function analyticsWithCustomisedMatomoText(){
         var eventCategory = `{{ i18n.whatIs + i18n.emailAddress}}`;
-        _paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
+        alert("LOCAL " + eventCategory);
+        _paq.push(["trackEvent", eventCategory, ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
         }
     </script>
 

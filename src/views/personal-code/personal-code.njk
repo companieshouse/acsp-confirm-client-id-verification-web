@@ -42,11 +42,13 @@
         })}}
     </form>
     <script nonce={{ nonce | dump | safe }}>
+        _paq.push(["setDocumentTitle", "User's " + "{{i18n.codePageTitle}}" + " - Tell Companies House you have verified someone’s identity1"]);
         $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
 
         function analyticsWithCustomisedMatomoText(){
         var eventCategory = `{{ i18n.codePageHeading }}`;
-        _paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
+        alert("LOCAL" + eventCategory);
+        _paq.push(["trackEvent", eventCategory, ' - Tell Companies House you have verified someone’s identity - GOV.UK1']);
         }
     </script>
 
