@@ -4,7 +4,8 @@
 
 <!-- Matomo -->
 <script nonce={{ nonce | dump | safe }}>
-    var eventCategory = matomoObliteration($(document).find("title").text().split(' -')[0]);
+    //var eventCategory = matomoObliteration($(document).find("title").text().split(' -')[0]);
+ 
     var _paq = window._paq = window._paq || [];
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     
@@ -42,6 +43,16 @@
       //  The condition below checks and prioritizes the customized Matomo analytics calls.
       //  It has to be defined under "analyticsWithCustomisedMatomoText()" function in the page where the customization is needed.
       if (!$.isFunction(window.analyticsWithCustomisedMatomoText)){
+    var eventCategory;
+    if (window.analyticsWithCustomisedMatomoText && typeof window.analyticsWithCustomisedMatomoText === "function") {
+   
+    eventCategory = analyticsWithCustomisedMatomoText(); 
+    alert("Customizedbbcvnfdsjkbgnekrjgnlekr" +  eventCategory);
+    } else {
+    
+    eventCategory = matomoObliteration($(document).find("title").text().split(' -')[0]);
+    alert("Normaloneserthjhgfdsdfghjhgfd " +  eventCategory);
+    }
         $("form").on("submit",function() {
           
           //  The block below covers the Matomo analysis for the selected radio element.
@@ -113,7 +124,7 @@
 
       // Regex to check for personal code and email (Welsh)
 
-      const regexPattern = /\b(Cwmnïau|Beth yw cyfeiriad e-bost)\b/;
+     /* const regexPattern = /\b(Cwmnïau|Beth yw cyfeiriad e-bost)\b/;
 
       if (regexPattern.test(textToBeChecked)) {
         ["Cwmnïau", "Beth yw cyfeiriad e-bost"].forEach(phrase => {
@@ -144,7 +155,7 @@
         let userName = words.splice(0, 2).join(" ");
         textToBeChecked = textToBeChecked.replace(userName, replacedRestrictedText);
         return textToBeChecked;
-      }
+      }*/
 
   
 

@@ -14,11 +14,7 @@
         {% include "partials/csrf_token.njk" %}
         <div class="govuk-form-group">
             <h1 class="govuk-heading-l">
-                {% if "en" in lang %}
-                    {{i18n.whatIs}} {{firstName}} {{lastName}}{{i18n.emailAddress}}
-                {% else %}
-                    {{i18n.whatIs}} {{i18n.emailAddress}} {{firstName}} {{lastName}}?
-                {% endif %}
+                {{ i18n.whatIs + i18n.emailAddress | replace("NAME", firstName + " " + lastName)}}
             </h1>
            
             {{ govukInput({
@@ -59,11 +55,23 @@
         </div>
         {{ govukButton({
             text: i18n.Continue,
-            id: "continue-button"
-        }) }}
+            id: "continue-button",
+            attributes: {
+                "onClick": "analyticsWithCustomisedMatomoText();"
+            }
+        })}}
     </form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
+    <script nonce={{ nonce | dump | safe }}>
+        function analyticsWithCustomisedMatomoText(){
+        var eventCategory = `{{ i18n.whatIs + i18n.emailAddress}}`;
+        alert("PERSOANL CODE " + eventCategory);
+        return eventCategory;
+        //_paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
+        }
+    </script>
+
 <script nonce={{ nonce | dump | safe }}>
     // Overriding page title to remove user's personal details
     
@@ -77,5 +85,6 @@
         }
     });
 </script>
+
 
 {% endblock main_content %}
