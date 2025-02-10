@@ -43,9 +43,10 @@
     </form>
     <script nonce={{ nonce | dump | safe }}>
         $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
+
         function analyticsWithCustomisedMatomoText(){
         var eventCategory = `{{ i18n.codePageHeading }}`;
-        alert("PERSOANL CODE " + eventCategory);
+        alert("LOCAL" + eventCategory);
         return eventCategory;
         //_paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
         }
