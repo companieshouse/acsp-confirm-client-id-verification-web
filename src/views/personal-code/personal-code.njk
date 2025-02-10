@@ -38,13 +38,11 @@
         </details>
 {{ govukButton({
             text: i18n.Continue,
-            id: "continue-button",
-            attributes: {
-                "onClick": "analyticsWithCustomisedMatomoText();"
-            }
+            id: "continue-button"
         })}}
     </form>
-    <script>
+    <script nonce={{ nonce | dump | safe }}>
+        $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
         function analyticsWithCustomisedMatomoText(){
         var eventCategory = `{{ i18n.codePageHeading }}`;
         alert("PERSOANL CODE " + eventCategory);
