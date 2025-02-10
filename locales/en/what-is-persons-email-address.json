@@ -1,6 +1,6 @@
 {
     "whatIs" : "What is ",
-    "emailAddress" : "'s email address?",
+    "emailAddress" : " NAME's email address?",
     "theyMustAbleToAccess" : "They must be able to access emails sent to this address.",
     "confirmEmail" : "Confirm their email address",
     
