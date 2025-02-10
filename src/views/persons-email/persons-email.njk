@@ -64,9 +64,7 @@
         $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
         function analyticsWithCustomisedMatomoText(){
         var eventCategory = `{{ i18n.whatIs + i18n.emailAddress}}`;
-        alert("LOCAL " + eventCategory);
-        return eventCategory;
-        //_paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
+        _paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
         }
     </script>
 
