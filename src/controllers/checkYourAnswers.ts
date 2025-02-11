@@ -14,6 +14,9 @@ import { ErrorService } from "../services/errorService";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { getAmlBodiesAsString } from "../services/acspProfileService";
+import { sendIdentityVerificationConfirmationEmail } from "../services/acspEmailService";
+import { getLoggedInUserEmail } from "../utils/session";
+import { ClientVerificationEmail } from "@companieshouse/api-sdk-node/dist/services/acsp/types";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -120,6 +123,16 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
                 const verifiedIdentity = await sendVerifiedClientDetails(verifiedClientData);
                 saveDataInSession(req, REFERENCE, verifiedIdentity?.id);
+
+                const emailData: ClientVerificationEmail = {
+                    to: getLoggedInUserEmail(req.session),
+                    clientName: clientData.preferredFirstName + " " + clientData.preferredLastName,
+                    referenceNumber: verifiedIdentity?.id!,
+                    clientEmailAddress: clientData.emailAddress!
+                };
+
+                await sendIdentityVerificationConfirmationEmail(emailData);
+
                 res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
             }
         } catch (error) {

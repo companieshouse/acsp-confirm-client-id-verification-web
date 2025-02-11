@@ -1,14 +1,17 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRMATION, PROVIDE_DIFFERENT_EMAIL } from "../../../src/types/pageURL";
+import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRMATION } from "../../../src/types/pageURL";
 import { findIdentityByEmail, sendVerifiedClientDetails } from "../../../src/services/identityVerificationService";
 import { dummyIdentity } from "../../mocks/identity.mock";
+import { sendIdentityVerificationConfirmationEmail } from "../../../src/services/acspEmailService";
 jest.mock("@companieshouse/api-sdk-node");
 jest.mock("../../../src/services/identityVerificationService.ts");
+jest.mock("../../../src/services/acspEmailService.ts");
 
 const mockSendVerifiedClientDetails = sendVerifiedClientDetails as jest.Mock;
 const mockFindIdentityByEmail = findIdentityByEmail as jest.Mock;
+const mockSendIdentityVerificationConfirmationEmail = sendIdentityVerificationConfirmationEmail as jest.Mock;
 
 const router = supertest(app);
 
@@ -26,6 +29,7 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
     it("should return status 302 after redirect", async () => {
         await mockSendVerifiedClientDetails.mockResolvedValueOnce({ id: "12345" });
         await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
+        await mockSendIdentityVerificationConfirmationEmail.mockResolvedValueOnce({ status: 200 });
         const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS).send({
             address: "Flat 1 Baker Street<br>Second Floor<br>London<br>Greater London<br>United Kingdom<br>NW1 6XE",
             dateOfBirth: "07 July 1998",
@@ -37,7 +41,7 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
         expect(res.header.location).toBe(BASE_URL + CONFIRMATION + "?lang=en");
     });
 
-    it("should return status 302 after redirect to email kickout screen if email has already been verified", async () => {
+    it("should return status 500 and render the error screen if email has already been verified", async () => {
         await mockSendVerifiedClientDetails.mockResolvedValueOnce(undefined);
         await mockFindIdentityByEmail.mockResolvedValueOnce(dummyIdentity);
         const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS).send({
