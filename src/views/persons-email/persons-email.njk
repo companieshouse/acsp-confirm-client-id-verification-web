@@ -55,20 +55,17 @@
         </div>
         {{ govukButton({
             text: i18n.Continue,
-            id: "continue-button",
-            attributes: {
-                "onClick": "analyticsWithCustomisedMatomoText();"
-            }
+            id: "continue-button"
         })}}
     </form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
     <script nonce={{ nonce | dump | safe }}>
+        _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - Tell Companies House you have verified someone’s identity"]);
+        $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
         function analyticsWithCustomisedMatomoText(){
         var eventCategory = `{{ i18n.whatIs + i18n.emailAddress}}`;
-        alert("PERSOANL CODE " + eventCategory);
-        return eventCategory;
-        //_paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
+        _paq.push(["trackEvent", eventCategory, ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
         }
     </script>
 

@@ -38,18 +38,16 @@
         </details>
 {{ govukButton({
             text: i18n.Continue,
-            id: "continue-button",
-            attributes: {
-                "onClick": "analyticsWithCustomisedMatomoText();"
-            }
+            id: "continue-button"
         })}}
     </form>
-    <script>
+    <script nonce={{ nonce | dump | safe }}>
+        _paq.push(["setDocumentTitle", "User's " + "{{i18n.codePageTitle}}" + " - Tell Companies House you have verified someone’s identity1"]);
+        $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
+
         function analyticsWithCustomisedMatomoText(){
         var eventCategory = `{{ i18n.codePageHeading }}`;
-        alert("PERSOANL CODE " + eventCategory);
-        return eventCategory;
-        //_paq.push(['setDocumentTitle', eventCategory + ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
+        _paq.push(["trackEvent", eventCategory, ' - Tell Companies House you have verified someone’s identity - GOV.UK1']);
         }
     </script>
 
