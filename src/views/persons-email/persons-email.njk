@@ -14,7 +14,7 @@
         {% include "partials/csrf_token.njk" %}
         <div class="govuk-form-group">
             <h1 class="govuk-heading-l">
-                {{ i18n.whatIs + i18n.emailAddress | replace("NAME", firstName + " " + lastName)}}
+                {{ i18n.whatIs + i18n.emailAddress | replace("{NAME}", firstName + " " + lastName)}}
             </h1>
            
             {{ govukInput({
@@ -61,11 +61,11 @@
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
     <script nonce={{ nonce | dump | safe }}>
-        _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - Tell Companies House you have verified someone’s identity"]);
+        _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - " + "{{i18n.matomoPageTitle}}"]);
         $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
         function analyticsWithCustomisedMatomoText(){
         var eventCategory = `{{ i18n.whatIs + i18n.emailAddress}}`;
-        _paq.push(["trackEvent", eventCategory, ' - Tell Companies House you have verified someone’s identity - GOV.UK']);
+        _paq.push(["trackEvent", eventCategory, eventNameBtn]);
         }
     </script>
 

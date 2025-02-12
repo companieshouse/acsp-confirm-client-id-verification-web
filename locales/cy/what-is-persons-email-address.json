@@ -1,6 +1,6 @@
 {
     "whatIs" : "Beth yw",
-    "emailAddress" : "cyfeiriad e-bost NAME",
+    "emailAddress" : "cyfeiriad e-bost {NAME}",
     "theyMustAbleToAccess" : "Rhaid iddynt allu cael mynediad at e-byst sy'n cael eu hanfon i'r cyfeiriad hwn.",
     "confirmEmail" : "Cadarnhau ei gyfeiriad e-bost",
 
