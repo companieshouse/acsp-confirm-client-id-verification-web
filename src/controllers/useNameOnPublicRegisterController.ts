@@ -3,7 +3,7 @@ import { BASE_URL, CHECK_YOUR_ANSWERS, PERSONAL_CODE, PERSONS_NAME, PERSONS_NAME
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
-import { MATOMO_BUTTON_CLICK, MATOMO_RADIO_OPTION_SELECT, PREVIOUS_PAGE_URL, USER_DATA } from "../utils/constants";
+import { PREVIOUS_PAGE_URL, USER_DATA } from "../utils/constants";
 import * as config from "../config";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { validationResult } from "express-validator";
@@ -30,9 +30,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         previousPage,
         firstName: clientData.firstName,
         lastName: clientData.lastName,
-        selectedOption,
-        matomoButtonClick: MATOMO_BUTTON_CLICK,
-        matomoRadioSelection: MATOMO_RADIO_OPTION_SELECT
+        selectedOption
     });
 };
 

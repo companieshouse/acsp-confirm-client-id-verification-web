@@ -12,10 +12,7 @@
             id: addressOption.propertyDetails,
             value: addressOption.propertyDetails,
             text: addressOption.propertyDetails + ", " + addressOption.line1 + ", " + addressOption.town + ", " + addressOption.postcode,
-            checked: addressOption.propertyDetails == currentPremises,
-            attributes: {
-                "data-event-id": "address-option-" + addressOption.propertyDetails
-            }
+            checked: addressOption.propertyDetails == currentPremises
         } %}
         {% set ITEMS = ITEMS.concat(addressObject) %}
     {% endfor %}
@@ -56,7 +53,6 @@
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
 <script nonce={{ nonce | dump | safe }}>
-    trackEventBasedOnPageTitle("confirm-and-continue-button", "{{title}}", "{{matomoButtonClick}}", "Confirm and Continue");
     trackEventBasedOnPageTitle("enter-address-manually-link", "{{title}}", "{{matomoLinkClick}}", "Enter address manually");
 </script>
 

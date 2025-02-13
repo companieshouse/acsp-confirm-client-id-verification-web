@@ -1,4 +1,6 @@
+<script src="{{ cdnHost }}/javascripts/vendor/jquery-3.3.1.min.js"></script>
 <script src="{{ cdnHost }}/javascripts/app/piwik-enable.js"></script>
+
 
 <!-- Matomo -->
 <script nonce={{ nonce | dump | safe }}>
@@ -17,18 +19,81 @@
       g.src = u + 'matomo.js';
       s.parentNode.insertBefore(g, s);
     })();
+
+//  Matomo automation -- this is to remove all the Matomo calls with the hardcoded analytics texts from the njk pages.
+//  In a situation where Matomo analytics needs a non generic customization, the existing hardcoded Matomo calls are still possible.
+    var textOnRadioSelection = "";
+    var buttonSuffix = "";
+    var eventCategory = "";
+    $(function() {
+      //  The condition below checks and prioritizes the customized Matomo analytics calls.
+      //  It has to be defined under "analyticsWithCustomisedMatomoText()" function in the page where the customization is needed.
+      if (!$.isFunction(window.analyticsWithCustomisedMatomoText)){
+        var eventCategory = matomoObliteration($(document).find("title").text().split(' -')[0]);
+ 
+        $("form").on("submit",function() {
+          //  The block below covers the Matomo analysis for the radio element.
+          if ($("input[type='radio']:checked").length > 0) {
+              buttonSuffix = "-"+$(this).find("input[type='radio']:checked").attr('value');
+              textOnRadioSelection = matomoObliteration($(this).find("input[type='radio']:checked").siblings("label").text().trim());
+          }
+          //  For other elements like check box and/or hrefs can be added further below like above.
+
+          //  Finally Matomo analytics are recorded on page submission.
+          if(textOnRadioSelection){
+            _paq.push(["trackEvent", eventCategory, textOnRadioSelection]);
+          }
+
+          eventNameBtn = eventNameBtn+buttonSuffix;
+          if(eventNameBtn){
+            _paq.push(["trackEvent", eventCategory, eventNameBtn]);
+          }
+        });
+      }
+      //  On the button click the button details are recorder.
+      $("button").click(function() {
+        eventNameBtn = $(this).text().toUpperCase();
+      });
+    });
+
+
+
+    function matomoObliteration(textToBeChecked){
+        var replacedRestrictedText = "<obliterated>";
+        
+        //  Complete obliteration for personal identifiable data 
+        //  email and address for now, 
+        //  new blocks can be added further below, e.g. phone number
+        
+        //  for Email
+        if(/^\S+@\S+\.\S+$/.test(textToBeChecked)){
+          buttonSuffix = "";
+          return replacedRestrictedText;
+        }
+        
+        //  for address
+        if(/,\s[A-Z0-9]+[A-Z0-9]+/.test(textToBeChecked)){
+         buttonSuffix = "-OPTED_ADDRESS";
+          return replacedRestrictedText;
+        }
+
+
+        return textToBeChecked;
+    }
+//  End of Matomo automation snippet
+
   </script>
   <noscript>
     <p>
-        <img src="{{PIWIK_URL}}/piwik.php?idsite={{PIWIK_SITE_ID}}" alt="" class="piwik-img" />
+        <img src="{{PIWIK_URL}}/piwik.php?idsite={{PIWIK_SITE_ID}}" class="piwik-img" alt="" />
     </p>
 </noscript>
 <script nonce={{ nonce | dump | safe }}>
-// Function to add event categories based on page title
-function trackEventBasedOnPageTitle(elementId, eventCategory, eventAction, eventName) {
+// Function to add event categories base on page title
+function trackEventBasedOnPageTitle(elementId, eventCategory, eventName) {
     document.getElementById(elementId)
     .addEventListener("click", () => {
-        _paq.push(["trackEvent", eventCategory, eventAction, eventName]);
+        _paq.push(["trackEvent", eventCategory, eventName]);
     });
 }
 </script>

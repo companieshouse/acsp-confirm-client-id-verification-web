@@ -14,11 +14,7 @@
         {% include "partials/csrf_token.njk" %}
         <div class="govuk-form-group">
             <h1 class="govuk-heading-l">
-                {% if "en" in lang %}
-                    {{i18n.whatIs}} {{firstName}} {{lastName}}{{i18n.emailAddress}}
-                {% else %}
-                    {{i18n.whatIs}} {{i18n.emailAddress}} {{firstName}} {{lastName}}?
-                {% endif %}
+                {{ i18n.whatIs + i18n.emailAddress | replace("{NAME}", firstName + " " + lastName)}}
             </h1>
            
             {{ govukInput({
@@ -60,15 +56,22 @@
         {{ govukButton({
             text: i18n.Continue,
             id: "continue-button"
-        }) }}
+        })}}
     </form>
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
+    <script nonce={{ nonce | dump | safe }}>
+        _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - " + "{{i18n.matomoPageTitle}}"]);
+        $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
+        function analyticsWithCustomisedMatomoText(){
+        var eventCategory = `{{ i18n.whatIs + i18n.emailAddress}}`;
+        _paq.push(["trackEvent", eventCategory, eventNameBtn]);
+        }
+    </script>
+
 <script nonce={{ nonce | dump | safe }}>
     // Overriding page title to remove user's personal details
-    _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - Tell Companies House you have verified someone’s identity"]);
-    trackEventBasedOnPageTitle("continue-button", "User" + "{{i18n.emailAddress}}" + " - Tell Companies House you have verified someone’s identity", "{{matomoButtonClick}}", "Continue-EA");
-
+    
     // Add event listener to disable paste
     document.addEventListener('DOMContentLoaded', function() {
         var confirmInput = document.getElementById('confirm');
@@ -79,5 +82,6 @@
         }
     });
 </script>
+
 
 {% endblock main_content %}
