@@ -31,6 +31,10 @@
 //  Dynamic text(s) and the id(s) to be obtained from the selected checkbox(es).
     var boxDetailsForAnalytics = new Map();
 
+//  The following flag is needed to be set as true in confirm-identity-verification and check-your-answers njk for checkboxes 
+//  to be ignored in the Matomo analytics.
+    var ignoreCheckboxForThisPage = false;
+
     $(function() {
       //  The condition below checks and prioritizes the customized Matomo analytics calls.
       //  It has to be defined under "analyticsWithCustomisedMatomoText()" function in the page where the customization is needed.
@@ -47,9 +51,11 @@
           
           //  The block below covers the Matomo analysis for the selected checkbox elements.
           if ($("input[type='checkbox']:checked").length > 0) {
-                $("input[type='checkbox']:checked").each(function() {
+            if(!ignoreCheckboxForThisPage) {
+              $("input[type='checkbox']:checked").each(function() {
                 boxDetailsForAnalytics.set($(this).val(),$(this).siblings("label").text().trim());
               });
+            }  
           }
 
           //  Finally Matomo analytics are recorded on page submission.
@@ -76,11 +82,16 @@
 
       //  The block below covers the Matomo analysis for the href clicks.
       $(document).on("click", "a", function() {
-            textOnHrefClick = $(this).text();
-            if(textOnHrefClick){
+        // Provide different email stop screen - removes user name from link analytics
+        if ($(this).attr('id') && $(this).attr('id') === "provide-different-email-link-id") {
+          textOnHrefClick = $(this).text().split('for')[0];
+        } else {
+          textOnHrefClick = $(this).text();
+        }  
+        if(textOnHrefClick){
               _paq.push(["trackEvent", eventCategory, textOnHrefClick]);
-            }
-          });
+        }
+      });
     });
 
     function matomoObliteration(textToBeChecked){

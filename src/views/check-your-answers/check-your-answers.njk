@@ -318,6 +318,9 @@
     }) }}
 
   </form>
-  
+
+  <script type="text/javascript" nonce={{ nonce | dump | safe }}>
+    ignoreCheckboxForThisPage = true;
+  </script>
 
 {% endblock main_content %}
