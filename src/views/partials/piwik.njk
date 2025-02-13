@@ -25,6 +25,16 @@
     var textOnRadioSelection = "";
     var buttonSuffix = "";
     var eventCategory = "";
+
+//  Dynamic text to be obtained from the label of an href.
+    var textOnHrefClick = "";
+//  Dynamic text(s) and the id(s) to be obtained from the selected checkbox(es).
+    var boxDetailsForAnalytics = new Map();
+
+//  The following flag is needed to be set as true in confirm-identity-verification and check-your-answers njk for checkboxes 
+//  to be ignored in the Matomo analytics.
+    var ignoreCheckboxForThisPage = false;
+
     $(function() {
       //  The condition below checks and prioritizes the customized Matomo analytics calls.
       //  It has to be defined under "analyticsWithCustomisedMatomoText()" function in the page where the customization is needed.
@@ -32,16 +42,31 @@
         var eventCategory = matomoObliteration($(document).find("title").text().split(' -')[0]);
  
         $("form").on("submit",function() {
-          //  The block below covers the Matomo analysis for the radio element.
+          
+          //  The block below covers the Matomo analysis for the selected radio element.
           if ($("input[type='radio']:checked").length > 0) {
               buttonSuffix = "-"+$(this).find("input[type='radio']:checked").attr('value');
               textOnRadioSelection = matomoObliteration($(this).find("input[type='radio']:checked").siblings("label").text().trim());
           }
-          //  For other elements like check box and/or hrefs can be added further below like above.
+          
+          //  The block below covers the Matomo analysis for the selected checkbox elements.
+          if ($("input[type='checkbox']:checked").length > 0) {
+            if(!ignoreCheckboxForThisPage) {
+              $("input[type='checkbox']:checked").each(function() {
+                boxDetailsForAnalytics.set($(this).val(),$(this).siblings("label").text().trim());
+              });
+            }  
+          }
 
           //  Finally Matomo analytics are recorded on page submission.
           if(textOnRadioSelection){
             _paq.push(["trackEvent", eventCategory, textOnRadioSelection]);
+          }
+
+          if(boxDetailsForAnalytics.size > 0){
+            boxDetailsForAnalytics.forEach((values, keys) => {
+              _paq.push(["trackEvent", eventCategory,values, keys]);
+            });
           }
 
           eventNameBtn = eventNameBtn+buttonSuffix;
@@ -54,9 +79,20 @@
       $("button").click(function() {
         eventNameBtn = $(this).text().toUpperCase();
       });
+
+      //  The block below covers the Matomo analysis for the href clicks.
+      $(document).on("click", "a", function() {
+        // Provide different email stop screen - removes user name from link analytics
+        if ($(this).attr('id') && $(this).attr('id') === "provide-different-email-link-id") {
+          textOnHrefClick = $(this).text().split('for')[0];
+        } else {
+          textOnHrefClick = $(this).text();
+        }  
+        if(textOnHrefClick){
+              _paq.push(["trackEvent", eventCategory, textOnHrefClick]);
+        }
+      });
     });
-
-
 
     function matomoObliteration(textToBeChecked){
         var replacedRestrictedText = "<obliterated>";
@@ -76,8 +112,6 @@
          buttonSuffix = "-OPTED_ADDRESS";
           return replacedRestrictedText;
         }
-
-
         return textToBeChecked;
     }
 //  End of Matomo automation snippet
@@ -88,13 +122,4 @@
         <img src="{{PIWIK_URL}}/piwik.php?idsite={{PIWIK_SITE_ID}}" class="piwik-img" alt="" />
     </p>
 </noscript>
-<script nonce={{ nonce | dump | safe }}>
-// Function to add event categories base on page title
-function trackEventBasedOnPageTitle(elementId, eventCategory, eventName) {
-    document.getElementById(elementId)
-    .addEventListener("click", () => {
-        _paq.push(["trackEvent", eventCategory, eventName]);
-    });
-}
-</script>
 <!-- Matomo Ends -->

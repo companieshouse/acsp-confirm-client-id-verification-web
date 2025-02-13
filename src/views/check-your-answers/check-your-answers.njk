@@ -192,7 +192,7 @@
           {
             href: "/tell-companies-house-you-have-verified-someones-identity/how-were-identity-documents-checked" + "?lang=" + lang,
             text: i18n.checkAnswerDetailsChange,
-            visuallyHiddenText: i18n.optionUsed
+            visuallyHiddenText: i18n.howTheIdentityDocsWereChecked
           }
         ]
       }
@@ -209,7 +209,7 @@
           {
             href: identityDocHref,
             text: i18n.checkAnswerDetailsChange,
-            visuallyHiddenText: i18n.identityDoc
+            visuallyHiddenText: i18n.identityDocsThatWereChecked
           }
         ]
       }
@@ -318,6 +318,9 @@
     }) }}
 
   </form>
-  
+
+  <script type="text/javascript" nonce={{ nonce | dump | safe }}>
+    ignoreCheckboxForThisPage = true;
+  </script>
 
 {% endblock main_content %}
