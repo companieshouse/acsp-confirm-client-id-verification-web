@@ -4,22 +4,6 @@
 
 <!-- Matomo -->
 <script nonce={{ nonce | dump | safe }}>
-    var _paq = window._paq = window._paq || [];
-    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-    
-    _paq.push(['enableLinkTracking']);
-    (function () {
-      var u = "//matomo.identity.aws.chdev.org/";
-      _paq.push(['setTrackerUrl', u + 'matomo.php']);
-      _paq.push(['setSiteId', '1']);
-      var d = document,
-        g = d.createElement('script'),
-        s = d.getElementsByTagName('script')[0];
-      g.async = true;
-      g.src = u + 'matomo.js';
-      s.parentNode.insertBefore(g, s);
-    })();
-
 //  Matomo automation -- this is to remove all the Matomo calls with the hardcoded analytics texts from the njk pages.
 //  In a situation where Matomo analytics needs a non generic customization, the existing hardcoded Matomo calls are still possible.
     var textOnRadioSelection = "";

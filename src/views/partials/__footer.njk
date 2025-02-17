@@ -39,8 +39,8 @@
         {% endif %}
 
 
-<div id="templateName" data-id='{{templateTitle}}' hidden></div>
-<script nonce={{ nonce | dump | safe }} type="application/javascript">
+<div id="templateName" data-id="{{templateTitle}}" hidden></div>
+<script type="application/javascript" nonce={{ nonce | dump | safe }}>
   window.SERVICE_NAME = "Tell Companies House you have verified someone's identity";
   window.PIWIK_URL = '{{ PIWIK_URL }}'
   window.PIWIK_SITE_ID = '{{ PIWIK_SITE_ID }}'
