@@ -20,12 +20,12 @@
     "ukEuDigitalCardHint": "This is 16 characters long. Welsh",
     "ukForceCardHint": "This needs to be a unique reference or number that is shown on the document. Welsh",
     "ukArmedForceCardHint": "This will have between 6 and 8 characters. Welsh",
-    "photoWorkPermitHint": "This is 9 characters long. Welsh",
+    "photoWorkPermitHint": "This needs to be a unique reference or number that is shown on the document. Welsh",
     "photoimmigrationDocHint": "This is 9 characters long. Welsh",
     "photoVisaHint": "This will have between 8 and 9 characters. Welsh",
     "ukFirearmsLicenceHint": "This will have between 6 and 10 characters. Welsh",
     "photoIdPradoDetailsHint": "This needs to be a unique reference or number that is shown on the document. Welsh",
-
+    "optional": "(if it has one welsh)",
 
     "error-docNumberInput": "Enter the details for the {doc selected} welsh",
     "error-docNumberLength": "{doc selected} must be 50 characters or fewer welsh",

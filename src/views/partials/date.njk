@@ -14,7 +14,11 @@
    <div class="govuk-form-group {% if errorMessageText  %}govuk-form-group--error{% endif %}">
     <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
         <legend class="govuk-fieldset__legend">
-           {{i18n.ExpiryDate}}
+           {% if expiryDateOptionalDocs.includes(body) %}
+              {{ i18n.ExpiryDate }} {{ i18n.optional }}
+           {% else %}
+              {{ i18n.ExpiryDate }}
+           {% endif %}
         </legend>
         <div id="passport-issued-hint" class="govuk-hint">
            {{i18n.ExpiryDateHint}}

@@ -5,6 +5,9 @@
 {% extends "layouts/default.njk" %}
 {% set title = i18n.idDocumentDetailstitle %}
 
+{% set expiryDateOptionalDocs = [i18n.passCard, i18n.ukArmedForceCard, i18n.photoIdPrado, i18n.photoWorkPermit] %}
+{% set otherOptionalDocs = [i18n.photoIdPrado, i18n.photoWorkPermit] %}
+
 {% block main_content %}
   <form action="" method="POST">
     {% include "partials/csrf_token.njk" %}
@@ -12,10 +15,16 @@
     {% for body in documentsChecked %}
       {% set index = loop.index %}
         <h2 class="govuk-heading-m"> {{body}} {{i18n.detailsMessage}} </h2>
+
         <!--Document Input-->
+        {% if otherOptionalDocs.includes(body) %}
+           {% set labelText = body + i18n.number + " " +  i18n.optional %}
+        {% else %}
+           {% set labelText = body + i18n.number %}
+        {% endif %}
         {{ govukInput({
             label: {
-                text: body + i18n.number,
+                text: labelText,
                 classes: "govuk-label "
             },
             classes: "govuk-input--width-10",
@@ -36,7 +45,13 @@
         <!--Country  Input-->
         <div id="typeahead-form-group-{{index}}" class="govuk-form-group
           {% if errors["countryInput_" + index] %} govuk-form-group--error{% endif %}">
-            <label class="govuk-label" for="location">{{i18n.chooseCountryText}} </label>
+            <label class="govuk-label" for="location">
+              {% if otherOptionalDocs.includes(body) %}
+                {{i18n.chooseCountryText}} {{i18n.optional}}
+              {% else %}
+                {{i18n.chooseCountryText}} 
+              {% endif %}
+            </label>
             <p class="govuk-hint" id="typeahead-hint-{{index}}">{{i18n.chooseCountryhint}} {{body}}.</p>
             {% set dropdownDefaultText = i18n.chooseCountryText1 %}
             {% set dropdownValue = payload["countryInput_" + index] %}

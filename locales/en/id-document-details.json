@@ -20,12 +20,12 @@
     "ukEuDigitalCardHint": "This is 16 characters long.",
     "ukForceCardHint": "This needs to be a unique reference or number that is shown on the document.",
     "ukArmedForceCardHint": "This will have between 6 and 8 characters.",
-    "photoWorkPermitHint": "This is 9 characters long.",
+    "photoWorkPermitHint": "This needs to be a unique reference or number that is shown on the document.",
     "photoimmigrationDocHint": "This is 9 characters long.",
     "photoVisaHint": "This will have between 8 and 9 characters.",
     "ukFirearmsLicenceHint": "This will have between 6 and 10 characters.",
     "photoIdPradoDetailsHint": "This needs to be a unique reference or number that is shown on the document.",
-
+    "optional": "(if it has one)",
 
     "error-docNumberInput": "Enter the details for the {doc selected}",
     "error-docNumberLength": "{doc selected} must be 50 characters or fewer",

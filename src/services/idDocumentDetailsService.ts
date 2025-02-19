@@ -43,35 +43,37 @@ export class IdDocumentDetailsService {
         const newErrorArray: any[] = [];
         errors.forEach((element) => {
             const errorText = element.msg;
-            const errorMessage: string = resolveErrorMessage(element.msg, lang);
+            let errorMessage = resolveErrorMessage(element.msg, lang);
             const parts: string[] = element.param.split("_");
             const index = Number(parts[1]);
             const docName = documentsChecked[index - 1];
 
-            if (element.param.includes("expiryDate")) {
-                element.msg = getErrorForExpiryDate(docName, errorMessage, errorText, whenIdDocsChecked);
-                if (element.msg === "") {
-                    return;
-                }
-            } else {
-                element.msg = errorMessage.replace("{doc selected}", docName);
+            errorMessage = getErrorForSpecificDocs(docName, errorMessage, errorText, whenIdDocsChecked);
+            // if error message is not empty, replace doc name placeholder
+            if (errorMessage !== "") {
+                element.msg = element.msg.replace("{doc selected}", docName);
+                newErrorArray.push(element);
             }
-            newErrorArray.push(element);
-        });
+        }); 
         return newErrorArray;
     };
 }
 
-const getErrorForExpiryDate = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date) => {
-    if ((docName === "UK accredited PASS card" && errorText === "noExpiryDate") ||
-        (docName === "UK HM Armed Forces Veteran Card" && errorText === "noExpiryDate")) {
-        return "";
-    }
-    if (errorText === "dateAfterIdChecksDone") {
+const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date) => {
+    // make error message empty for optional fields for below specific docs 
+    if (((docName === "UK accredited PASS card" || docName === "UK HM Armed Forces Veteran Card") && errorText === "noExpiryDate") ||
+        ((docName === "Photographic ID listed on PRADO" || docName === "Photographic work permit (government issued)") && 
+         (errorText === "noExpiryDate"|| errorText === "noCountry" || errorText === "docNumberInput"))) {    
+      return "";
+    // replace date placeholder with formatted date if error is about invalid expirydate 
+    }else if (errorText === "dateAfterIdChecksDone") {
         const idChecksCompletedDate = whenIdDocsChecked.getDate() + " " +
                                       whenIdDocsChecked.toLocaleString("default", { month: "long" }) + " " +
                                       whenIdDocsChecked.getFullYear();
-        errorMessage = errorMessage.replace("{id checks completed}", idChecksCompletedDate);
+      errorMessage = errorMessage.replace("{id checks completed}", idChecksCompletedDate);
+      return errorMessage;
+    // for non of the above return back error message as it is   
+    }else{
+      return errorMessage;  
     }
-    return errorMessage.replace("{doc selected}", docName);
 };
