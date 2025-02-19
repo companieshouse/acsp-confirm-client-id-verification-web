@@ -51,7 +51,7 @@ export class IdDocumentDetailsService {
             errorMessage = getErrorForSpecificDocs(docName, errorMessage, errorText, whenIdDocsChecked);
             // if error message is not empty, replace doc name placeholder
             if (errorMessage !== "") {
-                element.msg = element.msg.replace("{doc selected}", docName);
+                element.msg = errorMessage.replace("{doc selected}", docName);
                 newErrorArray.push(element);
             }
         }); 
