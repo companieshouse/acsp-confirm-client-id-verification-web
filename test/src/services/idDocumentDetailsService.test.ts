@@ -118,3 +118,33 @@ describe("IdDocumentDetailsService tests", () => {
         expect(actual[0].msg).toBe(expected[0].msg);
     });
 });
+
+describe("errorListDisplay for PRADO", () => {
+    const service = new IdDocumentDetailsService();
+    test.each([
+        [
+            [{ msg: "noExpiryDate", param: "expiryDateDay_1" }],
+            ["Photographic ID listed on PRADO"],
+            new Date(2025, 2, 28),
+            0
+        ],
+        [
+            [{ msg: "noCountry", param: "countryInput_1" }],
+            ["Photographic ID listed on PRADO"],
+            new Date(2025, 2, 28),
+            0
+        ],
+        [
+            [{ msg: "docNumberInput", param: "documentNumber_1" }],
+            ["Photographic ID listed on PRADO"],
+            new Date(2025, 2, 28),
+            0
+        ]
+    ])(
+        "should not return an error array for non-mandatory fields for PRADO",
+        (errors, documentsChecked, whenIdDocsChecked, expectedLength) => {
+            const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked);
+            expect(actual.length).toBe(expectedLength);
+        }
+    );
+});

@@ -5,6 +5,7 @@ import { saveDataInSession } from "../utils/sessionHelper";
 import { USER_DATA } from "../utils/constants";
 import { resolveErrorMessage } from "../validations/validation";
 import { FormatService } from "./formatService";
+import { getLocalesService } from "../utils/localise";
 
 export class IdDocumentDetailsService {
     public saveIdDocumentDetails = (req: Request, clientData: ClientData, formattedDocumentsChecked: string[], i18n: any) => {
@@ -43,35 +44,38 @@ export class IdDocumentDetailsService {
         const newErrorArray: any[] = [];
         errors.forEach((element) => {
             const errorText = element.msg;
-            const errorMessage: string = resolveErrorMessage(element.msg, lang);
+            let errorMessage = resolveErrorMessage(element.msg, lang);
             const parts: string[] = element.param.split("_");
             const index = Number(parts[1]);
             const docName = documentsChecked[index - 1];
+            const locales = getLocalesService();
 
-            if (element.param.includes("expiryDate")) {
-                element.msg = getErrorForExpiryDate(docName, errorMessage, errorText, whenIdDocsChecked);
-                if (element.msg === "") {
-                    return;
-                }
-            } else {
+            errorMessage = getErrorForSpecificDocs(docName, errorMessage, errorText, whenIdDocsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
+            // if error message is not empty, replace doc name placeholder
+            if (errorMessage !== "") {
                 element.msg = errorMessage.replace("{doc selected}", docName);
+                newErrorArray.push(element);
             }
-            newErrorArray.push(element);
         });
         return newErrorArray;
     };
 }
 
-const getErrorForExpiryDate = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date) => {
-    if ((docName === "UK accredited PASS card" && errorText === "noExpiryDate") ||
-        (docName === "UK HM Armed Forces Veteran Card" && errorText === "noExpiryDate")) {
+const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date, i18n: any) => {
+    // make error message empty for optional fields for below specific docs
+    if (((docName === i18n.passCard || docName === i18n.ukArmedForceCard) && errorText === "noExpiryDate") ||
+        ((docName === i18n.photoIdPrado || docName === i18n.photoWorkPermit) &&
+         (errorText === "noExpiryDate" || errorText === "noCountry" || errorText === "docNumberInput"))) {
         return "";
-    }
-    if (errorText === "dateAfterIdChecksDone") {
+    // replace date placeholder with formatted date if error is about invalid expirydate
+    } else if (errorText === "dateAfterIdChecksDone") {
         const idChecksCompletedDate = whenIdDocsChecked.getDate() + " " +
                                       whenIdDocsChecked.toLocaleString("default", { month: "long" }) + " " +
                                       whenIdDocsChecked.getFullYear();
         errorMessage = errorMessage.replace("{id checks completed}", idChecksCompletedDate);
+        return errorMessage;
+    // for non of the above return back error message as it is
+    } else {
+        return errorMessage;
     }
-    return errorMessage.replace("{doc selected}", docName);
 };
