@@ -27,9 +27,9 @@ export class IdDocumentDetailsService {
                 );
             }
             documentDetails.push({
-                documentNumber: req.body[docNumberId],
+                documentNumber: req.body[docNumberId] ? req.body[docNumberId] : i18n.dateNotProvided,
                 expiryDate: expiryDate,
-                countryOfIssue: req.body[countryOfIssueId],
+                countryOfIssue: req.body[countryOfIssueId] ? req.body[countryOfIssueId] : i18n.dateNotProvided,
                 docName: formattedDocumentsChecked[i],
                 formattedExpiryDate: FormatService.formatDate(expiryDate, i18n)
             });
