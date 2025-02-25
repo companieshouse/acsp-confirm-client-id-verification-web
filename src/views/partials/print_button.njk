@@ -27,8 +27,20 @@
 <!-- Calling Matomo event script to capture event actions based on page title -->
 <script nonce={{ nonce | dump | safe }}>
   // Add event listener to print screen button
+
+    document.getElementById("print-button")
+    .addEventListener("click", () => {
+        _paq.push(["trackEvent", "{{title}}", "Print identity verification details"]);
+    });
+
+
+</script>
+
+<script nonce={{ nonce | dump | safe }}>
   document.getElementById("print-button")
     .addEventListener("click", () => {
       window.print()
     });
+
 </script>
+
