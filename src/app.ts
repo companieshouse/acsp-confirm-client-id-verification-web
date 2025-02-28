@@ -82,14 +82,14 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // Channel all requests through router dispatch
 routerDispatch(app);
 
+app.use(...errorHandler);
+
 // Unhandled errors
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     logger.error(`${err.name} - appError: ${err.message} - ${err.stack}`);
     const errorService = new ErrorService();
     errorService.renderErrorPage(res, getLocalesService(), selectLang(req.query.lang), req.url);
 });
-
-app.use(...errorHandler);
 
 // Unhandled exceptions
 process.on("uncaughtException", (err: any) => {
