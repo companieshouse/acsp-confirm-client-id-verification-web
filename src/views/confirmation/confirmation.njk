@@ -50,7 +50,19 @@
   {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
 
   <p class="govuk-body">{{ i18n.yourRef }} {{ reference }}.  {{ i18n.thisIsNot }}</p>
-  <p class="govuk-body">{{ i18n.emailConfirmation }} <strong>{{ userEmail }}</strong>.</p>
+
+  <h2 class="govuk-heading-m">{{ i18n.printOrSaveTheVerificationDetailsHeading }}</h2>
+  <p class="govuk-body">{{ i18n.weWillNotInclude }}</p>
+
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-visually-hidden">{{ i18n.warning }}</span>
+      {{ i18n.toKeepARecordOfWarningText }}
+    </strong>
+  </div>
+
+  {% include "partials/print_button.njk" %}
 
   <h2 class="govuk-heading-m">{{ i18n.whatHappens }}</h2>
   <p class="govuk-body">{{ i18n.weWillEmailed }} <strong>{{ clientData.emailAddress }}</strong> {{ i18n.toLet }}</p>
@@ -58,7 +70,6 @@
   <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
   <h2 class="govuk-heading-m">{{ i18n.identityVerificationHeading + " " + fullName }}</h2>
-  {% include "partials/print_button.njk" %}
   {{ govukSummaryList({
     classes: 'govuk-!-margin-bottom-0',
     rows: [
