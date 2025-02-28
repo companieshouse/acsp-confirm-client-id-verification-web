@@ -4,9 +4,9 @@
 {% extends "layouts/default.njk" %}
 
 {% if "en" in lang %}
-    {% set title = i18n.whatIs + ' ' + firstName + ' ' + lastName + i18n.emailAddress %}
+    {% set title = i18n.whatIs + i18n.emailAddress | replace('{NAME}', firstName + ' ' + lastName) %}
 {% else %}
-    {% set title = i18n.whatIs + ' ' + i18n.emailAddress + ' ' + firstName + ' ' + lastName %}
+    {% set title = (i18n.whatIs + ' ' + i18n.emailAddress + ' ' + firstName + ' ' + lastName) | replace('{NAME}', '') %}
 {% endif %}
 
 {% block main_content %}
