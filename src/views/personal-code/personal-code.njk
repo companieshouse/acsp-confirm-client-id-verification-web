@@ -1,11 +1,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "layouts/default.njk" %}
 
-{% if "en" in lang %}
-    {% set title =  i18n.codePageHeading | replace('{NAME}', firstName + ' ' + lastName) %}
-{% else %}
-    {% set title = (i18n.codePageHeading + ' ' + firstName + ' ' + lastName) | replace('{NAME}', '') %}
-{% endif %}
+{% set title =  i18n.codePageHeading | replace('{NAME}', firstName + ' ' + lastName) %}
 
 {% block main_content %}
     <form action="" method="POST">
