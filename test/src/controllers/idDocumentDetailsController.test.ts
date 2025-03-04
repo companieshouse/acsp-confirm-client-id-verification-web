@@ -83,7 +83,7 @@ describe("createPayload tests", () => {
         ];
         const formatDocumentsCheckedText = ["UK accredited PASS card"];
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText);
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, "en");
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
@@ -105,7 +105,7 @@ describe("createPayload tests", () => {
         ];
         const formatDocumentsCheckedText = ["UK HM Armed Forces Veteran Card"];
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText);
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, "en");
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
@@ -127,7 +127,7 @@ describe("createPayload tests", () => {
         ];
         const formatDocumentsCheckedText = ["Irish passport card"];
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText);
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, "en");
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
