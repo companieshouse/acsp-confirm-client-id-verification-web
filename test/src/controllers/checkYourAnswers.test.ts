@@ -27,6 +27,7 @@ describe("GET" + CHECK_YOUR_ANSWERS, () => {
         createMockSessionMiddleware();
         const res = await router.get(BASE_URL + CHECK_YOUR_ANSWERS);
         expect(res.status).toBe(200);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.text).toContain("Check your answers before sending your application");
     });
