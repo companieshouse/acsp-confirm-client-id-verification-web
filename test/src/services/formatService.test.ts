@@ -26,4 +26,35 @@ describe("Format Service tests", () => {
             expect(hintText).toStrictEqual(["Photo Immigration Doc Hint", "Photo Visa Hint"]);
         });
     });
+
+    describe("findDocumentName tests", () => {
+
+        it("should return the document name for option 1 doc", () => {
+            const document = "irish_passport_card";
+            const i18n = {
+                irishPassport: "Irish Passport"
+            };
+
+            const docName = FormatService.findDocumentName(document, i18n);
+            expect(docName).toStrictEqual("Irish Passport");
+        });
+
+        it("should return the document name for option 2 doc", () => {
+            const document = "visa_photo_id";
+            const i18n = {
+                photoVisa: "Photo Visa"
+            };
+
+            const docName = FormatService.findDocumentName(document, i18n);
+            expect(docName).toStrictEqual("Photo Visa");
+        });
+
+        it("should return empty string for no document", () => {
+            const document = undefined;
+            const i18n = {};
+
+            const docName = FormatService.findDocumentName(document, i18n);
+            expect(docName).toStrictEqual("");
+        });
+    });
 });

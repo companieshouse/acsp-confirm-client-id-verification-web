@@ -5,6 +5,11 @@ import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRMATION } from "../../../src/types/p
 import { findIdentityByEmail, sendVerifiedClientDetails } from "../../../src/services/identityVerificationService";
 import { dummyIdentity } from "../../mocks/identity.mock";
 import { sendIdentityVerificationConfirmationEmail } from "../../../src/services/acspEmailService";
+import { sessionMiddleware } from "../../../src/middleware/session_middleware";
+import { getSessionRequestWithPermission } from "../../mocks/session.mock";
+import { ACSP_DETAILS, USER_DATA } from "../../../src/utils/constants";
+import { Request, Response, NextFunction } from "express";
+import { dummyFullProfile } from "../../mocks/acsp_profile.mock";
 jest.mock("@companieshouse/api-sdk-node");
 jest.mock("../../../src/services/identityVerificationService.ts");
 jest.mock("../../../src/services/acspEmailService.ts");
@@ -15,11 +20,13 @@ const mockSendIdentityVerificationConfirmationEmail = sendIdentityVerificationCo
 
 const router = supertest(app);
 
+let customMockSessionMiddleware: any;
+
 describe("GET" + CHECK_YOUR_ANSWERS, () => {
     it("should return status 200", async () => {
+        createMockSessionMiddleware();
         const res = await router.get(BASE_URL + CHECK_YOUR_ANSWERS);
         expect(res.status).toBe(200);
-        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.text).toContain("Check your answers before sending your application");
     });
@@ -27,6 +34,7 @@ describe("GET" + CHECK_YOUR_ANSWERS, () => {
 
 describe("POST " + CHECK_YOUR_ANSWERS, () => {
     it("should return status 302 after redirect", async () => {
+        createMockSessionMiddleware();
         await mockSendVerifiedClientDetails.mockResolvedValueOnce({ id: "12345" });
         await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
         await mockSendIdentityVerificationConfirmationEmail.mockResolvedValueOnce({ status: 200 });
@@ -68,3 +76,23 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
+
+function createMockSessionMiddleware () {
+    customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+    const session = getSessionRequestWithPermission();
+    session.setExtraData(USER_DATA, {
+        idDocumentDetails: [
+            {
+                docName: "passport",
+                documentNumber: "123456789",
+                expiryDate: new Date("2030-01-01"),
+                countryOfIssue: "UK"
+            }
+        ]
+    });
+    session.setExtraData(ACSP_DETAILS, dummyFullProfile);
+    customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+        req.session = session;
+        next();
+    });
+}

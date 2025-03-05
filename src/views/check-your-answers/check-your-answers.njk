@@ -234,24 +234,24 @@
     ]
   }) }}
 
-{% for item in clientData.idDocumentDetails %}
-  <h2 class="govuk-heading-m">{{ item.docName + " " + i18n.details }}</h2>
+  {% for doc in formattedIdentityDocuments %}
+  <h2 class="govuk-heading-m">{{ doc.docName + " " + i18n.details }}</h2>
     {{ govukSummaryList({
       classes: 'govuk-!-margin-bottom-9',
       rows: [
         {
           key: {
-            text: item.docName + " " + i18n.number
+            text: doc.docName + " " + i18n.number
           },
           value: {
-            text: item.documentNumber
+            text: doc.documentNumber
           },
           actions: {
             items: [
               {
                 href: "/tell-companies-house-you-have-verified-someones-identity/id-document-details" + "?lang=" + lang + "#documentNumber_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: item.docName + " " + i18n.number
+                visuallyHiddenText: doc.docName + " " + i18n.number
               }
             ]
           }
@@ -261,7 +261,7 @@
             text: i18n.ExpiryDate
           },
           value: {
-            text: item.formattedExpiryDate
+            text: doc.formattedExpiryDate
           },
           actions: {
             items: [
@@ -278,7 +278,7 @@
             text: i18n.chooseCountryText
           },
           value: {
-            text: item.countryOfIssue
+            text: doc.countryOfIssue
           },
           actions: {
             items: [

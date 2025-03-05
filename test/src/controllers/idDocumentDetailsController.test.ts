@@ -26,6 +26,7 @@ describe("GET" + ID_DOCUMENT_DETAILS, () => {
 
 describe("POST " + ID_DOCUMENT_DETAILS, () => {
     it("should redirect to confirmation page on valid input", async () => {
+        createMockSessionMiddleware();
         const FormData = {
             documentNumber_1: "ABC12345X",
             expiryDateDay_1: "01",
@@ -55,7 +56,7 @@ describe("POST " + ID_DOCUMENT_DETAILS, () => {
     });
 
     it("should redirect to confirmation page on valid input", async () => {
-        createMockSessionMiddleware();
+        createMockSessionCheckYourAnswersFlagMiddleware();
         const FormData = {
             documentNumber_1: "ABC12345X",
             expiryDateDay_1: "01",
@@ -82,8 +83,9 @@ describe("createPayload tests", () => {
             }
         ];
         const formatDocumentsCheckedText = ["UK accredited PASS card"];
+        const i18n = { passCard: "UK accredited PASS card" };
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText);
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n);
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
@@ -104,8 +106,9 @@ describe("createPayload tests", () => {
             }
         ];
         const formatDocumentsCheckedText = ["UK HM Armed Forces Veteran Card"];
+        const i18n = { ukArmedForceCard: "UK HM Armed Forces Veteran Card" };
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText);
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n);
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
@@ -126,8 +129,9 @@ describe("createPayload tests", () => {
             }
         ];
         const formatDocumentsCheckedText = ["Irish passport card"];
+        const i18n = { irishPassport: "Irish passport card" };
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText);
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n);
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
@@ -139,10 +143,22 @@ describe("createPayload tests", () => {
     });
 });
 
-function createMockSessionMiddleware () {
+function createMockSessionCheckYourAnswersFlagMiddleware () {
     customMockSessionMiddleware = sessionMiddleware as jest.Mock;
     const session = getSessionRequestWithPermission();
     session.setExtraData(CHECK_YOUR_ANSWERS_FLAG, true);
+    session.setExtraData(USER_DATA, {
+        documentsChecked: ["passport"]
+    });
+    customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+        req.session = session;
+        next();
+    });
+}
+
+function createMockSessionMiddleware () {
+    customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+    const session = getSessionRequestWithPermission();
     session.setExtraData(USER_DATA, {
         documentsChecked: ["passport"]
     });
