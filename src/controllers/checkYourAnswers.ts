@@ -45,7 +45,12 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         locales.i18nCh.resolveNamespacesKeys(lang)
     );
 
-    const formattedIdentityDocuments = clientData.idDocumentDetails!;
+    const identityDocuments = clientData.idDocumentDetails!;
+
+    const formattedIdentityDocuments = identityDocuments.map((doc) => ({
+        ...doc,
+        docName: FormatService.findDocumentName(doc.docName, locales.i18nCh.resolveNamespacesKeys(lang))
+    }));
 
     const amlBodies = getAmlBodiesAsString(acspDetails);
 
@@ -59,10 +64,11 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             dateOfBirth: formattedDateOfBirth,
             whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
             documentsChecked: formattedDocumentsChecked,
-            idDocumentDetails: formattedIdentityDocuments
+            idDocumentDetails: identityDocuments
         },
         amlBodies,
-        acspName: acspDetails.name
+        acspName: acspDetails.name,
+        formattedIdentityDocuments
     });
 };
 
@@ -93,7 +99,12 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         );
 
         const amlBodies = getAmlBodiesAsString(acspDetails);
-        const formattedIdentityDocuments = clientData.idDocumentDetails!;
+        const identityDocuments = clientData.idDocumentDetails!;
+
+        const formattedIdentityDocuments = identityDocuments.map((doc) => ({
+            ...doc,
+            docName: FormatService.findDocumentName(doc.docName, locales.i18nCh.resolveNamespacesKeys(lang))
+        }));
 
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
         res.status(400).render(config.CHECK_YOUR_ANSWERS, {
@@ -107,10 +118,11 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 dateOfBirth: formattedDateOfBirth,
                 whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
                 documentsChecked: formattedDocumentsChecked,
-                idDocumentDetails: formattedIdentityDocuments
+                idDocumentDetails: identityDocuments
             },
             amlBodies,
-            acspName: acspDetails.name
+            acspName: acspDetails.name,
+            formattedIdentityDocuments
         });
     } else {
         try {

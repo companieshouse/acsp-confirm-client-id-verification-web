@@ -30,7 +30,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     );
     let payload;
     if (clientData.idDocumentDetails != null) {
-        payload = createPayload(clientData.idDocumentDetails, formattedDocumentsChecked);
+        payload = createPayload(clientData.idDocumentDetails, formattedDocumentsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
     }
 
     res.render(config.ID_DOCUMENT_DETAILS, {
@@ -75,7 +75,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             countryList: countryList
         });
     } else {
-        documentDetailsService.saveIdDocumentDetails(req, clientData, formattedDocumentsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
+        documentDetailsService.saveIdDocumentDetails(req, clientData, clientData.documentsChecked!, locales.i18nCh.resolveNamespacesKeys(lang));
         const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
 
         if (checkYourAnswersFlag) {
@@ -94,11 +94,11 @@ const getBackUrl = (selectedOption: string) => {
     }
 };
 
-export const createPayload = (idDocumentDetails: DocumentDetails[], formatDocumentsCheckedText: string[]): { [key: string]: string | undefined } => {
+export const createPayload = (idDocumentDetails: DocumentDetails[], formatDocumentsCheckedText: string[], i18: any): { [key: string]: string | undefined } => {
     const payload: { [key: string]: any | undefined } = {};
     idDocumentDetails.forEach((body, index) => {
         for (let i = 0; i < formatDocumentsCheckedText.length; i++) {
-            if (formatDocumentsCheckedText[i] === body.docName) {
+            if (formatDocumentsCheckedText[i] === FormatService.findDocumentName(body.docName, i18)) {
                 payload[`documentNumber_${i + 1}`] = body.documentNumber;
                 if (body.expiryDate) {
                     payload[`expiryDateDay_${i + 1}`] = body.expiryDate!.getDate();
