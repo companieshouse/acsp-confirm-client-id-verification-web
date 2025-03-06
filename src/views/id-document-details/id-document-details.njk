@@ -14,13 +14,13 @@
     <h1 class="govuk-heading-l"> {{ i18n.idDocumentDetailstitle }} </h1>
     {% for body in documentsChecked %}
       {% set index = loop.index %}
-        <h2 class="govuk-heading-m"> {{body}} {{i18n.detailsMessage}} </h2>
+        <h2 class="govuk-heading-m"> {{i18n.details | replace("{DOCNAME}", body)}} </h2>
 
         <!--Document Input-->
         {% if otherOptionalDocs.includes(body) %}
-           {% set labelText = body + i18n.number + " " +  i18n.optional %}
+           {% set labelText = (i18n.number | replace("{DOCNAME}", body)) + " " +  i18n.optional %}
         {% else %}
-           {% set labelText = body + i18n.number %}
+           {% set labelText = i18n.number | replace("{DOCNAME}", body) %}
         {% endif %}
         {{ govukInput({
             label: {

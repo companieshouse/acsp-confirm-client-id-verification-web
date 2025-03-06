@@ -3,18 +3,18 @@
     "pageNotFoundText1": "Os gwnaethoch deipio'r cyfeiriad gwe, gwiriwch ei fod wedi'i sillafu'n gywir.",
     "pageNotFoundText2": "Os gwnaethoch chi gludo'r cyfeiriad gwe, gwiriwch eich bod wedi copïo'r cyfeiriad cyfan.",
     "pageNotFoundText3": "Os yw'r cyfeiriad gwe yn gywir neu os ydych wedi dewis dolen, efallai bod y dudalen wedi symud. Ewch i'r ",
-    "pageNotFoundLink": "Tell Companies House you have verified someone’s identity start page welsh",
+    "pageNotFoundLink": "Tudalen cychwyn dywedwch wrth Dŷ'r Cwmnïau eich bod wedi gwirio hunaniaeth rhywun",
 
     "technicalDifficuliesTitle": "Mae'n ddrwg gennym ein bod yn profi anawsterau technegol",
     "technicalDifficuliesText1": "Ceisiwch eto mewn ychydig funudau.",
     "technicalDifficuliesText2": "Os yw'r broblem hon yn parhau anfonwch e-bost i enquiries@companieshouse.gov.uk.",
-    "sorrySomethingWentWrong":"Sorry, something went wrong welsh",
-    "weHaveNotBeenAbleToSave":"We have not been able to save the information you submitted on the previous screen. This may be because the page was inactive for too long, or because of a technical issue. welsh",
-    "tryTheFollowing":"Try the following: welsh",
-    "useTheBackLink":"use the back link to return to the previous screen and resubmit the information welsh",
-    "signOutOfTheService":"sign out of the service, and then sign back in welsh",
-    "ifTheProblemContinues":"If the problem continues, welsh",
-    "contactUsLink":"contact us welsh",
-    "forHelp":"for help. welsh"
+    "sorrySomethingWentWrong": "Mae'n ddrwg gennym, aeth rhywbeth o'i le",
+    "weHaveNotBeenAbleToSave": "Nid ydym wedi gallu cadw'r wybodaeth a gyflwynwyd gennych ar y sgrin flaenorol. Gall hyn fod oherwydd bod y dudalen yn anweithredol am gyfnod rhy hir, neu oherwydd mater technegol.",
+    "tryTheFollowing": "Rhowch gynnig ar y canlynol:",
+    "useTheBackLink": "defnyddio'r ddolen nol i ddychwelyd i'r sgrin flaenorol ac ailgyflwyno'r wybodaeth",
+    "signOutOfTheService": "allgofnodi o'r gwasanaeth ac yna mewngofnodi",
+    "ifTheProblemContinues": "Os yw'r broblem yn parhau,",
+    "contactUsLink": "cysylltwch â ni",
+    "forHelp": "am help."
     
 }

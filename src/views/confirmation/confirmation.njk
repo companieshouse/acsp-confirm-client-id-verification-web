@@ -161,7 +161,7 @@
     rows: [
     {
       key: {
-        text: item.docName + " " + i18n.number
+        text: i18n.number | replace("{DOCNAME}", item.docName)
       },
       value: {
         text: item.documentNumber

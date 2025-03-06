@@ -1,11 +1,11 @@
 {
-    "whatIsYourNameTitle" : "Beth yw enw'r person?",
-    "thisMust" : "Rhaid i hyn fod yn union yr un fath â'r enw a ddangosir ar o leiaf un o'r dogfennau hunaniaeth a ddarparwyd ganddynt.",
-    "whatIsYourNameFirstName" : "Enw cyntaf",
-    "whatIsYourNameMiddleNames" : "Enw neu enwau canol",
-    "whatIsYourNameLastName" : "Cyfenw",
-    "error-enterFullName" : "Cofnodwch ei enw llawn",
-    "error-enterFirstName" : "Cofnodwch ei enw cyntaf",
+    "whatIsYourNameTitle": "Beth yw enw'r person?",
+    "thisMust": "Rhaid i hyn fod yn union yr un fath â'r enw a ddangosir ar o leiaf un o'r dogfennau hunaniaeth a ddarparwyd ganddynt.",
+    "whatIsYourNameFirstName": "Enw cyntaf",
+    "whatIsYourNameMiddleNames": "Enw neu enwau canol",
+    "whatIsYourNameLastName": "Cyfenw",
+    "error-enterFullName": "Cofnodwch ei enw llawn",
+    "error-enterFirstName": "Cofnodwch ei enw cyntaf",
     "error-enterLastName": "Cofnodwch ei gyfenw",
     "error-invalidFirstNameFormat": "Rhaid i'r enw cyntaf gynnwys llythrennau a i z yn unig, a nodau arbennig cyffredin fel cysylltnodau, bylchau a chollnodau",
     "error-invalidMiddleNameFormat": "Rhaid i'r enw neu enwau canol gynnwys llythrennau a i z yn unig, a nodau arbennig cyffredin fel cysylltnodau, bylchau a chollnodau",
@@ -14,7 +14,7 @@
     "error-invalidMiddleNameLength": "Rhaid i’r enwau canol fod yn 50 nod neu lai",
     "error-invalidLastNameLength": "Rhaid i'r cyfenw fod yn 160 nod neu lai",
 
-    "namePublicRegisterTitle": "What name can we use for the identity verification statement? welsh",
-    "namePublicRegisterHint":"This should be the name they're usually known by. welsh",
-    "namePublicRegisterInformation":"We'll include this name in the statement, which will be shown on the Companies House public register if this person connects their verified identity to our records. welsh"
+    "namePublicRegisterTitle": "Pa enw y gallwn ei ddefnyddio ar gyfer y datganiad gwiriad hunaniaeth?",
+    "namePublicRegisterHint": "Dylai hyn fod yr enw caiff eu hadnabod wrtho fel arfer.",
+    "namePublicRegisterInformation": "Byddwn yn cynnwys yr enw hwn yn y datganiad, a fydd yn cael ei ddangos ar gofrestr gyhoeddus Tŷ'r Cwmnïau os yw'r person hwn yn cysylltu eu gwiriad hunaniaeth â'n cofnodion."
 }

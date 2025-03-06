@@ -50,7 +50,7 @@
   <form action="" method="POST">
     {% include "partials/csrf_token.njk" %}
     <h1 class="govuk-heading-xl">{{ i18n.checkYourAnswersHeading }}</h1>
-    <h2 class="govuk-heading-m">{{ fullName + i18n.checkYourAnswersDetailsTableHeading }}</h2>
+    <h2 class="govuk-heading-m">{{ i18n.checkYourAnswersDetailsTableHeading | replace("{NAME}", fullName) }}</h2>
     {{ govukSummaryList({
     classes: 'govuk-!-margin-bottom-9',
     rows: [
@@ -235,13 +235,13 @@
   }) }}
 
   {% for doc in formattedIdentityDocuments %}
-  <h2 class="govuk-heading-m">{{ doc.docName + " " + i18n.details }}</h2>
+  <h2 class="govuk-heading-m">{{ i18n.details | replace("{DOCNAME}", doc.docName) }}</h2>
     {{ govukSummaryList({
       classes: 'govuk-!-margin-bottom-9',
       rows: [
         {
           key: {
-            text: doc.docName + " " + i18n.number
+            text: i18n.number | replace("{DOCNAME}", doc.docName)
           },
           value: {
             text: doc.documentNumber
@@ -251,7 +251,7 @@
               {
                 href: "/tell-companies-house-you-have-verified-someones-identity/id-document-details" + "?lang=" + lang + "#documentNumber_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: doc.docName + " " + i18n.number
+                visuallyHiddenText: i18n.number | replace("{DOCNAME}", doc.docName)
               }
             ]
           }
