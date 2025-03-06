@@ -12,5 +12,5 @@
     "error-noYearIdentity" : "Rhaid i'r dyddiad gynnwys blwyddyn",
     "error-nonNumericIdentity" : "Rhaid i'r dyddiad gynnwys rhifau yn unig",
     "error-dateAfterDob": "The date must be after Date of birth welsh",
-    "error-tooYoungWicc": "You must be at least 16 years old when the identity checks were completed welsh"
+    "error-tooYoungWicc": "Rhaid i chi fod yn o leiaf 16 oed pan gwblhawyd y gwiriadau adnabod"
 } 

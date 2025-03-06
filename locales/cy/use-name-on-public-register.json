@@ -1,10 +1,10 @@
 {
-    "useNameOnPublicRegisterTitle" : "Can we use this name in the identity verification statement for this person? welsh",
-    "selectNoOptionExplanation" : "You can provide a different name if, for example, if they use a different name for their professional activities. welsh",
-    "useNameOption1" : "Yes welsh",
-    "useNameOption2" : "No, I need to provide a different name welsh",
-    "detailsHeading" : "What is the identity verification statement? welsh",
-    "detailsText1" : "Later in this service, you'll be asked to confirm a statement that you are satisfied this person is who they claim to be. The statement will include this person’s name. welsh",
-    "detailsText2" : "If the person connects their verified identity to their Companies House record as a director or person with significant control (PSC), we’ll show the statement on the public register to confirm they are verified. welsh",
-    "error-useNameOnPublicRegisterNoRadioBtnSelected" : "Select if we can use the name on the public register welsh"
+    "useNameOnPublicRegisterTitle": "A allwn ni ddefnyddio'r enw hwn yn y datganiad gwiriad hunaniaeth ar gyfer y person hwn?",
+    "selectNoOptionExplanation": "Gallwch ddarparu enw gwahanol os ydynt, er enghraifft,  yn defnyddio enw gwahanol ar gyfer eu gweithgareddau proffesiynol.",
+    "useNameOption1": "Gallwch",
+    "useNameOption2": "Na, mae'n rhaid i mi roi enw gwahanol",
+    "detailsHeading": "Beth yw'r datganiad gwiriad hunaniaeth?",
+    "detailsText1": "Yn nes ymlaen yn y gwasanaeth hwn, gofynnir i chi gadarnhau datganiad eich bod yn fodlon mai'r person hwn yw pwy maen nhw'n honni eu bod. Bydd y datganiad yn cynnwys enw'r person hwn.",
+    "detailsText2": "Os yw'r person yn cysylltu eu gwiriad hunaniaeth â'u cofnod Tŷ'r Cwmnïau fel cyfarwyddwr neu berson â rheolaeth arwyddocaol (PRhA), byddwn yn dangos y datganiad ar y gofrestr gyhoeddus i gadarnhau eu bod wedi'u gwirio.",
+    "error-useNameOnPublicRegisterNoRadioBtnSelected": "Dewiswch os gallwn ddefnyddio'r enw ar y gofrestr gyhoeddus"
 }
