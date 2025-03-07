@@ -12,5 +12,5 @@
     "error-noYearIdentity" : "The date must include a year",
     "error-nonNumericIdentity" : "The date must only include numbers",
     "error-dateAfterDob": "The date must be after Date of birth",
-    "error-tooYoungWicc": "You must be at least 16 years old when the identity checks were completed"
+    "error-tooYoungWicc": "Your client must be at least 16 years old when the identity checks were completed"
 }
