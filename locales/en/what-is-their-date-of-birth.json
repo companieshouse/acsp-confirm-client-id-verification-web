@@ -27,7 +27,7 @@
     "error-noDay" : "Date of birth must include a day",
     "error-noMonth" : "Date of birth must include a month",
     "error-noYear" : "Date of birth must include a year",
-    "error-tooOld" : "You must be less than 110 years old",
+    "error-tooOld" : "Your client must be less than 110 years old",
     "error-tooYoung" : "You must be at least 16 years old",
     "error-nonNumeric" : "Date of birth must only include numbers"
 }
