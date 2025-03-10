@@ -252,7 +252,7 @@
                 href: "/tell-companies-house-you-have-verified-someones-identity/id-document-details" + "?lang=" + lang + "#documentNumber_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
                 visuallyHiddenText: i18n.number | replace("{DOCNAME}", doc.docName)
-              }
+              } if doc.documentNumber != i18n.dateNotProvided
             ]
           }
         },
@@ -269,7 +269,7 @@
                 href: "/tell-companies-house-you-have-verified-someones-identity/id-document-details" + "?lang=" + lang + "#expiryDateDay_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
                 visuallyHiddenText: i18n.ExpiryDate
-              }
+              } if doc.formattedExpiryDate != i18n.dateNotProvided
             ]
           }
         },
@@ -286,7 +286,7 @@
                 href: "/tell-companies-house-you-have-verified-someones-identity/id-document-details" + "?lang=" + lang + "#countryInput_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
                 visuallyHiddenText: i18n.chooseCountryText
-              }
+              } if doc.countryOfIssue != i18n.dateNotProvided
             ]
           }
         }
