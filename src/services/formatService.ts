@@ -202,6 +202,7 @@ export class FormatService {
         i18n: any,
         howIdentityDocsChecked: string | undefined
     ): string {
+
         if (!document || document.length === 0) {
             return "";
         }
