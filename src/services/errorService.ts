@@ -18,7 +18,7 @@ export class ErrorService {
         res.status(404).render(config.ERROR_404, {
             title: "Page not found",
             ...getLocaleInfo(locales, lang),
-            currentUrl: req.url
+            currentUrl: req.originalUrl
         });
     }
 
