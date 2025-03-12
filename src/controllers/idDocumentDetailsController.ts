@@ -30,7 +30,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     );
     let payload;
     if (clientData.idDocumentDetails != null) {
-        payload = createPayload(clientData.idDocumentDetails, formattedDocumentsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
+        payload = createPayload(clientData.idDocumentDetails, formattedDocumentsChecked, locales.i18nCh.resolveNamespacesKeys(lang), clientData.howIdentityDocsChecked!);
     }
 
     res.render(config.ID_DOCUMENT_DETAILS, {
@@ -94,11 +94,11 @@ const getBackUrl = (selectedOption: string) => {
     }
 };
 
-export const createPayload = (idDocumentDetails: DocumentDetails[], formatDocumentsCheckedText: string[], i18: any): { [key: string]: string | undefined } => {
+export const createPayload = (idDocumentDetails: DocumentDetails[], formatDocumentsCheckedText: string[], i18: any, howIdentityDocsChecked: string): { [key: string]: string | undefined } => {
     const payload: { [key: string]: any | undefined } = {};
     idDocumentDetails.forEach((body, index) => {
         for (let i = 0; i < formatDocumentsCheckedText.length; i++) {
-            if (formatDocumentsCheckedText[i] === FormatService.findDocumentName(body.docName, i18)) {
+            if (formatDocumentsCheckedText[i] === FormatService.findDocumentName(body.docName, i18, howIdentityDocsChecked)) {
                 payload[`documentNumber_${i + 1}`] = body.documentNumber;
                 if (body.expiryDate) {
                     payload[`expiryDateDay_${i + 1}`] = body.expiryDate!.getDate();

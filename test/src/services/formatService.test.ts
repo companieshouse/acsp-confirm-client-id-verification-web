@@ -32,28 +32,42 @@ describe("Format Service tests", () => {
         it("should return the document name for option 1 doc", () => {
             const document = "irish_passport_card";
             const i18n = {
-                irishPassport: "Irish Passport"
+                irishPassport: "Irish passport card"
             };
+            const howIdentityDocsChecked = "cryptographic_security_features_checked";
 
-            const docName = FormatService.findDocumentName(document, i18n);
-            expect(docName).toStrictEqual("Irish Passport");
+            const docName = FormatService.findDocumentName(document, i18n, howIdentityDocsChecked);
+            expect(docName).toStrictEqual("Irish passport card");
         });
 
-        it("should return the document name for option 2 doc", () => {
+        it("should return the document name for option 2 doc Group A", () => {
             const document = "visa_photo_id";
             const i18n = {
                 photoVisa: "Photo Visa"
             };
+            const howIdentityDocsChecked = "physical_security_features_checked";
 
-            const docName = FormatService.findDocumentName(document, i18n);
+            const docName = FormatService.findDocumentName(document, i18n, howIdentityDocsChecked);
             expect(docName).toStrictEqual("Photo Visa");
         });
 
-        it("should return empty string for no document", () => {
+        it("should return empty string for option 2 doc Group B", () => {
+            const document = "utility_bill";
+            const i18n = {
+                utilityBill: "Utility bill (for the person’s current address)"
+            };
+            const howIdentityDocsChecked = "physical_security_features_checked";
+
+            const docName = FormatService.findDocumentName(document, i18n, howIdentityDocsChecked);
+            expect(docName).toStrictEqual("");
+        });
+
+        it("should return empty string for no document Option 1", () => {
             const document = undefined;
             const i18n = {};
+            const howIdentityDocsChecked = "cryptographic_security_features_checked";
 
-            const docName = FormatService.findDocumentName(document, i18n);
+            const docName = FormatService.findDocumentName(document, i18n, howIdentityDocsChecked);
             expect(docName).toStrictEqual("");
         });
     });

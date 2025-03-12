@@ -76,7 +76,7 @@ describe("createPayload tests", () => {
     it("should handle UK accredited PASS card identity document with optional expiryDate correctly", () => {
         const idDocumentDetails = [
             {
-                docName: "UK accredited PASS card",
+                docName: "UK_PASS_card",
                 documentNumber: "12345678",
                 expiryDate: undefined,
                 countryOfIssue: "United Kingdom"
@@ -84,8 +84,9 @@ describe("createPayload tests", () => {
         ];
         const formatDocumentsCheckedText = ["UK accredited PASS card"];
         const i18n = { passCard: "UK accredited PASS card" };
+        const howIdentityDocsChecked = "physical_security_features_checked";
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n);
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n, howIdentityDocsChecked);
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
@@ -99,7 +100,7 @@ describe("createPayload tests", () => {
     it("should handle UK HM Armed Forces Veteran Card identity document with optional expiryDate correctly", () => {
         const idDocumentDetails = [
             {
-                docName: "UK HM Armed Forces Veteran Card",
+                docName: "UK_HM_veteran_card",
                 documentNumber: "12345678",
                 expiryDate: undefined,
                 countryOfIssue: "United Kingdom"
@@ -107,8 +108,9 @@ describe("createPayload tests", () => {
         ];
         const formatDocumentsCheckedText = ["UK HM Armed Forces Veteran Card"];
         const i18n = { ukArmedForceCard: "UK HM Armed Forces Veteran Card" };
+        const howIdentityDocsChecked = "physical_security_features_checked";
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n);
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n, howIdentityDocsChecked);
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
@@ -122,7 +124,7 @@ describe("createPayload tests", () => {
     it("should construct payload correctly when expiryDate is provided", () => {
         const idDocumentDetails = [
             {
-                docName: "Irish passport card",
+                docName: "irish_passport_card",
                 documentNumber: "12345678",
                 expiryDate: new Date(2030, 9, 10),
                 countryOfIssue: "Ireland"
@@ -130,8 +132,9 @@ describe("createPayload tests", () => {
         ];
         const formatDocumentsCheckedText = ["Irish passport card"];
         const i18n = { irishPassport: "Irish passport card" };
+        const howIdentityDocsChecked = "cryptographic_security_features_checked";
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n);
+        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n, howIdentityDocsChecked);
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
