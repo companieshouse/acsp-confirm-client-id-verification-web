@@ -25,7 +25,7 @@
     "photoVisaHint": "Bydd hyn yn cynnwys rhwng 8 a 9 o nodau.",
     "ukFirearmsLicenceHint": "Bydd hyn yn cynnwys rhwng 6 a 10 o nodau.",
     "photoIdPradoDetailsHint": "Mae angen i hyn fod yn gyfeirnod unigryw neu rif a ddangosir ar y ddogfen.",
-    "optional": "(if it has one welsh)",
+    "optional": "(os oes ganddo un)",
 
     "error-docNumberInput": "Cofnodwch y manylion ar gyfer y {doc selected}",
     "error-docNumberLength": "Rhaid i {doc selected} fod yn 50 nod neu lai",
