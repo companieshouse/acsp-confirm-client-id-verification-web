@@ -42,7 +42,7 @@
                 id: "confirm",
                 name: "confirm",
                 value: payload["confirm"],
-                autocomplete: "off"
+                autocomplete: "email"
             }) }}
 
             {{ govukInsetText({
@@ -64,20 +64,4 @@
         _paq.push(["trackEvent", eventCategory, eventNameBtn]);
         }
     </script>
-
-<script nonce={{ nonce | dump | safe }}>
-    // Overriding page title to remove user's personal details
-    
-    // Add event listener to disable paste
-    document.addEventListener('DOMContentLoaded', function() {
-        var confirmInput = document.getElementById('confirm');
-        if (confirmInput) {
-            confirmInput.onpaste = function() {
-                return false;
-            };
-        }
-    });
-</script>
-
-
 {% endblock main_content %}
