@@ -11,6 +11,6 @@
     "error-noMonthIdentity" : "Rhaid i'r dyddiad gynnwys mis",
     "error-noYearIdentity" : "Rhaid i'r dyddiad gynnwys blwyddyn",
     "error-nonNumericIdentity" : "Rhaid i'r dyddiad gynnwys rhifau yn unig",
-    "error-dateAfterDob": "The date must be after Date of birth welsh",
-    "error-tooYoungWicc": "Rhaid i chi fod yn o leiaf 16 oed pan gwblhawyd y gwiriadau adnabod"
+    "error-dateAfterDob": "Rhaid i'r dyddiad fod ar ôl y dyddiad geni",
+    "error-tooYoungWicc": "Rhaid i'ch cleient fod o leiaf 16 mlwydd oed pan gwblhawyd y gwiriadau hunaniaeth"
 } 
