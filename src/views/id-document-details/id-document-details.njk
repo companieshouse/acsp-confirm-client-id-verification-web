@@ -46,6 +46,7 @@
         <div id="typeahead-form-group-{{index}}" class="govuk-form-group
           {% if errors["countryInput_" + index] %} govuk-form-group--error{% endif %}">
             <label class="govuk-label" for="location">
+              <span class="govuk-visually-hidden">{{ body }}</span>
               {% if otherOptionalDocs.includes(body) %}
                 {{i18n.chooseCountryText}} {{i18n.optional}}
               {% else %}
