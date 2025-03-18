@@ -1,13 +1,13 @@
 {
     "identityDocumentsIDVTitle": "Pa ddogfennau wnaethoch chi wirio i wirio ei hunaniaeth?",
     "identityDocumentsIDVHint": "Dewiswch o leiaf un ddogfen.",
-    "biometricPassport": "Pasbort biometrig neu ddarllenadwy gan beiriant",
-    "irishPassport": "Cerdyn pasbort Gwyddelig",
-    "ukDriversLicence": "Trwydded yrru cerdyn-llun (llawn neu dros dro) y DU, Ynysoedd y Sianel, Ynys Manaw a'r UE",
-    "identityCard": "Cerdyn adnabod gyda gwybodaeth fiometrig o'r UE, Norwy, Gwlad yr Iâ neu Liechtenstein",
-    "biometricPermit": "Trwydded breswylio biometrig y DU (BRP)",
-    "biometricCard": "Cerdyn preswylio biometrig y DU (BRC)",
-    "frontierPermit": "Trwydded waith ffiniau'r DU",
+    "biometric_passport": "Pasbort biometrig neu ddarllenadwy gan beiriant",
+    "irish_passport_card": "Cerdyn pasbort Gwyddelig",
+    "ukDrUK_or_EU_driving_licenceiversLicence": "Trwydded yrru cerdyn-llun (llawn neu dros dro) y DU, Ynysoedd y Sianel, Ynys Manaw a'r UE",
+    "EEA_identity_card": "Cerdyn adnabod gyda gwybodaeth fiometrig o'r UE, Norwy, Gwlad yr Iâ neu Liechtenstein",
+    "UK_biometric_residence_permit": "Trwydded breswylio biometrig y DU (BRP)",
+    "UK_biometric_residence_card": "Cerdyn preswylio biometrig y DU (BRC)",
+    "UK_frontier_worker_permit": "Trwydded waith ffiniau'r DU",
 
     "error-identityDocumentsGroup1Empty": "Dewiswch pa ddogfennau y gwnaethoch eu gwirio i wirio ei hunaniaeth"
 }

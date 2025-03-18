@@ -47,6 +47,8 @@
 
   {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
 
+  {% set groupBDocs = [i18n.birth_certificate, i18n.marriage_certificate, i18n.immigration_document_non_photo_id, i18n.visa_non_photo_id, i18n.work_permit_non_photo_id, i18n.bank_statement, i18n.rental_agreement, i18n.mortgage_statement, i18n.UK_council_tax_statement, i18n.utility_bill] %}
+
   <form action="" method="POST">
     {% include "partials/csrf_token.njk" %}
     <h1 class="govuk-heading-xl">{{ i18n.checkYourAnswersHeading }}</h1>
@@ -234,14 +236,15 @@
     ]
   }) }}
 
-  {% for doc in formattedIdentityDocuments %}
-  <h2 class="govuk-heading-m">{{ i18n.details | replace("{DOCNAME}", doc.docName) }}</h2>
+  {% for doc in clientData.idDocumentDetails %}
+  {% if not (groupBDocs.includes(i18n[doc.docName])) %}
+  <h2 class="govuk-heading-m">{{ i18n.details | replace("{DOCNAME}", i18n[doc.docName]) }}</h2>
     {{ govukSummaryList({
       classes: 'govuk-!-margin-bottom-9',
       rows: [
         {
           key: {
-            text: i18n.number | replace("{DOCNAME}", doc.docName)
+            text: i18n.number | replace("{DOCNAME}", i18n[doc.docName])
           },
           value: {
             text: doc.documentNumber
@@ -251,7 +254,7 @@
               {
                 href: "/tell-companies-house-you-have-verified-someones-identity/id-document-details" + "?lang=" + lang + "#documentNumber_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.number | replace("{DOCNAME}", doc.docName)
+                visuallyHiddenText: i18n.number | replace("{DOCNAME}", i18n[doc.docName])
               }
             ]
           }
@@ -292,6 +295,7 @@
         }
       ]
     }) }}
+{% endif %}    
 {% endfor %}
 
 

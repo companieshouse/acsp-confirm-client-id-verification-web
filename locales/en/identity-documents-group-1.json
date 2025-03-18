@@ -1,13 +1,13 @@
 {
     "identityDocumentsIDVTitle": "Which documents did you check to verify their identity?",
     "identityDocumentsIDVHint": "Select at least one document.",
-    "biometricPassport": "Biometric or machine readable passport",
-    "irishPassport": "Irish passport card",
-    "ukDriversLicence": "UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional)",
-    "identityCard": "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein",
-    "biometricPermit": "UK biometric residence permit (BRP)",
-    "biometricCard": "UK biometric residence card (BRC)",
-    "frontierPermit": "UK Frontier Worker permit",
+    "biometric_passport": "Biometric or machine readable passport",
+    "irish_passport_card": "Irish passport card",
+    "UK_or_EU_driving_licence": "UK, Channel Islands, Isle of Man and EU photocard driving licence (full or provisional)",
+    "EEA_identity_card": "Identity card with biometric information from the EU, Norway, Iceland or Liechtenstein",
+    "UK_biometric_residence_permit": "UK biometric residence permit (BRP)",
+    "UK_biometric_residence_card": "UK biometric residence card (BRC)",
+    "UK_frontier_worker_permit": "UK Frontier Worker permit",
 
     "error-identityDocumentsGroup1Empty": "Select which documents you checked to verify their identity"
 }

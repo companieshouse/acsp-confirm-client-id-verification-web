@@ -8,7 +8,11 @@ import { getLocalesService } from "../../../src/utils/localise";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { createRequest } from "node-mocks-http";
 import { session } from "../../mocks/session_middleware_mock";
-import { USER_DATA } from "../../../src/utils/constants";
+import { USER_DATA, ACSP_DETAILS, ADDRESS_LIST } from "../../../src/utils/constants";
+import { sessionMiddleware } from "../../../src/middleware/session_middleware";
+import { Request, Response, NextFunction } from "express";
+import { dummyFullProfile } from "../../mocks/acsp_profile.mock";
+import { addressList } from "../../mocks/address.mock";
 
 jest.mock("../../../src/services/formatService.ts");
 
@@ -23,7 +27,29 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
             url: "/"
         });
         const session = getSessionRequestWithPermission();
+        session.setExtraData(USER_DATA, {
+            idDocumentDetails: [
+                {
+                    docName: "passport",
+                    documentNumber: "123456789",
+                    expiryDate: new Date("2030-01-01"),
+                    countryOfIssue: "UK"
+                }
+            ],
+            address: {
+                propertyDetails: "2",
+                line1: "DUNCALF STREET",
+                town: "STOKE-ON-TRENT",
+                country: "GB-ENG",
+                postcode: "ST6 3LJ"
+            },
+            documentsChecked: [
+                ["passport"]
+            ],
+            howIdentityDocsChecked: "cryptographic_security_features_checked"
+        });
         req.session = session;
+        console.log("Session in beforeEach:", req.session.getExtraData(USER_DATA));
     });
 
     it("should return status 200 and render the confirmation page with formatted data", async () => {
@@ -37,6 +63,7 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
         const locales = getLocalesService();
         await router.get(BASE_URL + CONFIRMATION + "?lang=en");
         const clientData: ClientData = session.getExtraData(USER_DATA)!;
+        console.log("Client data retrieved:", clientData);
         expect(FormatService.formatAddress).toHaveBeenCalledWith(
             clientData.address
         );

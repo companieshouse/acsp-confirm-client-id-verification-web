@@ -63,8 +63,8 @@ export class IdDocumentDetailsService {
 
 const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date, i18n: any) => {
     // make error message empty for optional fields for below specific docs
-    if (((docName === i18n.passCard || docName === i18n.ukArmedForceCard) && errorText === "noExpiryDate") ||
-        ((docName === i18n.photoIdPrado || docName === i18n.photoWorkPermit) &&
+    if (((docName === i18n.UK_PASS_card || docName === i18n.UK_HM_veteran_card) && errorText === "noExpiryDate") ||
+        ((docName === i18n.PRADO_supported_photo_id || docName === i18n.work_permit_photo_id) &&
          (errorText === "noExpiryDate" || errorText === "noCountry" || errorText === "docNumberInput"))) {
         return "";
     // replace date placeholder with formatted date if error is about invalid expirydate

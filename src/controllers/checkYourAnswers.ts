@@ -47,13 +47,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
     const identityDocuments = clientData.idDocumentDetails!;
 
-    const formattedIdentityDocuments = identityDocuments
-        .map((doc) => ({
-            ...doc,
-            docName: FormatService.findDocumentName(doc.docName, locales.i18nCh.resolveNamespacesKeys(lang), clientData.howIdentityDocsChecked)
-        }))
-        .filter((doc) => doc.docName !== "");
-
     const amlBodies = getAmlBodiesAsString(acspDetails);
 
     res.render(config.CHECK_YOUR_ANSWERS, {
@@ -69,8 +62,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             idDocumentDetails: identityDocuments
         },
         amlBodies,
-        acspName: acspDetails.name,
-        formattedIdentityDocuments
+        acspName: acspDetails.name
     });
 };
 
@@ -103,13 +95,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const amlBodies = getAmlBodiesAsString(acspDetails);
         const identityDocuments = clientData.idDocumentDetails!;
 
-        const formattedIdentityDocuments = identityDocuments
-            .map((doc) => ({
-                ...doc,
-                docName: FormatService.findDocumentName(doc.docName, locales.i18nCh.resolveNamespacesKeys(lang), clientData.howIdentityDocsChecked)
-            }))
-            .filter((doc) => doc.docName !== "");
-
         const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
         res.status(400).render(config.CHECK_YOUR_ANSWERS, {
             previousPage,
@@ -125,8 +110,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 idDocumentDetails: identityDocuments
             },
             amlBodies,
-            acspName: acspDetails.name,
-            formattedIdentityDocuments
+            acspName: acspDetails.name
         });
     } else {
         try {
