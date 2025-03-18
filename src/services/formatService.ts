@@ -162,7 +162,7 @@ export class FormatService {
         if (howIdentityDocsChecked === "cryptographic_security_features_checked") {
             // option1
             hintMapping = {
-                passport: i18n.biometricPassportHint,
+                biometric_passport: i18n.biometricPassportHint,
                 irish_passport_card: i18n.irishPassportHint,
                 UK_or_EU_driving_licence: i18n.ukDriversLicenceHint,
                 EEA_identity_card: i18n.identityCardHint,

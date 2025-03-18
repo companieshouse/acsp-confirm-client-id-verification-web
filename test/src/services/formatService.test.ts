@@ -5,7 +5,7 @@ describe("Format Service tests", () => {
     describe("formatDocumentHintText tests", () => {
 
         it("should return the hint text for option 1", () => {
-            const documents = ["passport", "irish_passport_card"];
+            const documents = ["biometric_passport", "irish_passport_card"];
             const i18n = {
                 biometricPassportHint: "Biometric Passport Hint",
                 irishPassportHint: "Irish Passport Hint"
