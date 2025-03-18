@@ -49,7 +49,6 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
             howIdentityDocsChecked: "cryptographic_security_features_checked"
         });
         req.session = session;
-        console.log("Session in beforeEach:", req.session.getExtraData(USER_DATA));
     });
 
     it("should return status 200 and render the confirmation page with formatted data", async () => {
@@ -63,7 +62,6 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
         const locales = getLocalesService();
         await router.get(BASE_URL + CONFIRMATION + "?lang=en");
         const clientData: ClientData = session.getExtraData(USER_DATA)!;
-        console.log("Client data retrieved:", clientData);
         expect(FormatService.formatAddress).toHaveBeenCalledWith(
             clientData.address
         );
