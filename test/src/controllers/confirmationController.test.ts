@@ -8,11 +8,7 @@ import { getLocalesService } from "../../../src/utils/localise";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { createRequest } from "node-mocks-http";
 import { session } from "../../mocks/session_middleware_mock";
-import { USER_DATA, ACSP_DETAILS, ADDRESS_LIST } from "../../../src/utils/constants";
-import { sessionMiddleware } from "../../../src/middleware/session_middleware";
-import { Request, Response, NextFunction } from "express";
-import { dummyFullProfile } from "../../mocks/acsp_profile.mock";
-import { addressList } from "../../mocks/address.mock";
+import { USER_DATA } from "../../../src/utils/constants";
 
 jest.mock("../../../src/services/formatService.ts");
 
