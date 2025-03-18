@@ -75,7 +75,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             countryList: countryList
         });
     } else {
-        documentDetailsService.saveIdDocumentDetails(req, clientData, clientData.documentsChecked!, locales.i18nCh.resolveNamespacesKeys(lang));
+        documentDetailsService.saveIdDocumentDetails(req, clientData, clientData.documentsChecked!);
         const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
 
         if (checkYourAnswersFlag) {

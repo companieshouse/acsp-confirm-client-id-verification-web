@@ -9,6 +9,6 @@
     "details": "details",
     "number": "number",
     "confirmSend": "Confirm and send",
-    "dateNotProvided": "Not provided",
+    "notProvided": "Not provided",
     "error-checkYourAnswerEmpty":"Select to confirm the declaration"
 }

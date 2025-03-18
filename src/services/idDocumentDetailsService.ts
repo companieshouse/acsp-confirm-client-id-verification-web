@@ -8,7 +8,7 @@ import { FormatService } from "./formatService";
 import { getLocalesService } from "../utils/localise";
 
 export class IdDocumentDetailsService {
-    public saveIdDocumentDetails = (req: Request, clientData: ClientData, formattedDocumentsChecked: string[], i18n: any) => {
+    public saveIdDocumentDetails = (req: Request, clientData: ClientData, formattedDocumentsChecked: string[]) => {
         const documentDetails: DocumentDetails[] = [];
         clientData.idDocumentDetails = documentDetails;
         for (let i = 0; i < formattedDocumentsChecked.length; i++) {
@@ -27,11 +27,11 @@ export class IdDocumentDetailsService {
                 );
             }
             documentDetails.push({
-                documentNumber: req.body[docNumberId] ? req.body[docNumberId] : i18n.dateNotProvided,
+                documentNumber: req.body[docNumberId] ? req.body[docNumberId] : "",
                 expiryDate: expiryDate,
-                countryOfIssue: req.body[countryOfIssueId] ? req.body[countryOfIssueId] : i18n.dateNotProvided,
+                countryOfIssue: req.body[countryOfIssueId] ? req.body[countryOfIssueId] : "",
                 docName: formattedDocumentsChecked[i],
-                formattedExpiryDate: FormatService.formatDate(expiryDate, i18n)
+                formattedExpiryDate: FormatService.formatDate(expiryDate)
             });
         }
         if (clientData) {
