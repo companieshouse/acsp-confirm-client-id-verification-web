@@ -131,7 +131,7 @@ describe("FormatService tests", () => {
         });
 
         it("should return formatted documents in English", () => {
-            const documents = ["passport", "irish_passport_card"];
+            const documents = ["biometric_passport", "irish_passport_card"];
             const result = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("en"));
             const expected =
         "• Biometric or machine readable passport<br>• Irish passport card";
@@ -139,7 +139,7 @@ describe("FormatService tests", () => {
         });
 
         it("should return formatted documents in Welsh", () => {
-            const documents = ["passport", "irish_passport_card"];
+            const documents = ["biometric_passport", "irish_passport_card"];
             const result = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("cy"));
             const expected =
         "• Pasbort biometrig neu ddarllenadwy gan beiriant<br>• Cerdyn pasbort Gwyddelig";
@@ -159,7 +159,7 @@ describe("FormatService tests", () => {
         });
 
         it("should handle a single document in the array", () => {
-            const documents = ["passport"];
+            const documents = ["biometric_passport"];
             const result = FormatService.formatDocumentsChecked(documents, locales.i18nCh.resolveNamespacesKeys("en"));
             const expected = "• Biometric or machine readable passport";
             expect(result).toBe(expected);
@@ -182,7 +182,7 @@ describe("FormatService tests", () => {
         const locales = getLocalesService();
 
         it("should return string array for the selected documents in English", () => {
-            const documents = ["passport", "irish_passport_card"];
+            const documents = ["biometric_passport", "irish_passport_card"];
             const howIdentityDocsChecked = "cryptographic_security_features_checked";
             const result = FormatService.formatDocumentsCheckedText(documents, howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys("en"));
             const expected = ["Biometric or machine readable passport", "Irish passport card"];
@@ -191,7 +191,7 @@ describe("FormatService tests", () => {
         });
 
         it("should return string array for the selected documents in Welsh", () => {
-            const documents = ["passport", "irish_passport_card"];
+            const documents = ["biometric_passport", "irish_passport_card"];
             const howIdentityDocsChecked = "cryptographic_security_features_checked";
             const result = FormatService.formatDocumentsCheckedText(documents, howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys("cy"));
             const expected = ["Pasbort biometrig neu ddarllenadwy gan beiriant", "Cerdyn pasbort Gwyddelig"];

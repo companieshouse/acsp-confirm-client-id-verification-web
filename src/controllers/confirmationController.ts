@@ -32,6 +32,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
     const amlBodies = getAmlBodiesAsString(acspDetails);
 
+    const identityDocuments = clientData.idDocumentDetails!;
+
     res.render(config.CONFIRMATION, {
         previousPage: addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang),
         ...getLocaleInfo(locales, lang),
@@ -48,7 +50,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             address: formattedAddress,
             dateOfBirth: formattedDateOfBirth,
             whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
-            documentsChecked: formattedDocumentsChecked
+            documentsChecked: formattedDocumentsChecked,
+            idDocumentDetails: identityDocuments
         }
     });
 };

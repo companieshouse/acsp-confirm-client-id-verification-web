@@ -21,7 +21,7 @@ describe("GET" + WHICH_IDENTITY_DOCS_CHECKED_GROUP1, () => {
 describe("POST" + WHICH_IDENTITY_DOCS_CHECKED_GROUP1, () => {
     it("should return status 302 after redirecting to the next page", async () => {
         const inputData = {
-            documentsGroup1: ["biometricPassport", "ukDriversLicence"]
+            documentsGroup1: ["biometric_passport", "UK_or_EU_driving_licence"]
         };
         const res = await router.post(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1).send(inputData);
         expect(res.status).toBe(302);

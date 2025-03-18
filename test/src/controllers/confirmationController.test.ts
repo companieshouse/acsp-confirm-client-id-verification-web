@@ -23,6 +23,27 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
             url: "/"
         });
         const session = getSessionRequestWithPermission();
+        session.setExtraData(USER_DATA, {
+            idDocumentDetails: [
+                {
+                    docName: "passport",
+                    documentNumber: "123456789",
+                    expiryDate: new Date("2030-01-01"),
+                    countryOfIssue: "UK"
+                }
+            ],
+            address: {
+                propertyDetails: "2",
+                line1: "DUNCALF STREET",
+                town: "STOKE-ON-TRENT",
+                country: "GB-ENG",
+                postcode: "ST6 3LJ"
+            },
+            documentsChecked: [
+                ["passport"]
+            ],
+            howIdentityDocsChecked: "cryptographic_security_features_checked"
+        });
         req.session = session;
     });
 

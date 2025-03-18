@@ -21,8 +21,8 @@ describe("GET" + WHICH_IDENTITY_DOCS_CHECKED_GROUP2, () => {
 describe("POST" + WHICH_IDENTITY_DOCS_CHECKED_GROUP2, () => {
     it("should return status 302 after redirecting to the next page", async () => {
         const inputData = {
-            documentsGroup2A: ["ukFrontierPermit"],
-            documentsGroup2B: ["marriageCert"]
+            documentsGroup2A: ["UK_frontier_worker_permit"],
+            documentsGroup2B: ["marriage_certificate"]
         };
         const res = await router.post(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2).send(inputData);
         expect(res.status).toBe(302);
@@ -31,8 +31,8 @@ describe("POST" + WHICH_IDENTITY_DOCS_CHECKED_GROUP2, () => {
 
     it("should return status 302 after redirecting to the next page", async () => {
         const inputData = {
-            documentsGroup2A: "ukFrontierPermit",
-            documentsGroup2B: "marriageCert"
+            documentsGroup2A: "UK_frontier_worker_permit",
+            documentsGroup2B: "marriage_certificate"
         };
         const res = await router.post(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2).send(inputData);
         expect(res.status).toBe(302);
@@ -48,7 +48,7 @@ describe("POST" + WHICH_IDENTITY_DOCS_CHECKED_GROUP2, () => {
 
     it("should return status 400 when no group A documents are selected", async () => {
         const inputData = {
-            documentsGroup2B: "marriageCert"
+            documentsGroup2B: "marriage_certificate"
         };
         const res = await router.post(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2).send(inputData);
         expect(res.status).toBe(400);
@@ -57,7 +57,7 @@ describe("POST" + WHICH_IDENTITY_DOCS_CHECKED_GROUP2, () => {
 
     it("should return status 400 when only 1 document is selected", async () => {
         const inputData = {
-            documentsGroup2A: "ukFrontierPermit"
+            documentsGroup2A: "UK_frontier_worker_permit"
         };
         const res = await router.post(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2).send(inputData);
         expect(res.status).toBe(400);

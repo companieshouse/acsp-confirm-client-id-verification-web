@@ -49,6 +49,8 @@
 
   {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
 
+  {% set groupBDocs = [i18n.birth_certificate, i18n.marriage_certificate, i18n.immigration_document_non_photo_id, i18n.visa_non_photo_id, i18n.work_permit_non_photo_id, i18n.bank_statement, i18n.rental_agreement, i18n.mortgage_statement, i18n.UK_council_tax_statement, i18n.utility_bill] %}
+
   <p class="govuk-body">{{ i18n.yourRef }} {{ reference }}.  {{ i18n.thisIsNot }}</p>
 
   <h2 class="govuk-heading-m">{{ i18n.printOrSaveTheVerificationDetailsHeading }}</h2>
@@ -155,36 +157,38 @@
     }
     ]
   }) }}
-  {% for item in clientData.idDocumentDetails %}
+  {% for doc in clientData.idDocumentDetails %}
+  {% if not (groupBDocs.includes(i18n[doc.docName])) %}
   {{ govukSummaryList({
     classes: 'govuk-!-margin-bottom-0',
     rows: [
     {
       key: {
-        text: i18n.number | replace("{DOCNAME}", item.docName)
+        text: i18n.number | replace("{DOCNAME}", i18n[doc.docName])
       },
       value: {
-        text: item.documentNumber
+        text: doc.documentNumber
       }
     },
     {
       key: {
-        text: item.docName + " " + i18n.ExpiryDate
+        text: i18n[doc.docName] + " " + i18n.ExpiryDate
       },
       value: {
-        text: item.formattedExpiryDate
+        text: doc.formattedExpiryDate
       }
     },
     {
       key: {
-        text: item.docName + " " + i18n.chooseCountryText
+        text: i18n[doc.docName] + " " + i18n.chooseCountryText
       },
       value: {
-        text: item.countryOfIssue
+        text: doc.countryOfIssue
       }
     }
     ]
   }) }}
+  {% endif %}    
   {% endfor %}
   <br><br>
   <h2 class="govuk-heading-m">{{ i18n.feedbackSurveyTitle }}</h2>
