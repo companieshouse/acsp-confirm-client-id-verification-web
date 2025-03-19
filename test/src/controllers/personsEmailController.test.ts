@@ -63,7 +63,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
         };
         const res = await router.post(BASE_URL + EMAIL_ADDRESS).send(sendData);
         expect(res.status).toBe(400);
-        expect(res.text).toContain("Enter their email address");
+        expect(res.text).toContain("Confirm their email address");
     });
 
     it("should return status 400 after incorrect data entered", async () => {
