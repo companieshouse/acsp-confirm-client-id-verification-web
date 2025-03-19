@@ -19,7 +19,7 @@ describe("common template variables middleware tests", () => {
 
     it("should display 'Authorised agent' navbar link when acsp number is valid", () => {
         getLoggedInAcspNumberSpy.mockReturnValue("AP12345");
-
+        req.query = { lang: "cy" };
         commonTemplateVariablesMiddleware(req, res, next);
 
         expect(next).toHaveBeenCalled();
@@ -28,7 +28,7 @@ describe("common template variables middleware tests", () => {
 
     it("should not display 'Authorised agent' navbar link when acsp number is undefined", () => {
         getLoggedInAcspNumberSpy.mockReturnValue(undefined);
-
+        req.query = { lang: "en" };
         commonTemplateVariablesMiddleware(req, res, next);
 
         expect(next).toHaveBeenCalled();
