@@ -8,7 +8,7 @@
     "continue": "Pharhau",
 
     "error-noEmailAddress" : "Cofnodwch ei gyfeiriad e-bost",
-    "error-noConfirmAddress" : "Cofnodwch ei gyfeiriad e-bost",
+    "error-noConfirmAddress" : "Cadarnhau cyfeiriad e-bost",
     "error-invalidEmail" : "Cofnodwch gyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com",
     "error-emailAddressDontMatch": "Rhaid i'r cyfeiriadau e-bost gyfateb"
 }
