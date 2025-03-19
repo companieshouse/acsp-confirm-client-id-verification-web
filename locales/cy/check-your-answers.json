@@ -9,6 +9,6 @@
     "details": "manylion",
     "number": "rhif",
     "confirmSend": "Cadarnhau ac anfon",
-    "dateNotProvided": "Heb ei ddarparu",
+    "notProvided": "Heb ei ddarparu",
     "error-checkYourAnswerEmpty":"Dewiswch i gadarnhau'r datganiad"
 }

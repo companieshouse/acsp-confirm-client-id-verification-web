@@ -1,10 +1,8 @@
 import { MockRequest, createRequest } from "node-mocks-http";
 import { IdDocumentDetailsService } from "../../../src/services/idDocumentDetailsService";
-import { ClientData } from "../../../src/model/ClientData";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { USER_DATA } from "../../../src/utils/constants";
 import { Request } from "express";
-import { Session } from "@companieshouse/node-session-handler";
 jest.mock("../../../src/services/identityVerificationService.ts");
 
 describe("IdDocumentDetailsService tests", () => {
@@ -26,7 +24,7 @@ describe("IdDocumentDetailsService tests", () => {
         req.body.countryInput_1 = "India";
         const formattedDocs = ["UK biometric residence permit (BRP)"];
 
-        service.saveIdDocumentDetails(req, {}, formattedDocs, {});
+        service.saveIdDocumentDetails(req, {}, formattedDocs);
         const date = new Date(2025, 1, 28);
         expect(session.getExtraData(USER_DATA)).toEqual({
             idDocumentDetails: [{
@@ -39,7 +37,7 @@ describe("IdDocumentDetailsService tests", () => {
         });
     });
 
-    it("should set formattedExpiryDate to 'Not provided' when expiry date is not given for optional expiry date ID doc", () => {
+    it("should set formattedExpiryDate to an empty string when expiry date is not given for optional expiry date ID doc", () => {
         // Arrange
         req = createRequest({});
         const session = getSessionRequestWithPermission();
@@ -51,9 +49,8 @@ describe("IdDocumentDetailsService tests", () => {
         req.body.countryInput_1 = "England";
 
         const formattedDocs = ["UK HM Armed Forces Veteran Card"];
-        const i18n = { dateNotProvided: "Not provided" };
 
-        service.saveIdDocumentDetails(req, {}, formattedDocs, i18n);
+        service.saveIdDocumentDetails(req, {}, formattedDocs);
 
         expect(session.getExtraData(USER_DATA)).toEqual({
             idDocumentDetails: [{
@@ -61,12 +58,12 @@ describe("IdDocumentDetailsService tests", () => {
                 documentNumber: "123456789",
                 expiryDate: undefined,
                 countryOfIssue: "England",
-                formattedExpiryDate: "Not provided"
+                formattedExpiryDate: ""
             }]
         });
     });
 
-    it("should set documentNumber to 'Not provided' when document number is not given for optional document number doc", () => {
+    it("should set documentNumber to an empty string when document number is not given for optional document number doc", () => {
         // Arrange
         req = createRequest({});
         const session = getSessionRequestWithPermission();
@@ -78,22 +75,21 @@ describe("IdDocumentDetailsService tests", () => {
         req.body.countryInput_1 = "England";
 
         const formattedDocs = ["Photographic ID listed on PRADO"];
-        const i18n = { dateNotProvided: "Not provided" };
 
-        service.saveIdDocumentDetails(req, {}, formattedDocs, i18n);
+        service.saveIdDocumentDetails(req, {}, formattedDocs);
 
         expect(session.getExtraData(USER_DATA)).toEqual({
             idDocumentDetails: [{
                 docName: "Photographic ID listed on PRADO",
-                documentNumber: "Not provided",
+                documentNumber: "",
                 expiryDate: undefined,
                 countryOfIssue: "England",
-                formattedExpiryDate: "Not provided"
+                formattedExpiryDate: ""
             }]
         });
     });
 
-    it("should set country to 'Not provided' when country is not given for optional country doc", () => {
+    it("should set country to an empty string when country is not given for optional country doc", () => {
         // Arrange
         req = createRequest({});
         const session = getSessionRequestWithPermission();
@@ -105,17 +101,16 @@ describe("IdDocumentDetailsService tests", () => {
         req.body.countryInput_1 = undefined;
 
         const formattedDocs = ["Photographic ID listed on PRADO"];
-        const i18n = { dateNotProvided: "Not provided" };
 
-        service.saveIdDocumentDetails(req, {}, formattedDocs, i18n);
+        service.saveIdDocumentDetails(req, {}, formattedDocs);
 
         expect(session.getExtraData(USER_DATA)).toEqual({
             idDocumentDetails: [{
                 docName: "Photographic ID listed on PRADO",
                 documentNumber: "123456789",
                 expiryDate: undefined,
-                countryOfIssue: "Not provided",
-                formattedExpiryDate: "Not provided"
+                countryOfIssue: "",
+                formattedExpiryDate: ""
             }]
         });
     });

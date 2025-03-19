@@ -159,6 +159,9 @@
   }) }}
   {% for doc in clientData.idDocumentDetails %}
   {% if not (groupBDocs.includes(i18n[doc.docName])) %}
+  {% set docNumber = doc.documentNumber if doc.documentNumber else i18n.notProvided %}
+  {% set expiryDate = doc.formattedExpiryDate if doc.formattedExpiryDate else i18n.notProvided %}
+  {% set countryOfIssue = doc.countryOfIssue if doc.countryOfIssue else i18n.notProvided %}
   {{ govukSummaryList({
     classes: 'govuk-!-margin-bottom-0',
     rows: [
@@ -167,7 +170,7 @@
         text: i18n.number | replace("{DOCNAME}", i18n[doc.docName])
       },
       value: {
-        text: doc.documentNumber
+        text: docNumber
       }
     },
     {
@@ -175,7 +178,7 @@
         text: i18n[doc.docName] + " " + i18n.ExpiryDate
       },
       value: {
-        text: doc.formattedExpiryDate
+        text: expiryDate
       }
     },
     {
@@ -183,7 +186,7 @@
         text: i18n[doc.docName] + " " + i18n.chooseCountryText
       },
       value: {
-        text: doc.countryOfIssue
+        text: countryOfIssue
       }
     }
     ]
