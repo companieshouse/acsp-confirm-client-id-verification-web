@@ -94,7 +94,9 @@ export class IdentityVerificationService {
 
         const documentsChecked = clientData.documentsChecked!;
         const verificationEvidence = documentsChecked.map((document) => {
-            return { type: document as unknown as VerificationType };
+            // Map biometric_passport to passport to be accepted by Verification Api
+            const documentType = document === "biometric_passport" ? "passport" : document;
+            return { type: documentType as unknown as VerificationType };
         });
 
         return {
