@@ -4,7 +4,6 @@
     "whatIsYourNameFirstName" : "First name",
     "whatIsYourNameMiddleNames" : "Middle name or names",
     "whatIsYourNameLastName" : "Last name",
-    "error-enterFullName" : "Enter their full name",
     "error-enterFirstName" : "Enter their first name",
     "error-enterLastName": "Enter their last name",
     "error-invalidFirstNameFormat": "First name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes",

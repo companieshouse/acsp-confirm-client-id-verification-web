@@ -71,6 +71,77 @@ describe("POST" + PERSONS_NAME, () => {
         expect(res.status).toBe(400);
         expect(res.text).toContain("Enter their last name");
     });
+    it("should return status 400 after incorrect data entered", async () => {
+        const sendData = {
+            "first-name": "",
+            "middle-names": "",
+            "last-name": ""
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("Enter their first name");
+        expect(res.text).toContain("Enter their last name");
+    });
+    it("should return status 400 after incorrect data entered", async () => {
+        const sendData = {
+            "first-name": "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
+            "middle-names": "",
+            "last-name": "Doe"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("First name must be 50 characters or less");
+    });
+    it("should return status 400 after incorrect data entered", async () => {
+        const sendData = {
+            "first-name": "John",
+            "middle-names": "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz",
+            "last-name": "Doe"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("Middle names must be 50 characters or less");
+    });
+    it("should return status 400 after incorrect data entered", async () => {
+        const sendData = {
+            "first-name": "John",
+            "middle-names": "",
+            "last-name": "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcde"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("Last name must be 160 characters or less");
+    });
+    it("should return status 400 after incorrect data entered", async () => {
+        const sendData = {
+            "first-name": "John%",
+            "middle-names": "",
+            "last-name": "Doe"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("First name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes");
+    });
+    it("should return status 400 after incorrect data entered", async () => {
+        const sendData = {
+            "first-name": "John",
+            "middle-names": "%",
+            "last-name": "Doe"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("Middle name or names must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes");
+    });
+    it("should return status 400 after incorrect data entered", async () => {
+        const sendData = {
+            "first-name": "John",
+            "middle-names": "",
+            "last-name": "Doe&"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("Last name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes");
+    });
 });
 
 function createMockSessionMiddleware () {
