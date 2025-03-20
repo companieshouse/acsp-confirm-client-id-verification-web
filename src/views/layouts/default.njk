@@ -19,7 +19,9 @@
     {% include "partials/__header.njk" %}
     <div class="govuk-width-container">
       {% include "partials/nav/top.njk" %}
-      {% include "locales-banner.njk" %}
+      {% block localesBanner %}
+        {% include "locales-banner.njk" %}
+      {% endblock %}
       {% block backLink %}
         <a href="{{ previousPage }}" class="govuk-back-link">{{i18n.Back}}</a>
       {% endblock %}
