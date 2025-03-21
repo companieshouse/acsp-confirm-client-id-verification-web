@@ -4,7 +4,7 @@ import { Session } from "@companieshouse/node-session-handler";
 import { createPrivateApiClient } from "private-api-sdk-node";
 import { Identity } from "private-api-sdk-node/dist/services/identity-verification/types";
 import { IdentityVerificationService, findIdentityByEmail, sendVerifiedClientDetails } from "../../../src/services/identityVerificationService";
-import { dummyIdentity, verifiedClientDetails, clientDetails } from "../../mocks/identity.mock";
+import { dummyIdentity, verifiedClientDetails, clientDetails, clientDetailsBiometricPassport } from "../../mocks/identity.mock";
 import { createRequest, MockRequest } from "node-mocks-http";
 
 jest.mock("private-api-sdk-node");
@@ -150,6 +150,15 @@ describe("verification api service tests", () => {
             expect(actualVerifiedClientData.currentAddress.postalCode).toEqual(verifiedClientDetails.currentAddress.postalCode);
             expect(actualVerifiedClientData.currentAddress.premises).toEqual(verifiedClientDetails.currentAddress.premises);
             expect(actualVerifiedClientData.currentAddress.region).toEqual(verifiedClientDetails.currentAddress.region);
+        });
+
+        it("should map biometric_passport to passport in verificationEvidence", () => {
+            const identityVerificationService = new IdentityVerificationService();
+            const result = identityVerificationService.prepareVerifiedClientData(clientDetailsBiometricPassport, req);
+
+            expect(result.verificationEvidence).toEqual([
+                { type: "passport" }
+            ]);
         });
     });
 });
