@@ -2,10 +2,11 @@ import { Request } from "express";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { Session } from "@companieshouse/node-session-handler";
 import { createPrivateApiClient } from "private-api-sdk-node";
-import { Identity } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 import { IdentityVerificationService, findIdentityByEmail, sendVerifiedClientDetails } from "../../../src/services/identityVerificationService";
 import { dummyIdentity, verifiedClientDetails, clientDetails } from "../../mocks/identity.mock";
 import { createRequest, MockRequest } from "node-mocks-http";
+import { ClientData } from "../../../src/model/ClientData";
 
 jest.mock("private-api-sdk-node");
 
@@ -150,6 +151,37 @@ describe("verification api service tests", () => {
             expect(actualVerifiedClientData.currentAddress.postalCode).toEqual(verifiedClientDetails.currentAddress.postalCode);
             expect(actualVerifiedClientData.currentAddress.premises).toEqual(verifiedClientDetails.currentAddress.premises);
             expect(actualVerifiedClientData.currentAddress.region).toEqual(verifiedClientDetails.currentAddress.region);
+        });
+
+        it("should map biometric_passport to passport in verificationEvidence", () => {
+            const clientData: ClientData = {
+                firstName: "John",
+                middleName: "A.",
+                lastName: "Doe",
+                preferredFirstName: "Johnny",
+                preferredMiddleName: "A.",
+                preferredLastName: "Doe",
+                emailAddress: "john.doe@example.com",
+                whenIdentityChecksCompleted: new Date().toISOString(),
+                howIdentityDocsChecked: "manual",
+                dateOfBirth: new Date("1990-01-01").toISOString(),
+                address: {
+                    line1: "123 Main St",
+                    line2: "Apt 4",
+                    county: "County",
+                    town: "Town",
+                    country: "Country",
+                    postcode: "12345",
+                    propertyDetails: "Property Details"
+                },
+                documentsChecked: ["biometric_passport"]
+            };
+            const identityVerificationService = new IdentityVerificationService();
+            const result = identityVerificationService.prepareVerifiedClientData(clientData, req);
+
+            expect(result.verificationEvidence).toEqual([
+                { type: "passport" }
+            ]);
         });
     });
 });
