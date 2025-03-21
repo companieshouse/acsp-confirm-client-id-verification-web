@@ -6,6 +6,7 @@ import { ApiErrorResponse } from "@companieshouse/api-sdk-node/dist/services/res
 import { createPrivateApiKeyClient } from "./apiService";
 import { ClientData } from "model/ClientData";
 import { getLoggedInAcspNumber, getLoggedInUserId } from "../utils/session";
+import { BIOMETRIC_PASSPORT, PASSPORT } from "../utils/constants";
 
 export const findIdentityByEmail = async (email: string): Promise<Identity | undefined> => {
     const apiClient = createPrivateApiKeyClient();
@@ -95,7 +96,7 @@ export class IdentityVerificationService {
         const documentsChecked = clientData.documentsChecked!;
         const verificationEvidence = documentsChecked.map((document) => {
             // Map biometric_passport to passport to be accepted by Verification Api
-            const documentType = document === "biometric_passport" ? "passport" : document;
+            const documentType = document === BIOMETRIC_PASSPORT ? PASSPORT : document;
             return { type: documentType as unknown as VerificationType };
         });
 

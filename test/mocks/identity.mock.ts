@@ -90,3 +90,24 @@ export const clientDetails = {
     howIdentityDocsChecked: "",
     whenIdentityChecksCompleted: new Date()
 };
+
+export const clientDetailsBiometricPassport = {
+    firstName: "John",
+    middleName: "A",
+    lastName: "Doe",
+    dateOfBirth: new Date(),
+    address: {
+        line1: "123 Main St",
+        line2: "Apt 4",
+        county: "County",
+        town: "Town",
+        country: "Country",
+        postcode: "12345",
+        propertyDetails: "Property Details"
+    },
+    documentsChecked: ["biometric_passport"],
+    emailAddress: "john.doe@example.com",
+    confirmEmailAddress: "john.doe@example.com",
+    howIdentityDocsChecked: "",
+    whenIdentityChecksCompleted: new Date()
+};
