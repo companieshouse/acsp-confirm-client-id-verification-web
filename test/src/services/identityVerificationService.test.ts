@@ -2,7 +2,7 @@ import { Request } from "express";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { Session } from "@companieshouse/node-session-handler";
 import { createPrivateApiClient } from "private-api-sdk-node";
-import { Identity, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity } from "private-api-sdk-node/dist/services/identity-verification/types";
 import { IdentityVerificationService, findIdentityByEmail, sendVerifiedClientDetails } from "../../../src/services/identityVerificationService";
 import { dummyIdentity, verifiedClientDetails, clientDetails } from "../../mocks/identity.mock";
 import { createRequest, MockRequest } from "node-mocks-http";
