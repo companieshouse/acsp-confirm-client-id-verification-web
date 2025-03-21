@@ -101,9 +101,9 @@ export const createPayload = (idDocumentDetails: DocumentDetails[], formatDocume
             if (formatDocumentsCheckedText[i] === i18n[body.docName]) {
                 payload[`documentNumber_${i + 1}`] = body.documentNumber;
                 if (body.expiryDate) {
-                    payload[`expiryDateDay_${i + 1}`] = body.expiryDate!.getDate();
-                    payload[`expiryDateMonth_${i + 1}`] = body.expiryDate!.getMonth() + 1;
-                    payload[`expiryDateYear_${i + 1}`] = body.expiryDate!.getFullYear();
+                    payload[`expiryDateDay_${i + 1}`] = body.expiryDate.getDate();
+                    payload[`expiryDateMonth_${i + 1}`] = body.expiryDate.getMonth() + 1;
+                    payload[`expiryDateYear_${i + 1}`] = body.expiryDate.getFullYear();
                 } else {
                     payload[`expiryDateDay_${i + 1}`] = undefined;
                     payload[`expiryDateMonth_${i + 1}`] = undefined;
