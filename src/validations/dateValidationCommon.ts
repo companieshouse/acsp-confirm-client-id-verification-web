@@ -80,16 +80,6 @@ export const isOldEnoughAfterDob = (wicc:Date, dob: Date): boolean => {
     return age >= 16;
 };
 
-export const wiccIsNotValid = (day: number, month: number, year: number): boolean => {
-    const currentDate = new Date();
-    const inputDate = new Date(year, month - 1, day);
-    let age = currentDate.getFullYear() - inputDate.getFullYear();
-    if (currentDate.getMonth() < inputDate.getMonth() || (currentDate.getMonth() === inputDate.getMonth() && currentDate.getDate() < inputDate.getDate())) {
-        age--;
-    }
-    return age >= 16;
-};
-
 const validateNumeric = (day: string, month: string, year: string, type: ValidationType): void => {
     if (!isNumeric(day) || !isNumeric(month) || !isNumeric(year)) {
         throw new Error(type === "dob" ? "nonNumeric" : "nonNumericIdentity");
