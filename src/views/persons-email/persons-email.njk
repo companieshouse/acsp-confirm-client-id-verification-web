@@ -9,11 +9,13 @@
     <form action="" method="POST">
         {% include "partials/csrf_token.njk" %}
         <div class="govuk-form-group">
-            <h1 class="govuk-heading-l">
-                {{ i18n.whatIs + i18n.emailAddress | replace("{NAME}", firstName + " " + lastName)}}
-            </h1>
            
             {{ govukInput({
+                label: {
+                    text: i18n.whatIs + i18n.emailAddress | replace("{NAME}", firstName + " " + lastName),
+                    classes: "govuk-label--l",
+                    isPageHeading: true
+                  },
                 hint: {
                     text: i18n.theyMustAbleToAccess
                 },
@@ -24,10 +26,7 @@
                 id: "email-address",
                 name: "email-address",
                 autocomplete: "email",
-                value: payload["email-address"],
-                attributes: {
-                    "aria-label": "email-address"
-                }
+                value: payload["email-address"]
             }) }}
 
              {{ govukInput({
