@@ -99,7 +99,7 @@ export const validateAgainstWhenIdDocsChecked = (day: number, month: number, yea
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
     let monthDifference = 1;
     if (clientData.documentsChecked?.[docSequence - 1] === "UK_biometric_residence_permit") {
-        monthDifference = 7;
+        monthDifference = 19;
     }
 
     const whenIdDocsChecked: Date = new Date(clientData.whenIdentityChecksCompleted!);
