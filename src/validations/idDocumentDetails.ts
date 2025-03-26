@@ -38,7 +38,7 @@ const idDocumentDetailsValidator = (): ValidationChain[] => {
         documentDetailsValidatorErrors.push(
             (
                 body(`expiryDateDay_${i}`)
-                    .if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => validDataChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`], req.session))
+                    .if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => validDataChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`], i, req.session))
             ));
 
         documentDetailsValidatorErrors.push(
@@ -85,20 +85,23 @@ export const dateYearChecker = (day: string, month: string | undefined, year: st
     return true;
 };
 
-export const validDataChecker = (day: string, month: string | undefined, year: string, req: Session): boolean => {
+export const validDataChecker = (day: string, month: string | undefined, year: string, docSequence: number, req: Session): boolean => {
     if (day !== "" && month !== undefined && year !== "") {
         validateNumeric(day, month, year);
         validateMonthYearRange(month, year);
         validateDayLength(day, month, year);
-        validateAgainstWhenIdDocsChecked(+day, +month, +year, req);
+        validateAgainstWhenIdDocsChecked(+day, +month, +year, docSequence, req);
     }
     return true;
 };
 
-const validateAgainstWhenIdDocsChecked = (day: number, month: number, year: number, req: Session): void => {
+export const validateAgainstWhenIdDocsChecked = (day: number, month: number, year: number, docSequence:number, req: Session): void => {
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
+    let monthDifference = 0;
+    clientData.documentsChecked?.[docSequence - 1] === "UK_biometric_residence_permit" ? monthDifference = 7 : monthDifference = 1;
+
     const whenIdDocsChecked: Date = new Date(clientData.whenIdentityChecksCompleted!);
-    const expiryDate = new Date(year, month - 1, day);
+    const expiryDate = new Date(year, month - monthDifference, day);
     if (expiryDate <= whenIdDocsChecked) {
         throw new Error("dateAfterIdChecksDone");
     }
