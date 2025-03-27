@@ -68,7 +68,7 @@ const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText
          (errorText === "noExpiryDate" || errorText === "noCountry" || errorText === "docNumberInput"))) {
         return "";
     // replace date placeholder with formatted date if error is about invalid expirydate
-    } else if (errorText === "dateAfterIdChecksDone") {
+    } else if (errorText === "dateAfterIdChecksDone" || errorText === "dateAfterIdChecksDoneBRP") {
         const idChecksCompletedDate = whenIdDocsChecked.getDate() + " " +
                                       whenIdDocsChecked.toLocaleString("default", { month: "long" }) + " " +
                                       whenIdDocsChecked.getFullYear();
