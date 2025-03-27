@@ -97,15 +97,19 @@ export const validDataChecker = (day: string, month: string | undefined, year: s
 
 export const validateAgainstWhenIdDocsChecked = (day: number, month: number, year: number, docSequence:number, req: Session): void => {
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
-    let monthDifference = 1;
-    if (clientData.documentsChecked?.[docSequence - 1] === "UK_biometric_residence_permit") {
-        monthDifference = 19;
-    }
-
     const whenIdDocsChecked: Date = new Date(clientData.whenIdentityChecksCompleted!);
-    const expiryDate = new Date(year, month - monthDifference, day);
-    if (expiryDate <= whenIdDocsChecked) {
-        throw new Error("dateAfterIdChecksDone");
+    const expiryDate = new Date(year, month - 1, day);
+
+    if (clientData.documentsChecked?.[docSequence - 1] === "UK_biometric_residence_permit") {
+        const eighteenMonthsBefore = new Date(whenIdDocsChecked);
+        eighteenMonthsBefore.setMonth(eighteenMonthsBefore.getMonth() - 18);
+        if (expiryDate <= eighteenMonthsBefore) {
+            throw new Error("dateAfterIdChecksDoneBRP");
+        }
+    } else {
+        if (expiryDate <= whenIdDocsChecked) {
+            throw new Error("dateAfterIdChecksDone");
+        }
     }
 };
 

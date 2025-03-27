@@ -39,6 +39,7 @@
     "error-noExpiryYear" : "{doc selected} must include a year",
     "error-expiryDateInvalid" : "{doc selected} expiry date must be a real date",
     "error-expiryDateNonNumeric" : "{doc selected} must only include numbers",
-    "error-dateAfterIdChecksDone" : "Expiry date for {doc selected} must be after {id checks completed} when you completed the identity checks", 
+    "error-dateAfterIdChecksDone" : "Expiry date for {doc selected} must be after {id checks completed} when you completed the identity checks",
+    "error-dateAfterIdChecksDoneBRP" : "Expiry date for {doc selected} must be not more than 18 months earlier {id checks completed} when you completed the identity checks",
     "error-noCountry" : "Choose a country for {doc selected}"
 }

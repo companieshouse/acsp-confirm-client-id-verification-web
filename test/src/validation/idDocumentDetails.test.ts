@@ -150,6 +150,30 @@ describe("validateAgainstWhenIdDocsChecked", () => {
         } as unknown as Session;
     });
 
+    it("should not throw an error when expiry date is after 18 months before whenIdentityChecksCompleted for UK biometric residence permit", () => {
+        const clientData: ClientData = {
+            whenIdentityChecksCompleted: "2025-03-01",
+            documentsChecked: ["UK_biometric_residence_permit"]
+        };
+        (mockSession.getExtraData as jest.Mock).mockReturnValue(clientData);
+
+        expect(() => {
+            validateAgainstWhenIdDocsChecked(15, 10, 2026, 1, mockSession);
+        }).not.toThrow();
+    });
+
+    it("should throw an error when expiry date is before 18 months before whenIdentityChecksCompleted for UK biometric residence permit", () => {
+        const clientData: ClientData = {
+            whenIdentityChecksCompleted: "2025-03-01",
+            documentsChecked: ["UK_biometric_residence_permit"]
+        };
+        (mockSession.getExtraData as jest.Mock).mockReturnValue(clientData);
+
+        expect(() => {
+            validateAgainstWhenIdDocsChecked(15, 8, 2023, 1, mockSession);
+        }).toThrow("dateAfterIdChecksDoneBRP");
+    });
+
     it("should not throw an error when expiry date is after whenIdentityChecksCompleted for non-UK biometric residence permit", () => {
         const clientData: ClientData = {
             whenIdentityChecksCompleted: "2025-03-01",
@@ -159,18 +183,6 @@ describe("validateAgainstWhenIdDocsChecked", () => {
 
         expect(() => {
             validateAgainstWhenIdDocsChecked(15, 4, 2025, 1, mockSession);
-        }).not.toThrow();
-    });
-
-    it("should not throw an error when expiry date is after whenIdentityChecksCompleted for UK biometric residence permit", () => {
-        const clientData: ClientData = {
-            whenIdentityChecksCompleted: "2025-03-01",
-            documentsChecked: ["UK_biometric_residence_permit"]
-        };
-        (mockSession.getExtraData as jest.Mock).mockReturnValue(clientData);
-
-        expect(() => {
-            validateAgainstWhenIdDocsChecked(15, 10, 2026, 1, mockSession);
         }).not.toThrow();
     });
 
@@ -186,19 +198,7 @@ describe("validateAgainstWhenIdDocsChecked", () => {
         }).toThrow("dateAfterIdChecksDone");
     });
 
-    it("should throw an error when expiry date is before whenIdentityChecksCompleted for UK biometric residence permit", () => {
-        const clientData: ClientData = {
-            whenIdentityChecksCompleted: "2025-03-01",
-            documentsChecked: ["UK_biometric_residence_permit"]
-        };
-        (mockSession.getExtraData as jest.Mock).mockReturnValue(clientData);
-
-        expect(() => {
-            validateAgainstWhenIdDocsChecked(15, 8, 2024, 1, mockSession);
-        }).toThrow("dateAfterIdChecksDone");
-    });
-
-    it("should throw an error when expiry date is equal to whenIdentityChecksCompleted", () => {
+    it("should throw an error when expiry date is equal to whenIdentityChecksCompleted for non-UK biometric residence permit", () => {
         const clientData: ClientData = {
             whenIdentityChecksCompleted: "2025-03-01",
             documentsChecked: ["passport"]
