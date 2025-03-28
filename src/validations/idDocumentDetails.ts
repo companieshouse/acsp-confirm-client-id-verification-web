@@ -99,10 +99,8 @@ export const validateAgainstWhenIdDocsChecked = (day: number, month: number, yea
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
     const whenIdDocsChecked: Date = new Date(clientData.whenIdentityChecksCompleted!);
     const expiryDate = new Date(year, month - 1, day);
-
     if (clientData.documentsChecked?.[docSequence - 1] === "UK_biometric_residence_permit") {
-        validateAgainstWhenIdDocsCheckedWithExpiredDocuments("UK_biometric_residence_permit",
-            18,
+        validateAgainstWhenIdDocsCheckedWithExpiredDocuments(18,
             whenIdDocsChecked,
             expiryDate,
             "dateAfterIdChecksDoneBRP");
@@ -113,17 +111,14 @@ export const validateAgainstWhenIdDocsChecked = (day: number, month: number, yea
     }
 };
 
-export const validateAgainstWhenIdDocsCheckedWithExpiredDocuments = (docType: string,
-    gracedNumberOfMonths: number,
+export const validateAgainstWhenIdDocsCheckedWithExpiredDocuments = (gracedNumberOfMonths: number,
     documentCheckedOn: Date,
     expiryDateProvidedForTheDocument: Date,
     errorMessage: string): string => {
-    if (docType === "UK_biometric_residence_permit") {
-        const limitForTheGrace = documentCheckedOn;
-        limitForTheGrace.setMonth(limitForTheGrace.getMonth() - gracedNumberOfMonths);
-        if (expiryDateProvidedForTheDocument <= limitForTheGrace) {
-            throw new Error(errorMessage);
-        }
+    const limitForTheGrace = documentCheckedOn;
+    limitForTheGrace.setMonth(limitForTheGrace.getMonth() - gracedNumberOfMonths);
+    if (expiryDateProvidedForTheDocument <= limitForTheGrace) {
+        throw new Error(errorMessage);
     }
     return "dateAfterIdChecksDone";
 };
