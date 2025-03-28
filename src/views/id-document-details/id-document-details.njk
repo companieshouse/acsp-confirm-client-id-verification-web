@@ -9,7 +9,7 @@
 {% set otherOptionalDocs = [i18n.PRADO_supported_photo_id, i18n.work_permit_photo_id] %}
 
 {% block main_content %}
-  <form action="" method="POST">
+  <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
     {% include "partials/csrf_token.njk" %}
     <h1 class="govuk-heading-l"> {{ i18n.idDocumentDetailstitle }} </h1>
     {% for body in documentsChecked %}

@@ -6,7 +6,7 @@
 {% set title = i18n.whatIs + i18n.emailAddress | replace('{NAME}', firstName + ' ' + lastName) %}
 
 {% block main_content %}
-    <form action="" method="POST">
+    <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
         {% include "partials/csrf_token.njk" %}
         <div class="govuk-form-group">
            

@@ -4,7 +4,7 @@
 {% set title =  i18n.codePageHeading | replace('{NAME}', firstName + ' ' + lastName) %}
 
 {% block main_content %}
-    <form action="" method="POST">
+    <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
         {% include "partials/csrf_token.njk" %}
         <h1 class="govuk-heading-l">
        {{ i18n.codePageHeading | replace("{NAME}", firstName + " " + lastName)}}
