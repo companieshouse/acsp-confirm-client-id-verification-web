@@ -6,7 +6,7 @@
 {% set title = i18n.homeAddressManualTitle %}
 
 {% block main_content %}
-  <form action="" method="POST">
+  <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
     {% include "partials/csrf_token.njk" %}
     {% include "partials/user_name.njk" %} 
     {{ govukFieldset({
