@@ -9,6 +9,5 @@ export const PASSPORT = "passport";
 export const ID_DOCUMENTS_WITH_GRACED_EXPIRY = {
     UK_biometric_residence_permit: 18
 };
-
 // Matomo
 export const MATOMO_LINK_CLICK = "Click link";

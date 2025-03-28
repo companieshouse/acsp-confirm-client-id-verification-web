@@ -41,7 +41,5 @@
     "error-expiryDateNonNumeric" : "{doc selected} must only include numbers",
     "error-dateAfterIdChecksDone" : "Expiry date for {doc selected} must be after {id checks completed} when you completed the identity checks",
     "error-UK_biometric_residence_permit" : "Expiry date for {doc selected} must be not more than 18 months earlier {id checks completed} when you completed the identity checks",
-    "error-biometric_passport" : "Expiry date for {doc selected} must be not more than 6 months earlier {id checks completed} when you completed the identity checks",
-    "error-irish_passport_card" : "Expiry date for {doc selected} must be not more than 6 months earlier {id checks completed} when you completed the identity checks",
     "error-noCountry" : "Choose a country for {doc selected}"
 }
