@@ -101,16 +101,31 @@ export const validateAgainstWhenIdDocsChecked = (day: number, month: number, yea
     const expiryDate = new Date(year, month - 1, day);
 
     if (clientData.documentsChecked?.[docSequence - 1] === "UK_biometric_residence_permit") {
-        const eighteenMonthsBefore = whenIdDocsChecked;
-        eighteenMonthsBefore.setMonth(eighteenMonthsBefore.getMonth() - 18);
-        if (expiryDate <= eighteenMonthsBefore) {
-            throw new Error("dateAfterIdChecksDoneBRP");
-        }
+        validateAgainstWhenIdDocsCheckedWithExpiredDocuments("UK_biometric_residence_permit",
+            18,
+            whenIdDocsChecked,
+            expiryDate,
+            "dateAfterIdChecksDoneBRP");
     } else {
         if (expiryDate <= whenIdDocsChecked) {
             throw new Error("dateAfterIdChecksDone");
         }
     }
+};
+
+export const validateAgainstWhenIdDocsCheckedWithExpiredDocuments = (docType: string,
+    gracedNumberOfMonths: number,
+    documentCheckedOn: Date,
+    expiryDateProvidedForTheDocument: Date,
+    errorMessage: string): string => {
+    if (docType === "UK_biometric_residence_permit") {
+        const limitForTheGrace = documentCheckedOn;
+        limitForTheGrace.setMonth(limitForTheGrace.getMonth() - gracedNumberOfMonths);
+        if (expiryDateProvidedForTheDocument <= limitForTheGrace) {
+            throw new Error(errorMessage);
+        }
+    }
+    return "dateAfterIdChecksDone";
 };
 
 const validateNumeric = (day: string, month: string, year: string): void => {
