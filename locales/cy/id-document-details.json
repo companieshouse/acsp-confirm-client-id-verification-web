@@ -40,6 +40,8 @@
     "error-expiryDateInvalid": "Rhaid i'r dyddiad dod i ben {doc selected} fod yn ddyddiad real",
     "error-expiryDateNonNumeric": "Rhaid i {doc selected} cynnwys rhifau yn unig",
     "error-dateAfterIdChecksDone": "Rhaid i'r dyddiad dod i ben ar gyfer {doc selected} fod ar ôl {id checks completed} pan wnaethoch chi gwblhau'r gwiriadau hunaniaeth",
-    "error-dateAfterIdChecksDoneBRP" : "Expiry date for {doc selected} must be not more than 18 months earlier {id checks completed} when you completed the identity checks Welsh",
+    "error-UK_biometric_residence_permit" : "Expiry date for {doc selected} must be not more than 18 months earlier {id checks completed} when you completed the identity checks",
+    "error-biometric_passport" : "Expiry date for {doc selected} must be not more than 6 months earlier {id checks completed} when you completed the identity checks",
+    "error-irish_passport_card" : "Expiry date for {doc selected} must be not more than 6 months earlier {id checks completed} when you completed the identity checks",
     "error-noCountry": "Dewiswch wlad ar gyfer {doc selected}"
 }

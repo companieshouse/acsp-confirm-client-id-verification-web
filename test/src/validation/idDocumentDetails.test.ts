@@ -171,7 +171,7 @@ describe("validateAgainstWhenIdDocsChecked", () => {
 
         expect(() => {
             validateAgainstWhenIdDocsChecked(15, 8, 2023, 1, mockSession);
-        }).toThrow("dateAfterIdChecksDoneBRP");
+        }).toThrow("UK_biometric_residence_permit");
     });
 
     it("should not throw an error when expiry date is after whenIdentityChecksCompleted for non-UK biometric residence permit", () => {

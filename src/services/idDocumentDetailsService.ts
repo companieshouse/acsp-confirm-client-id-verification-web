@@ -2,7 +2,7 @@ import { ClientData } from "../model/ClientData";
 import { DocumentDetails } from "../model/DocumentDetails";
 import { Request } from "express";
 import { saveDataInSession } from "../utils/sessionHelper";
-import { USER_DATA } from "../utils/constants";
+import { ID_DOCUMENTS_WITH_GRACED_EXPIRY, USER_DATA } from "../utils/constants";
 import { resolveErrorMessage } from "../validations/validation";
 import { FormatService } from "./formatService";
 import { getLocalesService } from "../utils/localise";
@@ -63,12 +63,14 @@ export class IdDocumentDetailsService {
 
 const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date, i18n: any) => {
     // make error message empty for optional fields for below specific docs
+    const documentsWithGracedExpiryMap = new Map(Object.entries(ID_DOCUMENTS_WITH_GRACED_EXPIRY));
     if (((docName === i18n.UK_PASS_card || docName === i18n.UK_HM_veteran_card) && errorText === "noExpiryDate") ||
         ((docName === i18n.PRADO_supported_photo_id || docName === i18n.work_permit_photo_id) &&
          (errorText === "noExpiryDate" || errorText === "noCountry" || errorText === "docNumberInput"))) {
         return "";
     // replace date placeholder with formatted date if error is about invalid expirydate
-    } else if (errorText === "dateAfterIdChecksDone" || errorText === "dateAfterIdChecksDoneBRP") {
+    } else if (errorText === "dateAfterIdChecksDone" ||
+        documentsWithGracedExpiryMap.has(errorText)) {
         const idChecksCompletedDate = whenIdDocsChecked.getDate() + " " +
                                       whenIdDocsChecked.toLocaleString("default", { month: "long" }) + " " +
                                       whenIdDocsChecked.getFullYear();

@@ -1,7 +1,7 @@
 import { body, ValidationChain } from "express-validator";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA } from "../utils/constants";
+import { ID_DOCUMENTS_WITH_GRACED_EXPIRY, USER_DATA } from "../utils/constants";
 
 const documentNumberFormat:RegExp = /^[A-Za-z0-9\-',\s]*$/;
 
@@ -99,11 +99,16 @@ export const validateAgainstWhenIdDocsChecked = (day: number, month: number, yea
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
     const whenIdDocsChecked: Date = new Date(clientData.whenIdentityChecksCompleted!);
     const expiryDate = new Date(year, month - 1, day);
-    if (clientData.documentsChecked?.[docSequence - 1] === "UK_biometric_residence_permit") {
-        validateAgainstWhenIdDocsCheckedWithExpiredDocuments(18,
-            whenIdDocsChecked,
-            expiryDate,
-            "dateAfterIdChecksDoneBRP");
+    const documentsWithGracedExpiryMap = new Map(Object.entries(ID_DOCUMENTS_WITH_GRACED_EXPIRY));
+    if (documentsWithGracedExpiryMap.has(clientData.documentsChecked?.[docSequence - 1]!)) {
+        documentsWithGracedExpiryMap.forEach((value, key) => {
+            if (clientData.documentsChecked?.[docSequence - 1] === key) {
+                validateAgainstWhenIdDocsCheckedWithExpiredDocuments(value,
+                    whenIdDocsChecked,
+                    expiryDate,
+                    key);
+            }
+        });
     } else {
         if (expiryDate <= whenIdDocsChecked) {
             throw new Error("dateAfterIdChecksDone");
@@ -114,13 +119,12 @@ export const validateAgainstWhenIdDocsChecked = (day: number, month: number, yea
 export const validateAgainstWhenIdDocsCheckedWithExpiredDocuments = (gracedNumberOfMonths: number,
     documentCheckedOn: Date,
     expiryDateProvidedForTheDocument: Date,
-    errorMessage: string): string => {
+    errorMessage: string): void => {
     const limitForTheGrace = documentCheckedOn;
     limitForTheGrace.setMonth(limitForTheGrace.getMonth() - gracedNumberOfMonths);
     if (expiryDateProvidedForTheDocument <= limitForTheGrace) {
         throw new Error(errorMessage);
     }
-    return "dateAfterIdChecksDone";
 };
 
 const validateNumeric = (day: string, month: string, year: string): void => {
