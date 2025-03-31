@@ -18,14 +18,16 @@
   {% endif %}
 
   <div>
-    <form action="" method="POST">
+    <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
       {% include "partials/csrf_token.njk" %}
       {% include "partials/user_name.njk" %}
       
       <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            {{ i18n.dateOfBirthTitle }}
+            <h1 class="govuk-fieldset__heading">
+              {{ i18n.dateOfBirthTitle }}
+            </h1>
           </legend>
           {% if i18n.dateOfBirthHint %}
             <span id="dob-hint" class="govuk-hint">{{ i18n.dateOfBirthHint }}</span>
@@ -93,8 +95,5 @@
       }) }}
     </form>
   </div>
-
-<!-- Calling Matomo event script to capture event actions based on page title -->
-
-
+  
 {% endblock main_content %}

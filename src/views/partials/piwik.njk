@@ -69,6 +69,8 @@
         // Provide different email stop screen - removes user name from link analytics
         if ($(this).attr('id') && $(this).attr('id') === "provide-different-email-link-id") {
           textOnHrefClick = $(this).text().split('for')[0];
+        } else if ($(this).attr('href') && $(this).attr('href') === "#navigation") {
+          textOnHrefClick = $(this).children().text()
         } else {
           textOnHrefClick = $(this).text();
         }  

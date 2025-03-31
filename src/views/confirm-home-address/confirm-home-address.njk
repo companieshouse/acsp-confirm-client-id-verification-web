@@ -3,7 +3,7 @@
 {% extends "layouts/default.njk" %}
 {% set title = i18n.addressConfirmTitle %}
 {% block main_content %}
-  <form class="form" action="" method="post">
+  <form action="{{ currentUrl }}?lang={{ lang }}" method="post" class="form">
     {% include "partials/csrf_token.njk" %}
     {% include "partials/user_name.njk" %}
     {% set addressField = address.propertyDetails + " " + address.line1 + ", " %}

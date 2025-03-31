@@ -18,7 +18,7 @@
     {% endfor %}
     
     {# Form section #}
-    <form action="" method="POST">
+    <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
         {% include "partials/csrf_token.njk" %}
         {% if firstName %}
             {% include "partials/user_name.njk" %}

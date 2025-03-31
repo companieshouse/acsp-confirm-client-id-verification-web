@@ -49,7 +49,7 @@
 
   {% set groupBDocs = [i18n.birth_certificate, i18n.marriage_certificate, i18n.immigration_document_non_photo_id, i18n.visa_non_photo_id, i18n.work_permit_non_photo_id, i18n.bank_statement, i18n.rental_agreement, i18n.mortgage_statement, i18n.UK_council_tax_statement, i18n.utility_bill] %}
 
-  <form action="" method="POST">
+  <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
     {% include "partials/csrf_token.njk" %}
     <h1 class="govuk-heading-xl">{{ i18n.checkYourAnswersHeading }}</h1>
     <h2 class="govuk-heading-m">{{ i18n.checkYourAnswersDetailsTableHeading | replace("{NAME}", fullName) }}</h2>
@@ -274,7 +274,7 @@
               {
                 href: "/tell-companies-house-you-have-verified-someones-identity/id-document-details" + "?lang=" + lang + "#expiryDateDay_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.ExpiryDate
+                visuallyHiddenText: i18n.ExpiryDate + i18n[doc.docName]
               }
             ]
           }
@@ -291,7 +291,7 @@
               {
                 href: "/tell-companies-house-you-have-verified-someones-identity/id-document-details" + "?lang=" + lang + "#countryInput_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.chooseCountryText
+                visuallyHiddenText: i18n.chooseCountryText + i18n[doc.docName]
               }
             ]
           }

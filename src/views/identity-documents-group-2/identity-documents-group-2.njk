@@ -3,7 +3,7 @@
 i18n.identityDocumentsIDVTitle %}
 
 {% block main_content %}
-    <form action="" method="POST">
+    <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
         {% include "partials/csrf_token.njk" %}
         {% include "partials/user_name.njk" %}
         <h1 class="govuk-heading-l">{{i18n.identityDocumentsIDVTitle}}</h1>
@@ -13,7 +13,6 @@ i18n.identityDocumentsIDVTitle %}
             fieldset: {
                 legend: {
                     text: i18n.textGroupA,
-                    isPageHeading: true,
                     classes: "govuk-fieldset__legend--m"
                 }
             },
@@ -111,7 +110,6 @@ i18n.identityDocumentsIDVTitle %}
             fieldset: {
                 legend: {
                     text: i18n.textGroupB,
-                    isPageHeading: true,
                     classes: "govuk-fieldset__legend--m"
                 }
             },
