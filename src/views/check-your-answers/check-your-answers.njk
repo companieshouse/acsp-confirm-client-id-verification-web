@@ -274,7 +274,7 @@
               {
                 href: "/tell-companies-house-you-have-verified-someones-identity/id-document-details" + "?lang=" + lang + "#expiryDateDay_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.ExpiryDate
+                visuallyHiddenText: i18n.ExpiryDate + i18n[doc.docName]
               }
             ]
           }
@@ -291,7 +291,7 @@
               {
                 href: "/tell-companies-house-you-have-verified-someones-identity/id-document-details" + "?lang=" + lang + "#countryInput_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
-                visuallyHiddenText: i18n.chooseCountryText
+                visuallyHiddenText: i18n.chooseCountryText + i18n[doc.docName]
               }
             ]
           }
