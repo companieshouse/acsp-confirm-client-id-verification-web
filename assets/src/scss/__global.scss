@@ -134,6 +134,20 @@ ul#navigation li a {
   margin-left: 0.9em;
 }
 
+@media (max-width: 640px) {
+  ul#navigation {
+    font-size: 0.9em;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+    float: left;
+    display: contents;
+  }
+  .mobile-hidden {
+    display: none !important;
+  }
+}
+
 .js-signout {
   text-align: right;
   font-size: 16px;
