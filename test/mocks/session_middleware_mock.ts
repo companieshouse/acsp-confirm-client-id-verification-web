@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { sessionMiddleware } from "../../src/middleware/session_middleware";
+import { ensureSessionCookiePresentMiddleware, sessionMiddleware } from "../../src/middleware/session_middleware";
 import { USER_DATA, ADDRESS_LIST, PREVIOUS_PAGE_URL, ACSP_DETAILS } from "../../src/utils/constants";
 import { getSessionRequestWithPermission } from "./session.mock";
 import { addressList } from "./address.mock";
@@ -9,7 +9,8 @@ jest.mock("ioredis");
 jest.mock("../../src/middleware/session_middleware");
 
 // get handle on mocked function
-export const mockSessionMiddleware = sessionMiddleware as jest.Mock;
+const mockSessionMiddleware = sessionMiddleware as jest.Mock;
+const mockEnsureSessionCookiePresentMiddleware = ensureSessionCookiePresentMiddleware as jest.Mock;
 
 export const session = getSessionRequestWithPermission();
 
@@ -32,4 +33,8 @@ mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: Nex
     next();
 });
 
-export default mockSessionMiddleware;
+mockEnsureSessionCookiePresentMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+    next();
+});
+
+export { mockSessionMiddleware, mockEnsureSessionCookiePresentMiddleware };

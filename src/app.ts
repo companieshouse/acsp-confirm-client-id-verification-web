@@ -5,7 +5,7 @@ import logger from "./utils/logger";
 import routerDispatch from "./routerDispatch";
 import cookieParser from "cookie-parser";
 import { authenticationMiddleware } from "./middleware/authentication_middleware";
-import { sessionMiddleware } from "./middleware/session_middleware";
+import { ensureSessionCookiePresentMiddleware, sessionMiddleware } from "./middleware/session_middleware";
 
 import {
     APPLICATION_NAME,
@@ -69,6 +69,7 @@ app.use(cookieParser());
 app.use(nocache());
 app.use(helmet(prepareCSPConfig(nonce)));
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, ensureSessionCookiePresentMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, csrfProtectionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, authenticationMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspAuthMiddleware);
