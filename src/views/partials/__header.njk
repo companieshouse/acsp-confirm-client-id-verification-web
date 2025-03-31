@@ -18,10 +18,12 @@
     </p>
   </div>
 </div>
-
+{% if not hideCompaniesHouseDoesNotVerifyText %}
+{# This will allow us to conditionally set wether this text is hidden on specific pages (this is currenly only applicable to accessibility statement view, as we do not want this text to appear) #}
 <div class="govuk-width-container small-text does-not-verify-link-spacing">
   <a class="govuk-link govuk-link--no-visited-state govuk-!-padding-top-2" href="https://resources.companieshouse.gov.uk/serviceInformation.shtml" target="_blank">
       {{i18n.companiesHouseDoesNotVerify}}
       <span class="govuk-visually-hidden">(link opens a new window)</span>
   </a>
 </div>
+{% endif %}

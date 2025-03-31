@@ -18,7 +18,9 @@
     <a href="#main-page-content" class="govuk-skip-link">Skip to main content</a>
     {% include "partials/__header.njk" %}
     <div class="govuk-width-container">
-      {% include "partials/nav/top.njk" %}
+      {% block navBar %}
+        {% include "partials/nav/top.njk" %}
+      {% endblock %}
       {% block localesBanner %}
         {% include "locales-banner.njk" %}
       {% endblock %}
