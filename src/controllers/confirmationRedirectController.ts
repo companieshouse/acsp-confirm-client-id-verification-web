@@ -16,7 +16,7 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
     const id = req.query.id as string;
     let redirectUrl = "";
 
-    if (id === "verify-service-link") {
+    if (id === "verify-service-link" || id === "service-url-link") {
         redirectUrl = BASE_URL;
     } else if (id === "authorised-agent-account-link") {
         redirectUrl = AUTHORISED_AGENT;
