@@ -27,6 +27,7 @@ import nocache from "nocache";
 import { prepareCSPConfig } from "./middleware/content_security_policy_middleware_config";
 import { csrfProtectionMiddleware } from "./middleware/csrf_protection_middleware";
 import errorHandler from "./controllers/csrfErrorController";
+import { clearSessionAfterConfirmation } from "./middleware/clear_session_after_confirmation_middleware";
 const app = express();
 
 const nonce: string = uuidv4();
@@ -72,6 +73,7 @@ app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, csrfProtectionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, authenticationMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspAuthMiddleware);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, clearSessionAfterConfirmation);
 app.use(commonTemplateVariablesMiddleware);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
