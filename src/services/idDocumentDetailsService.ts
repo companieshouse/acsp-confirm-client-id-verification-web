@@ -63,14 +63,13 @@ export class IdDocumentDetailsService {
 
 const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date, i18n: any) => {
     // make error message empty for optional fields for below specific docs
-    const documentsWithGracedExpiryMap = new Map(Object.entries(ID_DOCUMENTS_WITH_GRACED_EXPIRY));
     if (((docName === i18n.UK_PASS_card || docName === i18n.UK_HM_veteran_card) && errorText === "noExpiryDate") ||
         ((docName === i18n.PRADO_supported_photo_id || docName === i18n.work_permit_photo_id) &&
          (errorText === "noExpiryDate" || errorText === "noCountry" || errorText === "docNumberInput"))) {
         return "";
     // replace date placeholder with formatted date if error is about invalid expirydate
     } else if (errorText === "dateAfterIdChecksDone" ||
-        documentsWithGracedExpiryMap.has(errorText)) {
+        ID_DOCUMENTS_WITH_GRACED_EXPIRY.has(errorText)) {
         const idChecksCompletedDate = whenIdDocsChecked.getDate() + " " +
                                       whenIdDocsChecked.toLocaleString("default", { month: "long" }) + " " +
                                       whenIdDocsChecked.getFullYear();

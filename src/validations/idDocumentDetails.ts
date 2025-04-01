@@ -99,11 +99,10 @@ export const validateAgainstWhenIdDocsChecked = (day: number, month: number, yea
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
     const whenIdDocsChecked: Date = new Date(clientData.whenIdentityChecksCompleted!);
     const expiryDate = new Date(year, month - 1, day);
-    const documentsWithGracedExpiryMap = new Map(Object.entries(ID_DOCUMENTS_WITH_GRACED_EXPIRY));
-    if (documentsWithGracedExpiryMap.has(clientData.documentsChecked?.[docSequence - 1]!)) {
-        documentsWithGracedExpiryMap.forEach((value, key) => {
+    if (ID_DOCUMENTS_WITH_GRACED_EXPIRY.has(clientData.documentsChecked?.[docSequence - 1]!)) {
+        ID_DOCUMENTS_WITH_GRACED_EXPIRY.forEach((value, key) => {
             if (clientData.documentsChecked?.[docSequence - 1] === key) {
-                validateAgainstWhenIdDocsCheckedWithExpiredDocuments(value,
+                validateExpiredDocuments(value,
                     whenIdDocsChecked,
                     expiryDate,
                     key);
@@ -116,7 +115,7 @@ export const validateAgainstWhenIdDocsChecked = (day: number, month: number, yea
     }
 };
 
-export const validateAgainstWhenIdDocsCheckedWithExpiredDocuments = (gracedNumberOfMonths: number,
+const validateExpiredDocuments = (gracedNumberOfMonths: number,
     documentCheckedOn: Date,
     expiryDateProvidedForTheDocument: Date,
     errorMessage: string): void => {
