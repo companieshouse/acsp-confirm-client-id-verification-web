@@ -6,6 +6,7 @@ export const CHECK_YOUR_ANSWERS_FLAG = "checkYourAnswersFlag";
 export const ACSP_DETAILS = "acspDetails";
 export const BIOMETRIC_PASSPORT = "biometric_passport";
 export const PASSPORT = "passport";
+export const ACTIVE_STATUS = "active";
 
 // ID Document Details for the extended expiry date exceptions
 const BRP_GRACED_EXPIRY_IN_MONTHS = 18;
