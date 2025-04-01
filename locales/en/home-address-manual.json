@@ -26,5 +26,5 @@
     "error-invalidAddressTownLength": "City or town must be 50 characters or less",
     "error-invalidAddressCountyLength": "County, state, province or region must be 50 characters or less",
     "error-invalidAddressCountryLength": "Country must be 50 characters or less",
-    "error-invalidPostcodeLength": "Postcode must be 20 characters or less"
+    "error-invalidPostcodeLength": "Postcode or ZIP must be 20 characters or less"
 }

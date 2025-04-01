@@ -31,5 +31,5 @@ export const manualAddressValidator = [
         .isLength({ max: 50 }).withMessage("invalidAddressCountryLength"),
 
     body("addressPostcode").trim().notEmpty().withMessage("noPostCode").bail()
-        .isLength({ max: 20 }).withMessage("invalidAddressPostcode")
+        .isLength({ max: 20 }).withMessage("invalidPostcodeLength")
 ];

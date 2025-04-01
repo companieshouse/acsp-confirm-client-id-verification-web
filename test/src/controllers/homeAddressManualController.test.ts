@@ -183,6 +183,6 @@ describe("POST" + HOME_ADDRESS_MANUAL, () => {
         const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
             .send({ addressPropertyDetails: "abc", addressLine1: "pqr", addressLine2: "abc", addressTown: "abc", addressCounty: "abcop", addressCountry: "abcop", addressPostcode: "Abcdefghijklmnopqrstuvwx1Abcdefghijklmnopqrstuvwx2A3GB" });
         expect(res.status).toBe(400);
-        expect(res.text).toContain("Enter a full UK postcode");
+        expect(res.text).toContain("Postcode or ZIP must be 20 characters or less");
     });
 });
