@@ -43,5 +43,6 @@
     "error-UK_biometric_residence_permit" : "Expiry date for {doc selected} cannot be more than 18 months before {id checks completed} when the identity checks were completed. Welsh",
     "error-biometric_passport" : "Expiry date for {doc selected} cannot be more than 6 months before {id checks completed} when the identity checks were completed. Welsh",
     "error-irish_passport_card" : "Expiry date for {doc selected} cannot be more than 6 months before {id checks completed} when the identity checks were completed. Welsh",
+    "error-passport" : "Expiry date for {doc selected} cannot be more than 6 months before {id checks completed} when the identity checks were completed. Welsh",
     "error-noCountry": "Dewiswch wlad ar gyfer {doc selected}"
 }
