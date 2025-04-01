@@ -26,5 +26,5 @@
     "error-invalidAddressTownLength": "Rhaid i’r ddinas neu’r dref fod yn 50 nod neu lai",
     "error-invalidAddressCountyLength": "Rhaid i’r sir, gwladwriaeth, talaith neu ranbarth fod yn 50 nod neu lai",
     "error-invalidAddressCountryLength": "Rhaid i'r wlad fod yn 50 nod neu lai",
-    "error-invalidPostcodeLength": "Rhaid i'r cod post fod yn 20 nod neu lai"
+    "error-invalidPostcodeLength": "Postcode or ZIP must be 20 characters or less Welsh"
 }
