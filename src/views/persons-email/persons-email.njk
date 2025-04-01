@@ -8,14 +8,21 @@
 {% block main_content %}
     <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
         {% include "partials/csrf_token.njk" %}
+        <h1 class="govuk-heading-l">{{ i18n.emailAddress | replace("{NAME}", firstName + " " + lastName) }}</h1>
+        <p class="govuk-body">{{ i18n.emailAddressCanOnlyUsedOnce }}</p>
         <div class="govuk-form-group">
-           
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+            <span class="govuk-visually-hidden">{{ i18n.warning }}</span>
+            {{ i18n.correctEmailAddressAlert }}
+            </strong>
+        </div>
             {{ govukInput({
                 label: {
-                    text: i18n.whatIs + i18n.emailAddress | replace("{NAME}", firstName + " " + lastName),
-                    classes: "govuk-label--l",
-                    isPageHeading: true
-                  },
+                    text: i18n.enterEmailAddress,
+                    classes: "govuk-label--s"
+                },
                 hint: {
                     text: i18n.theyMustAbleToAccess
                 },
@@ -42,10 +49,6 @@
                 name: "confirm",
                 value: payload["confirm"],
                 autocomplete: "email"
-            }) }}
-
-            {{ govukInsetText({
-              text: i18n.emailAddressCanOnlyUsedOnce
             }) }}
         </div>
         {{ govukButton({

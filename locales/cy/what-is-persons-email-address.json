@@ -2,7 +2,9 @@
     "whatIs" : "Beth yw",
     "emailAddress" : "cyfeiriad e-bost {NAME}",
     "theyMustAbleToAccess" : "Rhaid iddynt allu cael mynediad at e-byst sy'n cael eu hanfon i'r cyfeiriad hwn.",
-    "confirmEmail" : "Cadarnhau ei gyfeiriad e-bost",
+    "correctEmailAddressAlert" : "You must check the email address is correct. It is the only place we will send their personal code Welsh",
+    "enterEmailAddress" : "Cofnodwch ei gyfeiriad e-bost",
+    "confirmEmail" : "Re-enter their email address Welsh",
 
     "emailAddressCanOnlyUsedOnce" : "Dim ond unwaith gallwch ddefnyddio'r cyfeiriad e-bost wnaethoch rhoi i wirio hunaniaeth rhywun. Ni allwch ei ddefnyddio ar gyfer unrhyw un arall yr ydych wedi gwirio ei hunaniaeth.",
     "continue": "Pharhau",
