@@ -6,7 +6,6 @@ import routerDispatch from "./routerDispatch";
 import cookieParser from "cookie-parser";
 import { authenticationMiddleware } from "./middleware/authentication_middleware";
 import { ensureSessionCookiePresentMiddleware, sessionMiddleware } from "./middleware/session_middleware";
-
 import {
     APPLICATION_NAME,
     CDN_URL_CSS,
@@ -26,7 +25,8 @@ import { v4 as uuidv4 } from "uuid";
 import nocache from "nocache";
 import { prepareCSPConfig } from "./middleware/content_security_policy_middleware_config";
 import { csrfProtectionMiddleware } from "./middleware/csrf_protection_middleware";
-import errorHandler from "./controllers/csrfErrorController";
+import errorHandler from "./controllers/commonErrorController";
+import { acspIsActiveMiddleware } from "./middleware/acsp_is_active_middleware";
 const app = express();
 
 const nonce: string = uuidv4();
@@ -73,6 +73,7 @@ app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, csrfProtectionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, authenticationMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspAuthMiddleware);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspIsActiveMiddleware);
 app.use(commonTemplateVariablesMiddleware);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
