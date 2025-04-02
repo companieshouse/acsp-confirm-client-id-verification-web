@@ -3,7 +3,10 @@
 {{ govukHeader({
     homepageUrl: "https://www.gov.uk/",
     serviceName: "Tell Companies House you have verified someone’s identity",
-    serviceUrl: "/tell-companies-house-you-have-verified-someones-identity"
+    serviceUrl: serviceUrl or "/tell-companies-house-you-have-verified-someones-identity",
+    serviceUrlAttributes: {
+      id: "service-url-link"
+    }
   })
 }}
 <div class="govuk-width-container">
