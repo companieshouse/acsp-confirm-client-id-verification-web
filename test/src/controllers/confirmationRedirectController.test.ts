@@ -2,7 +2,7 @@ import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
 import { AUTHORISED_AGENT, BASE_URL, CONFIRMATION_REDIRECT } from "../../../src/types/pageURL";
-import { createRequest, Session } from "node-mocks-http";
+import { createRequest } from "node-mocks-http";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { CHECK_YOUR_ANSWERS_FLAG, USER_DATA } from "../../../src/utils/constants";
 import { session } from "../../mocks/session_middleware_mock";
@@ -42,6 +42,19 @@ describe("GET " + CONFIRMATION_REDIRECT, () => {
         expect(res.status).toBe(302);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(res.header.location).toBe(AUTHORISED_AGENT + "?lang=en");
+        expect(session.getExtraData(USER_DATA)).toBeUndefined();
+        expect(session.getExtraData(CHECK_YOUR_ANSWERS_FLAG)).toBeUndefined();
+    });
+
+    it("should redirect to BASE_URL and clear session data when id is service-url-link", async () => {
+
+        const res = await router
+            .get(BASE_URL + CONFIRMATION_REDIRECT)
+            .query({ id: "service-url-link" });
+
+        expect(res.status).toBe(302);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+        expect(res.header.location).toBe(BASE_URL + "?lang=en");
         expect(session.getExtraData(USER_DATA)).toBeUndefined();
         expect(session.getExtraData(CHECK_YOUR_ANSWERS_FLAG)).toBeUndefined();
     });

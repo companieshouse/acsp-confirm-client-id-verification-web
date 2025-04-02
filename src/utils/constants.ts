@@ -7,6 +7,9 @@ export const ACSP_DETAILS = "acspDetails";
 export const BIOMETRIC_PASSPORT = "biometric_passport";
 export const PASSPORT = "passport";
 export const ACTIVE_STATUS = "active";
+export const VERIFY_SERVICE_LINK = "verify-service-link";
+export const SERVICE_URL_LINK = "service-url-link";
+export const AUTHORISED_AGENT_ACCOUNT_LINK = "authorised-agent-account-link";
 
 // ID Document Details for the extended expiry date exception
 const BRP_GRACED_EXPIRY_IN_MONTHS = 18;
