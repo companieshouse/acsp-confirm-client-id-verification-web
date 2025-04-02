@@ -7,8 +7,7 @@ import { USER_DATA, ACSP_DETAILS, CHECK_YOUR_ANSWERS_FLAG } from "../utils/const
 import { ClientData } from "../model/ClientData";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
-import { getAcspFullProfile, getAmlBodiesAsString } from "../services/acspProfileService";
-import { getLoggedInAcspNumber } from "../utils/session";
+import { getAmlBodiesAsString } from "../services/acspProfileService";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import logger from "../utils/logger";
 import { ErrorService } from "../services/errorService";
@@ -27,10 +26,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     };
     saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, false);
     try {
-
-        const acspDetails = await getAcspFullProfile(getLoggedInAcspNumber(req.session));
-        session.setExtraData(ACSP_DETAILS, acspDetails);
-
+        const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
         const amlBodies = getAmlBodiesAsString(acspDetails);
 
         res.render(config.CONFIRM_IDENTITY_VERIFICATION, {
@@ -52,7 +48,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const errorService = new ErrorService();
         errorService.renderErrorPage(res, locales, lang, BASE_URL + CONFIRM_IDENTITY_VERIFICATION);
     }
-
 };
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {

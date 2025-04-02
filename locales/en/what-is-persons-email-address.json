@@ -1,8 +1,10 @@
 {
     "whatIs" : "What is ",
-    "emailAddress" : " {NAME}'s email address?",
+    "emailAddress" : " {NAME}'s email address",
     "theyMustAbleToAccess" : "They must be able to access emails sent to this address.",
-    "confirmEmail" : "Confirm their email address",
+    "correctEmailAddressAlert" : "You must check the email address is correct. It is the only place we will send their personal code.",
+    "enterEmailAddress" : "Enter their email address",
+    "confirmEmail" : "Re-enter their email address",
     
     "emailAddressCanOnlyUsedOnce" : "The email address you give can only be used once to verify someone’s identity. You will not be able to use it for anyone else whose identity you have verified.",
     "continue": "Continue",

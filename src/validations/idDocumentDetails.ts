@@ -1,7 +1,7 @@
 import { body, ValidationChain } from "express-validator";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA } from "../utils/constants";
+import { ID_DOCUMENTS_WITH_GRACED_EXPIRY, USER_DATA } from "../utils/constants";
 
 const documentNumberFormat:RegExp = /^[A-Za-z0-9\-',\s]*$/;
 
@@ -38,7 +38,7 @@ const idDocumentDetailsValidator = (): ValidationChain[] => {
         documentDetailsValidatorErrors.push(
             (
                 body(`expiryDateDay_${i}`)
-                    .if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => validDataChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`], req.session))
+                    .if(body(`expiryDateDay_${i}`).exists()).custom((value, { req }) => validDataChecker(req.body[`expiryDateDay_${i}`], req.body[`expiryDateMonth_${i}`], req.body[`expiryDateYear_${i}`], i, req.session))
             ));
 
         documentDetailsValidatorErrors.push(
@@ -85,22 +85,45 @@ export const dateYearChecker = (day: string, month: string | undefined, year: st
     return true;
 };
 
-export const validDataChecker = (day: string, month: string | undefined, year: string, req: Session): boolean => {
+export const validDataChecker = (day: string, month: string | undefined, year: string, docSequence: number, req: Session): boolean => {
     if (day !== "" && month !== undefined && year !== "") {
         validateNumeric(day, month, year);
         validateMonthYearRange(month, year);
         validateDayLength(day, month, year);
-        validateAgainstWhenIdDocsChecked(+day, +month, +year, req);
+        validateAgainstWhenIdDocsChecked(+day, +month, +year, docSequence, req);
     }
     return true;
 };
 
-const validateAgainstWhenIdDocsChecked = (day: number, month: number, year: number, req: Session): void => {
+export const validateAgainstWhenIdDocsChecked = (day: number, month: number, year: number, docSequence:number, req: Session): void => {
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
     const whenIdDocsChecked: Date = new Date(clientData.whenIdentityChecksCompleted!);
     const expiryDate = new Date(year, month - 1, day);
-    if (expiryDate <= whenIdDocsChecked) {
-        throw new Error("dateAfterIdChecksDone");
+    const documentsWithGracedExpiryMap = new Map(Object.entries(ID_DOCUMENTS_WITH_GRACED_EXPIRY));
+    if (documentsWithGracedExpiryMap.has(clientData.documentsChecked?.[docSequence - 1]!)) {
+        documentsWithGracedExpiryMap.forEach((value, key) => {
+            if (clientData.documentsChecked?.[docSequence - 1] === key) {
+                validateExpiredDocuments(value,
+                    whenIdDocsChecked,
+                    expiryDate,
+                    key);
+            }
+        });
+    } else {
+        if (expiryDate <= whenIdDocsChecked) {
+            throw new Error("dateAfterIdChecksDone");
+        }
+    }
+};
+
+const validateExpiredDocuments = (gracedNumberOfMonths: number,
+    documentCheckedOn: Date,
+    expiryDateProvidedForTheDocument: Date,
+    errorMessage: string): void => {
+    const limitForTheGrace = documentCheckedOn;
+    limitForTheGrace.setMonth(limitForTheGrace.getMonth() - gracedNumberOfMonths);
+    if (expiryDateProvidedForTheDocument <= limitForTheGrace) {
+        throw new Error(errorMessage);
     }
 };
 
