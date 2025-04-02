@@ -1,16 +1,16 @@
 {
-    "whatIs" : "Beth yw",
-    "emailAddress" : "cyfeiriad e-bost {NAME}",
-    "theyMustAbleToAccess" : "Rhaid iddynt allu cael mynediad at e-byst sy'n cael eu hanfon i'r cyfeiriad hwn.",
-    "correctEmailAddressAlert" : "You must check the email address is correct. It is the only place we will send their personal code. Welsh",
-    "enterEmailAddress" : "Cofnodwch ei gyfeiriad e-bost",
-    "confirmEmail" : "Re-enter their email address Welsh",
+    "whatIs": "Beth yw ",
+    "emailAddress": "Cyfeiriad e-bost {NAME}",
+    "theyMustAbleToAccess": "Rhaid iddynt allu cael mynediad at negeseuon e-bost a anfonir i'r cyfeiriad hwn.",
+    "correctEmailAddressAlert": "Rhaid i chi wirio bod y cyfeiriad e-bost yn gywir. Dyma'r unig le y byddwn yn anfon eu cod personol.",
+    "enterEmailAddress": "Cofnodwch eu cyfeiriad e-bost",
+    "confirmEmail": "Ail-gofnodwch eu cyfeiriad e-bost",
 
-    "emailAddressCanOnlyUsedOnce" : "Dim ond unwaith gallwch ddefnyddio'r cyfeiriad e-bost wnaethoch rhoi i wirio hunaniaeth rhywun. Ni allwch ei ddefnyddio ar gyfer unrhyw un arall yr ydych wedi gwirio ei hunaniaeth.",
+    "emailAddressCanOnlyUsedOnce": "Dim ond unwaith gallwch ddefnyddio'r cyfeiriad e-bost wnaethoch rhoi i wirio hunaniaeth rhywun. Ni allwch ei ddefnyddio ar gyfer unrhyw un arall yr ydych wedi gwirio ei hunaniaeth.",
     "continue": "Pharhau",
 
-    "error-noEmailAddress" : "Cofnodwch ei gyfeiriad e-bost",
-    "error-noConfirmAddress" : "Cadarnhau cyfeiriad e-bost",
-    "error-invalidEmail" : "Cofnodwch gyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com",
+    "error-noEmailAddress": "Cofnodwch ei gyfeiriad e-bost",
+    "error-noConfirmAddress": "Cadarnhau cyfeiriad e-bost",
+    "error-invalidEmail": "Cofnodwch gyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com",
     "error-emailAddressDontMatch": "Rhaid i'r cyfeiriadau e-bost gyfateb"
 }
