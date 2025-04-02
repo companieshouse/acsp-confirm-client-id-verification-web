@@ -1,3 +1,5 @@
 {% from "navbar.njk" import addPredefinedNavbar %}
+
 {% set lang = i18n %}
-{{ addPredefinedNavbar(userEmail, chsMonitorGuiUrl, lang, displayAuthorisedAgent, "yes") }}
+{# The last parameter of this navbar display function is used to determine if the 'Your companies' link should be displayed - setting this to 'no' until service is live #}
+{{ addPredefinedNavbar(userEmail, chsMonitorGuiUrl, lang, displayAuthorisedAgent, "no") }}
