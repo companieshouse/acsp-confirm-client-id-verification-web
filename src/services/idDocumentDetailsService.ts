@@ -84,7 +84,7 @@ const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText
         errorMessage = errorMessage.replace("{ graced period }", documentsWithGracedExpiryMap.get(errorText)?.toString()!);
 
         return errorMessage;
-    // for non of the above return back error message as it i
+    // for non of the above return back error message as it is
     } else {
         return errorMessage;
     }
