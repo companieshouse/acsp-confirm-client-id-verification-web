@@ -43,6 +43,6 @@
     "error-UK_biometric_residence_permit": "Ni all y dyddiad dod i ben ar gyfer {doc selected} fod yn fwy na { graced period } mis cyn {id checks completed} pan gwblhawyd y gwiriadau hunaniaeth",
     "error-biometric_passport": "Ni all y dyddiad dod i ben ar gyfer {doc selected} fod yn fwy na { graced period } mis cyn {id checks completed} pan gwblhawyd y gwiriadau hunaniaeth",
     "error-irish_passport_card": "Ni all y dyddiad dod i ben ar gyfer {doc selected} fod yn fwy na { graced period } mis cyn {id checks completed} pan gwblhawyd y gwiriadau hunaniaeth",
-    "error-passport" : "Expiry date for {doc selected} cannot be more than { graced period } months before {id checks completed} when the identity checks were completed. Welsh",
+    "error-passport" : "Ni all y dyddiad dod i ben ar gyfer {doc selected} fod yn fwy na { graced period } mis cyn {id checks completed} pan gwblhawyd y gwiriadau hunaniaeth",
     "error-noCountry": "Dewiswch wlad ar gyfer {doc selected}"
 }
