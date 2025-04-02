@@ -122,7 +122,7 @@ const validateExpiredDocuments = (gracedNumberOfMonths: number,
     errorMessage: string): void => {
     const limitForTheGrace = documentCheckedOn;
     limitForTheGrace.setMonth(limitForTheGrace.getMonth() - gracedNumberOfMonths);
-    if (expiryDateProvidedForTheDocument <= limitForTheGrace) {
+    if (expiryDateProvidedForTheDocument < limitForTheGrace) {
         throw new Error(errorMessage);
     }
 };
