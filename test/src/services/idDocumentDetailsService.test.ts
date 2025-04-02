@@ -206,3 +206,25 @@ describe("errorListDisplay for PRADO", () => {
         }
     );
 });
+describe("IdDocumentDetailsService - physical_security_features_checked", () => {
+    const idDocumentDetailsService = new IdDocumentDetailsService();
+
+    it("should populate documentsWithGracedExpiryMap with OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY when typeOfTheDocumentCheck is physical_security_features_checked", () => {
+        const mockErrors = [
+            { msg: "passport", param: "expiryDate_1" }
+        ];
+        const mockDocumentsChecked = ["passport"];
+        const mockLang = "en";
+        const mockWhenIdDocsChecked = new Date("2025-03-01");
+        const mockTypeOfTheDocumentCheck = "physical_security_features_checked";
+
+        const result = idDocumentDetailsService.errorListDisplay(
+            mockErrors,
+            mockDocumentsChecked,
+            mockLang,
+            mockWhenIdDocsChecked,
+            mockTypeOfTheDocumentCheck
+        );
+        expect(result[0].msg).toContain("18");
+    });
+});

@@ -79,9 +79,10 @@ const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText
         const idChecksCompletedDate = whenIdDocsChecked.getDate() + " " +
                                       whenIdDocsChecked.toLocaleString("default", { month: "long" }) + " " +
                                       whenIdDocsChecked.getFullYear();
-        errorMessage = errorMessage.replace("{id checks completed}", idChecksCompletedDate);
 
+        errorMessage = errorMessage.replace("{id checks completed}", idChecksCompletedDate);
         errorMessage = errorMessage.replace("{ graced period }", documentsWithGracedExpiryMap.get(errorText)?.toString()!);
+
         return errorMessage;
     // for non of the above return back error message as it i
     } else {
