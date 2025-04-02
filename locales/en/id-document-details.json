@@ -40,9 +40,9 @@
     "error-expiryDateInvalid" : "{doc selected} expiry date must be a real date",
     "error-expiryDateNonNumeric" : "{doc selected} must only include numbers",
     "error-dateAfterIdChecksDone" : "Expiry date for {doc selected} must be after {id checks completed} when you completed the identity checks",
-    "error-UK_biometric_residence_permit" : "Expiry date for {doc selected} cannot be more than 18 months before {id checks completed} when the identity checks were completed.",
-    "error-biometric_passport" : "Expiry date for {doc selected} cannot be more than 6 months before {id checks completed} when the identity checks were completed.",
-    "error-irish_passport_card" : "Expiry date for {doc selected} cannot be more than 6 months before {id checks completed} when the identity checks were completed.",
-    "error-passport" : "Expiry date for {doc selected} cannot be more than 6 months before {id checks completed} when the identity checks were completed.",
+    "error-UK_biometric_residence_permit" : "Expiry date for {doc selected} cannot be more than { graced period } months before {id checks completed} when the identity checks were completed.",
+    "error-biometric_passport" : "Expiry date for {doc selected} cannot be more than { graced period } months before {id checks completed} when the identity checks were completed.",
+    "error-irish_passport_card" : "Expiry date for {doc selected} cannot be more than { graced period } months before {id checks completed} when the identity checks were completed.",
+    "error-passport" : "Expiry date for {doc selected} cannot be more than { graced period } months before {id checks completed} when the identity checks were completed.",
     "error-noCountry" : "Choose a country for {doc selected}"
 }
