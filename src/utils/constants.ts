@@ -24,6 +24,7 @@ export const OPTION_1_ID_DOCUMENTS_WITH_GRACED_EXPIRY = {
 };
 
 export const OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY = {
+    UK_biometric_residence_permit: GRACED_EXPIRY_OF_EIGHTEEN_MONTHS,
     irish_passport_card: GRACED_EXPIRY_OF_EIGHTEEN_MONTHS,
     passport: GRACED_EXPIRY_OF_EIGHTEEN_MONTHS
 };
