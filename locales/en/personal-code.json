@@ -1,6 +1,7 @@
 {
     "codePageTitle": "Companies House Personal Code",
     "codePageHeading": "{NAME}'s personal code",
+    "codePageTabTitle": "Where we'll send their Companies House personal code",
     "onceYou": "Once you've verified",
     "identity": "'s identity, we'll send their Companies House personal code to the email address you provide on the next page. They'll need to use this to connect their verified identity to our records.",
     "weWill": "We'll let them know they can share the personal code with people they trust to file on their behalf.",

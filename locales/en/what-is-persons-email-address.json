@@ -1,6 +1,7 @@
 {
     "whatIs": "What is ",
     "emailAddress": " {NAME}'s email address",
+    "emailAddressTabTitle": "What is their email address?",
     "theyMustAbleToAccess": "They must be able to access emails sent to this address.",
     "correctEmailAddressAlert": "You must check the email address is correct. It is the only place we will send their personal code.",
     "enterEmailAddress": "Enter their email address",

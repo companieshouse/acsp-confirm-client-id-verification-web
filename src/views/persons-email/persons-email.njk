@@ -3,7 +3,7 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "layouts/default.njk" %}
 
-{% set title = i18n.whatIs + i18n.emailAddress | replace('{NAME}', firstName + ' ' + lastName) %}
+{% set title = i18n.emailAddressTabTitle %}
 
 {% block main_content %}
     <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
