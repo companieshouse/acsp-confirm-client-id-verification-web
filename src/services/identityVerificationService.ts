@@ -11,7 +11,7 @@ import { BIOMETRIC_PASSPORT, PASSPORT } from "../utils/constants";
 export const findIdentityByEmail = async (email: string): Promise<Identity | undefined> => {
     const apiClient = createPrivateApiKeyClient();
 
-    logger.debug(`Recieved Request to find identity by email ${email}`);
+    logger.info(`Recieved Request to find identity by email ${email}`);
 
     const sdkResponse: Resource<Identity> | ApiErrorResponse = await apiClient.identityVerificationService.findIdentityByEmail(email);
 
@@ -20,7 +20,7 @@ export const findIdentityByEmail = async (email: string): Promise<Identity | und
         return Promise.reject(sdkResponse);
     }
     if (!sdkResponse.httpStatusCode || (sdkResponse.httpStatusCode >= 400 && sdkResponse.httpStatusCode !== 404)) {
-        logger.error(`Http status code ${sdkResponse.httpStatusCode} and error ${JSON.stringify(sdkResponse)} - Failed to get identity for email ${email}`);
+        logger.error(`Http status code ${sdkResponse.httpStatusCode} and error ${JSON.stringify(sdkResponse)} - Failed to get identity by email ${email}`);
         return Promise.reject(sdkResponse);
     }
 
@@ -35,7 +35,7 @@ export const findIdentityByEmail = async (email: string): Promise<Identity | und
         return Promise.reject(sdkResponse);
     }
 
-    logger.debug(`Identity details ${JSON.stringify(sdkResponse)}`);
+    logger.info(`Recieved identity details for email ${email}`);
     return Promise.resolve(castedSdkResponse.resource);
 };
 
@@ -43,31 +43,26 @@ export const sendVerifiedClientDetails = async (verifiedClientData: VerifiedClie
     const createUvidType = "acsp";
     const apiClient = createPrivateApiKeyClient();
 
-    logger.debug(`Recieved Request to send verified client details ${verifiedClientData}`);
+    logger.info("Recieved request to send verified client details");
 
     const sdkResponse: Resource<Identity> | ApiErrorResponse = await apiClient.identityVerificationService.sendVerifiedClientDetails(verifiedClientData, createUvidType);
 
     if (!sdkResponse) {
-        logger.error(`send verified client data returned no response ${verifiedClientData}`);
+        logger.error("Send verified client data returned no response");
         return Promise.reject(sdkResponse);
     }
-    if (!sdkResponse.httpStatusCode || (sdkResponse.httpStatusCode >= 400 && sdkResponse.httpStatusCode !== 404)) {
-        logger.error(`Http status code ${sdkResponse.httpStatusCode} and error ${JSON.stringify(sdkResponse)} - Failed to get identity for ${verifiedClientData}`);
+    if (!sdkResponse.httpStatusCode || sdkResponse.httpStatusCode >= 400) {
+        logger.error(`Http status code ${sdkResponse.httpStatusCode} and error ${JSON.stringify(sdkResponse)} - Failed to send identity details to verification service`);
         return Promise.reject(sdkResponse);
-    }
-
-    if (sdkResponse.httpStatusCode === 404) {
-        logger.debug(`send verified client data returned status 404 ${verifiedClientData}`);
-        return Promise.resolve(undefined);
     }
 
     const castedSdkResponse: Resource<Identity> = sdkResponse as Resource<Identity>;
     if (castedSdkResponse.resource === undefined) {
-        logger.error(`send verified client data returned no resource for ${verifiedClientData}`);
+        logger.error("Send verified client data returned no resource");
         return Promise.reject(sdkResponse);
     }
 
-    logger.debug(`Identity details ${JSON.stringify(sdkResponse)}`);
+    logger.debug("Identity details successfully sent to verification service");
     return Promise.resolve(castedSdkResponse.resource);
 };
 

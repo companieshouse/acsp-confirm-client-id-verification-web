@@ -108,18 +108,6 @@ describe("verification api service tests", () => {
             await expect(sendVerifiedClientDetails(verifiedClientDetails)).rejects.toEqual({ httpStatusCode: 400 });
         });
 
-        it("should return undefined when status code is 404", async () => {
-
-            mockSendVerifiedClientDetails.mockResolvedValueOnce({
-                httpStatusCode: 404,
-                resource: undefined
-            } as Resource<Identity>);
-
-            const identity = await sendVerifiedClientDetails(verifiedClientDetails);
-
-            expect(identity).toStrictEqual(undefined);
-        });
-
         it("Should throw an error when identity-verification-api returns no resource", async () => {
             mockSendVerifiedClientDetails.mockResolvedValueOnce({
                 httpStatusCode: 204
