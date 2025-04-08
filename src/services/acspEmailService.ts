@@ -5,7 +5,7 @@ import { HttpResponse } from "@companieshouse/api-sdk-node/dist/http";
 import { ClientVerificationEmail } from "@companieshouse/api-sdk-node/dist/services/acsp/types";
 
 export const sendIdentityVerificationConfirmationEmail = async (emailData: ClientVerificationEmail): Promise<HttpResponse> => {
-    logger.debug(`Sending email to ACSP for client verification submission ID: ${emailData.referenceNumber}`);
+    logger.info(`Sending email to ACSP for client verification submission ID: ${emailData.referenceNumber}`);
     const apiClient: ApiClient = createPublicApiKeyClient();
     const sdkResponse: HttpResponse = await apiClient.acsp.sendIdentityVerificationEmail(emailData);
 
@@ -18,6 +18,6 @@ export const sendIdentityVerificationConfirmationEmail = async (emailData: Clien
         return Promise.reject(sdkResponse);
     }
 
-    logger.debug(`Client verification email for submission ID: ${emailData.referenceNumber} has been sent`);
+    logger.info(`Client verification email for submission ID: ${emailData.referenceNumber} has been sent`);
     return Promise.resolve(sdkResponse);
 };

@@ -8,7 +8,7 @@ import { AMLSupervioryBodies } from "../model/AMLSupervioryBodies";
 export const getAcspFullProfile = async (acspNumber: string):Promise<AcspFullProfile> => {
     const apiClient: PrivateApiClient = createLocalApiKeyClient();
 
-    logger.debug(`Recieved request to get acsp full profile for acsp number: ${acspNumber}`);
+    logger.info(`Recieved request to get acsp full profile for acsp number: ${acspNumber}`);
 
     const sdkResponse = await apiClient.acspProfileService.getAcspFullProfile(acspNumber);
 
