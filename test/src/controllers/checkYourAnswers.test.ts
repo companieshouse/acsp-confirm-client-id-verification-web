@@ -10,6 +10,8 @@ import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { ACSP_DETAILS, USER_DATA } from "../../../src/utils/constants";
 import { Request, Response, NextFunction } from "express";
 import { dummyFullProfile } from "../../mocks/acsp_profile.mock";
+import * as localise from "../../../src/utils/localise";
+
 jest.mock("@companieshouse/api-sdk-node");
 jest.mock("../../../src/services/identityVerificationService.ts");
 jest.mock("../../../src/services/acspEmailService.ts");
@@ -30,6 +32,15 @@ describe("GET" + CHECK_YOUR_ANSWERS, () => {
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.text).toContain("Check your answers before sending your application");
+    });
+
+    it("should return status 500 if an error occurs", async () => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
+            throw new Error("Test error");
+        });
+        const res = await router.get(BASE_URL + CHECK_YOUR_ANSWERS);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 
@@ -71,8 +82,17 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
     });
 
     it("should return status 500 if verification api errors", async () => {
-        await mockFindIdentityByEmail.mockRejectedValueOnce(undefined);
+        await mockFindIdentityByEmail.mockRejectedValueOnce(new Error("Email address already exists"));
         const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS).send({ checkYourAnswerDeclaration: "confirm" });
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
+
+    it("should return status 500 if an error occurs", async () => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
+            throw new Error("Test error");
+        });
+        const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS);
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });

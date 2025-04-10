@@ -11,63 +11,69 @@ import { Address } from "model/Address";
 import { saveDataInSession } from "../utils/sessionHelper";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const previousPage: string = addLangToUrl(BASE_URL + HOME_ADDRESS, lang);
-    const currentUrl: string = BASE_URL + CHOOSE_AN_ADDRESS;
-    const session: Session = req.session as any as Session;
-    const addressList = session.getExtraData(ADDRESS_LIST);
-    const manualAddressLink: string = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const previousPage: string = addLangToUrl(BASE_URL + HOME_ADDRESS, lang);
+        const currentUrl: string = BASE_URL + CHOOSE_AN_ADDRESS;
+        const session: Session = req.session as any as Session;
+        const addressList = session.getExtraData(ADDRESS_LIST);
+        const manualAddressLink: string = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
 
-    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
-    res.render(config.HOME_ADDRESS_LIST, {
-        ...getLocaleInfo(locales, lang),
-        currentUrl,
-        previousPage,
-        addresses: addressList,
-        matomoLinkClick: MATOMO_LINK_CLICK,
-        manualAddressLink,
-        firstname: clientData.firstName,
-        lastname: clientData.lastName
-    });
-};
-
-export const post = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const currentUrl: string = BASE_URL + CHOOSE_AN_ADDRESS;
-
-    const errorList = validationResult(req);
-    const previousPage: string = addLangToUrl(BASE_URL + HOME_ADDRESS, lang);
-    const session: Session = req.session as any as Session;
-    const addressList: Address[] = session.getExtraData(ADDRESS_LIST)!;
-    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
-    const manualAddressLink: string = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
-
-    if (!errorList.isEmpty()) {
-        const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-        res.status(400).render(config.HOME_ADDRESS_LIST, {
+        res.render(config.HOME_ADDRESS_LIST, {
             ...getLocaleInfo(locales, lang),
             currentUrl,
             previousPage,
             addresses: addressList,
-            firstname: clientData.firstName,
-            lastname: clientData.lastName,
+            matomoLinkClick: MATOMO_LINK_CLICK,
             manualAddressLink,
-            pageProperties: pageProperties
+            firstname: clientData.firstName,
+            lastname: clientData.lastName
         });
-    } else {
-        const selectPremise = req.body.homeAddress;
+    } catch (error) {
+        next(error);
+    }
+};
 
-        // Save selected address to the session
-        const homeAddress: Address = addressList.filter((address) => address.propertyDetails === selectPremise)[0];
+export const post = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const currentUrl: string = BASE_URL + CHOOSE_AN_ADDRESS;
+        const errorList = validationResult(req);
+        const previousPage: string = addLangToUrl(BASE_URL + HOME_ADDRESS, lang);
+        const session: Session = req.session as any as Session;
+        const addressList: Address[] = session.getExtraData(ADDRESS_LIST)!;
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+        const manualAddressLink: string = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
 
-        clientData.address = homeAddress;
-        saveDataInSession(req, USER_DATA, clientData);
+        if (!errorList.isEmpty()) {
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+            res.status(400).render(config.HOME_ADDRESS_LIST, {
+                ...getLocaleInfo(locales, lang),
+                currentUrl,
+                previousPage,
+                addresses: addressList,
+                firstname: clientData.firstName,
+                lastname: clientData.lastName,
+                manualAddressLink,
+                pageProperties: pageProperties
+            });
+        } else {
+            const selectPremise = req.body.homeAddress;
 
-        const nextPageUrl = addLangToUrl(BASE_URL + CONFIRM_HOME_ADDRESS, lang);
-        res.redirect(nextPageUrl);
+            // Save selected address to the session
+            const homeAddress: Address = addressList.filter((address) => address.propertyDetails === selectPremise)[0];
 
+            clientData.address = homeAddress;
+            saveDataInSession(req, USER_DATA, clientData);
+
+            const nextPageUrl = addLangToUrl(BASE_URL + CONFIRM_HOME_ADDRESS, lang);
+            res.redirect(nextPageUrl);
+        }
+    } catch (error) {
+        next(error);
     }
 };

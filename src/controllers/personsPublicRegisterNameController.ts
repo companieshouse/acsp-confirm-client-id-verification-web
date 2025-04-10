@@ -11,68 +11,76 @@ import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../u
 import { getPreviousPageUrl } from "../services/url";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const session: Session = req.session as any as Session;
-    const clientData: ClientData = session.getExtraData(USER_DATA)!;
-    const payload = {
-        "first-name": clientData.preferredFirstName,
-        "middle-names": clientData.preferredMiddleName,
-        "last-name": clientData.preferredLastName
-    };
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session.getExtraData(USER_DATA)!;
+        const payload = {
+            "first-name": clientData.preferredFirstName,
+            "middle-names": clientData.preferredMiddleName,
+            "last-name": clientData.preferredLastName
+        };
 
-    const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
-    saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
+        const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
+        saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
 
-    const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        : addLangToUrl(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER, lang);
+        const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER, lang);
 
-    res.render(config.PERSONS_NAME_ON_PUBLIC_REGISTER, {
-        previousPage: previousPage,
-        ...getLocaleInfo(locales, lang),
-        currentUrl: BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER,
-        payload
-    });
+        res.render(config.PERSONS_NAME_ON_PUBLIC_REGISTER, {
+            previousPage: previousPage,
+            ...getLocaleInfo(locales, lang),
+            currentUrl: BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER,
+            payload
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
-    const locales = getLocalesService();
-    const lang = selectLang(req.query.lang);
-    const errorList = validationResult(req);
-    const session: Session = req.session as any as Session;
+    try {
+        const locales = getLocalesService();
+        const lang = selectLang(req.query.lang);
+        const errorList = validationResult(req);
+        const session: Session = req.session as any as Session;
 
-    const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
+        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
 
-    const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        : addLangToUrl(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER, lang);
+        const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER, lang);
 
-    if (!errorList.isEmpty()) {
-        const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+        if (!errorList.isEmpty()) {
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
 
-        res.status(400).render(config.PERSONS_NAME_ON_PUBLIC_REGISTER, {
-            ...getLocaleInfo(locales, lang),
-            previousPage,
-            currentUrl: BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER,
-            payload: req.body,
-            ...pageProperties
-        });
-    } else {
-        const clientData: ClientData = session.getExtraData(USER_DATA)!;
-
-        clientData.preferredFirstName = req.body["first-name"];
-        clientData.preferredMiddleName = req.body["middle-names"];
-        clientData.preferredLastName = req.body["last-name"];
-
-        saveDataInSession(req, USER_DATA, clientData);
-
-        const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
-
-        if (checkYourAnswersFlag) {
-            res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
+            res.status(400).render(config.PERSONS_NAME_ON_PUBLIC_REGISTER, {
+                ...getLocaleInfo(locales, lang),
+                previousPage,
+                currentUrl: BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER,
+                payload: req.body,
+                ...pageProperties
+            });
         } else {
-            res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
+            const clientData: ClientData = session.getExtraData(USER_DATA)!;
+
+            clientData.preferredFirstName = req.body["first-name"];
+            clientData.preferredMiddleName = req.body["middle-names"];
+            clientData.preferredLastName = req.body["last-name"];
+
+            saveDataInSession(req, USER_DATA, clientData);
+
+            const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
+
+            if (checkYourAnswersFlag) {
+                res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
+            } else {
+                res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
+            }
         }
+    } catch (error) {
+        next(error);
     }
 };

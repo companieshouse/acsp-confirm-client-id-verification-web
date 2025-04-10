@@ -9,6 +9,7 @@ import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { createRequest } from "node-mocks-http";
 import { session } from "../../mocks/session_middleware_mock";
 import { USER_DATA } from "../../../src/utils/constants";
+import * as localise from "../../../src/utils/localise";
 
 jest.mock("../../../src/services/formatService.ts");
 
@@ -52,6 +53,15 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
         expect(res.status).toBe(200);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(res.text).toContain("Identity verified successfully");
+    });
+
+    it("should return status 500 if an error occurs", async () => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
+            throw new Error("Test error");
+        });
+        const res = await router.get(BASE_URL + CONFIRMATION);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 
     it("should format the client data correctly", async () => {

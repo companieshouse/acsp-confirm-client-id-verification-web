@@ -15,7 +15,7 @@ describe("GET " + CONFIRM_IDENTITY_VERIFICATION, () => {
     });
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
         const res = await router.get(BASE_URL + CONFIRM_IDENTITY_VERIFICATION);
@@ -35,5 +35,15 @@ describe("POST " + CONFIRM_IDENTITY_VERIFICATION, () => {
         const res = await router.post(BASE_URL + CONFIRM_IDENTITY_VERIFICATION).send({ declaration: "" });
         expect(res.status).toBe(400);
         expect(res.text).toContain("Select to confirm you have verified their identity");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(BASE_URL + CONFIRM_IDENTITY_VERIFICATION);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });

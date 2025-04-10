@@ -11,38 +11,46 @@ import { saveDataInSession } from "../utils/sessionHelper";
 import logger from "../utils/logger";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
-    saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
-    res.render(config.SIGN_OUT_PAGE, {
-        previousPage: (previousPageUrl),
-        ...getLocaleInfo(locales, lang),
-        currentUrl: BASE_URL + SIGN_OUT_URL
-    });
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
+        saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
+        res.render(config.SIGN_OUT_PAGE, {
+            previousPage: (previousPageUrl),
+            ...getLocaleInfo(locales, lang),
+            currentUrl: BASE_URL + SIGN_OUT_URL
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 export const post = (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const session: Session = req.session as any as Session;
-    const previousPageUrl : string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
-    const errorList = validationResult(req);
-    logger.info(previousPageUrl);
-    if (!errorList.isEmpty()) {
-        const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const previousPageUrl : string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
+        const errorList = validationResult(req);
+        logger.info(previousPageUrl);
+        if (!errorList.isEmpty()) {
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
 
-        res.render(config.SIGN_OUT_PAGE, {
-            ...getLocaleInfo(locales, lang),
-            previousPage: (previousPageUrl),
-            currentUrl: BASE_URL + SIGN_OUT_URL,
-            ...pageProperties
-        });
-    } else {
-        if (req.body.signout === "yes") {
-            res.redirect((ACCOUNTS_SIGNOUT_PATH));
+            res.render(config.SIGN_OUT_PAGE, {
+                ...getLocaleInfo(locales, lang),
+                previousPage: (previousPageUrl),
+                currentUrl: BASE_URL + SIGN_OUT_URL,
+                ...pageProperties
+            });
         } else {
-            res.redirect((previousPageUrl));
+            if (req.body.signout === "yes") {
+                res.redirect((ACCOUNTS_SIGNOUT_PATH));
+            } else {
+                res.redirect((previousPageUrl));
+            }
         }
+    } catch (error) {
+        next(error);
     }
 };

@@ -7,32 +7,40 @@ import { USER_DATA, MATOMO_LINK_CLICK, CHECK_YOUR_ANSWERS_FLAG } from "../utils/
 import { ClientData } from "model/ClientData";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const session: Session = req.session as any as Session;
-    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
-    res.render(config.CONFIRM_HOME_ADDRESS, {
-        previousPage: addLangToUrl(BASE_URL + HOME_ADDRESS, lang),
-        editPage: addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang),
-        ...getLocaleInfo(locales, lang),
-        currentUrl: BASE_URL + CONFIRM_HOME_ADDRESS,
-        matomoLinkClick: MATOMO_LINK_CLICK,
-        address: clientData?.address,
-        firstName: clientData?.firstName,
-        lastName: clientData?.lastName
-    });
+        res.render(config.CONFIRM_HOME_ADDRESS, {
+            previousPage: addLangToUrl(BASE_URL + HOME_ADDRESS, lang),
+            editPage: addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang),
+            ...getLocaleInfo(locales, lang),
+            currentUrl: BASE_URL + CONFIRM_HOME_ADDRESS,
+            matomoLinkClick: MATOMO_LINK_CLICK,
+            address: clientData?.address,
+            firstName: clientData?.firstName,
+            lastName: clientData?.lastName
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const session: Session = req.session as any as Session;
+    try {
+        const session: Session = req.session as any as Session;
+        const lang = selectLang(req.query.lang);
 
-    const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
+        const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
 
-    if (checkYourAnswersFlag) {
-        res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
-    } else {
-        res.redirect(addLangToUrl(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED, lang));
+        if (checkYourAnswersFlag) {
+            res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
+        } else {
+            res.redirect(addLangToUrl(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED, lang));
+        }
+    } catch (error) {
+        next(error);
     }
 };

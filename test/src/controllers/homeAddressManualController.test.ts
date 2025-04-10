@@ -2,6 +2,8 @@ import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
 import { BASE_URL, HOME_ADDRESS_MANUAL, CONFIRM_HOME_ADDRESS } from "../../../src/types/pageURL";
+import * as localise from "../../../src/utils/localise";
+
 jest.mock("@companieshouse/api-sdk-node");
 
 const router = supertest(app);
@@ -13,6 +15,16 @@ describe("GET" + HOME_ADDRESS_MANUAL, () => {
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.status).toBe(200);
         expect(res.text).toContain("Enter their home address");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.get(BASE_URL + HOME_ADDRESS_MANUAL);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 
@@ -184,5 +196,15 @@ describe("POST" + HOME_ADDRESS_MANUAL, () => {
             .send({ addressPropertyDetails: "abc", addressLine1: "pqr", addressLine2: "abc", addressTown: "abc", addressCounty: "abcop", addressCountry: "abcop", addressPostcode: "Abcdefghijklmnopqrstuvwx1Abcdefghijklmnopqrstuvwx2A3GB" });
         expect(res.status).toBe(400);
         expect(res.text).toContain("Postcode or ZIP must be 20 characters or less");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });

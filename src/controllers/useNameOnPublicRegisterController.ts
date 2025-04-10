@@ -11,69 +11,77 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { getPreviousPageUrl } from "../services/url";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const session: Session = req.session as any as Session;
-    const clientData: ClientData = session.getExtraData(USER_DATA)!;
-    const currentUrl: string = BASE_URL + USE_NAME_ON_PUBLIC_REGISTER;
-    const selectedOption = clientData.useNameOnPublicRegister;
+    try {
+        const lang = selectLang(req.query.lang);
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session.getExtraData(USER_DATA)!;
+        const currentUrl: string = BASE_URL + USE_NAME_ON_PUBLIC_REGISTER;
+        const selectedOption = clientData.useNameOnPublicRegister;
 
-    const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
-    saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
+        const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
+        saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
 
-    const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        : addLangToUrl(BASE_URL + PERSONS_NAME, lang);
+        const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(BASE_URL + PERSONS_NAME, lang);
 
-    res.render(config.USE_NAME_ON_PUBLIC_REGISTER, {
-        ...getLocaleInfo(getLocalesService(), lang),
-        currentUrl,
-        previousPage,
-        firstName: clientData.firstName,
-        lastName: clientData.lastName,
-        selectedOption
-    });
+        res.render(config.USE_NAME_ON_PUBLIC_REGISTER, {
+            ...getLocaleInfo(getLocalesService(), lang),
+            currentUrl,
+            previousPage,
+            firstName: clientData.firstName,
+            lastName: clientData.lastName,
+            selectedOption
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const session: Session = req.session as any as Session;
-    const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-    const selectedOption = req.body.useNameOnPublicRegisterRadio;
-    const currentUrl: string = BASE_URL + USE_NAME_ON_PUBLIC_REGISTER;
-    const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
+        const selectedOption = req.body.useNameOnPublicRegisterRadio;
+        const currentUrl: string = BASE_URL + USE_NAME_ON_PUBLIC_REGISTER;
+        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
 
-    const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        : addLangToUrl(BASE_URL + PERSONS_NAME, lang);
+        const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(BASE_URL + PERSONS_NAME, lang);
 
-    const errorList = validationResult(req);
-    if (!errorList.isEmpty()) {
-        const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+        const errorList = validationResult(req);
+        if (!errorList.isEmpty()) {
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
 
-        res.status(400).render(config.USE_NAME_ON_PUBLIC_REGISTER, {
-            ...getLocaleInfo(locales, lang),
-            previousPage,
-            currentUrl,
-            firstName: clientData.firstName,
-            lastName: clientData.lastName,
-            selectedOption,
-            pageProperties: pageProperties
-        });
-    } else {
-        clientData.useNameOnPublicRegister = selectedOption;
-        saveDataInSession(req, USER_DATA, clientData);
-        if (selectedOption === "use_name_on_public_register_yes" && previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)) {
-            // Clearing previous values when switching answer to yes
-            clientData.preferredFirstName = "";
-            clientData.preferredMiddleName = "";
-            clientData.preferredLastName = "";
+            res.status(400).render(config.USE_NAME_ON_PUBLIC_REGISTER, {
+                ...getLocaleInfo(locales, lang),
+                previousPage,
+                currentUrl,
+                firstName: clientData.firstName,
+                lastName: clientData.lastName,
+                selectedOption,
+                pageProperties: pageProperties
+            });
+        } else {
+            clientData.useNameOnPublicRegister = selectedOption;
             saveDataInSession(req, USER_DATA, clientData);
-            res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
-        } else if (selectedOption === "use_name_on_public_register_yes") {
-            res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
-        } else if (selectedOption === "use_name_on_public_register_no") {
-            res.redirect(addLangToUrl(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER, lang));
+            if (selectedOption === "use_name_on_public_register_yes" && previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)) {
+            // Clearing previous values when switching answer to yes
+                clientData.preferredFirstName = "";
+                clientData.preferredMiddleName = "";
+                clientData.preferredLastName = "";
+                saveDataInSession(req, USER_DATA, clientData);
+                res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
+            } else if (selectedOption === "use_name_on_public_register_yes") {
+                res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
+            } else if (selectedOption === "use_name_on_public_register_no") {
+                res.redirect(addLangToUrl(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER, lang));
+            }
         }
+    } catch (error) {
+        next(error);
     }
 };
