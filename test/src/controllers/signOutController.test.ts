@@ -17,7 +17,7 @@ describe("GET" + SIGN_OUT_URL, () => {
 
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
         const res = await router.get(BASE_URL + SIGN_OUT_URL);
@@ -53,7 +53,7 @@ describe("POST " + SIGN_OUT_URL, () => {
 
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
         const res = await router.post(BASE_URL + SIGN_OUT_URL);

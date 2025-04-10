@@ -22,7 +22,7 @@ describe("GET" + USE_NAME_ON_PUBLIC_REGISTER, () => {
 
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
         const res = await router.get(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER);
@@ -59,7 +59,7 @@ describe("POST" + USE_NAME_ON_PUBLIC_REGISTER, () => {
 
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
         const res = await router.post(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER);

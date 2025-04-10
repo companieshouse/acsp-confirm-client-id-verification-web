@@ -1,6 +1,6 @@
 import { selectLang, addLangToUrl } from "../../../src/utils/localise";
 
-describe("selectLang", () => {
+describe("getLocalesService", () => {
     test("should return \"cy\" for input \"cy\"", () => {
         expect(selectLang("cy")).toBe("cy");
     });

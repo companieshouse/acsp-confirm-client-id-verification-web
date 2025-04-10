@@ -23,7 +23,7 @@ describe("GET" + WHEN_IDENTITY_CHECKS_COMPLETED, () => {
 
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
         const res = await router.get(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED);
@@ -71,7 +71,7 @@ describe("POST" + WHEN_IDENTITY_CHECKS_COMPLETED, () => {
 
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
         const res = await router.get(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED);

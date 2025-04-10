@@ -35,7 +35,7 @@ describe("GET" + CHECK_YOUR_ANSWERS, () => {
     });
 
     it("should return status 500 if an error occurs", async () => {
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error("Test error");
         });
         const res = await router.get(BASE_URL + CHECK_YOUR_ANSWERS);
@@ -89,7 +89,7 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
     });
 
     it("should return status 500 if an error occurs", async () => {
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error("Test error");
         });
         const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS);

@@ -22,7 +22,7 @@ describe("GET " + PROVIDE_DIFFERENT_EMAIL, () => {
 
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
         const res = await router.get(BASE_URL + PROVIDE_DIFFERENT_EMAIL);

@@ -28,7 +28,7 @@ describe("GET" + EMAIL_ADDRESS, () => {
 
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
         const res = await router.get(BASE_URL + EMAIL_ADDRESS);
@@ -123,7 +123,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
 
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
         const res = await router.post(BASE_URL + EMAIL_ADDRESS);

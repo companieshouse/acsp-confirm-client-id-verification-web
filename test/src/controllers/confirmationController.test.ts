@@ -56,7 +56,7 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
     });
 
     it("should return status 500 if an error occurs", async () => {
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error("Test error");
         });
         const res = await router.get(BASE_URL + CONFIRMATION);

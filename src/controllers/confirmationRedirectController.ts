@@ -25,7 +25,7 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
 
         // Redirect to the desired URL
         return res.redirect(addLangToUrl(redirectUrl, lang));
-    } catch (error) {
-        next(error);
+    } catch (err) {
+        next(err);
     }
 };

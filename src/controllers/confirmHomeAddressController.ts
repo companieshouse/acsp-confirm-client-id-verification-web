@@ -30,8 +30,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const lang = selectLang(req.query.lang);
         const session: Session = req.session as any as Session;
+        const lang = selectLang(req.query.lang);
 
         const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
 
