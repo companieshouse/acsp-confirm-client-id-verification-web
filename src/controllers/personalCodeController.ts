@@ -7,25 +7,33 @@ import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../u
 import { ClientData } from "../model/ClientData";
 
 export const get = (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const session: Session = req.session as any as Session;
-    const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-    const selectedOption: string = clientData?.useNameOnPublicRegister!;
-    const previousPage: string = getPreviousPage(selectedOption);
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
+        const selectedOption: string = clientData?.useNameOnPublicRegister!;
+        const previousPage: string = getPreviousPage(selectedOption);
 
-    res.render(config.PERSONAL_CODE, {
-        previousPage: addLangToUrl(previousPage, lang),
-        ...getLocaleInfo(locales, lang),
-        currentUrl: BASE_URL + PERSONAL_CODE,
-        firstName: clientData?.firstName,
-        lastName: clientData?.lastName
-    });
+        res.render(config.PERSONAL_CODE, {
+            previousPage: addLangToUrl(previousPage, lang),
+            ...getLocaleInfo(locales, lang),
+            currentUrl: BASE_URL + PERSONAL_CODE,
+            firstName: clientData?.firstName,
+            lastName: clientData?.lastName
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 export const post = (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    res.redirect(addLangToUrl(BASE_URL + EMAIL_ADDRESS, lang));
+    try {
+        const lang = selectLang(req.query.lang);
+        res.redirect(addLangToUrl(BASE_URL + EMAIL_ADDRESS, lang));
+    } catch (error) {
+        next(error);
+    }
 };
 
 const getPreviousPage = (selectedOption: string): string => {

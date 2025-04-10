@@ -71,7 +71,7 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
     });
 
     it("should return status 500 if verification api errors", async () => {
-        await mockFindIdentityByEmail.mockRejectedValueOnce(undefined);
+        await mockFindIdentityByEmail.mockRejectedValueOnce(new Error("Email address already exists"));
         const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS).send({ checkYourAnswerDeclaration: "confirm" });
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");

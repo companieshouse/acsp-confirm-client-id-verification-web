@@ -11,58 +11,66 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { CheckedDocumentsService } from "../services/checkedDocumentsService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const session: Session = req.session as any as Session;
-    const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
-    const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
-    const clientData: ClientData = session?.getExtraData(USER_DATA)!;
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
+        const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
+        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
-    const payload = {
-        documentsGroup2A: clientData.documentsChecked,
-        documentsGroup2B: clientData.documentsChecked
-    };
+        const payload = {
+            documentsGroup2A: clientData.documentsChecked,
+            documentsGroup2B: clientData.documentsChecked
+        };
 
-    res.render(config.IDENTITY_DOCUMETS_GROUP_2, {
-        ...getLocaleInfo(locales, lang),
-        previousPage,
-        currentUrl,
-        firstName: clientData?.firstName,
-        lastName: clientData?.lastName,
-        payload
-    });
+        res.render(config.IDENTITY_DOCUMETS_GROUP_2, {
+            ...getLocaleInfo(locales, lang),
+            previousPage,
+            currentUrl,
+            firstName: clientData?.firstName,
+            lastName: clientData?.lastName,
+            payload
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const session: Session = req.session as any as Session;
-    const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
-    const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
-    const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-    const errorList = validationResult(req);
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const previousPage: string = addLangToUrl(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
+        const currentUrl: string = BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
+        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
+        const errorList = validationResult(req);
 
-    if (!errorList.isEmpty()) {
-        const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-        res.status(400).render(config.IDENTITY_DOCUMETS_GROUP_2, {
-            ...getLocaleInfo(locales, lang),
-            ...pageProperties,
-            previousPage,
-            currentUrl,
-            payload: req.body,
-            firstName: clientData?.firstName,
-            lastName: clientData?.lastName
-        });
-    } else {
+        if (!errorList.isEmpty()) {
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+            res.status(400).render(config.IDENTITY_DOCUMETS_GROUP_2, {
+                ...getLocaleInfo(locales, lang),
+                ...pageProperties,
+                previousPage,
+                currentUrl,
+                payload: req.body,
+                firstName: clientData?.firstName,
+                lastName: clientData?.lastName
+            });
+        } else {
 
-        const documentsGroup2 = {
-            documentsGroup2A: req.body.documentsGroup2A,
-            documentsGroup2B: req.body.documentsGroup2B
-        };
+            const documentsGroup2 = {
+                documentsGroup2A: req.body.documentsGroup2A,
+                documentsGroup2B: req.body.documentsGroup2B
+            };
 
-        const checkedDocumentsService = new CheckedDocumentsService();
-        checkedDocumentsService.saveDocumentGroupAB(req, clientData, documentsGroup2);
+            const checkedDocumentsService = new CheckedDocumentsService();
+            checkedDocumentsService.saveDocumentGroupAB(req, clientData, documentsGroup2);
 
-        res.redirect(addLangToUrl(BASE_URL + ID_DOCUMENT_DETAILS, lang));
+            res.redirect(addLangToUrl(BASE_URL + ID_DOCUMENT_DETAILS, lang));
+        }
+    } catch (error) {
+        next(error);
     }
 };

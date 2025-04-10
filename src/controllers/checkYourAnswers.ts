@@ -9,8 +9,6 @@ import { FormatService } from "../services/formatService";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { findIdentityByEmail, IdentityVerificationService, sendVerifiedClientDetails } from "../services/identityVerificationService";
-import logger from "../utils/logger";
-import { ErrorService } from "../services/errorService";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { getAmlBodiesAsString } from "../services/acspProfileService";
@@ -19,64 +17,18 @@ import { getLoggedInUserEmail } from "../utils/session";
 import { ClientVerificationEmail } from "@companieshouse/api-sdk-node/dist/services/acsp/types";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const previousPage: string = addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang);
-    const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
-    const session: Session = req.session as any as Session;
-    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
-    const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const previousPage: string = addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang);
+        const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+        const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
 
-    // setting CYA flag to true when user reaches this page - used for routing back if they change a value
-    saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, true);
+        // setting CYA flag to true when user reaches this page - used for routing back if they change a value
+        saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, true);
 
-    const formattedAddress = FormatService.formatAddress(clientData.address);
-    const formattedDateOfBirth = FormatService.formatDate(
-        clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
-    );
-    const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
-        clientData.whenIdentityChecksCompleted
-            ? new Date(clientData.whenIdentityChecksCompleted)
-            : undefined
-    );
-
-    const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
-        clientData.documentsChecked,
-        locales.i18nCh.resolveNamespacesKeys(lang)
-    );
-
-    const identityDocuments = clientData.idDocumentDetails!;
-
-    const amlBodies = getAmlBodiesAsString(acspDetails);
-
-    res.render(config.CHECK_YOUR_ANSWERS, {
-        ...getLocaleInfo(locales, lang),
-        currentUrl,
-        previousPage,
-        clientData: {
-            ...clientData,
-            address: formattedAddress,
-            dateOfBirth: formattedDateOfBirth,
-            whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
-            documentsChecked: formattedDocumentsChecked,
-            idDocumentDetails: identityDocuments
-        },
-        amlBodies,
-        acspName: acspDetails.name
-    });
-};
-
-export const post = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const errorList = validationResult(req);
-    const previousPage: string = addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang);
-    const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
-    const session: Session = req.session as any as Session;
-    const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
-    const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
-
-    if (!errorList.isEmpty()) {
         const formattedAddress = FormatService.formatAddress(clientData.address);
         const formattedDateOfBirth = FormatService.formatDate(
             clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
@@ -92,15 +44,14 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             locales.i18nCh.resolveNamespacesKeys(lang)
         );
 
-        const amlBodies = getAmlBodiesAsString(acspDetails);
         const identityDocuments = clientData.idDocumentDetails!;
 
-        const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-        res.status(400).render(config.CHECK_YOUR_ANSWERS, {
-            previousPage,
+        const amlBodies = getAmlBodiesAsString(acspDetails);
+
+        res.render(config.CHECK_YOUR_ANSWERS, {
             ...getLocaleInfo(locales, lang),
             currentUrl,
-            ...pageProperties,
+            previousPage,
             clientData: {
                 ...clientData,
                 address: formattedAddress,
@@ -112,8 +63,59 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             amlBodies,
             acspName: acspDetails.name
         });
-    } else {
-        try {
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const post = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const errorList = validationResult(req);
+        const previousPage: string = addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang);
+        const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+        const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
+
+        if (!errorList.isEmpty()) {
+            const formattedAddress = FormatService.formatAddress(clientData.address);
+            const formattedDateOfBirth = FormatService.formatDate(
+                clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
+            );
+            const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
+                clientData.whenIdentityChecksCompleted
+                    ? new Date(clientData.whenIdentityChecksCompleted)
+                    : undefined
+            );
+
+            const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
+                clientData.documentsChecked,
+                locales.i18nCh.resolveNamespacesKeys(lang)
+            );
+
+            const amlBodies = getAmlBodiesAsString(acspDetails);
+            const identityDocuments = clientData.idDocumentDetails!;
+
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+            res.status(400).render(config.CHECK_YOUR_ANSWERS, {
+                previousPage,
+                ...getLocaleInfo(locales, lang),
+                currentUrl,
+                ...pageProperties,
+                clientData: {
+                    ...clientData,
+                    address: formattedAddress,
+                    dateOfBirth: formattedDateOfBirth,
+                    whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
+                    documentsChecked: formattedDocumentsChecked,
+                    idDocumentDetails: identityDocuments
+                },
+                amlBodies,
+                acspName: acspDetails.name
+            });
+        } else {
             const identityFromEmail = await findIdentityByEmail(clientData.emailAddress!);
             if (identityFromEmail !== undefined) {
                 throw new Error("Email address already exists");
@@ -135,10 +137,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
                 res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
             }
-        } catch (error) {
-            logger.error("Verification-Api error" + JSON.stringify(error));
-            const errorService = new ErrorService();
-            errorService.renderErrorPage(res, locales, lang, BASE_URL + CHECK_YOUR_ANSWERS);
         }
+    } catch (error) {
+        next(error);
     }
 };

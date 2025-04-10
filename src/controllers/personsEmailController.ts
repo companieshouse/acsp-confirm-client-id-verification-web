@@ -15,64 +15,72 @@ import { LocalesService } from "@companieshouse/ch-node-utils";
 import { getPreviousPageUrl } from "../services/url";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const session: Session = req.session as any as Session;
-    const clientData: ClientData = session.getExtraData(USER_DATA)!;
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session.getExtraData(USER_DATA)!;
 
-    const payload = {
-        "email-address": clientData?.emailAddress,
-        confirm: clientData?.confirmEmailAddress
-    };
+        const payload = {
+            "email-address": clientData?.emailAddress,
+            confirm: clientData?.confirmEmailAddress
+        };
 
-    const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
-    saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
+        const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
+        saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
 
-    const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        : addLangToUrl(BASE_URL + PERSONAL_CODE, lang);
+        const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(BASE_URL + PERSONAL_CODE, lang);
 
-    res.render(config.PERSONS_EMAIL, {
-        ...getLocaleInfo(locales, lang),
-        previousPage: previousPage,
-        currentUrl: BASE_URL + EMAIL_ADDRESS,
-        payload,
-        firstName: clientData?.firstName,
-        lastName: clientData?.lastName
-    });
+        res.render(config.PERSONS_EMAIL, {
+            ...getLocaleInfo(locales, lang),
+            previousPage: previousPage,
+            currentUrl: BASE_URL + EMAIL_ADDRESS,
+            payload,
+            firstName: clientData?.firstName,
+            lastName: clientData?.lastName
+        });
+    } catch (error) {
+        next(error);
+    }
 };
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
-    const lang = selectLang(req.query.lang);
-    const locales = getLocalesService();
-    const errorList = validationResult(req);
-    const session: Session = req.session as any as Session;
-    const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-    if (!errorList.isEmpty()) {
-        const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-        renderValidationError(req, res, locales, lang, clientData, pageProperties);
-    } else {
-        clientData.emailAddress = req.body["email-address"];
-        clientData.confirmEmailAddress = req.body.confirm;
-        saveDataInSession(req, USER_DATA, clientData);
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const errorList = validationResult(req);
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
+        if (!errorList.isEmpty()) {
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+            renderValidationError(req, res, locales, lang, clientData, pageProperties);
+        } else {
+            clientData.emailAddress = req.body["email-address"];
+            clientData.confirmEmailAddress = req.body.confirm;
+            saveDataInSession(req, USER_DATA, clientData);
 
-        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
+            const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
 
-        await findIdentityByEmail(req.body["email-address"]).then(identity => {
-            if (identity !== undefined) {
-                res.redirect(addLangToUrl(BASE_URL + PROVIDE_DIFFERENT_EMAIL, lang));
-            } else {
-                const redirectUrl = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-                    ? BASE_URL + CHECK_YOUR_ANSWERS
-                    : BASE_URL + DATE_OF_BIRTH;
+            await findIdentityByEmail(req.body["email-address"]).then(identity => {
+                if (identity !== undefined) {
+                    res.redirect(addLangToUrl(BASE_URL + PROVIDE_DIFFERENT_EMAIL, lang));
+                } else {
+                    const redirectUrl = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
+                        ? BASE_URL + CHECK_YOUR_ANSWERS
+                        : BASE_URL + DATE_OF_BIRTH;
 
-                res.redirect(addLangToUrl(redirectUrl, lang));
-            }
-        }).catch(error => {
-            logger.error("Verification-Api error" + JSON.stringify(error));
-            const errorService = new ErrorService();
-            errorService.renderErrorPage(res, locales, lang, BASE_URL + EMAIL_ADDRESS);
-        });
+                    res.redirect(addLangToUrl(redirectUrl, lang));
+                }
+            }).catch(error => {
+                logger.error("Verification-Api error" + JSON.stringify(error));
+                const errorService = new ErrorService();
+                errorService.renderErrorPage(res, locales, lang, BASE_URL + EMAIL_ADDRESS);
+            });
+        }
+    } catch (error) {
+        next(error);
     }
 };
 
