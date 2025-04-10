@@ -6,6 +6,7 @@ import { sessionMiddleware } from "../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { PREVIOUS_PAGE_URL, USER_DATA } from "../../../src/utils/constants";
 import { Request, Response, NextFunction } from "express";
+import * as localise from "../../../src/utils/localise";
 
 const router = supertest(app);
 
@@ -17,6 +18,16 @@ describe("GET" + USE_NAME_ON_PUBLIC_REGISTER, () => {
         expect(res.status).toBe(200);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.get(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 
@@ -44,6 +55,16 @@ describe("POST" + USE_NAME_ON_PUBLIC_REGISTER, () => {
         const res = await router.post(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER).send({ useNameOnPublicRegisterRadio: "use_name_on_public_register_yes" });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 

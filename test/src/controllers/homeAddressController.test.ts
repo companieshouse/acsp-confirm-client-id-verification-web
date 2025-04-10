@@ -4,16 +4,11 @@ import app from "../../../src/app";
 import { BASE_URL, HOME_ADDRESS, CHOOSE_AN_ADDRESS, CONFIRM_HOME_ADDRESS } from "../../../src/types/pageURL";
 import { getAddressFromPostcode } from "../../../src/services/postcode-lookup-service";
 import { UKAddress } from "@companieshouse/api-sdk-node/dist/services/postcode-lookup/types";
-import { Address } from "../../../src/model/Address";
+import * as localise from "../../../src/utils/localise";
 
 jest.mock("../../../src/services/postcode-lookup-service.ts");
 
 const router = supertest(app);
-const address: Address = {
-    propertyDetails: "2",
-    line1: "DUNCALF STREET",
-    postcode: "ST6 3LJ"
-};
 
 const mockResponseBodyOfUKAddress: UKAddress[] = [{
     premise: "2",
@@ -28,6 +23,16 @@ describe("GET" + HOME_ADDRESS, () => {
         const res = await router.get(BASE_URL + HOME_ADDRESS);
         expect(res.status).toBe(200);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.get(BASE_URL + HOME_ADDRESS);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 
@@ -104,5 +109,15 @@ describe("POST" + HOME_ADDRESS, () => {
         const res = await router.post(BASE_URL + HOME_ADDRESS).send(formData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("We cannot find this postcode. Enter a different one, or enter the address manually");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(BASE_URL + HOME_ADDRESS);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });

@@ -7,6 +7,7 @@ import { sessionMiddleware } from "../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { Request, Response, NextFunction } from "express";
 import { session } from "../../mocks/session_middleware_mock";
+import * as localise from "../../../src/utils/localise";
 
 const router = supertest(app);
 
@@ -18,6 +19,16 @@ describe("GET" + PERSONS_NAME, () => {
         expect(res.status).toBe(200);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.get(BASE_URL + PERSONS_NAME);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 
@@ -141,6 +152,16 @@ describe("POST" + PERSONS_NAME, () => {
         const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("Last name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(BASE_URL + PERSONS_NAME);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 

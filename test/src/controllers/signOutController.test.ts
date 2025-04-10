@@ -2,6 +2,7 @@ import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
 import { SIGN_OUT_URL, BASE_URL } from "../../../src/types/pageURL";
+import * as localise from "../../../src/utils/localise";
 
 jest.mock("@companieshouse/api-sdk-node");
 const router = supertest(app);
@@ -12,6 +13,16 @@ describe("GET" + SIGN_OUT_URL, () => {
         expect(response.text).toContain("Are you sure you want to sign out?");
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.get(BASE_URL + SIGN_OUT_URL);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 
@@ -38,5 +49,15 @@ describe("POST " + SIGN_OUT_URL, () => {
         expect(response.text).toContain("Select yes if you want to sign out");
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(BASE_URL + SIGN_OUT_URL);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });

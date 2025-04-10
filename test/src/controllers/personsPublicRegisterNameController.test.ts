@@ -6,6 +6,7 @@ import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { Request, NextFunction } from "express";
 import { BASE_URL, PERSONS_NAME_ON_PUBLIC_REGISTER, PERSONAL_CODE, CHECK_YOUR_ANSWERS } from "../../../src/types/pageURL";
 import { PREVIOUS_PAGE_URL, USER_DATA, CHECK_YOUR_ANSWERS_FLAG } from "../../../src/utils/constants";
+import * as localise from "../../../src/utils/localise";
 
 const router = supertest(app);
 
@@ -17,6 +18,16 @@ describe("GET" + PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
         expect(res.status).toBe(200);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.get(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 
@@ -66,6 +77,16 @@ describe("POST" + PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
         const res = await router.post(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("Enter their last name");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 

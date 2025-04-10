@@ -36,4 +36,14 @@ describe("POST " + CONFIRM_IDENTITY_VERIFICATION, () => {
         expect(res.status).toBe(400);
         expect(res.text).toContain("Select to confirm you have verified their identity");
     });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(BASE_URL + CONFIRM_IDENTITY_VERIFICATION);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
 });

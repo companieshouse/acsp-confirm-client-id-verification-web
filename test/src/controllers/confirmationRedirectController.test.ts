@@ -6,6 +6,7 @@ import { createRequest } from "node-mocks-http";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { CHECK_YOUR_ANSWERS_FLAG, USER_DATA } from "../../../src/utils/constants";
 import { session } from "../../mocks/session_middleware_mock";
+import * as localise from "../../../src/utils/localise";
 
 const router = supertest(app);
 
@@ -57,5 +58,14 @@ describe("GET " + CONFIRMATION_REDIRECT, () => {
         expect(res.header.location).toBe(BASE_URL + "?lang=en");
         expect(session.getExtraData(USER_DATA)).toBeUndefined();
         expect(session.getExtraData(CHECK_YOUR_ANSWERS_FLAG)).toBeUndefined();
+    });
+
+    it("should return status 500 if an error occurs", async () => {
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error("Test error");
+        });
+        const res = await router.get(BASE_URL + CONFIRMATION_REDIRECT);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });

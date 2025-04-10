@@ -6,6 +6,7 @@ import { sessionMiddleware } from "../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { PREVIOUS_PAGE_URL, USER_DATA } from "../../../src/utils/constants";
 import { Request, Response, NextFunction } from "express";
+import * as localise from "../../../src/utils/localise";
 
 const router = supertest(app);
 
@@ -18,6 +19,16 @@ describe("GET" + WHEN_IDENTITY_CHECKS_COMPLETED, () => {
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.text).toContain("When were the identity checks completed?");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.get(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 
@@ -56,6 +67,16 @@ describe("POST" + WHEN_IDENTITY_CHECKS_COMPLETED, () => {
         const res = await router.post(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("When were the identity checks completed?");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.get(BASE_URL + WHEN_IDENTITY_CHECKS_COMPLETED);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 

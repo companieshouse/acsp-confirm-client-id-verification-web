@@ -6,6 +6,7 @@ import { sessionMiddleware } from "../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { PREVIOUS_PAGE_URL } from "../../../src/utils/constants";
 import { Request, NextFunction } from "express";
+import * as localise from "../../../src/utils/localise";
 
 const router = supertest(app);
 
@@ -18,6 +19,16 @@ describe("GET" + DATE_OF_BIRTH, () => {
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.text).toContain("What is their date of birth?");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.get(BASE_URL + DATE_OF_BIRTH);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 
@@ -56,6 +67,16 @@ describe("POST" + DATE_OF_BIRTH, () => {
         const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("Enter their date of birth");
+    });
+
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(BASE_URL + DATE_OF_BIRTH);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 

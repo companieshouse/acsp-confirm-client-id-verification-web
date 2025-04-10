@@ -17,7 +17,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA)!;
-        const formattedDate = clientData.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted)
+        const formattedDate = clientData?.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted)
             .toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
 
         const payload = {
@@ -54,8 +54,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA)!;
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
-        const formattedDate = new Date(clientData.whenIdentityChecksCompleted!)
-            .toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+        const formattedDate = clientData?.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted)
+            .toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
 
         if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
