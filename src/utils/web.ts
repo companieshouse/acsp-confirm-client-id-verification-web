@@ -8,7 +8,7 @@ export const getCountryFromKey = (country: string): string => {
         "GB-ENG": "England",
         "GB-NIR": "Northern Ireland",
         "Channel Island": "Channel Island",
-        "Isle of Man": "sle of Man"
+        "Isle of Man": "Isle of Man"
     };
     return countryKeyValueMap[country];
 };
