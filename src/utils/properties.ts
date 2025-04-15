@@ -40,6 +40,8 @@ export const DEFAULT_SESSION_EXPIRATION = getEnvironmentValue("DEFAULT_SESSION_E
 
 export const COOKIE_SECURE_ONLY = getEnvironmentValue("COOKIE_SECURE_ONLY");
 
+export const PIWIK_CHS_DOMAIN = getEnvironmentValue("PIWIK_CHS_DOMAIN", "*.chs.local");
+
 // API Keys and Secrets
 
 export const CHS_API_KEY = getEnvironmentValue("CHS_API_KEY", "chs.api.key");
