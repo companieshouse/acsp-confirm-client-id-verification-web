@@ -1,5 +1,5 @@
 import { Handler } from "express";
-import { CHS_MONITOR_GUI_URL } from "../utils/properties";
+import { ACCOUNT_URL, CHS_MONITOR_GUI_URL } from "../utils/properties";
 import { getLoggedInAcspNumber, getLoggedInUserEmail } from "../utils/session";
 import { selectLang } from "../utils/localise";
 
@@ -23,6 +23,8 @@ export const commonTemplateVariablesMiddleware: Handler = (req, res, next) => {
     }
 
     res.locals.chsMonitorGuiUrl = CHS_MONITOR_GUI_URL;
+
+    res.locals.accountUrl = ACCOUNT_URL;
 
     // Set the language for the response based on the 'lang' query parameter
     res.locals.lang = selectLang(req.query.lang);
