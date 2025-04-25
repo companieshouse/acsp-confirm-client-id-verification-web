@@ -143,7 +143,7 @@ ul#navigation li a {
     float: left;
     display: contents;
   }
-  .mobile-hidden {
+  ul#navigation[hidden] {
     display: none !important;
   }
 }
