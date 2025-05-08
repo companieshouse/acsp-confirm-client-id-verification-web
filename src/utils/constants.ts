@@ -28,4 +28,4 @@ export const OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY = {
     irish_passport_card: GRACED_EXPIRY_OF_EIGHTEEN_MONTHS,
     passport: GRACED_EXPIRY_OF_EIGHTEEN_MONTHS
 };
-export const HOW_ID_DOCUMENT_CHECKED = "cryptographic_security_features_checked";
+export const CRYPTOGRAPHIC_SECURITY_FEATURES = "cryptographic_security_features_checked";

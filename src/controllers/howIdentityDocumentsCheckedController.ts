@@ -6,7 +6,7 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
-import { USER_DATA, PREVIOUS_PAGE_URL, HOW_ID_DOCUMENT_CHECKED } from "../utils/constants";
+import { USER_DATA, PREVIOUS_PAGE_URL, CRYPTOGRAPHIC_SECURITY_FEATURES } from "../utils/constants";
 import { saveDataInSession } from "../utils/sessionHelper";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
@@ -67,7 +67,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             }
             clientData.howIdentityDocsChecked = selectedOption;
             saveDataInSession(req, USER_DATA, clientData);
-            if (selectedOption === HOW_ID_DOCUMENT_CHECKED) {
+            if (selectedOption === CRYPTOGRAPHIC_SECURITY_FEATURES) {
                 res.redirect(addLangToUrl(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1, lang));
             } else if (selectedOption === "physical_security_features_checked") {
                 res.redirect(addLangToUrl(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2, lang));
