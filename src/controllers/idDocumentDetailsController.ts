@@ -4,7 +4,7 @@ import countryList from "../lib/countryList";
 import * as config from "../config";
 import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../types/pageURL";
 import { ClientData } from "../model/ClientData";
-import { CHECK_YOUR_ANSWERS_FLAG, USER_DATA } from "../utils/constants";
+import { CHECK_YOUR_ANSWERS_FLAG, HOW_ID_DOCUMENT_CHECKED, USER_DATA } from "../utils/constants";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { validationResult } from "express-validator";
 import {
@@ -96,7 +96,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getBackUrl = (selectedOption: string) => {
-    if (selectedOption === "cryptographic_security_features_checked") {
+    if (selectedOption === HOW_ID_DOCUMENT_CHECKED) {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
     } else {
         return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;

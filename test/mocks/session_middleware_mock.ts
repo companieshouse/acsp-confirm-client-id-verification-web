@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ensureSessionCookiePresentMiddleware, sessionMiddleware } from "../../src/middleware/session_middleware";
-import { USER_DATA, ADDRESS_LIST, PREVIOUS_PAGE_URL, ACSP_DETAILS } from "../../src/utils/constants";
+import { USER_DATA, ADDRESS_LIST, PREVIOUS_PAGE_URL, ACSP_DETAILS, HOW_ID_DOCUMENT_CHECKED } from "../../src/utils/constants";
 import { getSessionRequestWithPermission } from "./session.mock";
 import { addressList } from "./address.mock";
 import { dummyFullProfile } from "./acsp_profile.mock";
@@ -20,7 +20,7 @@ mockSessionMiddleware.mockImplementation((req: Request, res: Response, next: Nex
         firstName: "John",
         middleName: "",
         lastName: "Doe",
-        howIdentityDocsChecked: "cryptographic_security_features_checked",
+        howIdentityDocsChecked: HOW_ID_DOCUMENT_CHECKED,
         whenIdentityChecksCompleted: new Date(2024, 2, 5),
         dateOfBirth: new Date(2000, 2, 5)
     }

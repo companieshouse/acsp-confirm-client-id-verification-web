@@ -1,7 +1,7 @@
 import { body, ValidationChain } from "express-validator";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
-import { OPTION_1_ID_DOCUMENTS_WITH_GRACED_EXPIRY, OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY, USER_DATA } from "../utils/constants";
+import { HOW_ID_DOCUMENT_CHECKED, OPTION_1_ID_DOCUMENTS_WITH_GRACED_EXPIRY, OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY, USER_DATA } from "../utils/constants";
 
 const documentNumberFormat:RegExp = /^[A-Za-z0-9\-',\s]*$/;
 
@@ -100,7 +100,7 @@ export const validateAgainstWhenIdDocsChecked = (day: number, month: number, yea
     const whenIdDocsChecked: Date = new Date(clientData.whenIdentityChecksCompleted!);
     const expiryDate = new Date(year, month - 1, day);
     let documentsWithGracedExpiryMap: Map<string, number> = new Map();
-    if (clientData.howIdentityDocsChecked === "cryptographic_security_features_checked") {
+    if (clientData.howIdentityDocsChecked === HOW_ID_DOCUMENT_CHECKED) {
         documentsWithGracedExpiryMap = new Map(Object.entries(OPTION_1_ID_DOCUMENTS_WITH_GRACED_EXPIRY));
     } else if (clientData.howIdentityDocsChecked === "physical_security_features_checked") {
         documentsWithGracedExpiryMap = new Map(Object.entries(OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY));

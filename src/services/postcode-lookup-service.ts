@@ -20,17 +20,6 @@ export const getUKAddressesFromPostcode = async (postcodeAddressesLookupURL: str
         .sort((a, b) => (a.premise > b.premise) ? 1 : -1);
 };
 
-export const getIsValidUKPostcode = async (postcodeValidationUrl: string, postcode: string): Promise<boolean> => {
-    const apiClient: ApiClient = createPublicApiKeyClient();
-    const postcodeLookUpUrl = `${postcodeValidationUrl}/ST63LJ`;
-    const sdkResponse: boolean = await apiClient.postCodeLookup.isValidUKPostcode(postcodeLookUpUrl, postcode);
-    if (!sdkResponse) {
-        logger.debug(`Postcode lookup GET request returned no response for postcode ${postcode}`);
-        return false;
-    }
-    return sdkResponse;
-};
-
 export async function getAddressFromPostcode (postcode: string) {
     postcode = postcode.replace(/\s/g, "");
     const ukAddresses = await getUKAddressesFromPostcode(POSTCODE_ADDRESSES_LOOKUP_URL, postcode);
