@@ -3,6 +3,7 @@ import supertest from "supertest";
 import app from "../../../src/app";
 import { HOW_IDENTITY_DOCUMENTS_CHECKED, BASE_URL, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../../../src/types/pageURL";
 import * as localise from "../../../src/utils/localise";
+import { CRYPTOGRAPHIC_SECURITY_FEATURES, PHYSICAL_SECURITY_FEATURES } from "../../../src/utils/constants";
 
 jest.mock("@companieshouse/api-sdk-node");
 const router = supertest(app);
@@ -29,13 +30,13 @@ describe("GET" + HOW_IDENTITY_DOCUMENTS_CHECKED, () => {
 
 describe("POST" + HOW_IDENTITY_DOCUMENTS_CHECKED, () => {
     it("should return status 302 after redirect", async () => {
-        const res = await router.post(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED).send({ howIdentityDocsCheckedRadio: "cryptographic_security_features_checked" });
+        const res = await router.post(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED).send({ howIdentityDocsCheckedRadio: CRYPTOGRAPHIC_SECURITY_FEATURES });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1 + "?lang=en");
     });
 
     it("should return status 302 after redirect", async () => {
-        const res = await router.post(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED).send({ howIdentityDocsCheckedRadio: "physical_security_features_checked" });
+        const res = await router.post(BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED).send({ howIdentityDocsCheckedRadio: PHYSICAL_SECURITY_FEATURES });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2 + "?lang=en");
     });

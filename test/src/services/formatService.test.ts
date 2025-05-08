@@ -1,4 +1,5 @@
 import { FormatService } from "../../../src/services/formatService";
+import { CRYPTOGRAPHIC_SECURITY_FEATURES, PHYSICAL_SECURITY_FEATURES } from "../../../src/utils/constants";
 
 describe("Format Service tests", () => {
 
@@ -11,7 +12,7 @@ describe("Format Service tests", () => {
                 irishPassportHint: "Irish Passport Hint"
             };
 
-            const hintText = FormatService.formatDocumentHintText(documents, "cryptographic_security_features_checked", i18n);
+            const hintText = FormatService.formatDocumentHintText(documents, CRYPTOGRAPHIC_SECURITY_FEATURES, i18n);
             expect(hintText).toStrictEqual(["Biometric Passport Hint", "Irish Passport Hint"]);
         });
 
@@ -22,7 +23,7 @@ describe("Format Service tests", () => {
                 photoVisaHint: "Photo Visa Hint"
             };
 
-            const hintText = FormatService.formatDocumentHintText(documents, "physical_security_features_checked", i18n);
+            const hintText = FormatService.formatDocumentHintText(documents, PHYSICAL_SECURITY_FEATURES, i18n);
             expect(hintText).toStrictEqual(["Photo Immigration Doc Hint", "Photo Visa Hint"]);
         });
     });

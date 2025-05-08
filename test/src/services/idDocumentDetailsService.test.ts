@@ -1,7 +1,7 @@
 import { MockRequest, createRequest } from "node-mocks-http";
 import { IdDocumentDetailsService } from "../../../src/services/idDocumentDetailsService";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
-import { USER_DATA } from "../../../src/utils/constants";
+import { CRYPTOGRAPHIC_SECURITY_FEATURES, PHYSICAL_SECURITY_FEATURES, USER_DATA } from "../../../src/utils/constants";
 import { Request } from "express";
 jest.mock("../../../src/services/identityVerificationService.ts");
 
@@ -119,7 +119,7 @@ describe("IdDocumentDetailsService tests", () => {
         const errors = [{ msg: "expiryDateInvalid", param: "expiryDateDay_1" }];
         const documentsChecked = ["UK biometric residence permit (BRP)"];
         const whenIdDocsChecked = new Date(2025, 1, 28);
-        const howIdDocsChecked = "cryptographic_security_features_checked";
+        const howIdDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
         const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked, howIdDocsChecked);
         const expected = [{ msg: "UK biometric residence permit (BRP) expiry date must be a real date" }];
         expect(actual[0].msg).toBe(expected[0].msg);
@@ -129,7 +129,7 @@ describe("IdDocumentDetailsService tests", () => {
         const errors = [{ msg: "noCountry", param: "countryInput_1" }];
         const documentsChecked = ["UK biometric residence permit (BRP)"];
         const whenIdDocsChecked = new Date(2025, 1, 28);
-        const howIdDocsChecked = "cryptographic_security_features_checked";
+        const howIdDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
         const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked, howIdDocsChecked);
         const expected = [{ msg: "Choose a country for UK biometric residence permit (BRP)" }];
         expect(actual[0].msg).toBe(expected[0].msg);
@@ -139,7 +139,7 @@ describe("IdDocumentDetailsService tests", () => {
         const errors = [{ msg: "noExpiryDate", param: "expiryDateDay_1" }];
         const documentsChecked = ["UK accredited PASS card"];
         const whenIdDocsChecked = new Date(2025, 1, 28);
-        const howIdDocsChecked = "cryptographic_security_features_checked";
+        const howIdDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
         const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked, howIdDocsChecked);
         expect(actual.length).toBe(0);
     });
@@ -148,7 +148,7 @@ describe("IdDocumentDetailsService tests", () => {
         const errors = [{ msg: "noExpiryDate", param: "expiryDateDay_1" }];
         const documentsChecked = ["UK HM Armed Forces Veteran Card"];
         const whenIdDocsChecked = new Date(2025, 1, 28);
-        const howIdDocsChecked = "cryptographic_security_features_checked";
+        const howIdDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
         const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked, howIdDocsChecked);
         expect(actual.length).toBe(0);
     });
@@ -157,7 +157,7 @@ describe("IdDocumentDetailsService tests", () => {
         const errors = [{ msg: "dateAfterIdChecksDone", param: "expiryDateDay_1" }];
         const documentsChecked = ["UK accredited PASS card"];
         const whenIdDocsChecked = new Date(2025, 2, 28);
-        const howIdDocsChecked = "cryptographic_security_features_checked";
+        const howIdDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
         const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked, howIdDocsChecked);
         const expected = [{ msg: "Expiry date for UK accredited PASS card must be after 28 March 2025 when you completed the identity checks" }];
         expect(actual[0].msg).toBe(expected[0].msg);
@@ -167,7 +167,7 @@ describe("IdDocumentDetailsService tests", () => {
         const errors = [{ msg: "expiryDateNonNumeric", param: "expiryDateDay_1" }];
         const documentsChecked = ["UK accredited PASS card"];
         const whenIdDocsChecked = new Date(2025, 2, 28);
-        const howIdDocsChecked = "cryptographic_security_features_checked";
+        const howIdDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
         const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked, howIdDocsChecked);
         const expected = [{ msg: "UK accredited PASS card must only include numbers" }];
         expect(actual[0].msg).toBe(expected[0].msg);
@@ -181,21 +181,21 @@ describe("errorListDisplay for PRADO", () => {
             [{ msg: "noExpiryDate", param: "expiryDateDay_1" }],
             ["Photographic ID listed on PRADO"],
             new Date(2025, 2, 28),
-            "cryptographic_security_features_checked",
+            CRYPTOGRAPHIC_SECURITY_FEATURES,
             0
         ],
         [
             [{ msg: "noCountry", param: "countryInput_1" }],
             ["Photographic ID listed on PRADO"],
             new Date(2025, 2, 28),
-            "cryptographic_security_features_checked",
+            CRYPTOGRAPHIC_SECURITY_FEATURES,
             0
         ],
         [
             [{ msg: "docNumberInput", param: "documentNumber_1" }],
             ["Photographic ID listed on PRADO"],
             new Date(2025, 2, 28),
-            "cryptographic_security_features_checked",
+            CRYPTOGRAPHIC_SECURITY_FEATURES,
             0
         ]
     ])(
@@ -216,7 +216,7 @@ describe("IdDocumentDetailsService - physical_security_features_checked", () => 
         const mockDocumentsChecked = ["passport"];
         const mockLang = "en";
         const mockWhenIdDocsChecked = new Date("2025-03-01");
-        const mockTypeOfTheDocumentCheck = "physical_security_features_checked";
+        const mockTypeOfTheDocumentCheck = PHYSICAL_SECURITY_FEATURES;
 
         const result = idDocumentDetailsService.errorListDisplay(
             mockErrors,

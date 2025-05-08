@@ -2,7 +2,7 @@ import { ClientData } from "../model/ClientData";
 import { DocumentDetails } from "../model/DocumentDetails";
 import { Request } from "express";
 import { saveDataInSession } from "../utils/sessionHelper";
-import { CRYPTOGRAPHIC_SECURITY_FEATURES, OPTION_1_ID_DOCUMENTS_WITH_GRACED_EXPIRY, OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY, USER_DATA } from "../utils/constants";
+import { CRYPTOGRAPHIC_SECURITY_FEATURES, OPTION_1_ID_DOCUMENTS_WITH_GRACED_EXPIRY, OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY, PHYSICAL_SECURITY_FEATURES, USER_DATA } from "../utils/constants";
 import { resolveErrorMessage } from "../validations/validation";
 import { FormatService } from "./formatService";
 import { getLocalesService } from "../utils/localise";
@@ -66,7 +66,7 @@ const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText
     let documentsWithGracedExpiryMap: Map<string, number> = new Map();
     if (typeOfTheDocumentCheck === CRYPTOGRAPHIC_SECURITY_FEATURES) {
         documentsWithGracedExpiryMap = new Map(Object.entries(OPTION_1_ID_DOCUMENTS_WITH_GRACED_EXPIRY));
-    } else if (typeOfTheDocumentCheck === "physical_security_features_checked") {
+    } else if (typeOfTheDocumentCheck === PHYSICAL_SECURITY_FEATURES) {
         documentsWithGracedExpiryMap = new Map(Object.entries(OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY));
     }
     if (((docName === i18n.UK_PASS_card || docName === i18n.UK_HM_veteran_card) && errorText === "noExpiryDate") ||
