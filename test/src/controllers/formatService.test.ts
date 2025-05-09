@@ -2,6 +2,7 @@ import { FormatService } from "../../../src/services/formatService";
 import { DocumentDetails } from "../../../src/model/DocumentDetails";
 import { Address } from "../../../src/model/Address";
 import { getLocalesService } from "../../../src/utils/localise";
+import { CRYPTOGRAPHIC_SECURITY_FEATURES } from "../../../src/utils/constants";
 
 describe("FormatService tests", () => {
     describe("formatAddress", () => {
@@ -183,7 +184,7 @@ describe("FormatService tests", () => {
 
         it("should return string array for the selected documents in English", () => {
             const documents = ["biometric_passport", "irish_passport_card"];
-            const howIdentityDocsChecked = "cryptographic_security_features_checked";
+            const howIdentityDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
             const result = FormatService.formatDocumentsCheckedText(documents, howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys("en"));
             const expected = ["Biometric or machine readable passport", "Irish passport card"];
             expect(result[0]).toBe(expected[0]);
@@ -192,7 +193,7 @@ describe("FormatService tests", () => {
 
         it("should return string array for the selected documents in Welsh", () => {
             const documents = ["biometric_passport", "irish_passport_card"];
-            const howIdentityDocsChecked = "cryptographic_security_features_checked";
+            const howIdentityDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
             const result = FormatService.formatDocumentsCheckedText(documents, howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys("cy"));
             const expected = ["Pasbort biometrig neu ddarllenadwy gan beiriant", "Cerdyn pasbort Gwyddelig"];
             expect(result[0]).toBe(expected[0]);

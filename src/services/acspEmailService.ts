@@ -17,7 +17,6 @@ export const sendIdentityVerificationConfirmationEmail = async (emailData: Clien
         logger.error(`Http status code ${sdkResponse.status} - Client verification email Failed for submission ID: ${emailData.referenceNumber}`);
         return Promise.reject(sdkResponse);
     }
-
     logger.info(`Client verification email for submission ID: ${emailData.referenceNumber} has been sent`);
     return Promise.resolve(sdkResponse);
 };

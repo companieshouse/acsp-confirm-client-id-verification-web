@@ -8,7 +8,7 @@ import { getLocalesService } from "../../../src/utils/localise";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { createRequest } from "node-mocks-http";
 import { session } from "../../mocks/session_middleware_mock";
-import { USER_DATA } from "../../../src/utils/constants";
+import { CRYPTOGRAPHIC_SECURITY_FEATURES, USER_DATA } from "../../../src/utils/constants";
 import * as localise from "../../../src/utils/localise";
 
 jest.mock("../../../src/services/formatService.ts");
@@ -43,7 +43,7 @@ describe("GET " + BASE_URL + CONFIRMATION, () => {
             documentsChecked: [
                 ["passport"]
             ],
-            howIdentityDocsChecked: "cryptographic_security_features_checked"
+            howIdentityDocsChecked: CRYPTOGRAPHIC_SECURITY_FEATURES
         });
         req.session = session;
     });

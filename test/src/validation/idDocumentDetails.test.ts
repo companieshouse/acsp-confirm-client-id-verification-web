@@ -7,7 +7,7 @@ import idDocumentDetailsValidator, {
     validateAgainstWhenIdDocsChecked
 } from "../../../src/validations/idDocumentDetails";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA } from "../../../src/utils/constants";
+import { CRYPTOGRAPHIC_SECURITY_FEATURES, PHYSICAL_SECURITY_FEATURES, USER_DATA } from "../../../src/utils/constants";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
 import { ClientData } from "../../../src/model/ClientData";
 
@@ -152,7 +152,7 @@ describe("validateAgainstWhenIdDocsChecked", () => {
     it("should not throw an error when expiry date is valid for a document in the graced expiry map", () => {
         const clientData: ClientData = {
             whenIdentityChecksCompleted: "2025-03-01",
-            howIdentityDocsChecked: "cryptographic_security_features_checked",
+            howIdentityDocsChecked: CRYPTOGRAPHIC_SECURITY_FEATURES,
             documentsChecked: ["UK_biometric_residence_permit"]
         };
         (mockSession.getExtraData as jest.Mock).mockReturnValue(clientData);
@@ -165,7 +165,7 @@ describe("validateAgainstWhenIdDocsChecked", () => {
     it("should throw an error when expiry date is before the graced period for a document in the graced expiry map", () => {
         const clientData: ClientData = {
             whenIdentityChecksCompleted: "2025-03-01",
-            howIdentityDocsChecked: "cryptographic_security_features_checked",
+            howIdentityDocsChecked: CRYPTOGRAPHIC_SECURITY_FEATURES,
             documentsChecked: ["UK_biometric_residence_permit"]
         };
         (mockSession.getExtraData as jest.Mock).mockReturnValue(clientData);
@@ -178,7 +178,7 @@ describe("validateAgainstWhenIdDocsChecked", () => {
     it("should not throw an error when expiry date is valid for a document not in the graced expiry map", () => {
         const clientData: ClientData = {
             whenIdentityChecksCompleted: "2025-03-01",
-            howIdentityDocsChecked: "physical_security_features_checked",
+            howIdentityDocsChecked: PHYSICAL_SECURITY_FEATURES,
             documentsChecked: ["passport"]
         };
         (mockSession.getExtraData as jest.Mock).mockReturnValue(clientData);
@@ -191,7 +191,7 @@ describe("validateAgainstWhenIdDocsChecked", () => {
     it("should throw an error when expiry date is before whenIdentityChecksCompleted for a document not in the graced expiry map", () => {
         const clientData: ClientData = {
             whenIdentityChecksCompleted: "2024-08-17",
-            howIdentityDocsChecked: "physical_security_features_checked",
+            howIdentityDocsChecked: PHYSICAL_SECURITY_FEATURES,
             documentsChecked: ["passport"]
         };
         (mockSession.getExtraData as jest.Mock).mockReturnValue(clientData);

@@ -1,3 +1,4 @@
+import { CRYPTOGRAPHIC_SECURITY_FEATURES } from "../utils/constants";
 import { Address } from "../model/Address";
 
 export class FormatService {
@@ -113,7 +114,7 @@ export class FormatService {
             return formattedDocuments;
         }
         let documentMapping:{ [key: string]: string };
-        if (howIdentityDocsChecked === "cryptographic_security_features_checked") {
+        if (howIdentityDocsChecked === CRYPTOGRAPHIC_SECURITY_FEATURES) {
             // option1
             documentMapping = {
                 biometric_passport: i18n.biometric_passport,
@@ -159,7 +160,7 @@ export class FormatService {
             return documentHintText;
         }
         let hintMapping:{ [key: string]: string };
-        if (howIdentityDocsChecked === "cryptographic_security_features_checked") {
+        if (howIdentityDocsChecked === CRYPTOGRAPHIC_SECURITY_FEATURES) {
             // option1
             hintMapping = {
                 biometric_passport: i18n.biometricPassportHint,
