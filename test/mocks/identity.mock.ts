@@ -85,6 +85,15 @@ export const clientDetails = {
         postcode: "Postcode"
     },
     documentsChecked: ["passport"],
+    idDocumentDetails: [
+        {
+            docName: "passport",
+            documentNumber: "123456789",
+            expiryDate: new Date(),
+            countryOfIssue: "Country",
+            documentType: "passport"
+        }
+    ],
     emailAddress: "demo@ch.gov.uk",
     confirmEmailAddress: "demo@ch.gov.uk",
     howIdentityDocsChecked: "",
@@ -106,8 +115,17 @@ export const clientDetailsBiometricPassport = {
         propertyDetails: "Property Details"
     },
     documentsChecked: ["biometric_passport"],
+        idDocumentDetails: [
+        {
+            docName: "biometric_passport",
+            documentNumber: "123456789",
+            expiryDate: new Date(),
+            countryOfIssue: "Country",
+            documentType: "biometric_passport"
+        }
+    ],
     emailAddress: "john.doe@example.com",
     confirmEmailAddress: "john.doe@example.com",
     howIdentityDocsChecked: "",
-    whenIdentityChecksCompleted: new Date()
+    whenIdentityChecksCompleted: new Date("2028-02-25")
 };
