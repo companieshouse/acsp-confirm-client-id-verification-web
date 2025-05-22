@@ -99,7 +99,7 @@ export class IdentityVerificationService {
                 issuedBy: document.countryOfIssue
             } as VerificationEvidence;
         });
-        console.log("verificationEvidence", JSON.stringify(verificationEvidence));
+
         return {
             acspUserId: acspUserId,
             acspId: acspNumber,
