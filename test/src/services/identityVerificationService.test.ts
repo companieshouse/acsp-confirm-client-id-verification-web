@@ -144,9 +144,16 @@ describe("verification api service tests", () => {
             const identityVerificationService = new IdentityVerificationService();
             const result = identityVerificationService.prepareVerifiedClientData(clientDetailsBiometricPassport, req);
 
-            expect(result.verificationEvidence).toEqual([
-                { type: "passport" }
-            ]);
+            expect(result.verificationEvidence).toEqual(
+                expect.arrayContaining([
+                    expect.objectContaining({
+                        expiryDate: expect.anything(),
+                        idNumber: "123456789",
+                        issuedBy: "Country",
+                        type: "passport"
+                    })
+                ])
+            );
         });
     });
 });

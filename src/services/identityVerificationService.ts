@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { Identity, VerificationType, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity, VerificationEvidence, VerificationType, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 import logger from "../utils/logger";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { ApiErrorResponse } from "@companieshouse/api-sdk-node/dist/services/resource";
@@ -88,11 +88,16 @@ export class IdentityVerificationService {
             preferredForeNames.push(clientData.preferredMiddleName!);
         }
 
-        const documentsChecked = clientData.documentsChecked!;
-        const verificationEvidence = documentsChecked.map((document) => {
+        const documentsChecked = clientData.idDocumentDetails!;
+        const verificationEvidence: VerificationEvidence[] = documentsChecked.map((document) => {
             // Map biometric_passport to passport to be accepted by Verification Api
-            const documentType = document === BIOMETRIC_PASSPORT ? PASSPORT : document;
-            return { type: documentType as unknown as VerificationType };
+            const documentType = document.docName === BIOMETRIC_PASSPORT ? PASSPORT : document.docName;
+            return {
+                type: documentType as unknown as VerificationType,
+                idNumber: document.documentNumber,
+                expiryDate: document.expiryDate,
+                issuedBy: document.countryOfIssue
+            } as VerificationEvidence;
         });
 
         return {
