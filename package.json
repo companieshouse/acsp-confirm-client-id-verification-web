@@ -20,7 +20,8 @@
     "start:watch": "nodemon",
     "sonarqube-base-branch": "sonar-scanner",
     "sonarqube-pull-request": "sonar-scanner -D sonar.pullrequest.base=main",
-    "sonarqube": "branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD); if [[ $branch == \"HEAD\" ]]; then echo $branch && npm run sonarqube-base-branch; else echo $branch && npm run sonarqube-pull-request; fi;"
+    "sonarqube": "branch=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD); if [[ $branch == \"HEAD\" ]]; then echo $branch && npm run sonarqube-base-branch; else echo $branch && npm run sonarqube-pull-request; fi;",
+    "chs-dev": "nodemon --legacy-watch"
   },
   "husky": {
     "hooks": {
@@ -46,8 +47,8 @@
     "http-errors": "^1.7.3",
     "ioredis": "4.28.5",
     "js-yaml": "^3.14.0",
-    "node-mocks-http": "^1.12.2",
     "nocache": "4.0.0",
+    "node-mocks-http": "^1.12.2",
     "nunjucks": "^3.2.3",
     "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.59",
     "tslib": "^2.0.3",
