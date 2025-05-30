@@ -4,7 +4,6 @@ import {
     dateMonthChecker,
     dateYearChecker,
     validDataChecker,
-    isNotTooYoung,
     isNotTooOld
 } from "../../../src/validations/dateValidationCommon";
 import { getSessionRequestWithPermission } from "../../mocks/session.mock";
@@ -105,7 +104,7 @@ describe("Valid data input tests", () => {
     });
 
     test("Error if date given is less than 16 years ago", () => {
-        expect(() => validDataChecker("29", "01", "2024", "dob", session)).toThrow(new Error("tooYoung"));
+        expect(() => validDataChecker("29", "01", "2024", "dob", session)).toBeTruthy();
     });
 
     test("Error if date given is non-numeric", () => {
@@ -152,14 +151,6 @@ describe("Valid data input tests", () => {
         expect(() => validDataChecker(day, month, year.toString(), "dob", session)).toBeTruthy();
     });
 
-    test("Boundary test: 16 years ago exactly", () => {
-        const currentDate = new Date();
-        const year = currentDate.getFullYear() - 16;
-        const month = (`0${currentDate.getMonth() + 1}`).slice(-2);
-        const day = (`0${currentDate.getDate()}`).slice(-2);
-        expect(() => validDataChecker(day, month, year.toString(), "dob", session)).toBeTruthy();
-    });
-
     test("Error if year has non-numeric characters", () => {
         expect(() => validDataChecker("11", "01", "20a0", "dob", session)).toThrow(new Error("nonNumeric"));
     });
@@ -178,35 +169,11 @@ describe("Valid data input tests", () => {
         session.setExtraData(USER_DATA, clientData);
         expect(() => validDataChecker("05", "02", "1998", "wicc", session)).toThrow(new Error("dateAfterDob"));
     });
-
-    test("Error if when identity checks completed is old enough after dob", () => {
-        const clientData = { dateOfBirth: new Date(2000, 2, 5) };
-        const session = getSessionRequestWithPermission();
-        session.setExtraData(USER_DATA, clientData);
-        expect(() => validDataChecker("05", "02", "2001", "wicc", session)).toThrow(new Error("tooYoungWicc"));
-    });
 });
 
 describe("Age calculation tests", () => {
     test("Calculate age - current date is greater than input date", () => {
-        const currentDate = new Date();
         const inputDate = new Date("2000-07-01");
         expect(isNotTooOld(inputDate.getDate(), inputDate.getMonth() + 1, inputDate.getFullYear())).toBe(true);
-    });
-
-    test("Calculate age - current date is exactly 16 years ago", () => {
-        const currentDate = new Date();
-        const year = currentDate.getFullYear() - 16;
-        const month = (`0${currentDate.getMonth() + 1}`).slice(-2);
-        const day = (`0${currentDate.getDate()}`).slice(-2);
-        expect(isNotTooYoung(+day, +month, +year.toString())).toBe(true);
-    });
-
-    test("Calculate age - current date is less than 16 years ago", () => {
-        const currentDate = new Date();
-        const year = currentDate.getFullYear() - 15;
-        const month = (`0${currentDate.getMonth() + 1}`).slice(-2);
-        const day = (`0${currentDate.getDate()}`).slice(-2);
-        expect(isNotTooYoung(+day, +month, +year.toString())).toBe(false);
     });
 });

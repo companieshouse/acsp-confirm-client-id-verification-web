@@ -67,17 +67,7 @@ const validateWiccAgainstDob = (day: number, month: number, year: number, req: S
 
     if (wicc <= dob) {
         throw new Error("dateAfterDob");
-    } else if (!isOldEnoughAfterDob(wicc, dob)) {
-        throw new Error("tooYoungWicc");
     }
-};
-
-export const isOldEnoughAfterDob = (wicc:Date, dob: Date): boolean => {
-    let age = wicc.getFullYear() - dob.getFullYear();
-    if (wicc.getMonth() < dob.getMonth() || (wicc.getMonth() === dob.getMonth() && wicc.getDate() < dob.getDate())) {
-        age--;
-    }
-    return age >= 16;
 };
 
 const validateNumeric = (day: string, month: string, year: string, type: ValidationType): void => {
@@ -105,9 +95,6 @@ const validateDate = (day: string, month: string, year: string, type: Validation
 };
 
 const validateDobAge = (day: string, month: string, year: string): void => {
-    if (!isNotTooYoung(+day, +month, +year)) {
-        throw new Error("tooYoung");
-    }
     if (!isNotTooOld(+day, +month, +year)) {
         throw new Error("tooOld");
     }
@@ -122,16 +109,6 @@ const isNotInFuture = (day: number, month: number, year: number): boolean => {
     const currentDate = new Date();
     const inputDate = new Date(year, month - 1, day);
     return inputDate <= currentDate;
-};
-
-export const isNotTooYoung = (day: number, month: number, year: number): boolean => {
-    const currentDate = new Date();
-    const inputDate = new Date(year, month - 1, day);
-    let age = currentDate.getFullYear() - inputDate.getFullYear();
-    if (currentDate.getMonth() < inputDate.getMonth() || (currentDate.getMonth() === inputDate.getMonth() && currentDate.getDate() < inputDate.getDate())) {
-        age--;
-    }
-    return age >= 16;
 };
 
 export const isNotTooOld = (day: number, month: number, year: number): boolean => {
