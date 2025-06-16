@@ -1,6 +1,6 @@
 import { getEnvironmentVariable, getEnvironmentValue } from "./environment/environment_value";
 
-export const APPLICATION_NAME = "acsp-confirm-client-id-verification-web";
+export const APPLICATION_NAME = getEnvironmentVariable("APPLICATION_NAME", "acsp-confirm-client-id-verification-web");
 
 // Hosts and URLS
 

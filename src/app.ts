@@ -71,6 +71,11 @@ app.use(nocache());
 app.use(`^(${BASE_URL})$`, helmet(prepareCSPConfigHomePage(nonce)));
 app.use(`^(?!(${BASE_URL}$))*`, helmet(prepareCSPConfig(nonce)));
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.locals.nonce = nonce;
+    next();
+});
+
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, ensureSessionCookiePresentMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, csrfProtectionMiddleware);
@@ -78,11 +83,6 @@ app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspAuthMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspIsActiveMiddleware);
 app.use(commonTemplateVariablesMiddleware);
-
-app.use((req: Request, res: Response, next: NextFunction) => {
-    res.locals.nonce = nonce;
-    next();
-});
 
 // Channel all requests through router dispatch
 routerDispatch(app);

@@ -1,4 +1,4 @@
-process.env.APP_NAME = "acsp-confirm-client-id-verification-web";
+process.env.APPLICATION_NAME = "acsp-confirm-client-id-verification-web";
 process.env.LOG_LEVEL = "info";
 process.env.NODE_ENV = "dev";
 process.env.NODE_PORT = "3000";
