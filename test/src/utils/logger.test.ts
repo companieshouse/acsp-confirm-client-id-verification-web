@@ -23,7 +23,7 @@ describe("logger tests", () => {
     });
 
     describe("initLogger", () => {
-        it("should create a logger with APP_NAME ", () => {
+        it("should create a logger with the web service application name", () => {
             const logger = initLoggerFn();
             expect(createLogger).toHaveBeenCalledWith("acsp-confirm-client-id-verification-web");
             expect(logger).toBe(mockLogger);
