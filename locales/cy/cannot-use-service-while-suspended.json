@@ -1,0 +1,7 @@
+{
+    "cannotUseServiceWhileSuspendedHeading": "You cannot use this service while the authorised agent is suspended Welsh",
+    "cannotTellUs": "You cannot tell us you have verified someone's identity as {BUSINESS_NAME} is currently suspended. Welsh",
+    "moreInformationSuspended": "For more information about the suspension and what to do next, check the email we sent to {BUSINESS_NAME}'s correspondence email address. Welsh",
+    "contactUsSuspended": "You can contact us using the details on the email if you need more information, or if you think there has been a mistake. Welsh",
+    "linkAuthorisedAgentAccount": "Go to the authorised agent account Welsh"
+}

@@ -43,7 +43,7 @@ describe("acspIsActiveMiddleware", () => {
 
     it("should throw InvalidAcspNumberError when ACSP status is not active", async () => {
         const session = req.session as any as Session;
-        session.setExtraData(ACSP_DETAILS, { status: "suspended" });
+        session.setExtraData(ACSP_DETAILS, { status: "ceased" });
 
         await acspIsActiveMiddleware(req, res, next);
 

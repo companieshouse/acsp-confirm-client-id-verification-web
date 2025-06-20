@@ -17,7 +17,9 @@ export const acspIsActiveMiddleware = async (req: Request, res: Response, next: 
             session.setExtraData(ACSP_DETAILS, acspDetails);
         }
 
-        if (acspDetails.status !== ACTIVE_STATUS) {
+        if (acspDetails.status === "suspended") {
+            // ...
+        } else if (acspDetails.status !== ACTIVE_STATUS) {
             return next(new InvalidAcspNumberError(`ACSP ${acspNumber} has status ${acspDetails.status}`));
         }
 
