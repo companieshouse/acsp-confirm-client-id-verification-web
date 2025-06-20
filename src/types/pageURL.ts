@@ -57,3 +57,5 @@ export const ID_DOCUMENT_DETAILS = "/id-document-details";
 export const USE_NAME_ON_PUBLIC_REGISTER = "/use-name-on-public-register";
 
 export const PERSONS_NAME_ON_PUBLIC_REGISTER = "/name-on-public-register";
+
+export const CANNOT_USE_SERVICE_WHILE_SUSPENDED = "/cannot-use-service-while-suspended";
