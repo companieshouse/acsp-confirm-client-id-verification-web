@@ -6,6 +6,7 @@ import { ACSP_DETAILS } from "../../../src/utils/constants";
 import { getAcspFullProfile } from "../../../src/services/acspProfileService";
 import { createRequest, MockRequest } from "node-mocks-http";
 import { Session } from "@companieshouse/node-session-handler";
+import { BASE_URL, CANNOT_USE_SERVICE_WHILE_SUSPENDED } from "../../../src/types/pageURL";
 
 jest.mock("../../../src/services/acspProfileService");
 
@@ -72,7 +73,18 @@ describe("acspIsActiveMiddleware", () => {
 
         await acspIsActiveMiddleware(req, res as Response, next);
 
-        expect(res.redirect).toHaveBeenCalled();
+        expect(res.redirect).toHaveBeenCalledTimes(1);
         expect(next).not.toHaveBeenCalled();
+    });
+
+    it("should not redirect for suspended ACSPs when request comes from CANNOT_USE_SERVICE_WHILE_SUSPENDED URL", async () => {
+        req.originalUrl = BASE_URL + CANNOT_USE_SERVICE_WHILE_SUSPENDED;
+        const session = req.session as any as Session;
+        session.setExtraData(ACSP_DETAILS, { status: "suspended" });
+
+        await acspIsActiveMiddleware(req, res as Response, next);
+
+        expect(res.redirect).not.toHaveBeenCalled();
+        expect(next).toHaveBeenCalled();
     });
 });
