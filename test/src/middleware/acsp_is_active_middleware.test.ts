@@ -11,7 +11,7 @@ jest.mock("../../../src/services/acspProfileService");
 
 describe("acspIsActiveMiddleware", () => {
     let req: MockRequest<Request>;
-    const res: Response = {} as Response;
+    let res: Partial<Response>;
     const next: NextFunction = jest.fn();
 
     beforeEach(() => {
@@ -19,6 +19,9 @@ describe("acspIsActiveMiddleware", () => {
             method: "GET",
             url: "/"
         });
+        res = {
+            redirect: jest.fn()
+        };
         const session = getSessionRequestWithPermission();
         req.session = session;
     });
@@ -27,7 +30,7 @@ describe("acspIsActiveMiddleware", () => {
         const session = req.session as any as Session;
         session.setExtraData(ACSP_DETAILS, { status: "active" });
 
-        await acspIsActiveMiddleware(req, res, next);
+        await acspIsActiveMiddleware(req, res as Response, next);
 
         expect(next).toHaveBeenCalledWith();
         expect(getAcspFullProfile).not.toHaveBeenCalled();
@@ -35,7 +38,7 @@ describe("acspIsActiveMiddleware", () => {
 
     it("should fetch ACSP details when not in session", async () => {
         const session = req.session as any as Session;
-        await acspIsActiveMiddleware(req, res, next);
+        await acspIsActiveMiddleware(req, res as Response, next);
 
         expect(getAcspFullProfile).toHaveBeenCalledWith(acspNumber);
         expect(next).toHaveBeenCalled();
@@ -45,7 +48,7 @@ describe("acspIsActiveMiddleware", () => {
         const session = req.session as any as Session;
         session.setExtraData(ACSP_DETAILS, { status: "ceased" });
 
-        await acspIsActiveMiddleware(req, res, next);
+        await acspIsActiveMiddleware(req, res as Response, next);
 
         expect(next).toHaveBeenCalledWith(
             expect.any(InvalidAcspNumberError)
@@ -58,8 +61,18 @@ describe("acspIsActiveMiddleware", () => {
             throw error;
         });
 
-        await acspIsActiveMiddleware(req, res, next);
+        await acspIsActiveMiddleware(req, res as Response, next);
 
         expect(next).toHaveBeenCalledWith(error);
+    });
+
+    it("should redirect to CANNOT_USE_SERVICE_WHILE_SUSPENDED when ACSP status is suspended", async () => {
+        const session = req.session as any as Session;
+        session.setExtraData(ACSP_DETAILS, { status: "suspended" });
+
+        await acspIsActiveMiddleware(req, res as Response, next);
+
+        expect(res.redirect).toHaveBeenCalled();
+        expect(next).not.toHaveBeenCalled();
     });
 });
