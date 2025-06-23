@@ -1,4 +1,5 @@
 {% extends "layouts/default.njk" %}
+{% set title = i18n.cannotUseServiceWhileSuspendedHeading %}
 {% block main_content %}
     <h1 class="govuk-heading-l">{{ i18n.cannotUseServiceWhileSuspendedHeading }}</h1>
     <p class="govuk-body">{{ i18n.cannotTellUs | replace('{BUSINESS_NAME}', businessName) }}</p>
