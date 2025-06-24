@@ -17,7 +17,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             ...getLocaleInfo(locales, lang),
             currentUrl: BASE_URL + CANNOT_USE_SERVICE_WHILE_SUSPENDED,
             businessName: acspDetails.name,
-            authorisedAgentLink: addLangToUrl(BASE_URL + AUTHORISED_AGENT, lang)
+            authorisedAgentLink: addLangToUrl(AUTHORISED_AGENT, lang)
         });
     } catch (error) {
         next(error);
