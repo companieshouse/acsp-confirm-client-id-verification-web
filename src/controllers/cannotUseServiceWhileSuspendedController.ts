@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
+import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import * as config from "../config";
 import { Session } from "@companieshouse/node-session-handler";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
@@ -17,7 +17,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             ...getLocaleInfo(locales, lang),
             currentUrl: BASE_URL + CANNOT_USE_SERVICE_WHILE_SUSPENDED,
             businessName: acspDetails.name,
-            authorisedAgentLink: AUTHORISED_AGENT
+            authorisedAgentLink: addLangToUrl(BASE_URL + AUTHORISED_AGENT, lang)
         });
     } catch (error) {
         next(error);

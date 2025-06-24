@@ -3,5 +3,5 @@
     "cannotTellUs": "You cannot tell us you have verified someone's identity as {BUSINESS_NAME} is currently suspended.",
     "moreInformationSuspended": "For more information about the suspension and what to do next, check the email we sent to {BUSINESS_NAME}'s correspondence email address.",
     "contactUsSuspended": "You can contact us using the details on the email if you need more information, or if you think there has been a mistake.",
-    "linkAuthorisedAgentAccount": "Go to the authorised agent account"
+    "linkAuthorisedAgentAccountSuspended": "Go to the authorised agent account"
 }
