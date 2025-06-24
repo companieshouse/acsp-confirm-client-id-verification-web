@@ -2,7 +2,7 @@
     "howIdentityDocsCheckedTabTitle": "Tell us about the identity checks you completed",
     "howIdentityDocsCheckedTitle": "Tell us about the identity checks you completed",
     "howIdentityDocsCheckedBodyText1": "To verify someone's identity for Companies House, you must have completed checks that meet our ",
-    "howIdentityDocsCheckedVerificationStandardLink": "identity verification standard",
+    "howIdentityDocsCheckedVerificationStandardLink": "identity verification standard ({OPENS_IN_NEW_TAB})",
     "howIdentityDocsCheckedBodyText2": "There are 2 options for checking identity documents in the standard. You’ll need to tell us which option you used.",
     "howIdentityDocsCheckedWhichOptionHeading": "Which option from the identity verification standard did you use to verify their identity?",
     "howIdentityDocsCheckedOption1": "Option 1",
