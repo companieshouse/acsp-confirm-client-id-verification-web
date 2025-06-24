@@ -23,7 +23,8 @@ import {
     confirmationRedirectController,
     idDocumentDetailsController,
     useNameOnPublicRegisterController,
-    personsPublicRegisterNameController
+    personsPublicRegisterNameController,
+    cannotUseServiceWhileSuspendedController
 
 } from "../controllers";
 
@@ -110,5 +111,7 @@ routes.post(urls.USE_NAME_ON_PUBLIC_REGISTER, useNameOnPublicRegisterValidator, 
 
 routes.get(urls.PERSONS_NAME_ON_PUBLIC_REGISTER, personsPublicRegisterNameController.get);
 routes.post(urls.PERSONS_NAME_ON_PUBLIC_REGISTER, nameValidator, personsPublicRegisterNameController.post);
+
+routes.get(urls.CANNOT_USE_SERVICE_WHILE_SUSPENDED, cannotUseServiceWhileSuspendedController.get);
 
 export default routes;

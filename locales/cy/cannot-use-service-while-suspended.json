@@ -1,0 +1,7 @@
+{
+    "cannotUseServiceWhileSuspendedHeading": "Ni allwch ddefnyddio'r gwasanaeth hwn tra bod yr asiant awdurdodedig wedi'i atal",
+    "cannotTellUs": "Ni allwch ddweud wrthym eich bod wedi gwirio hunaniaeth rhywun gan fod {BUSINESS_NAME} wedi'i atal ar hyn o bryd.",
+    "moreInformationSuspended": "I gael rhagor o wybodaeth am yr ataliad a beth i'w wneud nesaf, edrychwch ar yr e-bost a anfonwyd gennym at gyfeiriad e-bost gohebiaeth {BUSINESS_NAME}.",
+    "contactUsSuspended": "Gallwch gysylltu â ni gan ddefnyddio'r manylion ar yr e-bost os oes angen mwy o wybodaeth arnoch, neu os ydych chi'n meddwl bod camgymeriad wedi bod.",
+    "linkAuthorisedAgentAccountSuspended": "Ewch i'r cyfrif asiant awdurdodedig"
+}

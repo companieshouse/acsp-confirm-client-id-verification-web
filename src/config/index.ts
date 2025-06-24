@@ -32,3 +32,4 @@ export const SIGN_OUT_PAGE = `${BASE_VIEWS_URL}/sign-out-page/sign-out`;
 export const ID_DOCUMENT_DETAILS = `${BASE_VIEWS_URL}/id-document-details/id-document-details`;
 export const USE_NAME_ON_PUBLIC_REGISTER = `${BASE_VIEWS_URL}/use-name-on-public-register/use-name-on-public-register`;
 export const PERSONS_NAME_ON_PUBLIC_REGISTER = `${BASE_VIEWS_URL}/name-public-register/name-public-register`;
+export const CANNOT_USE_SERVICE_WHILE_SUSPENDED = `${BASE_VIEWS_URL}/cannot-use-service-while-suspended/cannot-use-service-while-suspended`;
