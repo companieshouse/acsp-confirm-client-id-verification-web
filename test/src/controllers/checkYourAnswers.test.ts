@@ -11,14 +11,17 @@ import { ACSP_DETAILS, USER_DATA } from "../../../src/utils/constants";
 import { Request, Response, NextFunction } from "express";
 import { dummyFullProfile } from "../../mocks/acsp_profile.mock";
 import * as localise from "../../../src/utils/localise";
+import { getAcspFullProfile } from "../../../src/services/acspProfileService";
 
 jest.mock("@companieshouse/api-sdk-node");
 jest.mock("../../../src/services/identityVerificationService.ts");
 jest.mock("../../../src/services/acspEmailService.ts");
+jest.mock("../../../src/services/acspProfileService.ts");
 
 const mockSendVerifiedClientDetails = sendVerifiedClientDetails as jest.Mock;
 const mockFindIdentityByEmail = findIdentityByEmail as jest.Mock;
 const mockSendIdentityVerificationConfirmationEmail = sendIdentityVerificationConfirmationEmail as jest.Mock;
+const mockGetAcspFullProfile = getAcspFullProfile as jest.Mock;
 
 const router = supertest(app);
 
@@ -50,13 +53,9 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
         await mockSendVerifiedClientDetails.mockResolvedValueOnce({ id: "12345" });
         await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
         await mockSendIdentityVerificationConfirmationEmail.mockResolvedValueOnce({ status: 200 });
-        const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS).send({
-            address: "Flat 1 Baker Street<br>Second Floor<br>London<br>Greater London<br>United Kingdom<br>NW1 6XE",
-            dateOfBirth: "07 July 1998",
-            whenIdentityChecksCompleted: "07 July 2024",
-            documentsChecked: "• Biometric or machine readable passport<br>• Irish passport card",
-            checkYourAnswerDeclaration: "confirm"
-        });
+        await mockGetAcspFullProfile.mockResolvedValueOnce({ status: "active" });
+        const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS)
+            .send({ checkYourAnswerDeclaration: "confirm" });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(BASE_URL + CONFIRMATION + "?lang=en");
     });
@@ -84,6 +83,16 @@ describe("POST " + CHECK_YOUR_ANSWERS, () => {
     it("should return status 500 if verification api errors", async () => {
         await mockFindIdentityByEmail.mockRejectedValueOnce(new Error("Email address already exists"));
         const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS).send({ checkYourAnswerDeclaration: "confirm" });
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
+
+    it("should return status 500 when the ACSP is ceased", async () => {
+        createMockSessionMiddleware();
+        await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
+        await mockGetAcspFullProfile.mockResolvedValueOnce({ status: "ceased" });
+        const res = await router.post(BASE_URL + CHECK_YOUR_ANSWERS)
+            .send({ checkYourAnswerDeclaration: "confirm" });
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
