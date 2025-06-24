@@ -23,3 +23,4 @@ export * as idDocumentDetailsController from "./idDocumentDetailsController";
 export * as useNameOnPublicRegisterController from "./useNameOnPublicRegisterController";
 export * as personsPublicRegisterNameController from "./personsPublicRegisterNameController";
 export * as cannotUseServiceWhileSuspendedController from "././cannotUseServiceWhileSuspendedController";
+export * as mustBeAnAuthorisedAgentController from "././mustBeAuthorisedAgentController";
