@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import * as config from "../config";
 import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, CONFIRMATION } from "../types/pageURL";
-import { USER_DATA, REFERENCE, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS } from "../utils/constants";
+import { USER_DATA, REFERENCE, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS, CEASED } from "../utils/constants";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../services/formatService";
@@ -11,10 +11,11 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { findIdentityByEmail, IdentityVerificationService, sendVerifiedClientDetails } from "../services/identityVerificationService";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
-import { getAmlBodiesAsString } from "../services/acspProfileService";
+import { getAcspFullProfile, getAmlBodiesAsString } from "../services/acspProfileService";
 import { sendIdentityVerificationConfirmationEmail } from "../services/acspEmailService";
-import { getLoggedInUserEmail } from "../utils/session";
+import { getLoggedInAcspNumber, getLoggedInUserEmail } from "../utils/session";
 import { ClientVerificationEmail } from "@companieshouse/api-sdk-node/dist/services/acsp/types";
+import { AcspCeasedError } from "../errors/acspCeasedError";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -119,24 +120,34 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             const identityFromEmail = await findIdentityByEmail(clientData.emailAddress!);
             if (identityFromEmail !== undefined) {
                 throw new Error("Email address already exists");
-            } else {
-                const identityVerificationService = new IdentityVerificationService();
-                const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData, req);
-
-                const verifiedIdentity = await sendVerifiedClientDetails(verifiedClientData);
-                saveDataInSession(req, REFERENCE, verifiedIdentity?.id);
-
-                const emailData: ClientVerificationEmail = {
-                    to: getLoggedInUserEmail(req.session),
-                    clientName: clientData.preferredFirstName + " " + clientData.preferredLastName,
-                    referenceNumber: verifiedIdentity?.id!,
-                    clientEmailAddress: clientData.emailAddress!
-                };
-
-                await sendIdentityVerificationConfirmationEmail(emailData);
-
-                res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
             }
+
+            // Check the ACSP's status and if they are ceased throw an error
+            const acspNumber: string = getLoggedInAcspNumber(req.session);
+            const acspDetails = await getAcspFullProfile(acspNumber);
+            session.setExtraData(ACSP_DETAILS, acspDetails);
+
+            if (acspDetails.status === CEASED) {
+                throw new AcspCeasedError("ACSP is ceased. Cannot proceed with verification.");
+            }
+
+            const identityVerificationService = new IdentityVerificationService();
+            const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData, req);
+
+            const verifiedIdentity = await sendVerifiedClientDetails(verifiedClientData);
+            saveDataInSession(req, REFERENCE, verifiedIdentity?.id);
+
+            const emailData: ClientVerificationEmail = {
+                to: getLoggedInUserEmail(req.session),
+                clientName: clientData.preferredFirstName + " " + clientData.preferredLastName,
+                referenceNumber: verifiedIdentity?.id!,
+                clientEmailAddress: clientData.emailAddress!
+            };
+
+            await sendIdentityVerificationConfirmationEmail(emailData);
+
+            res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
+
         }
     } catch (error) {
         next(error);
