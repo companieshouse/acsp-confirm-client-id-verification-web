@@ -1,0 +1,13 @@
+{% extends "layouts/default.njk" %}
+{% set title = i18n.needToBeAddedToAuthorisedAgentAccountHeading %}
+{% block backLink %}
+    {# Remove back button on this page by replacing it with nothing #}
+{% endblock %}
+{% block main_content %}
+    <h1 class="govuk-heading-l">{{ i18n.needToBeAddedToAuthorisedAgentAccountHeading }}</h1>
+    <p class="govuk-body">{{ i18n.needToAskToBeAdded }}</p>
+    <p class="govuk-body">
+        {{ i18n.applyAsAnAuthorisedAgent }}
+        <a href={{ applyAsACSPLink }}>{{ i18n.applyAsAnAuthorisedAgentLink }}</a>.
+    </p>
+{% endblock main_content %}
