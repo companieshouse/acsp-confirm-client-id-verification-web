@@ -24,8 +24,7 @@ import {
     idDocumentDetailsController,
     useNameOnPublicRegisterController,
     personsPublicRegisterNameController,
-    cannotUseServiceWhileSuspendedController,
-    mustBeAnAuthorisedAgentController
+    cannotUseServiceWhileSuspendedController
 
 } from "../controllers";
 
@@ -114,7 +113,5 @@ routes.get(urls.PERSONS_NAME_ON_PUBLIC_REGISTER, personsPublicRegisterNameContro
 routes.post(urls.PERSONS_NAME_ON_PUBLIC_REGISTER, nameValidator, personsPublicRegisterNameController.post);
 
 routes.get(urls.CANNOT_USE_SERVICE_WHILE_SUSPENDED, cannotUseServiceWhileSuspendedController.get);
-
-routes.get(urls.MUST_BE_AUTHORISED_AGENT, mustBeAnAuthorisedAgentController.get);
 
 export default routes;

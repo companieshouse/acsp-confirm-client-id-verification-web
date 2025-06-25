@@ -15,7 +15,7 @@ import {
     PIWIK_SITE_ID,
     ANY_PROTOCOL_CDN_HOST
 } from "./utils/properties";
-import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT, MUST_BE_AUTHORISED_AGENT } from "./types/pageURL";
+import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT } from "./types/pageURL";
 import { commonTemplateVariablesMiddleware } from "./middleware/common_variables_middleware";
 import { getLocalesService, selectLang } from "./utils/localise";
 import { ErrorService } from "./services/errorService";
@@ -27,7 +27,6 @@ import { prepareCSPConfig, prepareCSPConfigHomePage } from "./middleware/content
 import { csrfProtectionMiddleware } from "./middleware/csrf_protection_middleware";
 import errorHandler from "./controllers/commonErrorController";
 import { acspIsActiveMiddleware } from "./middleware/acsp_is_active_middleware";
-import { userIsPartOfAcspMiddleware } from "./middleware/user_is_part_of_acsp_middleware";
 const app = express();
 
 const nonce: string = uuidv4();
@@ -77,13 +76,12 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     next();
 });
 
-app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, userIsPartOfAcspMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, sessionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, ensureSessionCookiePresentMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, csrfProtectionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, authenticationMiddleware);
-app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}$|${BASE_URL}${MUST_BE_AUTHORISED_AGENT}))*`, acspAuthMiddleware);
-app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}$|${BASE_URL}${MUST_BE_AUTHORISED_AGENT}))*`, acspIsActiveMiddleware);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspAuthMiddleware);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, acspIsActiveMiddleware);
 app.use(commonTemplateVariablesMiddleware);
 
 // Channel all requests through router dispatch
