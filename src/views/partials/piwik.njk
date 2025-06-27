@@ -26,6 +26,13 @@
       //  It has to be defined under "analyticsWithCustomisedMatomoText()" function in the page where the customization is needed.
       if (!$.isFunction(window.analyticsWithCustomisedMatomoText)){
         var eventCategory = matomoObliteration($(document).find("title").text().split(' -')[0]);
+
+        if (eventCategory.startsWith("Error: ")){
+          eventCategory = eventCategory.replace("Error: ", "")
+        }
+        if (eventCategory.startsWith("Gwall: ")){
+          eventCategory = eventCategory.replace("Gwall: ", "")
+        }
  
         $("form").on("submit",function() {
           
