@@ -31,3 +31,5 @@ export const OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY = {
 };
 export const CRYPTOGRAPHIC_SECURITY_FEATURES = "cryptographic_security_features_checked";
 export const PHYSICAL_SECURITY_FEATURES = "physical_security_features_checked";
+
+export const DATA_SUBMITTED_AND_EMAIL_SENT = "dataSubmittedAndEmailSent";

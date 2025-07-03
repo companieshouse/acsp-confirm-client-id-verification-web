@@ -4,7 +4,7 @@ import { FormatService } from "../services/formatService";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { CHECK_YOUR_ANSWERS, BASE_URL, CONFIRMATION, CONFIRMATION_REDIRECT } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { ACSP_DETAILS, MATOMO_LINK_CLICK, REFERENCE, USER_DATA } from "../utils/constants";
+import { ACSP_DETAILS, DATA_SUBMITTED_AND_EMAIL_SENT, MATOMO_LINK_CLICK, REFERENCE, USER_DATA } from "../utils/constants";
 import { ClientData } from "../model/ClientData";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { getAmlBodiesAsString } from "../services/acspProfileService";
@@ -34,6 +34,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const amlBodies = getAmlBodiesAsString(acspDetails);
 
         const identityDocuments = clientData.idDocumentDetails!;
+
+        session.deleteExtraData(DATA_SUBMITTED_AND_EMAIL_SENT);
 
         res.render(config.CONFIRMATION, {
             previousPage: addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang),
