@@ -29,7 +29,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
         // Redirect to confirmation page if the data has already been submitted
         // This is if user refreshes Check Your Answers page URL in browser
-        if (session.getExtraData("dataSubmittedAndEmailSent")) {
+        if (session.getExtraData(DATA_SUBMITTED_AND_EMAIL_SENT)) {
             return res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
         }
 
