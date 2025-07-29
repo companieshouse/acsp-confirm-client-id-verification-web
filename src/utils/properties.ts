@@ -4,7 +4,7 @@ export const APPLICATION_NAME = getEnvironmentVariable("APPLICATION_NAME", "acsp
 
 // Hosts and URLS
 
-export const ACCOUNT_URL = getEnvironmentVariable("ACCOUNT_LOCAL_URL", "false");
+export const ACCOUNT_URL = getEnvironmentVariable("ACCOUNT_URL", "false");
 
 export const API_URL = getEnvironmentValue("API_URL", "false");
 
