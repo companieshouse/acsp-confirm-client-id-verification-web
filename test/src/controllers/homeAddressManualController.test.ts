@@ -110,6 +110,14 @@ describe("POST" + HOME_ADDRESS_MANUAL, () => {
         expect(res.text).toContain("Address line 2 must be 50 characters or less");
     });
 
+    // Test for incorrect addressLine2 Format entered, will return 400.
+    it("should return status 400", async () => {
+        const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
+            .send({ addressPropertyDetails: "abc", addressLine1: "pqr", addressLine2: "^", addressTown: "lmn", addressCounty: "lmnop", addressCountry: "lmnop", addressPostcode: "MK9 3GB" });
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("Address line 2 must only include letters a to z, numbers and common special characters");
+    });
+
     // Test for no addressTown, will return 400.
     it("should return status 400", async () => {
         const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
