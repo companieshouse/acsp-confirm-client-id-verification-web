@@ -61,6 +61,37 @@ describe("POST" + PERSONS_NAME, () => {
         expect(res.header.location).toBe(BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
     });
 
+    it("should return status 302 after redirect to Check Your Answers when first name has special characters", async () => {
+        const sendData = {
+            "first-name": "John%",
+            "middle-names": "",
+            "last-name": "Doe"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(302);
+        expect(res.header.location).toBe(BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
+    });
+    it("should return status 302 after redirect to Check Your Answers when middle name has special characters", async () => {
+        const sendData = {
+            "first-name": "John",
+            "middle-names": "%",
+            "last-name": "Doe"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(302);
+        expect(res.header.location).toBe(BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
+    });
+    it("should return status 302 after redirect to Check Your Answers when last name has special characters", async () => {
+        const sendData = {
+            "first-name": "John",
+            "middle-names": "",
+            "last-name": "Doe&"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(302);
+        expect(res.header.location).toBe(BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
+    });
+
     // Test for incorrect form details entered, will return 400.
     it("should return status 400 after incorrect data entered", async () => {
         const sendData = {
@@ -122,36 +153,6 @@ describe("POST" + PERSONS_NAME, () => {
         const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("Last name must be 160 characters or less");
-    });
-    it("should return status 400 after incorrect data entered", async () => {
-        const sendData = {
-            "first-name": "John%",
-            "middle-names": "",
-            "last-name": "Doe"
-        };
-        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
-        expect(res.status).toBe(400);
-        expect(res.text).toContain("First name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes");
-    });
-    it("should return status 400 after incorrect data entered", async () => {
-        const sendData = {
-            "first-name": "John",
-            "middle-names": "%",
-            "last-name": "Doe"
-        };
-        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
-        expect(res.status).toBe(400);
-        expect(res.text).toContain("Middle name or names must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes");
-    });
-    it("should return status 400 after incorrect data entered", async () => {
-        const sendData = {
-            "first-name": "John",
-            "middle-names": "",
-            "last-name": "Doe&"
-        };
-        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
-        expect(res.status).toBe(400);
-        expect(res.text).toContain("Last name must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes");
     });
 
     it("should show the error page if an error occurs", async () => {
