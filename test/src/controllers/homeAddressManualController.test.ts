@@ -38,20 +38,36 @@ describe("POST" + HOME_ADDRESS_MANUAL, () => {
         expect(res.header.location).toBe(BASE_URL + CONFIRM_HOME_ADDRESS + "?lang=en");
     });
 
+    // Test for valid addressPropertyDetails format with "@", will return 302 after redirecting to the next page.
+    it("should return status 302", async () => {
+        const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
+            .send({ addressPropertyDetails: "abc@", addressLine1: "pqr", addressLine2: "pqr", addressTown: "lmn", addressCounty: "lmn", addressCountry: "lmn", addressPostcode: "MK9 3GB" });
+        expect(res.status).toBe(302);
+        expect(res.header.location).toBe(BASE_URL + CONFIRM_HOME_ADDRESS + "?lang=en");
+    });
+
+    // Test for valid addressLine1 format with "@", will return 302 after redirecting to the next page.
+    it("should return status 302", async () => {
+        const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
+            .send({ addressPropertyDetails: "abc", addressLine1: "pqr@", addressLine2: "pqr", addressTown: "lmn", addressCounty: "lmnop", addressCountry: "lmnop", addressPostcode: "MK9 3GB" });
+        expect(res.status).toBe(302);
+        expect(res.header.location).toBe(BASE_URL + CONFIRM_HOME_ADDRESS + "?lang=en");
+    });
+
+    // Test for valid addressLine2 format with "@", will return 302 after redirecting to the next page.
+    it("should return status 302", async () => {
+        const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
+            .send({ addressPropertyDetails: "abc", addressLine1: "pqr", addressLine2: "@", addressTown: "lmn", addressCounty: "lmnop", addressCountry: "lmnop", addressPostcode: "MK9 3GB" });
+        expect(res.status).toBe(302);
+        expect(res.header.location).toBe(BASE_URL + CONFIRM_HOME_ADDRESS + "?lang=en");
+    });
+
     // Test for no addressPropertyDetails, will return 400.
     it("should return status 400", async () => {
         const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
             .send({ addressPropertyDetails: "", addressLine1: "pqr", addressLine2: "pqr", addressTown: "lmn", addressCounty: "lmnop", addressCountry: "lmnop", addressPostcode: "MK9 3GB" });
         expect(res.status).toBe(400);
         expect(res.text).toContain("Enter a property name or number");
-    });
-
-    // Test for incorrect addressPropertyDetails Format entered, will return 400.
-    it("should return status 400", async () => {
-        const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
-            .send({ addressPropertyDetails: "abc@", addressLine1: "pqr", addressLine2: "pqr", addressTown: "lmn", addressCounty: "lmn", addressCountry: "lmn", addressPostcode: "MK9 3GB" });
-        expect(res.status).toBe(400);
-        expect(res.text).toContain("Property name or number must only include letters a to z, numbers and common special characters such as hyphens, spaces and apostrophes");
     });
 
     // Test for incorrect addressPropertyDetails Length entered, will return 400.
@@ -70,14 +86,6 @@ describe("POST" + HOME_ADDRESS_MANUAL, () => {
         expect(res.text).toContain("Enter an address");
     });
 
-    // Test for incorrect addressLine1 Format entered, will return 400.
-    it("should return status 400", async () => {
-        const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
-            .send({ addressPropertyDetails: "abc", addressLine1: "pqr@", addressLine2: "pqr", addressTown: "lmn", addressCounty: "lmnop", addressCountry: "lmnop", addressPostcode: "MK9 3GB" });
-        expect(res.status).toBe(400);
-        expect(res.text).toContain("Address line 1 must only include letters a to z, numbers and common special characters such as hyphens, spaces and apostrophes");
-    });
-
     // Test for incorrect addressLine1 Length entered, will return 400.
     it("should return status 400", async () => {
         const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
@@ -92,14 +100,6 @@ describe("POST" + HOME_ADDRESS_MANUAL, () => {
             .send({ addressPropertyDetails: "abc", addressLine1: "abc", addressLine2: "", addressTown: "lmn", addressCounty: "lmnop", addressCountry: "lmnop", addressPostcode: "MK9 3GB" });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(BASE_URL + CONFIRM_HOME_ADDRESS + "?lang=en");
-    });
-
-    // Test for incorrect addressLine2 Format entered, will return 400.
-    it("should return status 400", async () => {
-        const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
-            .send({ addressPropertyDetails: "abc", addressLine1: "pqr", addressLine2: "@", addressTown: "lmn", addressCounty: "lmnop", addressCountry: "lmnop", addressPostcode: "MK9 3GB" });
-        expect(res.status).toBe(400);
-        expect(res.text).toContain("Address line 2 must only include letters a to z, numbers and common special characters such as hyphens, spaces and apostrophes");
     });
 
     // Test for incorrect addressLine2 Length entered, will return 400.

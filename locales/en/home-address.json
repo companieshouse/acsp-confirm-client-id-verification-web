@@ -10,6 +10,6 @@
     "error-homeAddressEnterPostCode" : "Enter a postcode",  
     "error-homeAddressInvalidPostcodeFormat": "Postcode must only include letters a to z, numbers and spaces",
     "error-homeAddressEnterFullPostcode": "Enter a full UK postcode",
-    "error-homeAddressInvalidPropertyDetails" : "Property name or number must only include letters a to z, numbers and common special characters such as hyphens, spaces and apostrophes",
+    "error-homeAddressInvalidPropertyDetails" : "Property name or number must only include letters a to z, numbers and common special characters",
     "error-homeAddressNoPostcodeFound" : "We cannot find this postcode. Enter a different one, or enter the address manually"
 }

@@ -43,6 +43,41 @@ describe("home Address Auto Lookup Validator", () => {
         expect(errors.isEmpty()).toBe(true);
     });
 
+    it("Valid Address Data Should Pass Validation with special characters", async () => {
+        jest.mock("../../../src/services/postcode-lookup-service", () => ({
+            getUKAddressesFromPostcode: jest.fn(async (url, postcode) => {
+                if (postcode === "ValidPostcode") {
+                    return [{
+                        postcode: "ST63LJ",
+                        premise: "10",
+                        addressLine1: "DOWN STREET",
+                        addressLine2: "",
+                        county: "south-west",
+                        postTown: "LONDON",
+                        country: "UNITED KINGDOM"
+                    }];
+                } else {
+                    return [];
+                }
+            })
+        }));
+
+        const validAddressData = {
+            postCode: "ST63LJ",
+            premise: ">;“\"}%$èÌÏïŽħǿ"
+        };
+
+        const req = { body: validAddressData };
+        const res = { locals: {} };
+
+        for (const validationChain of homeAddressValidator) {
+            await validationChain(req, res, () => {});
+        }
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalledTimes(0);
+        const errors = validationResult(req);
+        expect(errors.isEmpty()).toBe(true);
+    });
+
     it("Invalid Address Data Should Fail Validation", async () => {
         jest.mock("../../../src/services/postcode-lookup-service", () => ({
             getUKAddressesFromPostcode: jest.fn(async (url, postcode) => {
