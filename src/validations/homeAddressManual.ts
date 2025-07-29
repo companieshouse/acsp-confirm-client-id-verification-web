@@ -1,7 +1,7 @@
 import { body } from "express-validator";
-import { LETTERS, NUMBERS, PUNCTUATION, SYMBOLS, WHITESPACE } from "./regexParts";
+import { EXCLUDED_CHARS, LETTERS, NUMBERS, PUNCTUATION, SYMBOLS, WHITESPACE } from "./regexParts";
 
-const extemdedOtherAddressDetailsPattern = `^[${LETTERS}${NUMBERS}${PUNCTUATION}${SYMBOLS}${WHITESPACE}]*$`;
+const extemdedOtherAddressDetailsPattern = `^(?!.*[${EXCLUDED_CHARS}])[${LETTERS}${NUMBERS}${PUNCTUATION}${SYMBOLS}${WHITESPACE}]*$`;
 const extendedOtherAddressDetailsFormat:RegExp = new RegExp(extemdedOtherAddressDetailsPattern, "u");
 const addressTownFormat:RegExp = /^[A-Za-z\-',\s!]*$/;
 const addressCountyAndCountryFormat:RegExp = /^[A-Za-z\-'\s]*$/;

@@ -154,6 +154,16 @@ describe("POST" + PERSONS_NAME, () => {
         expect(res.status).toBe(400);
         expect(res.text).toContain("Last name must be 160 characters or less");
     });
+    it("should return status 400 after incorrect data entered", async () => {
+        const sendData = {
+            "first-name": "John",
+            "middle-names": "",
+            "last-name": "Doe|"
+        };
+        const res = await router.post(BASE_URL + PERSONS_NAME).send(sendData);
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("Last name must only include letters a to z, and common special characters");
+    });
 
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
