@@ -1,7 +1,7 @@
 import { body } from "express-validator";
-import { LETTERS, NUMBERS, PUNCTUATION, SYMBOLS, WHITESPACE } from "./regexParts";
+import { EXCLUDED_CHARS, LETTERS, NUMBERS, PUNCTUATION, SYMBOLS, WHITESPACE } from "./regexParts";
 
-const extendedNamePattern = `^[${LETTERS}${NUMBERS}${PUNCTUATION}${SYMBOLS}${WHITESPACE}]*$`;
+const extendedNamePattern = `^(?!.*[${EXCLUDED_CHARS}])[${LETTERS}${NUMBERS}${PUNCTUATION}${SYMBOLS}${WHITESPACE}]*$`;
 const extendedNameFormat: RegExp = new RegExp(extendedNamePattern, "u");
 
 export const nameValidator = [
