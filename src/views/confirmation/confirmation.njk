@@ -45,7 +45,7 @@
     {% set howIdentityDocsChecked = i18n.option2Confirmation %}
   {% endif %}
 
-  {% set verificationStatement1 = i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe +  " " + fullName + " " + i18n.toTheStandard + " " + clientData.whenIdentityChecksCompleted + "." %}
+  {% set verificationStatement1 = i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe +  " " + (fullName | escape) + " " + i18n.toTheStandard + " " + clientData.whenIdentityChecksCompleted + "." %}
 
   {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
 

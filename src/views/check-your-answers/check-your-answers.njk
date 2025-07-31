@@ -26,7 +26,7 @@
     {% endif %}
     {% set fullPreferredName = fullPreferredName + ' ' + clientData.preferredLastName %}
   {% else %}
-    {% set fullPreferredName = fullName %}
+    {% set fullPreferredName = fullName | escape %}
   {% endif %}
 
   {% set identityChecksCompletedDate = clientData.whenIdentityChecksCompleted %}
@@ -41,9 +41,9 @@
     {% set howIdentityDocsChecked = i18n.option2Confirmation %}
   {% endif %}
 
-  {% set textContent = i18n.checkYourAnswersDeclarationText1 + " " + acspName + " " + i18n.checkYourAnswersDeclarationText2 + " " + fullName + i18n.checkYourAnswersDeclarationText3 %}
+  {% set textContent = i18n.checkYourAnswersDeclarationText1 + " " + acspName + " " + i18n.checkYourAnswersDeclarationText2 + " " + (fullName | escape) + i18n.checkYourAnswersDeclarationText3 %}
 
-  {% set verificationStatement1 = i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe +  " " + fullName + " " + i18n.toTheStandard + " " + identityChecksCompletedDate + "." %}
+  {% set verificationStatement1 = i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe +  " " + (fullName | escape) + " " + i18n.toTheStandard + " " + identityChecksCompletedDate + "." %}
 
   {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
 

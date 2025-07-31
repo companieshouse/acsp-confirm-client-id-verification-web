@@ -6,17 +6,17 @@
 {% block main_content %}
 {% set displayedFirstName = " " %}
     {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
-        {% set displayedFirstName = preferredFirstName + " " %}
+        {% set displayedFirstName = (preferredFirstName | escape) + " " %}
     {% else %}   
-        {% set displayedFirstName = firstName  + " " %}
+        {% set displayedFirstName = (firstName | escape) + " " %}
     {% endif %}
 
 
 {% set displayedLastName = " " %}
     {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
-        {% set displayedLastName =  preferredLastName + " " %}
+        {% set displayedLastName =  (preferredLastName | escape) + " " %}
     {% else %}   
-        {% set displayedLastName =  lastName + " " %}
+        {% set displayedLastName =  (lastName | escape) + " " %}
     {% endif %}
 
 
