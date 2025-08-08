@@ -3,16 +3,10 @@
     "textGroupA": "Grŵp A",
     "textGroupB":"Grŵp B",
     "passport": "Pasbort",
-    "irish_passport_card": "Cerdyn pasbort Gwyddelig",
-    "EEA_identity_card": "Cerdyn adnabod gyda gwybodaeth fiometrig o'r UE, Norwy, Gwlad yr Iâ neu Liechtenstein",
-    "UK_biometric_residence_permit": "Trwydded breswylio biometrig y DU (BRP)",
-    "UK_biometric_residence_card": "Cerdyn preswylio biometrig y DU (BRC)",
     "UK_PASS_card": "Cerdyn PASS achrededig y DU",
     "UK_or_EU_digital_tachograph_card": "Cerdyn tacograff digidol gyrrwr y DU neu'r UE",
-    "UK_or_EU_driving_licence": "Trwydded yrru cerdyn-llun (llawn neu dros dro) y DU, Ynysoedd y Sianel, Ynys Manaw a'r UE",
     "UK_HM_forces_card": "Cerdyn adnabod Lluoedd EF y DU",
     "UK_HM_veteran_card": "Cerdyn cyn-filwr Lluoedd Arfog EM y DU",
-    "UK_frontier_worker_permit": "Trwydded gweithiwr Ffin y DU",
     "work_permit_photo_id": "Trwydded gwaith ffotograffig (Llywodraeth wedi cyhoeddi)",
     "immigration_document_photo_id":"Dogfen fewnfudo ffotograffig",
     "visa_photo_id":"Fisa Ffotograffig",
@@ -32,7 +26,6 @@
     "UK_council_tax_statement": "Datganiad Treth Gyngor y DU (ar gyfer cyfeiriad cyfredol y person)",
     "utility_bill": "Bil cyfleustodau (ar gyfer cyfeiriad cyfredol y person)",
 
-    "error-identityDocumentsGroup1Empty2": "Dewiswch pa ddogfennau y gwnaethoch eu gwirio i wirio ei hunaniaeth",
     "error-identityDocumentsGroupANotSelected": "Dewiswch o leiaf un ddogfen o grŵp A",
     "error-identityDocumentsNo2Selection": "Dewiswch o leiaf 2 ddogfen"
 }
