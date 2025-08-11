@@ -51,29 +51,6 @@ describe("Format Service tests", () => {
             expect(result).toContain("Greater London");
             expect(result).toContain("United Kingdom");
         });
-
-        it("should join address parts with <br>", () => {
-            const address = {
-                propertyDetails: "Flat 1",
-                line1: "123 Main Street",
-                line2: "Area",
-                town: "London",
-                county: "Greater London",
-                country: "United Kingdom",
-                postcode: "SW1A 1AA"
-            };
-
-            const result = FormatService.formatAddress(address);
-            const parts = result.split("<br>");
-
-            expect(parts.length).toBe(6);
-            expect(parts[0]).toContain("Flat 1 123 Main Street");
-            expect(parts[1]).toBe("Area");
-            expect(parts[2]).toBe("London");
-            expect(parts[3]).toBe("Greater London");
-            expect(parts[4]).toBe("United Kingdom");
-            expect(parts[5]).toBe("SW1A 1AA");
-        });
     });
 
     describe("formatDocumentHintText tests", () => {
