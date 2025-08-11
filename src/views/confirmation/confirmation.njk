@@ -45,9 +45,9 @@
     {% set howIdentityDocsChecked = i18n.option2Confirmation %}
   {% endif %}
 
-  {% set verificationStatement1 = i18n.iConfirm + " " + acspName + " " + i18n.verifiedThe +  " " + (fullName | escape) + " " + i18n.toTheStandard + " " + clientData.whenIdentityChecksCompleted + "." %}
+  {% set verificationStatement1 = i18n.iConfirm + " " + (acspName | escape) + " " + i18n.verifiedThe +  " " + (fullName | escape) + " " + i18n.toTheStandard + " " + clientData.whenIdentityChecksCompleted + "." %}
 
-  {% set verificationStatement2 = " " + acspName + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
+  {% set verificationStatement2 = " " + (acspName | escape) + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
 
   {% set groupBDocs = [i18n.birth_certificate, i18n.marriage_certificate, i18n.immigration_document_non_photo_id, i18n.visa_non_photo_id, i18n.work_permit_non_photo_id, i18n.bank_statement, i18n.rental_agreement, i18n.mortgage_statement, i18n.UK_council_tax_statement, i18n.utility_bill] %}
 

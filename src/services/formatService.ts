@@ -10,16 +10,16 @@ export class FormatService {
         if (address.propertyDetails || address.line1) {
             let combinedLine = "";
             if (address.propertyDetails) {
-                combinedLine += address.propertyDetails;
+                combinedLine += this.escapeHtml(address.propertyDetails);
             }
             if (address.line1) {
-                combinedLine += (combinedLine ? " " : "") + address.line1;
+                combinedLine += (combinedLine ? " " : "") + this.escapeHtml(address.line1);
             }
             parts.push(combinedLine);
         }
 
         if (address.line2) {
-            parts.push(address.line2);
+            parts.push(this.escapeHtml(address.line2));
         }
 
         if (address.town) {
@@ -35,7 +35,7 @@ export class FormatService {
         }
 
         if (address.postcode) {
-            parts.push(address.postcode);
+            parts.push(this.escapeHtml(address.postcode));
         }
 
         // Join the parts with `<br>` and return the formatted address
@@ -152,6 +152,23 @@ export class FormatService {
             }
         });
         return formattedDocuments;
+    }
+
+    /**
+     * Escapes HTML special characters to prevent XSS issues and ensure angle brackets are displayed correctly
+     * @param text The text to escape
+     * @returns Escaped HTML text
+     */
+    public static escapeHtml (text?: string): string {
+        if (!text) {
+            return "";
+        }
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
 
     public static formatDocumentHintText (documents: string[] | undefined, howIdentityDocsChecked: string | undefined, i18n: any): string[] {
