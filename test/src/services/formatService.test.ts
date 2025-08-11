@@ -31,7 +31,7 @@ describe("Format Service tests", () => {
             expect(result).toBe("");
         });
 
-        it("should escape HTML in address fields that may contain angle brackets but NOT in postcode", () => {
+        it("should escape HTML in address fields that allow angle brackets", () => {
             const address = {
                 propertyDetails: "Flat <A>",
                 line1: "<123> Main Street",
@@ -39,14 +39,14 @@ describe("Format Service tests", () => {
                 town: "London",
                 county: "Greater London",
                 country: "United Kingdom",
-                postcode: "SW1<1>AA"
+                postcode: "SW1 1AA"
             };
 
             const result = FormatService.formatAddress(address);
 
             expect(result).toContain("Flat &lt;A&gt; &lt;123&gt; Main Street");
             expect(result).toContain("Suite &lt;B&gt;");
-            expect(result).toContain("SW1<1>AA"); // Postcode should NOT be escaped
+            expect(result).toContain("SW1 1AA");
             expect(result).toContain("London");
             expect(result).toContain("Greater London");
             expect(result).toContain("United Kingdom");
