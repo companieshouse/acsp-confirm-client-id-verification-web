@@ -57,9 +57,9 @@ export const prepareCSPConfigHomePage = (nonce: string) : HelmetOptions => {
 };
 
 const formActionDirective = (ishomepage: boolean) => {
-    const ALL_CHS_URLS = "*";
+    const ALL_CHS_URLS_SUBDOMAIN = "https://*.gov.uk";
     if (ishomepage) {
-        return [ALL_CHS_URLS];
+        return [ALL_CHS_URLS_SUBDOMAIN];
     } else {
         return [SELF, PIWIK_CHS_DOMAIN, CHS_URL];
     }
