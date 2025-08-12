@@ -21,8 +21,8 @@
 
 
 
-{% set checkBoxText = "<p>" + i18n.confirmationStatement1 + " " + acspName + " " + i18n.confirmationStatement2 + " " + displayedFirstName + displayedLastName + i18n.confirmationStatement3 + " " + formattedDate + "." + 
-    "</p><br><p>" + i18n.Mae + acspName + " " + i18n.isSupervisedBy + " " + amlBodies + ".</p>"%}
+{% set checkBoxText = "<p>" + i18n.confirmationStatement1 + " " + (acspName | escape) + " " + i18n.confirmationStatement2 + " " + displayedFirstName + displayedLastName + i18n.confirmationStatement3 + " " + formattedDate + "." + 
+    "</p><br><p>" + i18n.Mae + (acspName | escape) + " " + i18n.isSupervisedBy + " " + amlBodies + ".</p>"%}
 
 {% include "partials/user_name.njk" %}
 <h1 class="govuk-heading-l">{{ i18n.confirmVerificationHeading }}</h1>
