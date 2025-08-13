@@ -1,5 +1,5 @@
 import { HelmetOptions } from "helmet";
-import { CDN_HOST, PIWIK_URL, PIWIK_CHS_DOMAIN, CHS_URL } from "../utils/properties";
+import { CDN_HOST, PIWIK_URL, PIWIK_CHS_DOMAIN, CHS_URL, ENV_SUBDOMAIN } from "../utils/properties";
 
 const SELF = `'self'`;
 const ONE_YEAR_SECONDS = 31536000;
@@ -57,9 +57,14 @@ export const prepareCSPConfigHomePage = (nonce: string) : HelmetOptions => {
 };
 
 const formActionDirective = (ishomepage: boolean) => {
-    const ALL_CHS_URLS = "*";
+
     if (ishomepage) {
-        return [ALL_CHS_URLS];
+        return [
+            ENV_SUBDOMAIN,
+            SELF,
+            PIWIK_CHS_DOMAIN,
+            CHS_URL
+        ];
     } else {
         return [SELF, PIWIK_CHS_DOMAIN, CHS_URL];
     }

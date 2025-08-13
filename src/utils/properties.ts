@@ -30,6 +30,8 @@ export const CDN_URL_JS = getEnvironmentValue("CDN_URL_JS", "false");
 
 export const POSTCODE_ADDRESSES_LOOKUP_URL = getEnvironmentVariable("POSTCODE_ADDRESSES_LOOKUP_URL", "false");
 
+export const ENV_SUBDOMAIN = getEnvironmentVariable("ENV_SUBDOMAIN", "false");
+
 // Misc Config
 
 export const LOCALES_ENABLED = getEnvironmentVariable("LOCALES_ENABLED", "true");
