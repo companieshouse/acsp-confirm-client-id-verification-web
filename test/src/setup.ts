@@ -11,3 +11,15 @@ process.env.COOKIE_SECRET = "Xy6onkjQWF0TkRn0hfdqUw==";
 process.env.COOKIE_DOMAIN = "cookie domain";
 process.env.CACHE_SERVER = "test";
 process.env.CDN_URL_CSS = "//d3miau0r8stw5u.cloudfront.net/stylesheets/services/acsp";
+
+jest.setTimeout(10000);
+process.setMaxListeners(50);
+afterEach(() => {
+    process.removeAllListeners("uncaughtException");
+    jest.clearAllMocks();
+});
+afterAll(() => {
+    if (global.gc) {
+        global.gc();
+    }
+});
