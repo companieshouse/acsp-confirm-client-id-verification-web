@@ -63,3 +63,7 @@ export const PIWIK_SITE_ID = getEnvironmentValue("PIWIK_SITE_ID", "1");
 export const PIWIK_EMBED = getEnvironmentValue("PIWIK_EMBED", "1");
 
 export const PIWIK_START_GOAL_ID = getEnvironmentValue("PIWIK_START_GOAL_ID", "15");
+
+// Feature Flags
+
+export const FEATURE_FLAG_ENABLE_REVERIFY_SOMEONES_IDENTITY = getEnvironmentValue("FEATURE_FLAG_REVERIFY_SOMEONES_IDENTITY", "true");

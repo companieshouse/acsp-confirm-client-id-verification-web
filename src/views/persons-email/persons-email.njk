@@ -59,7 +59,7 @@
 
 <!-- Calling Matomo event script to capture event actions based on page title -->
     <script nonce={{ nonce | dump | safe }}>
-        _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - " + "{{i18n.matomoPageTitle}}"]);
+        _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - " + "{{ i18n[tabTitleKey]}}"]);
         $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
         function analyticsWithCustomisedMatomoText(){
         var eventCategory = `{{ i18n.whatIs + i18n.emailAddress}}`;

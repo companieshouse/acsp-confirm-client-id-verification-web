@@ -15,7 +15,7 @@ import {
     PIWIK_SITE_ID,
     ANY_PROTOCOL_CDN_HOST
 } from "./utils/properties";
-import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT, MUST_BE_AUTHORISED_AGENT } from "./types/pageURL";
+import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT, MUST_BE_AUTHORISED_AGENT, REVERIFY_BASE_URL } from "./types/pageURL";
 import { commonTemplateVariablesMiddleware } from "./middleware/common_variables_middleware";
 import { getLocalesService, selectLang } from "./utils/localise";
 import { ErrorService } from "./services/errorService";
@@ -28,6 +28,8 @@ import { csrfProtectionMiddleware } from "./middleware/csrf_protection_middlewar
 import errorHandler from "./controllers/commonErrorController";
 import { acspIsActiveMiddleware } from "./middleware/acsp_is_active_middleware";
 import { userIsPartOfAcspMiddleware } from "./middleware/user_is_part_of_acsp_middleware";
+import { verifyVariablesMiddleware } from "./middleware/verify_variables_middleware";
+import { reverifyVariablesMiddleware } from "./middleware/reverify-someones-identity/reverify_variables_middleware";
 const app = express();
 
 const nonce: string = uuidv4();
@@ -85,6 +87,10 @@ app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}$|${BASE_URL}${MUST_BE_AUTHORISED_AGENT}))*`, acspAuthMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}$|${BASE_URL}${MUST_BE_AUTHORISED_AGENT}))*`, acspIsActiveMiddleware);
 app.use(commonTemplateVariablesMiddleware);
+app.use(BASE_URL, verifyVariablesMiddleware);
+
+// Reverify someones identity middlewares
+app.use(REVERIFY_BASE_URL, reverifyVariablesMiddleware);
 
 // Channel all requests through router dispatch
 routerDispatch(app);

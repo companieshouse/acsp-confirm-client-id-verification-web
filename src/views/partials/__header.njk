@@ -2,8 +2,8 @@
 
 {{ govukHeader({
     homepageUrl: "https://www.gov.uk/",
-    serviceName: "Tell Companies House you have verified someone’s identity",
-    serviceUrl: serviceUrl or "/tell-companies-house-you-have-verified-someones-identity",
+    serviceName: serviceName,
+    serviceUrl: serviceUrl,
     serviceUrlAttributes: {
       id: "service-url-link"
     },
@@ -17,8 +17,8 @@
         beta
       </strong>
       <span class="govuk-phase-banner__text">
-          This is a new service – your <a class="govuk-link" target="_blank" href="https://www.smartsurvey.co.uk/s/tell-ch-verified-someones-id-feedback/">feedback(opens in a new tab)</a> will help us to improve it.
-        </span>
+          This is a new service – your <a class="govuk-link" target="_blank" href="{{ feedbackLink }}">feedback(opens in a new tab)</a> will help us to improve it.
+      </span>
     </p>
   </div>
 </div>

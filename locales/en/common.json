@@ -8,6 +8,7 @@
     "AcceptAndContinue": "Accept and Continue",
     "warning": "Warning",
     "companiesHouseDoesNotVerify": "Companies House does not verify the accuracy of the information filed",
-    "matomoPageTitle": " Tell Companies House you have verified someone’s identity - GOV.UK",
+    "CommonTabTitleVerify": "Tell Companies House you have verified someone’s identity - GOV.UK",
+    "CommonTabTitleReverify": "Reverify someone's identity for Companies House - GOV.UK",
     "opensInANewTab": "opens in a new tab"
 }

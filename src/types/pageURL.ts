@@ -63,3 +63,12 @@ export const CANNOT_USE_SERVICE_WHILE_SUSPENDED = "/cannot-use-service-while-sus
 export const MUST_BE_AUTHORISED_AGENT = "/must-be-authorised-agent";
 
 export const REGISTER_AS_COMPANIES_HOUSE_AUTHORISED_AGENT = "/register-as-companies-house-authorised-agent";
+
+export const VERIFY_FEEDBACK_LINK = "https://www.smartsurvey.co.uk/s/tell-ch-verified-someones-id-feedback/";
+
+// reverify someones identity for companies house urls
+export const REVERIFY_BASE_URL = "/reverify-someones-identity-for-companies-house";
+
+export const REVERIFY_FEEDBACK_LINK = "#"; // TO BE UPDATED: FEEDBACK LINK FOR COMMON FEEDBACK BANNER
+
+export const REVERIFY_PERSONAL_CODE = "/what-is-their-personal-code";

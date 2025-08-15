@@ -33,3 +33,7 @@ export const CRYPTOGRAPHIC_SECURITY_FEATURES = "cryptographic_security_features_
 export const PHYSICAL_SECURITY_FEATURES = "physical_security_features_checked";
 
 export const DATA_SUBMITTED_AND_EMAIL_SENT = "dataSubmittedAndEmailSent";
+
+// service names
+export const VERIFY_SERVICE_NAME = "Tell Companies House you have verified someone's identity";
+export const REVERIFY_SERVICE_NAME = "Reverify someone's identity for Companies House";
