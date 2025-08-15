@@ -15,7 +15,7 @@ export const prepareCSPConfig = (nonce: string) : HelmetOptions => {
                 imgSrc: [CDN_HOST],
                 styleSrc: [NONCE, CDN_HOST],
                 connectSrc: [SELF, PIWIK_URL, CHS_URL],
-                formAction: formActionDirective(false),
+                formAction: formActionDirectiveDefault(),
                 scriptSrc: [NONCE, CDN_HOST, PIWIK_URL],
                 objectSrc: [`'none'`]
             }
@@ -41,7 +41,7 @@ export const prepareCSPConfigHomePage = (nonce: string) : HelmetOptions => {
                 imgSrc: [CDN_HOST],
                 styleSrc: [NONCE, CDN_HOST],
                 connectSrc: [SELF, PIWIK_URL, CHS_URL],
-                formAction: formActionDirective(true),
+                formAction: formActionDirectiveHomePage(),
                 scriptSrc: [NONCE, CDN_HOST, PIWIK_URL],
                 objectSrc: [`'none'`]
             }
@@ -56,16 +56,15 @@ export const prepareCSPConfigHomePage = (nonce: string) : HelmetOptions => {
     };
 };
 
-const formActionDirective = (ishomepage: boolean) => {
+const formActionDirectiveHomePage = () => {
+    return [
+        ENV_SUBDOMAIN,
+        SELF,
+        PIWIK_CHS_DOMAIN,
+        CHS_URL
+    ];
+};
 
-    if (ishomepage) {
-        return [
-            ENV_SUBDOMAIN,
-            SELF,
-            PIWIK_CHS_DOMAIN,
-            CHS_URL
-        ];
-    } else {
-        return [SELF, PIWIK_CHS_DOMAIN, CHS_URL];
-    }
+const formActionDirectiveDefault = () => {
+    return [SELF, PIWIK_CHS_DOMAIN, CHS_URL];
 };
