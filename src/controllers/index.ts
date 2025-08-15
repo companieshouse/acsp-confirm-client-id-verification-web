@@ -24,3 +24,6 @@ export * as useNameOnPublicRegisterController from "./useNameOnPublicRegisterCon
 export * as personsPublicRegisterNameController from "./personsPublicRegisterNameController";
 export * as cannotUseServiceWhileSuspendedController from "././cannotUseServiceWhileSuspendedController";
 export * as mustBeAnAuthorisedAgentController from "././mustBeAuthorisedAgentController";
+
+// reverify someones identity for companies house
+export * as reverifySomeonesIdentityController from "./reverify-someones-identity/indexController";

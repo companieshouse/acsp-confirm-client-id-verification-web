@@ -4,7 +4,7 @@ jest.mock("@companieshouse/web-security-node");
 
 import { acspManageUsersAuthMiddleware, AuthOptions } from "@companieshouse/web-security-node";
 import { Request, Response } from "express";
-import { BASE_URL, PERSONS_NAME } from "../../../src/types/pageURL";
+import { BASE_URL, PERSONS_NAME, REVERIFY_BASE_URL } from "../../../src/types/pageURL";
 import * as sessionUtils from "../../../src/utils/session";
 import { acspAuthMiddleware } from "../../../src/middleware/acsp_authentication_middleware";
 
@@ -17,21 +17,44 @@ mockAuthMiddleware.mockReturnValue(mockAuthReturnedFunction);
 
 const getLoggedInAcspNumberSpy: jest.SpyInstance = jest.spyOn(sessionUtils, "getLoggedInAcspNumber");
 
-const req: Request = {} as Request;
 const res: Response = {} as Response;
 const next = jest.fn();
 
-const expectedAuthMiddlewareConfig: AuthOptions = {
-    chsWebUrl: "http://chs.local",
-    returnUrl: BASE_URL,
-    acspNumber: "ABC123"
-};
-
 describe("acsp authentication middleware tests", () => {
-    it("should call CH authentication library", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
         getLoggedInAcspNumberSpy.mockReturnValue("ABC123");
+    });
+
+    it("should call CH authentication library with BASE_URL for verify service", () => {
+        const req: Request = {
+            originalUrl: BASE_URL + PERSONS_NAME
+        } as Request;
+
+        const expectedConfig: AuthOptions = {
+            chsWebUrl: "http://chs.local",
+            returnUrl: BASE_URL,
+            acspNumber: "ABC123"
+        };
+
         acspAuthMiddleware(req, res, next);
-        expect(mockAuthMiddleware).toHaveBeenCalledWith(expectedAuthMiddlewareConfig);
+        expect(mockAuthMiddleware).toHaveBeenCalledWith(expectedConfig);
+        expect(mockAuthReturnedFunction).toHaveBeenCalledWith(req, res, next);
+    });
+
+    it("should call CH authentication library with REVERIFY_BASE_URL for reverify service", () => {
+        const req: Request = {
+            originalUrl: REVERIFY_BASE_URL + "/test-path"
+        } as Request;
+
+        const expectedConfig: AuthOptions = {
+            chsWebUrl: "http://chs.local",
+            returnUrl: REVERIFY_BASE_URL,
+            acspNumber: "ABC123"
+        };
+
+        acspAuthMiddleware(req, res, next);
+        expect(mockAuthMiddleware).toHaveBeenCalledWith(expectedConfig);
         expect(mockAuthReturnedFunction).toHaveBeenCalledWith(req, res, next);
     });
 });

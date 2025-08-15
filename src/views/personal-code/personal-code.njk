@@ -38,7 +38,7 @@
         })}}
     </form>
     <script nonce={{ nonce | dump | safe }}>
-        _paq.push(["setDocumentTitle", "User's " + "{{i18n.codePageTitle}}" + " - " + "{{i18n.matomoPageTitle}}"]);
+        _paq.push(["setDocumentTitle", "User's " + "{{i18n.codePageTitle}}" + " - " + "{{ i18n[tabTitleKey]}}"]);
         $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
 
         function analyticsWithCustomisedMatomoText(){
