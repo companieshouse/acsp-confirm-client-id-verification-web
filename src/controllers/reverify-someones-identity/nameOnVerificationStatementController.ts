@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import * as config from "../../config";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
-import { USE_NAME_ON_PUBLIC_REGISTER, CHECK_YOUR_ANSWERS, REVERIFY_BASE_URL, REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, REVERIFY_DATE_OF_BIRTH, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_USE_NAME_ON_PUBLIC_REGISTER } from "../../types/pageURL";
+import { REVERIFY_BASE_URL, REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, REVERIFY_DATE_OF_BIRTH, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_SHOW_ON_PUBLIC_REGISTER } from "../../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
 import { saveDataInSession } from "../../utils/sessionHelper";
 import { ClientData } from "../../model/ClientData";
@@ -25,9 +25,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const previousPageUrl = getPreviousPageUrl(req, REVERIFY_BASE_URL);
         saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
 
-        const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + CHECK_YOUR_ANSWERS, lang)
-            ? addLangToUrl(REVERIFY_BASE_URL + CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(REVERIFY_BASE_URL + USE_NAME_ON_PUBLIC_REGISTER, lang);
+        const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER, lang);
 
         res.render(config.NAME_ON_VERIFICATION_STATEMENT, {
             previousPage: previousPage,
@@ -51,7 +51,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
         const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
             ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_USE_NAME_ON_PUBLIC_REGISTER, lang);
+            : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER, lang);
 
         if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
