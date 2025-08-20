@@ -29,6 +29,15 @@ describe("GET" + REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, () => {
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
+
+    it("should return status 200 when accessing page directly from check your answers URL", async () => {
+        const res = await router
+            .get(REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER)
+            .set("Referer", REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS + "?lang=en");
+        expect(res.status).toBe(200);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+    });
 });
 
 describe("POST" + REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, () => {

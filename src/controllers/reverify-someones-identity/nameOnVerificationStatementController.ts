@@ -15,7 +15,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+        const clientData: ClientData = session.getExtraData(USER_DATA)!;
         const payload = {
             "first-name": clientData.preferredFirstName,
             "middle-names": clientData.preferredMiddleName,
@@ -29,7 +29,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
             : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER, lang);
 
-        res.render(config.NAME_ON_VERIFICATION_STATEMENT, {
+        res.render(config.PERSONS_NAME_ON_PUBLIC_REGISTER, {
             previousPage: previousPage,
             ...getLocaleInfo(locales, lang),
             currentUrl: REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER,
@@ -56,7 +56,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
 
-            res.status(400).render(config.NAME_ON_VERIFICATION_STATEMENT, {
+            res.status(400).render(config.PERSONS_NAME_ON_PUBLIC_REGISTER, {
                 ...getLocaleInfo(locales, lang),
                 previousPage,
                 currentUrl: REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER,
