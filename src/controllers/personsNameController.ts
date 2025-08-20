@@ -8,7 +8,8 @@ import { USER_DATA, PREVIOUS_PAGE_URL } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { ClientData } from "../model/ClientData";
-import { getPreviousPageUrl } from "../services/url";
+import { getPreviousPageUrl, UrlData, getRedirectUrl } from "../services/url";
+import { PersonsNameService } from "../services/personsNameService";
 
 export const get = (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -62,22 +63,16 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
                 ...pageProperties
             });
         } else {
-            const session: Session = req.session as any as Session;
-            const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+            const personsNameService = new PersonsNameService();
+            personsNameService.savePersonsNameData(req);
 
-            clientData.firstName = req.body["first-name"];
-            clientData.middleName = req.body["middle-names"];
-            clientData.lastName = req.body["last-name"];
-
-            saveDataInSession(req, USER_DATA, clientData);
-
-            const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
-
-            if (previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)) {
-                res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
-            } else {
-                res.redirect(addLangToUrl(BASE_URL + USE_NAME_ON_PUBLIC_REGISTER, lang));
-            }
+            const serviceConfig: UrlData = {
+                baseUrl: BASE_URL,
+                checkYourAnswersUrl: CHECK_YOUR_ANSWERS,
+                nextPageUrl: USE_NAME_ON_PUBLIC_REGISTER
+            };
+            const redirectUrl = getRedirectUrl(req, serviceConfig);
+            res.redirect(redirectUrl);
         }
     } catch (error) {
         next(error);
