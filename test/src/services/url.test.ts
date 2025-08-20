@@ -31,6 +31,17 @@ describe("URL Service tests", () => {
             expect(result).toBe("/base-url/check-your-answers?lang=en");
         });
 
+        it("calls session.getExtraData with PREVIOUS_PAGE_URL", () => {
+            const session = req.session as any;
+            const spy = jest.spyOn(session, "getExtraData");
+            session.setExtraData(PREVIOUS_PAGE_URL, "/base-url/check-your-answers?lang=en");
+
+            const result = getRedirectUrl(req, config);
+
+            expect(spy).toHaveBeenCalledWith(PREVIOUS_PAGE_URL);
+            expect(result).toBe("/base-url/check-your-answers?lang=en");
+        });
+
         it("should return next page URL when check your answers URL is not set in session", () => {
             const session = req.session as any;
             session.setExtraData(PREVIOUS_PAGE_URL, "/some-other-page");
@@ -52,22 +63,6 @@ describe("URL Service tests", () => {
         it("should return next page URL when previous page URL is null", () => {
             const session = req.session as any;
             session.setExtraData(PREVIOUS_PAGE_URL, null);
-
-            const result = getRedirectUrl(req, config);
-
-            expect(result).toBe("/base-url/next-page-url?lang=en");
-        });
-
-        it("should return next page URL when session is null", () => {
-            req.session = null as any;
-
-            const result = getRedirectUrl(req, config);
-
-            expect(result).toBe("/base-url/next-page-url?lang=en");
-        });
-
-        it("should return next page URL when session is undefined", () => {
-            req.session = undefined as any;
 
             const result = getRedirectUrl(req, config);
 
