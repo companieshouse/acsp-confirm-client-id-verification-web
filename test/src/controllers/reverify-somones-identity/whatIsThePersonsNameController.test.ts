@@ -6,7 +6,6 @@ import { PREVIOUS_PAGE_URL, USER_DATA } from "../../../../src/utils/constants";
 import { sessionMiddleware } from "../../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
 import { Request, Response, NextFunction } from "express";
-import { session } from "../../../mocks/session_middleware_mock";
 import * as localise from "../../../../src/utils/localise";
 
 const router = supertest(app);
@@ -52,11 +51,27 @@ describe("GET" + REVERIFY_PERSONS_NAME, () => {
         expect(res.status).toBe(200);
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
     });
+
+    it("should return status 200 when accessing page directly from check your answers URL", async () => {
+        const res = await router
+            .get(REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME)
+            .set("Referer", REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS + "?lang=en");
+        expect(res.status).toBe(200);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+    });
 });
 
 describe("POST" + REVERIFY_PERSONS_NAME, () => {
     it("should return status 302 after redirect to /what-we-show-on-the-public-register", async () => {
+        customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+        const session = getSessionRequestWithPermission();
         session.setExtraData(PREVIOUS_PAGE_URL, "/reverify-someones-identity-for-companies-house?lang=en");
+        customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+            req.session = session;
+            next();
+        });
+
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME)
             .send({
                 "first-name": "John",
@@ -64,7 +79,6 @@ describe("POST" + REVERIFY_PERSONS_NAME, () => {
                 "last-name": "Doe"
             });
         expect(res.status).toBe(302);
-        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER + "?lang=en");
     });
