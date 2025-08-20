@@ -73,7 +73,9 @@ export const REVERIFY_FEEDBACK_LINK = "#"; // TO BE UPDATED: FEEDBACK LINK FOR C
 
 export const REVERIFY_PERSONAL_CODE = "/what-is-their-personal-code";
 
-export const REVERIFY_USE_NAME_ON_PUBLIC_REGISTER = "/what-we-show-on-the-public-register";
+export const REVERIFY_PERSONS_NAME = "/what-is-the-persons-name";
+
+export const REVERIFY_SHOW_ON_PUBLIC_REGISTER = "/what-we-show-on-the-public-register";
 
 export const REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER = "/name-for-the-identity-verification-statement";
 
