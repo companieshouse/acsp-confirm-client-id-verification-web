@@ -11,6 +11,7 @@ export const CEASED = "ceased";
 export const VERIFY_SERVICE_LINK = "verify-service-link";
 export const SERVICE_URL_LINK = "service-url-link";
 export const AUTHORISED_AGENT_ACCOUNT_LINK = "authorised-agent-account-link";
+export const REQ_TYPE_REVERIFY:string = "reverify";
 // Matomo
 export const MATOMO_LINK_CLICK = "Click link";
 

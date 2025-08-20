@@ -27,3 +27,4 @@ export * as mustBeAnAuthorisedAgentController from "././mustBeAuthorisedAgentCon
 
 // reverify someones identity for companies house
 export * as reverifySomeonesIdentityController from "./reverify-someones-identity/indexController";
+export * as nameOnVerificationStatementController from "./reverify-someones-identity/nameOnVerificationStatementController";

@@ -39,3 +39,4 @@ export const MUST_BE_AUTHORISED_AGENT = `${BASE_VIEWS_URL}/must-be-authorised-ag
 const BASE_REVERIFY_URL = `${BASE_VIEWS_URL}/reverify-someones-identity`;
 
 export const REVERIFY_HOME = `${BASE_REVERIFY_URL}/index/home`;
+export const NAME_ON_VERIFICATION_STATEMENT = `${BASE_VIEWS_URL}/name-public-register/name-public-register`;
