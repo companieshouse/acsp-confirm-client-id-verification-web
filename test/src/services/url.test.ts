@@ -57,5 +57,21 @@ describe("URL Service tests", () => {
 
             expect(result).toBe("/base-url/next-page-url?lang=en");
         });
+
+        it("should return next page URL when session is null", () => {
+            req.session = null as any;
+
+            const result = getRedirectUrl(req, config);
+
+            expect(result).toBe("/base-url/next-page-url?lang=en");
+        });
+
+        it("should return next page URL when session is undefined", () => {
+            req.session = undefined as any;
+
+            const result = getRedirectUrl(req, config);
+
+            expect(result).toBe("/base-url/next-page-url?lang=en");
+        });
     });
 });
