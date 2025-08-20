@@ -5,7 +5,7 @@ import { ClientData } from "../model/ClientData";
 import { saveDataInSession } from "../utils/sessionHelper";
 
 export class PersonsNameService {
-    public savePersonsNameData (req: Request): void {
+    public static savePersonsNameData (req: Request): void {
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 

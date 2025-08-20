@@ -6,11 +6,7 @@ import { ClientData } from "../../../src/model/ClientData";
 
 describe("PersonsNameService tests", () => {
     let req: Request;
-    let nameService: PersonsNameService;
-
     beforeEach(() => {
-        nameService = new PersonsNameService();
-
         const session = getSessionRequestWithPermission();
         req = {
             body: {
@@ -24,7 +20,7 @@ describe("PersonsNameService tests", () => {
 
     describe("savePersonsNameData", () => {
         it("should save person name data to existing session data", () => {
-            nameService.savePersonsNameData(req);
+            PersonsNameService.savePersonsNameData(req);
 
             const clientData = req.session!.getExtraData(USER_DATA) as ClientData;
             expect(clientData.firstName).toBe("John");
@@ -36,7 +32,7 @@ describe("PersonsNameService tests", () => {
             const session = req.session as any;
             session.setExtraData(USER_DATA, undefined);
 
-            nameService.savePersonsNameData(req);
+            PersonsNameService.savePersonsNameData(req);
 
             const clientData = session.getExtraData(USER_DATA) as ClientData;
             expect(clientData.firstName).toBe("John");

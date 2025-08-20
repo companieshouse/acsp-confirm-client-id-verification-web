@@ -2,7 +2,7 @@ import mocks from "../../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../../src/app";
 import { REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_PERSONS_NAME, REVERIFY_SHOW_ON_PUBLIC_REGISTER } from "../../../../src/types/pageURL";
-import { PREVIOUS_PAGE_URL } from "../../../../src/utils/constants";
+import { PREVIOUS_PAGE_URL, USER_DATA } from "../../../../src/utils/constants";
 import { sessionMiddleware } from "../../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
 import { Request, Response, NextFunction } from "express";
@@ -29,6 +29,28 @@ describe("GET" + REVERIFY_PERSONS_NAME, () => {
         const res = await router.get(REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME);
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
+
+    it("should return status 200 when accessing page from check your answers", async () => {
+        createMockSessionMiddleware();
+        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME);
+        expect(res.status).toBe(200);
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+    });
+
+    it("should return status 200 when no user data exists in session", async () => {
+        customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+        const session = getSessionRequestWithPermission();
+
+        session.setExtraData(USER_DATA, undefined);
+        customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+            req.session = session;
+            next();
+        });
+
+        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME);
+        expect(res.status).toBe(200);
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
     });
 });
 

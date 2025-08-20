@@ -58,9 +58,7 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
                 ...pageProperties
             });
         } else {
-            const personsNameService = new PersonsNameService();
-            personsNameService.savePersonsNameData(req);
-
+            PersonsNameService.savePersonsNameData(req);
             const serviceConfig: UrlData = {
                 baseUrl: REVERIFY_BASE_URL,
                 checkYourAnswersUrl: REVERIFY_CHECK_YOUR_ANSWERS,

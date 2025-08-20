@@ -63,9 +63,7 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
                 ...pageProperties
             });
         } else {
-            const personsNameService = new PersonsNameService();
-            personsNameService.savePersonsNameData(req);
-
+            PersonsNameService.savePersonsNameData(req);
             const serviceConfig: UrlData = {
                 baseUrl: BASE_URL,
                 checkYourAnswersUrl: CHECK_YOUR_ANSWERS,
