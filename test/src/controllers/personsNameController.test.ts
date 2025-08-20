@@ -13,6 +13,10 @@ const router = supertest(app);
 
 let customMockSessionMiddleware: any;
 
+beforeEach(() => {
+    jest.clearAllMocks();
+});
+
 describe("GET" + PERSONS_NAME, () => {
     it("should return status 200", async () => {
         const res = await router.get(BASE_URL + PERSONS_NAME);

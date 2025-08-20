@@ -72,3 +72,9 @@ export const REVERIFY_BASE_URL = "/reverify-someones-identity-for-companies-hous
 export const REVERIFY_FEEDBACK_LINK = "#"; // TO BE UPDATED: FEEDBACK LINK FOR COMMON FEEDBACK BANNER
 
 export const REVERIFY_PERSONAL_CODE = "/what-is-their-personal-code";
+
+export const REVERIFY_PERSONS_NAME = "/what-is-the-persons-name";
+
+export const REVERIFY_SHOW_ON_PUBLIC_REGISTER = "/what-we-show-on-the-public-register";
+
+export const REVERIFY_CHECK_YOUR_ANSWERS = "/check-your-answers";
