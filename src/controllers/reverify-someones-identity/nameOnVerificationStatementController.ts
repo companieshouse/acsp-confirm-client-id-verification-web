@@ -15,7 +15,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const clientData: ClientData = session.getExtraData(USER_DATA)!;
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
         const payload = {
             "first-name": clientData.preferredFirstName,
             "middle-names": clientData.preferredMiddleName,
