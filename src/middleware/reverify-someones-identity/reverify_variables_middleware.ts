@@ -1,6 +1,6 @@
 import { Handler } from "express";
 import { REVERIFY_BASE_URL, REVERIFY_FEEDBACK_LINK } from "../../types/pageURL";
-import { REVERIFY_SERVICE_NAME } from "../../utils/constants";
+import { REQ_TYPE_REVERIFY, REVERIFY_SERVICE_NAME } from "../../utils/constants";
 
 /**
  * Populates variables for use in templates that are used on multiple pages.
@@ -17,6 +17,7 @@ export const reverifyVariablesMiddleware: Handler = (req, res, next) => {
     res.locals.serviceUrl = REVERIFY_BASE_URL;
     res.locals.feedbackLink = REVERIFY_FEEDBACK_LINK;
     res.locals.tabTitleKey = "CommonTabTitleReverify";
+    res.locals.reqType = REQ_TYPE_REVERIFY;
 
     next();
 };

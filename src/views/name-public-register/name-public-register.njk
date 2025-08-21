@@ -8,9 +8,11 @@
         {% include "partials/csrf_token.njk" %}
         <div class="govuk-form-group">
             <h1 class="govuk-heading-l">{{ i18n.namePublicRegisterTitle }}</h1>
-            <div id="event-name-hint" class="govuk-hint">
-                {{ i18n.namePublicRegisterHint }}
-            </div>
+            {% if reqType !== "reverify" %}
+                <div id="event-name-hint" class="govuk-hint">
+                    {{ i18n.namePublicRegisterHint }}
+                </div>
+            {% endif %}
 
             {{ govukInput({
                 label: {
