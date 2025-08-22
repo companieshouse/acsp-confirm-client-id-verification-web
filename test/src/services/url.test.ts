@@ -102,5 +102,16 @@ describe("URL Service tests", () => {
 
             expect(result).toBe("/base-url/next-page-url?lang=en");
         });
+
+        it("should handle undefined session gracefully", () => {
+            const reqWithUndefinedSession = {
+                query: { lang: "en" },
+                session: undefined
+            } as any as Request;
+
+            const result = getRedirectUrl(reqWithUndefinedSession, config);
+
+            expect(result).toBe("/base-url/next-page-url?lang=en");
+        });
     });
 });
