@@ -207,4 +207,11 @@ export class FormatService {
         });
         return documentHintText;
     }
+
+    public static getFormattedFullName (firstName?: string, middleName?: string, lastName?: string): string {
+        return [firstName, middleName, lastName]
+            .filter(name => name && name.trim().length > 0)
+            .map(name => name!.trim())
+            .join(" ");
+    }
 }

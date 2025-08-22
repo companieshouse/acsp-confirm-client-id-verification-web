@@ -35,6 +35,10 @@ export const PHYSICAL_SECURITY_FEATURES = "physical_security_features_checked";
 
 export const DATA_SUBMITTED_AND_EMAIL_SENT = "dataSubmittedAndEmailSent";
 
+// Use name on public register radio options
+export const USE_NAME_ON_PUBLIC_REGISTER_YES = "use_name_on_public_register_yes";
+export const USE_NAME_ON_PUBLIC_REGISTER_NO = "use_name_on_public_register_no";
+
 // service names
 export const VERIFY_SERVICE_NAME = "Tell Companies House you have verified someone's identity";
 export const REVERIFY_SERVICE_NAME = "Reverify someone's identity for Companies House";
