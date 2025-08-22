@@ -3,12 +3,13 @@ import { REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_PERSONS_NAME, 
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../../utils/localise";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
-import { PREVIOUS_PAGE_URL, USER_DATA } from "../../utils/constants";
+import { PREVIOUS_PAGE_URL, USER_DATA, USE_NAME_ON_PUBLIC_REGISTER_NO, USE_NAME_ON_PUBLIC_REGISTER_YES } from "../../utils/constants";
 import * as config from "../../config";
 import { saveDataInSession } from "../../utils/sessionHelper";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
 import { getPreviousPageUrl, getRedirectUrl, UrlData } from "../../services/url";
+import { FormatService } from "../../services/formatService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -18,9 +19,11 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER;
         const selectedOption = clientData.useNameOnPublicRegister;
 
-        const personFullName = [clientData.firstName, clientData.middleName, clientData.lastName]
-            .filter(name => name && name.trim().length > 0)
-            .join(" ");
+        const personFullName = FormatService.getFormattedFullName(
+            clientData.firstName,
+            clientData.middleName,
+            clientData.lastName
+        );
 
         const previousPageUrl = getPreviousPageUrl(req, REVERIFY_BASE_URL);
         saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
@@ -51,9 +54,11 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER;
         const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
 
-        const personFullName = [clientData.firstName, clientData.middleName, clientData.lastName]
-            .filter(name => name && name.trim().length > 0)
-            .join(" ");
+        const personFullName = FormatService.getFormattedFullName(
+            clientData.firstName,
+            clientData.middleName,
+            clientData.lastName
+        );
 
         const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
             ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
@@ -75,7 +80,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             clientData.useNameOnPublicRegister = selectedOption;
 
             // Clearing previous preferred name session values when switching answer to yes and coming from Check your answers page
-            if (selectedOption === "use_name_on_public_register_yes" && previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)) {
+            if (selectedOption === USE_NAME_ON_PUBLIC_REGISTER_YES && previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)) {
                 clientData.preferredFirstName = "";
                 clientData.preferredMiddleName = "";
                 clientData.preferredLastName = "";
@@ -90,7 +95,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 optionalNextPageUrl: REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER
             };
 
-            const useOptionalNextPageUrl = selectedOption === "use_name_on_public_register_no";
+            const useOptionalNextPageUrl = selectedOption === USE_NAME_ON_PUBLIC_REGISTER_NO;
             const redirectUrl = getRedirectUrl(req, serviceConfig, useOptionalNextPageUrl);
             res.redirect(redirectUrl);
         }

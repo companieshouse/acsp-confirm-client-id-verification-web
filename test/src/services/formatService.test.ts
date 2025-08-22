@@ -77,4 +77,26 @@ describe("Format Service tests", () => {
             expect(hintText).toStrictEqual(["Photo Immigration Doc Hint", "Photo Visa Hint"]);
         });
     });
+
+    describe("getFormattedFullName", () => {
+        test("should format first, middle and last names", () => {
+            const result = FormatService.getFormattedFullName("John", "Peter", "Smith");
+            expect(result).toBe("John Peter Smith");
+        });
+
+        test("should format name with first and last name only", () => {
+            const result = FormatService.getFormattedFullName("John", undefined, "Smith");
+            expect(result).toBe("John Smith");
+        });
+
+        test("should format name with first and last name (whitespace middle name)", () => {
+            const result = FormatService.getFormattedFullName("John", "   ", "Smith");
+            expect(result).toBe("John Smith");
+        });
+
+        test("should handle names with extra whitespace", () => {
+            const result = FormatService.getFormattedFullName("  John  ", "  Peter  ", "  Smith  ");
+            expect(result).toBe("John Peter Smith");
+        });
+    });
 });
