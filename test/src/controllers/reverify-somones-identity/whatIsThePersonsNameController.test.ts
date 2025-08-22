@@ -225,7 +225,7 @@ describe("POST" + REVERIFY_PERSONS_NAME, () => {
 function createMockSessionMiddleware () {
     customMockSessionMiddleware = sessionMiddleware as jest.Mock;
     const session = getSessionRequestWithPermission();
-    session.setExtraData(PREVIOUS_PAGE_URL, "/reverify-someones-identity-for-companies-house/check-your-answers?lang=en");
+    session.setExtraData(PREVIOUS_PAGE_URL, REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS + "?lang=en");
     customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
         req.session = session;
         next();

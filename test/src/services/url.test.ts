@@ -17,7 +17,8 @@ describe("URL Service tests", () => {
         config = {
             baseUrl: "/base-url",
             checkYourAnswersUrl: "/check-your-answers",
-            nextPageUrl: "/next-page-url"
+            nextPageUrl: "/next-page-url",
+            optionalNextPageUrl: "/optional-next-page-url"
         };
     });
 
@@ -65,6 +66,39 @@ describe("URL Service tests", () => {
             session.setExtraData(PREVIOUS_PAGE_URL, null);
 
             const result = getRedirectUrl(req, config);
+
+            expect(result).toBe("/base-url/next-page-url?lang=en");
+        });
+
+        it("should return optional next page URL when useOptionalNextPage is true and optionalNextPageUrl is provided", () => {
+            const session = req.session as any;
+            session.setExtraData(PREVIOUS_PAGE_URL, "/some-other-page");
+
+            const result = getRedirectUrl(req, config, true);
+
+            expect(result).toBe("/base-url/optional-next-page-url?lang=en");
+        });
+
+        it("should return default next page URL when useOptionalNextPage is false", () => {
+            const session = req.session as any;
+            session.setExtraData(PREVIOUS_PAGE_URL, "/some-other-page");
+
+            const result = getRedirectUrl(req, config, false);
+
+            expect(result).toBe("/base-url/next-page-url?lang=en");
+        });
+
+        it("should return default next page URL when useOptionalNextPage is true and optionalNextPageUrl is not provided", () => {
+            const session = req.session as any;
+            session.setExtraData(PREVIOUS_PAGE_URL, "/some-other-page");
+
+            const configWithoutOptional = {
+                baseUrl: "/base-url",
+                checkYourAnswersUrl: "/check-your-answers",
+                nextPageUrl: "/next-page-url"
+            };
+
+            const result = getRedirectUrl(req, configWithoutOptional, true);
 
             expect(result).toBe("/base-url/next-page-url?lang=en");
         });
