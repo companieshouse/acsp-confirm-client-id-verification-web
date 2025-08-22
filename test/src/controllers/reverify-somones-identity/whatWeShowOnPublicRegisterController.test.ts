@@ -75,6 +75,20 @@ describe("POST" + REVERIFY_SHOW_ON_PUBLIC_REGISTER, () => {
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
+
+    it("should show technical difficulties screen if session is undefined", async () => {
+        const undefinedSessionMockMiddleware = sessionMiddleware as jest.Mock;
+        undefinedSessionMockMiddleware.mockImplementationOnce((req: Request, res: Response, next: NextFunction) => {
+            req.session = undefined;
+            next();
+        });
+
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER)
+            .send({ useNameOnPublicRegisterRadio: "use_name_on_public_register_yes" });
+
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
 });
 
 function createMockSessionMiddleware () {
