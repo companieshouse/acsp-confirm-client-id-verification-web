@@ -7,6 +7,7 @@ import {
     getLocalesService,
     selectLang
 } from "../../utils/localise";
+import { PIWIK_REVERIFY_START_GOAL_ID } from "../../utils/properties";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     const lang = selectLang(req.query.lang);
@@ -14,7 +15,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
     res.render(config.REVERIFY_HOME, {
         ...getLocaleInfo(locales, lang),
-        currentUrl: REVERIFY_BASE_URL
+        currentUrl: REVERIFY_BASE_URL,
+        PIWIK_REVERIFY_START_GOAL_ID
     });
 };
 
