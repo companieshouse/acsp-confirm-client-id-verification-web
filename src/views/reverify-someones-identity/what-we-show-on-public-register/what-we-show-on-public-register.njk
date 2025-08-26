@@ -2,26 +2,31 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
-
 {% set errors = pageProperties.errors %}
 {% extends "layouts/default.njk" %}
-{% set title = i18n.useNameOnPublicRegisterTitle  %}
+{% set title = i18n.whatWellShowOnRegisterTitle  %}
 
 {% block main_content %}
   <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
     {% include "partials/csrf_token.njk" %}
-    {% include "partials/user_name.njk" %}
+    <span class="govuk-caption-l name-header">{{ personFullName }}</span>
     <div class="govuk-form-group">
-        <h1 class="govuk-heading-l">{{ i18n.useNameOnPublicRegisterTitle }}</h1>
-        <div class="govuk-hint govuk-!-margin-bottom-6">
-            {{ i18n.selectNoOptionExplanation }}
-        </div>
+        <h1 class="govuk-heading-l">{{ i18n.whatWellShowOnRegisterTitle }}</h1>
+        <p class="govuk-body">{{ i18n.laterInThisServiceWellAskYou }}</p>
+        <p class="govuk-body">{{ i18n.ifTheyConnectTheirVerifiedIdentity }}</p>
+        <p class="govuk-body">{{ i18n.ifNameIsUsuallyKnownByADifferentName | replace('{FULL_NAME}', personFullName) }}</p>
         {{ govukRadios({
             errorMessage: errors.useNameOnPublicRegisterRadio if errors,
-            classes: "govuk-radios",
-            id: "use-name-on-public-register-radios",
             name: "useNameOnPublicRegisterRadio",
+            id: "use-name-on-public-register-radios",
             value: selectedOption,
+            fieldset: {
+                legend: {
+                text: i18n.canWeUseNameForReverification | replace('{FULL_NAME}', personFullName),
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--m"
+                }
+            },
             items: [
                 {
                     value: "use_name_on_public_register_yes",
@@ -36,23 +41,9 @@
             ]
         }) }}
     </div>
-
-        <details class="govuk-details">
-            <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                  {{i18n.detailsHeading}}
-                </span>
-            </summary>
-            <div class="govuk-details__text">
-             <p class="govuk-body">{{i18n.detailsText1}}</p>
-             <p>{{i18n.detailsText2}}</p>
-            </div>
-        </details>
-
-        {{ govukButton({
-            text: i18n.Continue,
-            id: "continue-button"
-        }) }}
+    {{ govukButton({
+        text: i18n.Continue,
+        id: "continue-button"
+    }) }}
   </form>
-
 {% endblock main_content %}

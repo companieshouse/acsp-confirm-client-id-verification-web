@@ -1,0 +1,7 @@
+{
+    "whatWellShowOnRegisterTitle" : "What we'll show on the public register",
+    "laterInThisServiceWellAskYou" : "Later in this service, we'll ask you to confirm a statement to say you are satisfied this person is who they claim to be.",
+    "ifTheyConnectTheirVerifiedIdentity" : "If they connect their verified identity to their Companies House record as a director or person with significant control (PSC), we'll show the statement on the public register to confirm they are verified. The statement will include their name.",
+    "ifNameIsUsuallyKnownByADifferentName" : "If {FULL_NAME} is usually known by a different name, you can provide this to use for the statement instead. You may want to do this if, for example, they use a different name professionally.",
+    "canWeUseNameForReverification" : "Can we use {FULL_NAME} for the reverification statement?"
+}

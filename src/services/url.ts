@@ -8,6 +8,7 @@ export interface UrlData {
     baseUrl: string;
     checkYourAnswersUrl: string;
     nextPageUrl: string;
+    optionalNextPageUrl?: string;
 }
 
 export function getPreviousPageUrl (req: Request, basePath: string) {
@@ -26,14 +27,22 @@ export function getPreviousPageUrl (req: Request, basePath: string) {
     return relativePreviousPageUrl;
 }
 
-// Determines whether the user is accessing the page through check your answers screen by comparing against URL stored in session
-export function getRedirectUrl (req: Request, config: UrlData): string {
+/**
+ * Determines the appropriate redirect URL based on the user's previous page and includes optional routing logic
+ * Returns: check your answers URL if coming from CYA, optional next page URL if specified, or the default next page URL
+ * @param req - Request object containing session data
+ * @param config - UrlData interface containing required redirect Urls (baseUrl/checkYourAnswersUrl/nextPageUrl) and optional redirect Url (optionalNextPageUrl)
+ * @param useOptionalNextPage - Optional boolean value to use the optionalNextPageUrl instead of the default next page if there are more than 2 routes
+ */
+export function getRedirectUrl (req: Request, config: UrlData, useOptionalNextPage?: boolean): string {
     const lang = selectLang(req.query.lang);
     const session: Session = req.session as any as Session;
     const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
 
     if (previousPageUrl === addLangToUrl(config.baseUrl + config.checkYourAnswersUrl, lang)) {
         return addLangToUrl(config.baseUrl + config.checkYourAnswersUrl, lang);
+    } else if (useOptionalNextPage && config.optionalNextPageUrl) {
+        return addLangToUrl(config.baseUrl + config.optionalNextPageUrl, lang);
     } else {
         return addLangToUrl(config.baseUrl + config.nextPageUrl, lang);
     }
