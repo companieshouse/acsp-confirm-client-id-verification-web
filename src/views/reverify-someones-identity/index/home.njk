@@ -83,13 +83,12 @@
         </p>
     </form>
 
-        <script nonce={{ nonce | dump | safe }}> 
-    
+    <script nonce={{ nonce | dump | safe }}> 
         // Matomo tracking code to track event goal on click of start now button
         function startNowEventListener () {
             document.getElementById("start-now").addEventListener("click", () => {
-            _paq.push(['trackGoal', "{{ PIWIK_REVERIFY_START_GOAL_ID }}"]);
-        });
+                _paq.push(['trackGoal', "{{ PIWIK_REVERIFY_START_GOAL_ID }}"]);
+            });
         }
 
         if (document.readyState === "loading") {
