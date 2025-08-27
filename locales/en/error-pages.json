@@ -4,6 +4,7 @@
     "pageNotFoundText2": "If you pasted the web address, check you copied the entire address.",
     "pageNotFoundText3": "If the web address is correct or you selected a link, the page may have moved. Go to the ",
     "pageNotFoundLink": "Tell Companies House you have verified someone’s identity start page",
+    "reverifyPageNotFoundLink": "Reverify someone's identity for Companies House start page",
 
     "technicalDifficuliesTitle": "Sorry we are experiencing technical difficulties",
     "technicalDifficuliesText1": "Try again in a few moments.",
