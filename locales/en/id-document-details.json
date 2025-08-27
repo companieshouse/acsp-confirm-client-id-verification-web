@@ -17,7 +17,7 @@
     "biometricCardHint": "This is 9 characters long. For example, ZU1234567.",
     "frontierPermitHint": "This is 9 characters long.",
     "passCardHint": "This needs to be a unique reference or number that is shown on the document.",
-    "ukEuDigitalCardHint": "This is 16 characters long.",
+    "ukEuDigitalCardHint": "This will have between 8 and 16 characters, depending on the country of issue.",
     "ukForceCardHint": "This needs to be a unique reference or number that is shown on the document.",
     "ukArmedForceCardHint": "This will have between 6 and 8 characters.",
     "photoWorkPermitHint": "This needs to be a unique reference or number that is shown on the document.",
