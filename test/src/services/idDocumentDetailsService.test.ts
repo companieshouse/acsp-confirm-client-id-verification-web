@@ -94,15 +94,23 @@ describe("IdDocumentDetailsService tests", () => {
         req = createRequest({});
         const session = getSessionRequestWithPermission();
         req.session = session;
+        // First ID document details - Photographic ID listed on PRADO (Optional expiry date and Country of issue)
         req.body.documentNumber_1 = "123456789";
         req.body.expiryDateDay_1 = undefined;
         req.body.expiryDateMonth_1 = undefined;
         req.body.expiryDateYear_1 = undefined;
         req.body.countryInput_1 = undefined;
+        // Second ID document details - UK or EU driver digital tachograph card (optional Country of issue)
+        req.body.documentNumber_2 = "123456789";
+        req.body.expiryDateDay_2 = "28";
+        req.body.expiryDateMonth_2 = "2";
+        req.body.expiryDateYear_2 = "2025";
+        req.body.countryInput_2 = undefined;
 
-        const formattedDocs = ["Photographic ID listed on PRADO"];
+        const formattedDocs = ["Photographic ID listed on PRADO", "UK or EU driver digital tachograph card"];
 
         service.saveIdDocumentDetails(req, {}, formattedDocs);
+        const date = new Date(2025, 1, 28);
 
         expect(session.getExtraData(USER_DATA)).toEqual({
             idDocumentDetails: [{
@@ -111,6 +119,13 @@ describe("IdDocumentDetailsService tests", () => {
                 expiryDate: undefined,
                 countryOfIssue: "",
                 formattedExpiryDate: ""
+            },
+            {
+                docName: "UK or EU driver digital tachograph card",
+                documentNumber: "123456789",
+                expiryDate: date,
+                countryOfIssue: "",
+                formattedExpiryDate: "28 February 2025"
             }]
         });
     });
@@ -206,6 +221,7 @@ describe("errorListDisplay for PRADO", () => {
         }
     );
 });
+
 describe("IdDocumentDetailsService - physical_security_features_checked", () => {
     const idDocumentDetailsService = new IdDocumentDetailsService();
 
