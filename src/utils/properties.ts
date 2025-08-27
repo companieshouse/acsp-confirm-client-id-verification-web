@@ -64,6 +64,8 @@ export const PIWIK_EMBED = getEnvironmentValue("PIWIK_EMBED", "1");
 
 export const PIWIK_START_GOAL_ID = getEnvironmentValue("PIWIK_START_GOAL_ID", "15");
 
+export const PIWIK_REVERIFY_START_GOAL_ID = getEnvironmentValue("PIWIK_REVERIFY_START_GOAL_ID", "12");
+
 // Feature Flags
 
 export const FEATURE_FLAG_ENABLE_REVERIFY_SOMEONES_IDENTITY = getEnvironmentValue("FEATURE_FLAG_REVERIFY_SOMEONES_IDENTITY", "true");
