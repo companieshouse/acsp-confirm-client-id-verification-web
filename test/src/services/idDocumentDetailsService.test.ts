@@ -222,6 +222,19 @@ describe("errorListDisplay for PRADO", () => {
     );
 });
 
+describe("errorListDisplay for UK or EU digital tachograph card", () => {
+    const service = new IdDocumentDetailsService();
+
+    it("should not return an error array for noCountry error (as it is an optional field) for UK or EU digital tachograph card", () => {
+        const errors = [{ msg: "noCountry", param: "countryInput_1" }];
+        const documentsChecked = ["UK or EU driver digital tachograph card"];
+        const whenIdDocsChecked = new Date(2025, 2, 28);
+        const howIdDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
+        const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked, howIdDocsChecked);
+        expect(actual.length).toBe(0);
+    });
+});
+
 describe("IdDocumentDetailsService - physical_security_features_checked", () => {
     const idDocumentDetailsService = new IdDocumentDetailsService();
 
