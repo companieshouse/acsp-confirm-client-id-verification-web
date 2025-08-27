@@ -17,7 +17,7 @@
     "biometricCardHint": "Mae hyn yn 9 nod o hyd. Er enghraifft, ZU1234567.",
     "frontierPermitHint": "Mae hyn yn 9 nod o hyd.",
     "passCardHint": "Mae angen i hyn fod yn gyfeirnod unigryw neu rif a ddangosir ar y ddogfen.",
-    "ukEuDigitalCardHint": "Mae hyn yn 16 nod o hyd.",
+    "ukEuDigitalCardHint": "Bydd gan hyn rhwng 8 a 16 nod, yn dibynnu ar y wlad o gyhoeddiad.",
     "ukForceCardHint": "Mae angen i hyn fod yn gyfeirnod unigryw neu rif a ddangosir ar y ddogfen.",
     "ukArmedForceCardHint": "Bydd hyn yn cynnwys rhwng 6 a 8 o nodau.",
     "photoWorkPermitHint": "Mae angen i hyn fod yn gyfeirnod unigryw neu rif a ddangosir ar y ddogfen.",

@@ -94,15 +94,23 @@ describe("IdDocumentDetailsService tests", () => {
         req = createRequest({});
         const session = getSessionRequestWithPermission();
         req.session = session;
+        // First ID document details - Photographic ID listed on PRADO (Optional expiry date and Country of issue)
         req.body.documentNumber_1 = "123456789";
         req.body.expiryDateDay_1 = undefined;
         req.body.expiryDateMonth_1 = undefined;
         req.body.expiryDateYear_1 = undefined;
         req.body.countryInput_1 = undefined;
+        // Second ID document details - UK or EU driver digital tachograph card (optional Country of issue)
+        req.body.documentNumber_2 = "123456789";
+        req.body.expiryDateDay_2 = "28";
+        req.body.expiryDateMonth_2 = "2";
+        req.body.expiryDateYear_2 = "2025";
+        req.body.countryInput_2 = undefined;
 
-        const formattedDocs = ["Photographic ID listed on PRADO"];
+        const formattedDocs = ["Photographic ID listed on PRADO", "UK or EU driver digital tachograph card"];
 
         service.saveIdDocumentDetails(req, {}, formattedDocs);
+        const date = new Date(2025, 1, 28);
 
         expect(session.getExtraData(USER_DATA)).toEqual({
             idDocumentDetails: [{
@@ -111,6 +119,13 @@ describe("IdDocumentDetailsService tests", () => {
                 expiryDate: undefined,
                 countryOfIssue: "",
                 formattedExpiryDate: ""
+            },
+            {
+                docName: "UK or EU driver digital tachograph card",
+                documentNumber: "123456789",
+                expiryDate: date,
+                countryOfIssue: "",
+                formattedExpiryDate: "28 February 2025"
             }]
         });
     });
@@ -206,6 +221,20 @@ describe("errorListDisplay for PRADO", () => {
         }
     );
 });
+
+describe("errorListDisplay for UK or EU digital tachograph card", () => {
+    const service = new IdDocumentDetailsService();
+
+    it("should not return an error array for noCountry error (as it is an optional field) for UK or EU digital tachograph card", () => {
+        const errors = [{ msg: "noCountry", param: "countryInput_1" }];
+        const documentsChecked = ["UK or EU driver digital tachograph card"];
+        const whenIdDocsChecked = new Date(2025, 2, 28);
+        const howIdDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
+        const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked, howIdDocsChecked);
+        expect(actual.length).toBe(0);
+    });
+});
+
 describe("IdDocumentDetailsService - physical_security_features_checked", () => {
     const idDocumentDetailsService = new IdDocumentDetailsService();
 

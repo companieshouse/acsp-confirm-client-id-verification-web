@@ -6,6 +6,7 @@
 {% set title = i18n.idDocumentDetailstitle %}
 
 {% set expiryDateOptionalDocs = [i18n.UK_PASS_card, i18n.UK_HM_veteran_card, i18n.PRADO_supported_photo_id, i18n.work_permit_photo_id] %}
+{% set countryOfIssueOptionalDocs = [i18n.UK_or_EU_digital_tachograph_card] %}
 {% set otherOptionalDocs = [i18n.PRADO_supported_photo_id, i18n.work_permit_photo_id] %}
 
 {% block main_content %}
@@ -47,7 +48,7 @@
           {% if errors["countryInput_" + index] %} govuk-form-group--error{% endif %}">
             <label class="govuk-label" for="countryInput_{{index}}">
               <span class="govuk-visually-hidden">{{ body }}</span>
-              {% if otherOptionalDocs.includes(body) %}
+              {% if countryOfIssueOptionalDocs.includes(body) or otherOptionalDocs.includes(body) %}
                 {{i18n.chooseCountryText}} {{i18n.optional}}
               {% else %}
                 {{i18n.chooseCountryText}} 

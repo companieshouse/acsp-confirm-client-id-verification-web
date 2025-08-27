@@ -71,7 +71,8 @@ const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText
     }
     if (((docName === i18n.UK_PASS_card || docName === i18n.UK_HM_veteran_card) && errorText === "noExpiryDate") ||
         ((docName === i18n.PRADO_supported_photo_id || docName === i18n.work_permit_photo_id) &&
-         (errorText === "noExpiryDate" || errorText === "noCountry" || errorText === "docNumberInput"))) {
+         (errorText === "noExpiryDate" || errorText === "noCountry" || errorText === "docNumberInput")) ||
+        (docName === i18n.UK_or_EU_digital_tachograph_card && errorText === "noCountry")) {
         return "";
     // replace date placeholder with formatted date if error is about invalid expirydate
     } else if (errorText === "dateAfterIdChecksDone" ||
