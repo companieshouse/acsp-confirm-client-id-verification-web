@@ -1,5 +1,13 @@
 {% extends "layouts/default.njk" %}
 
+{% if reqType == "reverify" %}
+  {% set serviceUrlLink = serviceUrl %}
+  {% set serviceNameBodyText = i18n.reverifyPageNotFoundLink %}
+{% else %}
+  {% set serviceUrlLink = serviceUrl %}
+  {% set serviceNameBodyText = i18n.pageNotFoundLink %}
+{% endif %}
+
 {% block backLink %}
   {# Remove back button on this page by replacing it with nothing #}
 {% endblock %}
@@ -11,6 +19,6 @@
   <p>{{ i18n.pageNotFoundText2 }}</p>
   <p>
       {{ i18n.pageNotFoundText3 }}
-      <a href="/tell-companies-house-you-have-verified-someones-identity">{{ i18n.pageNotFoundLink }}</a>.
+      <a href="{{ serviceUrlLink }}">{{ serviceNameBodyText }}</a>.
   </p>
 {% endblock %}	
