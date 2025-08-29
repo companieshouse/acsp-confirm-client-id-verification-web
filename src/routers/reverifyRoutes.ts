@@ -4,7 +4,8 @@ import {
     reverifySomeonesIdentityController,
     reverifyWhatIsThePersonsNameController,
     reverifyWhatWeShowOnPublicRegisterController,
-    nameOnVerificationStatementController
+    nameOnVerificationStatementController,
+    whatIsTheHomeAddress
 } from "../controllers";
 import { nameValidator } from "../validations/personName";
 import { useNameOnPublicRegisterValidator } from "../validations/useNameOnPublicRegister";
@@ -22,5 +23,8 @@ reverifyRoutes.post(urls.REVERIFY_SHOW_ON_PUBLIC_REGISTER, useNameOnPublicRegist
 
 reverifyRoutes.get(urls.REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, nameOnVerificationStatementController.get);
 reverifyRoutes.post(urls.REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, nameValidator, nameOnVerificationStatementController.post);
+
+reverifyRoutes.get(urls.REVERIFY_HOME_ADDRESS, whatIsTheHomeAddress.get);
+reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS, nameValidator, whatIsTheHomeAddress.post);
 
 export default reverifyRoutes;
