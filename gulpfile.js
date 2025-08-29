@@ -50,7 +50,7 @@ gulp.task("js", () => {
 // Copy the fonts and images from the govuk-frontend package to the public directory
 gulp.task("govuk-assets", () => {
     return gulp
-        .src(["./node_modules/govuk-frontend/govuk/assets/**/*"])
+        .src(["./node_modules/govuk-frontend/dist/govuk/assets/**/*"])
         .pipe(gulp.dest(dstDirAssets));
 });
 
