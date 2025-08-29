@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
+import { getGOVUKFrontendVersion } from "@companieshouse/ch-node-utils";
 import * as nunjucks from "nunjucks";
 import path from "path";
 import logger from "./utils/logger";
@@ -52,6 +53,8 @@ app.set("view engine", "njk");
 nunjucksEnv.addGlobal("cdnUrlCss", CDN_URL_CSS);
 nunjucksEnv.addGlobal("cdnUrlJs", CDN_URL_JS);
 nunjucksEnv.addGlobal("cdnHost", ANY_PROTOCOL_CDN_HOST);
+nunjucksEnv.addGlobal("govukFrontendVersion", getGOVUKFrontendVersion());
+nunjucksEnv.addGlobal("govukRebrand", true);
 nunjucksEnv.addGlobal("chsUrl", CHS_URL);
 nunjucksEnv.addGlobal("SERVICE_NAME", APPLICATION_NAME);
 
