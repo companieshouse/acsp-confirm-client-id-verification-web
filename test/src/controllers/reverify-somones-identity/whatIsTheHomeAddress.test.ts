@@ -1,7 +1,11 @@
+import { Request, Response, NextFunction } from "express";
 import mocks from "../../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../../src/app";
-import { REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, REVERIFY_BASE_URL, REVERIFY_CHOOSE_AN_ADDRESS, REVERIFY_CONFIRM_HOME_ADDRESS } from "../../../../src/types/pageURL";
+import { sessionMiddleware } from "../../../../src/middleware/session_middleware";
+import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
+import { REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, REVERIFY_BASE_URL, REVERIFY_CHOOSE_AN_ADDRESS, REVERIFY_CONFIRM_HOME_ADDRESS, REVERIFY_DATE_OF_BIRTH } from "../../../../src/types/pageURL";
+import { PREVIOUS_PAGE_URL, USER_DATA } from "../../../../src/utils/constants";
 import { getAddressFromPostcode } from "../../../../src/services/postcode-lookup-service";
 import { UKAddress } from "@companieshouse/api-sdk-node/dist/services/postcode-lookup/types";
 import * as localise from "../../../../src/utils/localise";
@@ -9,7 +13,7 @@ import * as localise from "../../../../src/utils/localise";
 jest.mock("../../../../src/services/postcode-lookup-service.ts");
 
 const router = supertest(app);
-
+let customMockSessionMiddleware: any;
 const mockResponseBodyOfUKAddress: UKAddress[] = [{
     premise: "2",
     addressLine1: "DUNCALF STREET",
@@ -20,6 +24,7 @@ const mockResponseBodyOfUKAddress: UKAddress[] = [{
 
 describe("GET" + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, () => {
     it("should return status 200", async () => {
+        createMockSessionMiddleware();
         const res = await router.get(REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS);
         expect(res.status).toBe(200);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
@@ -39,6 +44,7 @@ describe("GET" + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, () => {
 describe("POST" + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, () => {
 
     it("should redirect to address list with status 302 on successful form submission", async () => {
+        createMockSessionMiddleware();
         const formData = {
             postCode: "ST63LJ",
             premise: ""
@@ -121,3 +127,18 @@ describe("POST" + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, () => {
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
+
+function createMockSessionMiddleware () {
+    customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+    const session = getSessionRequestWithPermission();
+    session.setExtraData(USER_DATA, {
+        firstName: "John",
+        middleName: "",
+        lastName: "Doe"
+    });
+    session.setExtraData(PREVIOUS_PAGE_URL, REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH + "?lang=en");
+    customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+        req.session = session;
+        next();
+    });
+}
