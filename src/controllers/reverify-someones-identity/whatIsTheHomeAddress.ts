@@ -6,8 +6,7 @@ import {
     REVERIFY_DATE_OF_BIRTH,
     REVERIFY_BASE_URL,
     REVERIFY_CHECK_YOUR_ANSWERS,
-    HOME_ADDRESS_MANUAL,
-    BASE_URL,
+    REVERIFY_HOME_ADDRESS_MANUAL,
     REVERIFY_CONFIRM_HOME_ADDRESS,
     REVERIFY_CHOOSE_AN_ADDRESS
 } from "../../types/pageURL";
@@ -43,7 +42,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         res.render(config.HOME_ADDRESS, {
             ...getLocaleInfo(locales, lang),
             previousPage: previousPage,
-            AddressManualLink: addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang), /* TO DO */
+            AddressManualLink: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang), /* TO DO */
             currentUrl: REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS,
             matomoLinkClick: MATOMO_LINK_CLICK,
             payload,
@@ -60,7 +59,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const errorList = validationResult(req);
-        const AddressManualLink = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);/* TO DO */
+        const AddressManualLink = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang);/* TO DO */
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
         const currentUrl = REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS;
