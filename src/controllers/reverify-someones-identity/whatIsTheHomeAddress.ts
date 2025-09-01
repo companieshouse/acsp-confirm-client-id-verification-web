@@ -70,19 +70,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
             : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH, lang);
 
-        if (!errorList.isEmpty()) {
-            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-            res.status(400).render(config.HOME_ADDRESS, {
-                ...getLocaleInfo(locales, lang),
-                previousPage,
-                AddressManualLink,
-                currentUrl,
-                payload: req.body,
-                firstName: clientData?.firstName,
-                lastName: clientData?.lastName,
-                ...pageProperties
-            });
-        } else {
+        if (errorList.isEmpty()) {
             const postcode = req.body.postCode;
             const inputPremise = req.body.premise;
             const addressLookUpService = new AddressLookUpService();
@@ -108,6 +96,18 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                         lastName: clientData?.lastName
                     });
                 });
+        } else {
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+            res.status(400).render(config.HOME_ADDRESS, {
+                ...getLocaleInfo(locales, lang),
+                previousPage,
+                AddressManualLink,
+                currentUrl,
+                payload: req.body,
+                firstName: clientData?.firstName,
+                lastName: clientData?.lastName,
+                ...pageProperties
+            });
         }
     } catch (error) {
         next(error);

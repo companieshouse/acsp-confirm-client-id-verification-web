@@ -46,16 +46,7 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const errorList = validationResult(req);
-        if (errorList.isEmpty()) {
-            PersonsNameService.savePersonsNameData(req);
-            const serviceConfig: UrlData = {
-                baseUrl: REVERIFY_BASE_URL,
-                checkYourAnswersUrl: REVERIFY_CHECK_YOUR_ANSWERS,
-                nextPageUrl: REVERIFY_SHOW_ON_PUBLIC_REGISTER
-            };
-            const redirectUrl = getRedirectUrl(req, serviceConfig);
-            res.redirect(redirectUrl);
-        } else {
+        if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
             const previousPage = addLangToUrl(REVERIFY_BASE_URL, lang);
 
@@ -66,6 +57,15 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
                 payload: req.body,
                 ...pageProperties
             });
+        } else {
+            PersonsNameService.savePersonsNameData(req);
+            const serviceConfig: UrlData = {
+                baseUrl: REVERIFY_BASE_URL,
+                checkYourAnswersUrl: REVERIFY_CHECK_YOUR_ANSWERS,
+                nextPageUrl: REVERIFY_SHOW_ON_PUBLIC_REGISTER
+            };
+            const redirectUrl = getRedirectUrl(req, serviceConfig);
+            res.redirect(redirectUrl);
         }
     } catch (error) {
         next(error);
