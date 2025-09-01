@@ -2,16 +2,14 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../../config";
 import {
-    REVERIFY_HOME_ADDRESS,
+    REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS,
     REVERIFY_DATE_OF_BIRTH,
     REVERIFY_BASE_URL,
     REVERIFY_CHECK_YOUR_ANSWERS,
-    DATE_OF_BIRTH,
     HOME_ADDRESS_MANUAL,
     BASE_URL,
-    CHOOSE_AN_ADDRESS,
-    CONFIRM_HOME_ADDRESS,
-    CHECK_YOUR_ANSWERS
+    REVERIFY_CONFIRM_HOME_ADDRESS,
+    REVERIFY_CHOOSE_AN_ADDRESS
 } from "../../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
 import { getPreviousPageUrl } from "../../services/url";
@@ -35,18 +33,18 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             premise: clientData.address?.propertyDetails
         };
 
-        const previousPageUrl = getPreviousPageUrl(req, REVERIFY_DATE_OF_BIRTH);
+        const previousPageUrl = getPreviousPageUrl(req, REVERIFY_BASE_URL);
         saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
 
         const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
             ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(REVERIFY_BASE_URL, lang);
+            : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH, lang);
 
         res.render(config.HOME_ADDRESS, {
             ...getLocaleInfo(locales, lang),
             previousPage: previousPage,
             AddressManualLink: addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang), /* TO DO */
-            currentUrl: REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS,
+            currentUrl: REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS,
             matomoLinkClick: MATOMO_LINK_CLICK,
             payload,
             firstName: clientData.firstName,
@@ -65,11 +63,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const AddressManualLink = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);/* TO DO */
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-        const currentUrl = REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS;
+        const currentUrl = REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS;
+
         const previousPageUrl = getPreviousPageUrl(req, REVERIFY_DATE_OF_BIRTH);
+        saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
         const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
             ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(REVERIFY_BASE_URL, lang);
+            : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH, lang);
 
         if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
@@ -87,8 +87,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             const postcode = req.body.postCode;
             const inputPremise = req.body.premise;
             const addressLookUpService = new AddressLookUpService();
-            await addressLookUpService.getAddressFromPostcode(req, postcode, inputPremise, clientData,
-                CONFIRM_HOME_ADDRESS, CHOOSE_AN_ADDRESS).then(async (nextPageUrl) => {
+            await addressLookUpService.getReVerificationAddressFromPostcode(req, postcode, inputPremise, clientData,
+                REVERIFY_CONFIRM_HOME_ADDRESS, REVERIFY_CHOOSE_AN_ADDRESS).then(async (nextPageUrl) => { /* IDVA5-2272 */
                     res.redirect(nextPageUrl);
                 }).catch(() => {
                     const validationError: ValidationError[] = [{
