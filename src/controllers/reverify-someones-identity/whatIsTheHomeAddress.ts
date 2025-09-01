@@ -78,22 +78,23 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 REVERIFY_CONFIRM_HOME_ADDRESS, REVERIFY_CHOOSE_AN_ADDRESS).then(async (nextPageUrl) => { /* IDVA5-2272 */
                     res.redirect(nextPageUrl);
                 }).catch(() => {
-                    const validationError: ValidationError[] = [{
+                    const errorValidation: ValidationError[] = [{
                         value: postcode,
                         msg: "homeAddressNoPostcodeFound",
                         param: "postCode",
                         location: "body"
                     }];
-                    const pageProperties = getPageProperties(formatValidationError(validationError, lang));
+                    const pageProperties = getPageProperties(formatValidationError(errorValidation, lang));
                     res.status(400).render(config.HOME_ADDRESS, {
-                        previousPage,
-                        ...getLocaleInfo(locales, lang),
-                        currentUrl,
-                        ...pageProperties,
-                        payload: req.body,
                         AddressManualLink,
                         firstName: clientData?.firstName,
-                        lastName: clientData?.lastName
+                        lastName: clientData?.lastName,
+                        currentUrl,
+                        previousPage,
+                        payload: req.body,
+                        ...getLocaleInfo(locales, lang),
+                        ...pageProperties
+
                     });
                 });
         } else {
