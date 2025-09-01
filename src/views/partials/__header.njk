@@ -1,33 +1,10 @@
 {% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {{ govukHeader({
-    homepageUrl: "https://www.gov.uk/",
-    serviceName: serviceName,
-    serviceUrl: serviceUrl,
-    serviceUrlAttributes: {
-      id: "service-url-link"
-    },
-    useTudorCrown: true
-  })
-}}
-<div class="govuk-width-container">
-  <div class="govuk-phase-banner">
-    <p class="govuk-phase-banner__content">
-      <strong class="govuk-tag govuk-tag--blue govuk-phase-banner__content__tag">
-        beta
-      </strong>
-      <span class="govuk-phase-banner__text">
-          This is a new service – your <a class="govuk-link" target="_blank" href="{{ feedbackLink }}">feedback(opens in a new tab)</a> will help us to improve it.
-      </span>
-    </p>
-  </div>
-</div>
-{% if not hideCompaniesHouseDoesNotVerifyText %}
-{# This will allow us to conditionally set wether this text is hidden on specific pages (this is currenly only applicable to accessibility statement view, as we do not want this text to appear) #}
-<div class="govuk-width-container small-text does-not-verify-link-spacing">
-  <a class="govuk-link govuk-link--no-visited-state govuk-!-padding-top-2" href="https://resources.companieshouse.gov.uk/serviceInformation.shtml" target="_blank">
-      {{i18n.companiesHouseDoesNotVerify}}
-      <span class="govuk-visually-hidden">(link opens a new window)</span>
-  </a>
-</div>
-{% endif %}
+classes: "govuk-header--full-width-border"
+}) }}
+{{ govukServiceNavigation({
+serviceName: serviceName,
+serviceUrl: serviceUrl
+}) }}
