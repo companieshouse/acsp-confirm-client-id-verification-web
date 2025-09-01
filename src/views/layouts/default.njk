@@ -1,39 +1,69 @@
-<!DOCTYPE html>
-<!--[if lt IE 9]><html class="lte-ie8" lang="en"><![endif]-->
-<!--[(if gt IE 8) | (!IE)]><!-->
-<html lang="{{ lang }}" class="govuk-template"> <!--<![endif]-->
-  {% from "govuk/components/error-summary/macro.njk"       import govukErrorSummary %}
-  {% import "add-lang-to-url.njk" as lang2url %}
-  {% include "partials/__meta_header.njk" %}
-  <body class="govuk-template__body">
-    <script nonce={{ nonce | dump | safe }}>
-      document.body.className = (
-        (document.body.className)
-        ? document.body.className + ' js-enabled'
-        : 'js-enabled');
-    </script>
-    {% block bodyStart %}
-      {% include "partials/cookie_consent_banner.njk" %}
-    {% endblock %}
-    <a href="#main-page-content" class="govuk-skip-link">Skip to main content</a>
+{# Extends the Companies House Page Template: https://github.com/companieshouse/ch-node-utils/blob/2.0.0/docs/page-template.md #}
+{% extends "ch-node-utils/templates/layouts/template.njk" %}
+{% import "add-lang-to-url.njk" as lang2url %}
+{% from "govuk/components/skip-link/macro.njk" import govukSkipLink %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+
+
+{% set mainContentId = "main-page-content" %}
+
+{% set tabTitle = "" %}
+{% if errors %}
+    {% set tabTitle = i18n.error + ": " %}
+{% endif %}
+
+{% if title %}
+    {% set tabTitle = tabTitle + title + " - " %}
+{% endif %}
+
+{% set tabTitle = tabTitle + i18n[tabTitleKey] %}
+
+{% block pageTitle %}{{ tabTitle }}{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% include "partials/__meta_header.njk" %}
+{% endblock %}
+
+{% block header %}
+  <div class="govuk-header">
     {% include "partials/__header.njk" %}
-    <div class="govuk-width-container">
-      {% block navBar %}
-        {% include "partials/nav/top.njk" %}
-      {% endblock %}
-      {% block localesBanner %}
-        {% include "locales-banner.njk" %}
-      {% endblock %}
-      {% block backLink %}
-        <a href="{{ previousPage }}" class="govuk-back-link">{{i18n.Back}}</a>
-      {% endblock %}
-      <main class="govuk-main-wrapper " id="main-content">
-        <div class="govuk-grid-row">
-          {% include "partials/error_summary.njk" %}
-          <div class="govuk-grid-column-two-thirds" id="main-page-content">{% block main_content %}{% endblock %}</div>
-        </div>
-      </main>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% include "partials/cookie_consent_banner.njk" %}
+  {% block skipLink %}
+    {{ govukSkipLink({
+          text: "Skip to main content",
+          href: "#" + mainContentId
+    }) }}
+  {% endblock %}
+  {% block navBar %}
+    {% include "partials/nav/top.njk" %}
+  {% endblock %}
+  {% block localesBanner %}
+    {% include "locales-banner.njk" %}
+  {% endblock %}
+  {% block backLink %}
+    <a href="{{ previousPage }}" class="govuk-back-link">{{i18n.Back}}</a>
+  {% endblock %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
     </div>
-    {% include "partials/__footer.njk" %}
-  </body>
-</html>
+    <div class="govuk-grid-column-two-thirds" id="{{ mainContentId }}">
+      {% include "partials/error_summary.njk" %}
+      {% block main_content %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {% include "partials/__footer.njk" %}
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+  <script src="path/to/app.js"></script>
+{% endblock %}
