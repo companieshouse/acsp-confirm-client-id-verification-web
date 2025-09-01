@@ -1,7 +1,7 @@
 import mocks from "../../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../../src/app";
-import { BASE_URL, HOME_ADDRESS, CHOOSE_AN_ADDRESS, CONFIRM_HOME_ADDRESS } from "../../../../src/types/pageURL";
+import { BASE_URL, HOME_ADDRESS, CHOOSE_AN_ADDRESS, CONFIRM_HOME_ADDRESS, REVERIFY_HOME_ADDRESS, REVERIFY_BASE_URL } from "../../../../src/types/pageURL";
 import { getAddressFromPostcode } from "../../../../src/services/postcode-lookup-service";
 import { UKAddress } from "@companieshouse/api-sdk-node/dist/services/postcode-lookup/types";
 import * as localise from "../../../../src/utils/localise";
@@ -18,9 +18,9 @@ const mockResponseBodyOfUKAddress: UKAddress[] = [{
     country: "GB-ENG"
 }];
 
-describe("GET" + HOME_ADDRESS, () => {
+describe("GET" + REVERIFY_HOME_ADDRESS, () => {
     it("should return status 200", async () => {
-        const res = await router.get(BASE_URL + HOME_ADDRESS);
+        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS);
         expect(res.status).toBe(200);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
     });
@@ -30,13 +30,13 @@ describe("GET" + HOME_ADDRESS, () => {
         jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
         });
-        const res = await router.get(BASE_URL + HOME_ADDRESS);
+        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS);
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 });
 
-describe("POST" + HOME_ADDRESS, () => {
+describe("POST" + REVERIFY_HOME_ADDRESS, () => {
 
     it("should redirect to address list with status 302 on successful form submission", async () => {
         const formData = {

@@ -2,13 +2,12 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../../config";
 import {
- REVERIFY_HOME_ADDRESS,
+    REVERIFY_HOME_ADDRESS,
     REVERIFY_DATE_OF_BIRTH,
     REVERIFY_BASE_URL,
     REVERIFY_CHECK_YOUR_ANSWERS,
     DATE_OF_BIRTH,
     HOME_ADDRESS_MANUAL,
-    HOME_ADDRESS,
     BASE_URL,
     CHOOSE_AN_ADDRESS,
     CONFIRM_HOME_ADDRESS,
@@ -48,7 +47,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             previousPage: previousPage,
             AddressManualLink: addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang), /* TO DO */
             currentUrl: REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS,
-            matomoLinkClick: MATOMO_LINK_CLICK, /* TO DO */
+            matomoLinkClick: MATOMO_LINK_CLICK,
             payload,
             firstName: clientData.firstName,
             lastName: clientData.lastName
@@ -63,16 +62,14 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const errorList = validationResult(req);
-        const currentUrl = REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS;
         const AddressManualLink = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);/* TO DO */
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-
-        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
-
-        const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-            ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(BASE_URL + DATE_OF_BIRTH, lang);
+        const currentUrl = REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS;
+        const previousPageUrl = getPreviousPageUrl(req, REVERIFY_DATE_OF_BIRTH);
+        const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(REVERIFY_BASE_URL, lang);
 
         if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
