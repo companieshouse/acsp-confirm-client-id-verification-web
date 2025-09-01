@@ -1,8 +1,22 @@
 /* eslint-disable indent */
 import { NextFunction, Request, Response } from "express";
 import * as config from "../../config";
-import { DATE_OF_BIRTH, HOME_ADDRESS_MANUAL, HOME_ADDRESS, BASE_URL, CHOOSE_AN_ADDRESS, CONFIRM_HOME_ADDRESS, CHECK_YOUR_ANSWERS } from "../../types/pageURL";
+import {
+ REVERIFY_HOME_ADDRESS,
+    REVERIFY_DATE_OF_BIRTH,
+    REVERIFY_BASE_URL,
+    REVERIFY_CHECK_YOUR_ANSWERS,
+    DATE_OF_BIRTH,
+    HOME_ADDRESS_MANUAL,
+    HOME_ADDRESS,
+    BASE_URL,
+    CHOOSE_AN_ADDRESS,
+    CONFIRM_HOME_ADDRESS,
+    CHECK_YOUR_ANSWERS
+} from "../../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
+import { getPreviousPageUrl } from "../../services/url";
+import { saveDataInSession } from "../../utils/sessionHelper";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
 import { ValidationError, validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
@@ -22,18 +36,19 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             premise: clientData.address?.propertyDetails
         };
 
-        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
+        const previousPageUrl = getPreviousPageUrl(req, REVERIFY_DATE_OF_BIRTH);
+        saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
 
-        const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-            ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(BASE_URL + DATE_OF_BIRTH, lang);
+        const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(REVERIFY_BASE_URL, lang);
 
         res.render(config.HOME_ADDRESS, {
             ...getLocaleInfo(locales, lang),
             previousPage: previousPage,
-            AddressManualLink: addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang),
-            currentUrl: BASE_URL + HOME_ADDRESS,
-            matomoLinkClick: MATOMO_LINK_CLICK,
+            AddressManualLink: addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang), /* TO DO */
+            currentUrl: REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS,
+            matomoLinkClick: MATOMO_LINK_CLICK, /* TO DO */
             payload,
             firstName: clientData.firstName,
             lastName: clientData.lastName
@@ -48,8 +63,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const errorList = validationResult(req);
-        const currentUrl = BASE_URL + HOME_ADDRESS;
-        const AddressManualLink = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
+        const currentUrl = REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS;
+        const AddressManualLink = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);/* TO DO */
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
