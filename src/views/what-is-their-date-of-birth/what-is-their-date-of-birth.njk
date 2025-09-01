@@ -20,8 +20,12 @@
   <div>
     <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
       {% include "partials/csrf_token.njk" %}
-      {% include "partials/user_name.njk" %}
-      
+      {% if reqType !== "reverify" %}
+        {% include "partials/user_name.njk" %}
+      {% else %}
+        <span class="govuk-caption-l name-header">{{ personFullName }}</span>
+      {% endif %}
+
       <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">

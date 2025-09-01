@@ -4,10 +4,12 @@ import {
     reverifySomeonesIdentityController,
     reverifyWhatIsThePersonsNameController,
     reverifyWhatWeShowOnPublicRegisterController,
-    nameOnVerificationStatementController
+    nameOnVerificationStatementController,
+    reverifyDateOfBirthController
 } from "../controllers";
 import { nameValidator } from "../validations/personName";
 import { useNameOnPublicRegisterValidator } from "../validations/useNameOnPublicRegister";
+import { dateValidator } from "../validations/dateValidationCommon";
 
 const reverifyRoutes = Router();
 
@@ -22,5 +24,8 @@ reverifyRoutes.post(urls.REVERIFY_SHOW_ON_PUBLIC_REGISTER, useNameOnPublicRegist
 
 reverifyRoutes.get(urls.REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, nameOnVerificationStatementController.get);
 reverifyRoutes.post(urls.REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, nameValidator, nameOnVerificationStatementController.post);
+
+reverifyRoutes.get(urls.REVERIFY_DATE_OF_BIRTH, reverifyDateOfBirthController.get);
+reverifyRoutes.post(urls.REVERIFY_DATE_OF_BIRTH, dateValidator("dob"), reverifyDateOfBirthController.post);
 
 export default reverifyRoutes;
