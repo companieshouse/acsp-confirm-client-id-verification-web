@@ -12,7 +12,6 @@ const srcDirJs = "./assets/src/js";
 const srcDirCss = "./assets/src/scss";
 const dstDirJs = "./assets/public/js";
 const dstDirCss = "./assets/public/css";
-const dstDirAssets = "./assets/public";
 
 // Purge all before building
 gulp.task("clean", () => {
@@ -47,15 +46,8 @@ gulp.task("js", () => {
         .pipe(gulp.dest(dstDirJs));
 });
 
-// Copy the fonts and images from the govuk-frontend package to the public directory
-gulp.task("govuk-assets", () => {
-    return gulp
-        .src(["./node_modules/govuk-frontend/dist/govuk/assets/**/*"])
-        .pipe(gulp.dest(dstDirAssets));
-});
-
 // Binding all tasks together...
-gulp.task("build", gulp.series(["clean", "sass", "js", "govuk-assets"]));
+gulp.task("build", gulp.series(["clean", "sass", "js"]));
 
 // Watch for changes to JS and SASS files
 gulp.task("watch", gulp.series(() => {
