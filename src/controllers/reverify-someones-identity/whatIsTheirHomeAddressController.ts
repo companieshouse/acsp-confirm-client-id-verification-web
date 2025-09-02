@@ -18,7 +18,7 @@ import { ValidationError, validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
 import { AddressLookUpService } from "../../services/addressLookup";
-import { USER_DATA, MATOMO_LINK_CLICK, PREVIOUS_PAGE_URL } from "../../utils/constants";
+import { USER_DATA, PREVIOUS_PAGE_URL } from "../../utils/constants";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
