@@ -44,7 +44,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             previousPage: previousPage,
             AddressManualLink: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang), /* TO DO */
             currentUrl: REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS,
-            matomoLinkClick: MATOMO_LINK_CLICK,
             payload,
             firstName: clientData.firstName,
             lastName: clientData.lastName
