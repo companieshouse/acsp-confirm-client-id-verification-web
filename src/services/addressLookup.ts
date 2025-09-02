@@ -30,16 +30,13 @@ export class AddressLookUpService {
 
     public getReVerificationAddressFromPostcode (req: Request, postcode: string, inputPremise: string, clientData: ClientData, ...nexPageUrls: string[]) : Promise<string> {
         const lang = selectLang(req.query.lang);
-        console.log("RITZ IN ");
         return getAddressFromPostcode(postcode).then((ukAddresses) => {
             if (inputPremise !== "" && ukAddresses.find((address) => address.premise === inputPremise)) {
                 // save address data to session
                 clientData.address = this.getAddress(ukAddresses, inputPremise);
-                console.log("RITZ if: ", JSON.stringify(clientData.address));
                 saveDataInSession(req, USER_DATA, clientData);
                 return addLangToUrl(REVERIFY_BASE_URL + nexPageUrls[0], lang);
             } else {
-                console.log("RITZ else: ", JSON.stringify(clientData.address));
                 // save address list to session
                 this.saveAddressListToSession(req, ukAddresses);
                 return addLangToUrl(REVERIFY_BASE_URL + nexPageUrls[1], lang);
