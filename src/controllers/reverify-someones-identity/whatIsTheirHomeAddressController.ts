@@ -1,0 +1,115 @@
+/* eslint-disable indent */
+import { NextFunction, Request, Response } from "express";
+import * as config from "../../config";
+import {
+    REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS,
+    REVERIFY_DATE_OF_BIRTH,
+    REVERIFY_BASE_URL,
+    REVERIFY_CHECK_YOUR_ANSWERS,
+    REVERIFY_HOME_ADDRESS_MANUAL,
+    REVERIFY_CONFIRM_HOME_ADDRESS,
+    REVERIFY_CHOOSE_AN_ADDRESS
+} from "../../types/pageURL";
+import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
+import { getPreviousPageUrl } from "../../services/url";
+import { saveDataInSession } from "../../utils/sessionHelper";
+import { formatValidationError, getPageProperties } from "../../validations/validation";
+import { ValidationError, validationResult } from "express-validator";
+import { Session } from "@companieshouse/node-session-handler";
+import { ClientData } from "model/ClientData";
+import { AddressLookUpService } from "../../services/addressLookup";
+import { USER_DATA, PREVIOUS_PAGE_URL } from "../../utils/constants";
+
+export const get = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+
+        const payload = {
+            postCode: clientData.address?.postcode,
+            premise: clientData.address?.propertyDetails
+        };
+
+        const previousPageUrl = getPreviousPageUrl(req, REVERIFY_BASE_URL);
+        saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
+
+        const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH, lang);
+
+        res.render(config.HOME_ADDRESS, {
+            ...getLocaleInfo(locales, lang),
+            previousPage: previousPage,
+            AddressManualLink: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang), /* TO DO */
+            currentUrl: REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS,
+            payload,
+            firstName: clientData.firstName,
+            lastName: clientData.lastName
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const post = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const errorList = validationResult(req);
+        const AddressManualLink = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang);/* TO DO */
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
+        const currentUrl = REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS;
+
+        const previousPageUrl = getPreviousPageUrl(req, REVERIFY_DATE_OF_BIRTH);
+        saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
+        const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH, lang);
+
+        if (errorList.isEmpty()) {
+            const postcode = req.body.postCode;
+            const inputPremise = req.body.premise;
+            const addressLookUpService = new AddressLookUpService();
+            await addressLookUpService.getReVerificationAddressFromPostcode(req, postcode, inputPremise, clientData,
+                REVERIFY_CONFIRM_HOME_ADDRESS, REVERIFY_CHOOSE_AN_ADDRESS).then(async (nextPageUrl) => { /* IDVA5-2272 */
+                    res.redirect(nextPageUrl);
+                }).catch(() => {
+                    const errorValidation: ValidationError[] = [{
+                        value: postcode,
+                        msg: "homeAddressNoPostcodeFound",
+                        param: "postCode",
+                        location: "body"
+                    }];
+                    const pageProperties = getPageProperties(formatValidationError(errorValidation, lang));
+                    res.status(400).render(config.HOME_ADDRESS, {
+                        AddressManualLink,
+                        firstName: clientData?.firstName,
+                        lastName: clientData?.lastName,
+                        currentUrl,
+                        previousPage,
+                        payload: req.body,
+                        ...getLocaleInfo(locales, lang),
+                        ...pageProperties
+
+                    });
+                });
+        } else {
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+            res.status(400).render(config.HOME_ADDRESS, {
+                ...getLocaleInfo(locales, lang),
+                previousPage,
+                AddressManualLink,
+                currentUrl,
+                payload: req.body,
+                firstName: clientData?.firstName,
+                lastName: clientData?.lastName,
+                ...pageProperties
+            });
+        }
+    } catch (error) {
+        next(error);
+    }
+};

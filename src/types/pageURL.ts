@@ -83,4 +83,10 @@ export const REVERIFY_DATE_OF_BIRTH = "/what-is-their-date-of-birth";
 
 export const REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS = "/what-is-their-home-address";
 
+export const REVERIFY_CHOOSE_AN_ADDRESS = "/choose-an-address";
+
+export const REVERIFY_CONFIRM_HOME_ADDRESS = "/confirm-their-address";
+
+export const REVERIFY_HOME_ADDRESS_MANUAL = "/enter-their-home-address";
+
 export const REVERIFY_CHECK_YOUR_ANSWERS = "/check-your-answers";
