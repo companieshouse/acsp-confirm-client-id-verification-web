@@ -30,6 +30,15 @@ describe("GET" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
+
+    it("should return status 500 when an error occurs", async () => {
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error("Test error");
+        });
+        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
 });
 
 describe("POST" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
