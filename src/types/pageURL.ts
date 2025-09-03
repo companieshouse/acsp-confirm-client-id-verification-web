@@ -90,3 +90,5 @@ export const REVERIFY_CONFIRM_HOME_ADDRESS = "/confirm-their-address";
 export const REVERIFY_HOME_ADDRESS_MANUAL = "/enter-their-home-address";
 
 export const REVERIFY_CHECK_YOUR_ANSWERS = "/check-your-answers";
+
+export const REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED = "/identity-checks-completed";
