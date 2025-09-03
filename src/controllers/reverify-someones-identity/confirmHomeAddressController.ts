@@ -19,9 +19,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             editPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang),
             previousPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, lang),
             matomoLinkClick: MATOMO_LINK_CLICK,
-            firstName: clientData?.firstName,
-            lastName: clientData?.lastName,
-            address: clientData?.address
+            firstName: clientData.firstName,
+            lastName: clientData.lastName,
+            address: clientData.address
         });
     } catch (error) {
         next(error);
