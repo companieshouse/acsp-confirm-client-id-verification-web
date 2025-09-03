@@ -14,14 +14,14 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
         res.render(config.CONFIRM_HOME_ADDRESS, {
-            previousPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, lang),
-            editPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang),
             ...getLocaleInfo(locales, lang),
             currentUrl: REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS,
+            editPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang),
+            previousPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, lang),
             matomoLinkClick: MATOMO_LINK_CLICK,
-            address: clientData?.address,
             firstName: clientData?.firstName,
-            lastName: clientData?.lastName
+            lastName: clientData?.lastName,
+            address: clientData?.address
         });
     } catch (error) {
         next(error);
@@ -30,12 +30,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const session: Session = req.session as any as Session;
         const lang = selectLang(req.query.lang);
 
-        const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
-
-        if (checkYourAnswersFlag) {
+        if (req.session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG)) {
             res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang));
         } else {
             res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, lang));

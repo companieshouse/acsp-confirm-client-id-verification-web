@@ -14,15 +14,15 @@ const router = supertest(app);
 let customMockSessionMiddleware: any;
 
 describe("GET" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
-    it("should render the confirmation page with status 200 ans display the information on the screen", async () => {
+    it("should return confirm home address page with status 200", async () => {
         const res = await router.get(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
-        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(res.status).toBe(200);
         expect(res.text).toContain("Confirm their home address");
     });
 
-    it("should return status 500 if an error occurs", async () => {
+    it("should return status 500 when an error occurs", async () => {
         jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error("Test error");
         });
@@ -33,20 +33,20 @@ describe("GET" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
 });
 
 describe("POST" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
-    it("should return status 302 after redirect", async () => {
+    it("should return status 302 and redirect to 'identity-checks-completed' screen", async () => {
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED + "?lang=en");
     });
 
-    it("should return status 302 after redirect to Check Your Answers", async () => {
+    it("should return status 302 after redirect to 'check-your-answers' screen", async () => {
         createMockSessionMiddleware();
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS + "?lang=en");
     });
 
-    it("should return status 500 if an error occurs", async () => {
+    it("should return status 500 when an error occurs", async () => {
         jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
             throw new Error("Test error");
         });
