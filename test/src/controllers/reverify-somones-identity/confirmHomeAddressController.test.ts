@@ -20,6 +20,27 @@ describe("GET" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(res.status).toBe(200);
         expect(res.text).toContain("Confirm their home address");
+        expect(res.text).toContain("John");
+        expect(res.text).toContain("Doe");
+    });
+
+    it("should return 200 without first name and last name if session data not set", async () => {
+        const mockSessionData = {
+            getExtraData: jest.fn().mockReturnValue({
+                USER_DATA: {}
+            })
+        };
+        mocks.mockSessionMiddleware.mockImplementationOnce((req, res, next) => {
+            req.session = mockSessionData;
+            next();
+        });
+        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+        expect(res.status).toBe(200);
+        expect(res.text).toContain("Confirm their home address");
+        expect(res.text).not.toContain("John");
+        expect(res.text).not.toContain("Doe");
     });
 
     it("should return status 500 when an error occurs", async () => {
