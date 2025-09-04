@@ -63,6 +63,17 @@ describe("GET" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
 });
 
 describe("POST" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
+    it("should return status 302 and redirect to 'identity-checks-completed' screen when no session", async () => {
+        mocks.mockSessionMiddleware.mockImplementationOnce((req, res, next) => {
+            req.session = null;
+            next();
+        });
+
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
+        expect(res.status).toBe(302);
+        expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED + "?lang=en");
+    });
+
     it("should return status 302 and redirect to 'identity-checks-completed' screen", async () => {
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
         expect(res.status).toBe(302);
