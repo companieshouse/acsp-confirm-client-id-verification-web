@@ -4,8 +4,6 @@
 {% from "govuk/components/skip-link/macro.njk" import govukSkipLink %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
-
-
 {% set mainContentId = "main-page-content" %}
 
 {% set tabTitle = "" %}
@@ -22,25 +20,38 @@
 {% block pageTitle %}{{ tabTitle }}{% endblock %}
 
 {% block head %}
-{{ super() }}
-{% include "partials/__meta_header.njk" %}
+  {{ super() }}
+  {% include "partials/__meta_header.njk" %}
+{% endblock %}
+
+{% block skipLink %}
+  {{ govukSkipLink({
+    text: "Skip to main content",
+    href: "#" + mainContentId
+  }) }}
 {% endblock %}
 
 {% block header %}
-  <div class="govuk-header">
-    {% include "partials/__header.njk" %}
+  {% include "partials/__header.njk" %}
+  <div class="govuk-width-container">
+    {% include "partials/phase_banner.njk" %}
+    {% block navBar %}
+      {% include "partials/nav/top.njk" %}
+    {% endblock %}
+    {% block backLink %}
+      <a href="{{ previousPage }}" class="govuk-back-link">{{i18n.Back}}</a>
+    {% endblock %}
   </div>
+  {% block localesBanner %}
+    {% include "locales-banner.njk" %}
+  {% endblock %}
+{% endblock %}
+
+{% block bodyStart %}
+  {% include "partials/cookie_consent_banner.njk" %}
 {% endblock %}
 
 {% block content %}
-  {% include "partials/cookie_consent_banner.njk" %}
-  {% block skipLink %}
-    {{ govukSkipLink({
-          text: "Skip to main content",
-          href: "#" + mainContentId
-    }) }}
-  {% endblock %}
-  {% include "partials/phase_banner.njk" %}
   {% if not hideCompaniesHouseDoesNotVerifyText %}
   {# This will allow us to conditionally set wether this text is hidden on specific pages (this is currenly only applicable to accessibility statement view, as we do not want this text to appear) #}
   <div class="govuk-width-container small-text does-not-verify-link-spacing govuk-!-padding-top-2">
@@ -50,18 +61,8 @@
     </a>
   </div>
   {% endif %}
-  {% block navBar %}
-    {% include "partials/nav/top.njk" %}
-  {% endblock %}
-  {% block localesBanner %}
-    {% include "locales-banner.njk" %}
-  {% endblock %}
-  {% block backLink %}
-    <a href="{{ previousPage }}" class="govuk-back-link">{{i18n.Back}}</a>
-  {% endblock %}
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third">
-    </div>
+    <div class="govuk-grid-column-one-third"></div>
     <div class="govuk-grid-column-two-thirds" id="{{ mainContentId }}">
       {% include "partials/error_summary.njk" %}
       {% block main_content %}{% endblock %}
