@@ -1,0 +1,42 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "layouts/default.njk" %}
+{% set title = i18n.reVerifyCodePageTitle %}
+{% block main_content %}
+  <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
+    {% include "partials/csrf_token.njk" %}
+    {% include "partials/user_name.njk" %}
+    <h1 class="govuk-heading-l">
+      {{ i18n.reVerifyCodePageTitle }}
+    </h1>
+    {{ govukInput({
+      errorMessage: {
+        text: errors.personalCode.text
+      } if errors.personalCode | length,
+      hint: {
+        text: i18n.reVerifyCodePageHint
+      },
+      classes: "govuk-input--width-10",
+      id: "personalCode",
+      name: "personalCode",
+      value: payload.personalCode
+    }) }}
+    {{ govukButton({
+        text: i18n.Continue,
+        id: "continue-button"
+    }) }}
+    <details class="govuk-details">
+        <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">
+              {{i18n.reVerifyCodePageFAQ}}
+            </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p class="govuk-body">{{i18n.detailsText1}}</p>
+          <p>{{i18n.detailsText2}}</p>
+        </div>
+    </details>
+  </form>
+
+{% endblock %}

@@ -9,5 +9,10 @@
     "theyMay": "They may need to provide their personal code for various reasons, including:",
     "asPart": "as part of some company filings, such as the confirmation statement",
     "ifThey": "if they are appointed as a director",
-    "ifTheyBecome": "if they become a person with significant control (PSC)"
+    "ifTheyBecome": "if they become a person with significant control (PSC)",
+    "reVerifyCodePageTitle": "What is their personal code?",
+    "reVerifyCodePageHint": "There is an 11 character code, for example A1B-2H3D-4E5F",
+    "reVerifyCodePageFAQ": "Where they can find their personal code",
+    "error-noPersonalCode": "Enter their personal code",
+    "error-personalCodeInvalidFormat": "Enter a valid personal code"
 }
