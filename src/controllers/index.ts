@@ -32,3 +32,4 @@ export * as reverifyWhatWeShowOnPublicRegisterController from "./reverify-someon
 export * as nameOnVerificationStatementController from "./reverify-someones-identity/nameOnVerificationStatementController";
 export * as whatIsTheirHomeAddressController from "./reverify-someones-identity/whatIsTheirHomeAddressController";
 export * as reverifyDateOfBirthController from "./reverify-someones-identity/dateOfBirthController";
+export * as reverifyConfirmHomeAddressController from "./reverify-someones-identity/confirmHomeAddressController";
