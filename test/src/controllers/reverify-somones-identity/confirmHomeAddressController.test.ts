@@ -7,18 +7,24 @@ import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
 import { CHECK_YOUR_ANSWERS_FLAG } from "../../../../src/utils/constants";
 import { Request, Response, NextFunction } from "express";
 import * as localise from "../../../../src/utils/localise";
+import { post } from "../../../../src/controllers/reverify-someones-identity/confirmHomeAddressController";
 
-jest.mock("@companieshouse/api-sdk-node");
 const router = supertest(app);
 
 let customMockSessionMiddleware: any;
 
+const errorMessage = "Test error";
+
+beforeEach(() => {
+    jest.clearAllMocks();
+});
+
 describe("GET" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
     it("should return confirm home address page with status 200", async () => {
         const res = await router.get(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
+        expect(res.status).toBe(200);
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
-        expect(res.status).toBe(200);
         expect(res.text).toContain("Confirm their home address");
         expect(res.text).toContain("John");
         expect(res.text).toContain("Doe");
@@ -35,26 +41,17 @@ describe("GET" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
             next();
         });
         const res = await router.get(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
+        expect(res.status).toBe(200);
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
-        expect(res.status).toBe(200);
         expect(res.text).toContain("Confirm their home address");
         expect(res.text).not.toContain("John");
         expect(res.text).not.toContain("Doe");
     });
 
-    it("should return status 500 when an error occurs", async () => {
+    it("should show the error page if an error occurs", async () => {
         jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
-            throw new Error("Test error");
-        });
-        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
-        expect(res.status).toBe(500);
-        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
-    });
-
-    it("should return status 500 when an error occurs", async () => {
-        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
-            throw new Error("Test error");
+            throw new Error(errorMessage);
         });
         const res = await router.get(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
         expect(res.status).toBe(500);
@@ -87,13 +84,37 @@ describe("POST" + REVERIFY_CONFIRM_HOME_ADDRESS, () => {
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS + "?lang=en");
     });
 
-    it("should return status 500 when an error occurs", async () => {
+    it("should show the error page if an error occurs", async () => {
         jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
-            throw new Error("Test error");
+            throw new Error(errorMessage);
         });
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS);
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
+
+    it("should go to catch if an error occurs", async () => {
+
+        const req = {
+            query: { lang: "en" },
+            session: {
+                getExtraData: jest.fn()
+            }
+        } as unknown as Request;
+
+        const res = {
+            redirect: jest.fn()
+        } as unknown as Response;
+
+        const next = jest.fn() as NextFunction;
+
+        jest.spyOn(localise, "selectLang").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+
+        await post(req, res, next);
+
+        expect(next).toHaveBeenLastCalledWith(expect.any(Error));
     });
 });
 
