@@ -79,6 +79,7 @@ app.use(`^(?!(${BASE_URL}$))*`, helmet(prepareCSPConfig(nonce)));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.locals.nonce = nonce;
+    res.locals.cspNonce = nonce;
     next();
 });
 

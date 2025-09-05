@@ -36,6 +36,15 @@
   <div class="govuk-width-container">
     {% include "partials/phase_banner.njk" %}
     {% block navBar %}
+      {% if not hideCompaniesHouseDoesNotVerifyText %}
+        {# This will allow us to conditionally set wether this text is hidden on specific pages (this is currenly only applicable to accessibility statement view, as we do not want this text to appear) #}
+        <div class="govuk-width-container small-text does-not-verify-link-spacing">
+          <a class="govuk-link govuk-link--no-visited-state" href="https://resources.companieshouse.gov.uk/serviceInformation.shtml" target="_blank">
+              {{i18n.companiesHouseDoesNotVerify}}
+              <span class="govuk-visually-hidden">(link opens a new window)</span>
+          </a>
+        </div>
+      {% endif %}
       {% include "partials/nav/top.njk" %}
     {% endblock %}
     {% block backLink %}
@@ -52,15 +61,6 @@
 {% endblock %}
 
 {% block content %}
-  {% if not hideCompaniesHouseDoesNotVerifyText %}
-  {# This will allow us to conditionally set wether this text is hidden on specific pages (this is currenly only applicable to accessibility statement view, as we do not want this text to appear) #}
-  <div class="govuk-width-container small-text does-not-verify-link-spacing">
-    <a class="govuk-link govuk-link--no-visited-state" href="https://resources.companieshouse.gov.uk/serviceInformation.shtml" target="_blank">
-        {{i18n.companiesHouseDoesNotVerify}}
-        <span class="govuk-visually-hidden">(link opens a new window)</span>
-    </a>
-  </div>
-  {% endif %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-third"></div>
     <div class="govuk-grid-column-two-thirds" id="{{ mainContentId }}">
@@ -76,5 +76,5 @@
 
 {% block bodyEnd %}
   {{ super() }}
-  <script src="path/to/app.js"></script>
+  {% include "partials/__meta_footer.njk" %}
 {% endblock %}
