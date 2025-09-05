@@ -3,6 +3,8 @@ import { CDN_HOST, PIWIK_URL, PIWIK_CHS_DOMAIN, CHS_URL, ENV_SUBDOMAIN } from ".
 
 const SELF = `'self'`;
 const ONE_YEAR_SECONDS = 31536000;
+// Design System hash value from: https://frontend.design-system.service.gov.uk/import-javascript/#if-our-inline-javascript-snippet-is-blocked-by-a-content-security-policy
+const DS_SCRIPT_HASH = `'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw='`;
 
 export const prepareCSPConfig = (nonce: string) : HelmetOptions => {
     const NONCE = `'nonce-${nonce}'`;
@@ -16,7 +18,8 @@ export const prepareCSPConfig = (nonce: string) : HelmetOptions => {
                 styleSrc: [NONCE, CDN_HOST],
                 connectSrc: [SELF, PIWIK_URL, CHS_URL],
                 formAction: formActionDirectiveDefault(),
-                scriptSrc: [NONCE, CDN_HOST, PIWIK_URL],
+                scriptSrc: [NONCE, CDN_HOST, PIWIK_URL, DS_SCRIPT_HASH],
+                manifestSrc: [CDN_HOST],
                 objectSrc: [`'none'`]
             }
         },
@@ -42,7 +45,8 @@ export const prepareCSPConfigHomePage = (nonce: string) : HelmetOptions => {
                 styleSrc: [NONCE, CDN_HOST],
                 connectSrc: [SELF, PIWIK_URL, CHS_URL],
                 formAction: formActionDirectiveHomePage(),
-                scriptSrc: [NONCE, CDN_HOST, PIWIK_URL],
+                scriptSrc: [NONCE, CDN_HOST, PIWIK_URL, DS_SCRIPT_HASH],
+                manifestSrc: [CDN_HOST],
                 objectSrc: [`'none'`]
             }
         },
