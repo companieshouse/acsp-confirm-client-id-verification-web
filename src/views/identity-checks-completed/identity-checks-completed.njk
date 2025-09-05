@@ -2,104 +2,107 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
- {% set errors = pageProperties.errors %}
+{% set errors = pageProperties.errors %}
 
- {% extends "layouts/default.njk" %}
+{% extends "layouts/default.njk" %}
+{% if reqType !== "reverify" %}
+{% set title = i18n.identityChecksTitle %}
+{% set insetText = i18n.identityChecksCompletedInsetText %}
+{% set pageHeader = i18n.identityChecksTitle %}
+{% else %}
+{% set title = i18n.reverifyIdentityChecksTitle %}
+{% set insetText = i18n.reverifyIdentityChecksCompletedInsetText %}
+{% set pageHeader = i18n.reverifyIdentityChecksTitle %}
+{% endif %}
+{% block main_content %}
 
- {% set title = i18n.identityChecksTitle %}
- {% block main_content %}
+{% set errorPrefix = "wicc" %}
+{% if errors[errorPrefix + "-day"] %}
+{% set errorMessageText = errors[errorPrefix + "-day"].text %}
+{% elif errors[errorPrefix + "-month"] %}
+{% set errorMessageText = errors[errorPrefix + "-month"].text %}
+{% elif errors[errorPrefix + "-year"] %}
+{% set errorMessageText = errors[errorPrefix + "-year"].text %}
+{% endif %}
 
-  {% set errorPrefix = "wicc" %}
-  {% if errors[errorPrefix + "-day"] %}
-    {% set errorMessageText = errors[errorPrefix + "-day"].text %}
-  {% elif errors[errorPrefix + "-month"] %}
-    {% set errorMessageText = errors[errorPrefix + "-month"].text %}
-  {% elif errors[errorPrefix + "-year"] %}
-    {% set errorMessageText = errors[errorPrefix + "-year"].text %}
-  {% endif %}
+<div>
+  <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
+    {% include "partials/csrf_token.njk" %}
+    {% include "partials/user_name.njk" %}
+    <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            {{ pageHeader }}
+          </h1>
+        </legend>
+        {% if i18n.dateOfBirthHint %}
+        <div id="wicc-hint" class="govuk-hint">{{ i18n.dateOfBirthHint }}</div>
+        {% endif %}
+        {% if errors %}
+        <span class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ errorMessageText }}
+        </span>
+        {% endif %}
 
-   <div>
-     <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
-       {% include "partials/csrf_token.njk" %}
-       {% include "partials/user_name.njk" %}
+        <div class="govuk-date-input" id="wicc">
+          <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-date-input__label" for="wicc-day">
+                {{ i18n.day }}
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}"
+                id="wicc-day" name="wicc-day" value="{{ payload[" wicc-day"] | default('') }}">
+            </div>
+          </div>
+          <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-date-input__label" for="wicc-month">
+                {{ i18n.month }}
+              </label>
+              <select class="govuk-select{% if errors %} govuk-select--error{% endif %}" id="wicc-month"
+                name="wicc-month">
+                <option value="" disabled selected>{{ i18n.chooseMonth }}</option>
+                <option value="01" {% if payload["wicc-month"]=='01' %}selected{% endif %}>{{ i18n.january }}</option>
+                <option value="02" {% if payload["wicc-month"]=='02' %}selected{% endif %}>{{ i18n.february }}</option>
+                <option value="03" {% if payload["wicc-month"]=='03' %}selected{% endif %}>{{ i18n.march }}</option>
+                <option value="04" {% if payload["wicc-month"]=='04' %}selected{% endif %}>{{ i18n.april }}</option>
+                <option value="05" {% if payload["wicc-month"]=='05' %}selected{% endif %}>{{ i18n.may }}</option>
+                <option value="06" {% if payload["wicc-month"]=='06' %}selected{% endif %}>{{ i18n.june }}</option>
+                <option value="07" {% if payload["wicc-month"]=='07' %}selected{% endif %}>{{ i18n.july }}</option>
+                <option value="08" {% if payload["wicc-month"]=='08' %}selected{% endif %}>{{ i18n.august }}</option>
+                <option value="09" {% if payload["wicc-month"]=='09' %}selected{% endif %}>{{ i18n.september }}</option>
+                <option value="10" {% if payload["wicc-month"]=='10' %}selected{% endif %}>{{ i18n.october }}</option>
+                <option value="11" {% if payload["wicc-month"]=='11' %}selected{% endif %}>{{ i18n.november }}</option>
+                <option value="12" {% if payload["wicc-month"]=='12' %}selected{% endif %}>{{ i18n.december }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-date-input__label" for="wicc-year">
+                {{ i18n.year }}
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors %} govuk-input--error{% endif %}"
+                id="wicc-year" name="wicc-year" value="{{ payload[" wicc-year"] | default('') }}">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
 
-       <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">
-         <fieldset class="govuk-fieldset">
-           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">
-             {{ i18n.identityChecksTitle }}
-            </h1>
-           </legend>
-           {% if i18n.dateOfBirthHint %}
-             <span id="wicc-hint" class="govuk-hint">{{ i18n.dateOfBirthHint }}</span>
-           {% endif %}
-           {% if errors %}
-             <span class="govuk-error-message">
-               <span class="govuk-visually-hidden">Error:</span> {{ errorMessageText }}
-             </span>
-           {% endif %}
+    {{ govukInsetText({
+    text: insetText
+    }) }}
 
-           <div class="govuk-date-input" id="wicc">
-             <div class="govuk-date-input__item">
-               <div class="govuk-form-group">
-                 <label class="govuk-label govuk-date-input__label" for="wicc-day">
-                   {{ i18n.day }}
-                 </label>
-                 <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}"
-                        id="wicc-day"
-                        name="wicc-day"
-                        value="{{ payload["wicc-day"] | default('') }}">
-               </div>
-             </div>
-             <div class="govuk-date-input__item">
-               <div class="govuk-form-group">
-                 <label class="govuk-label govuk-date-input__label" for="wicc-month">
-                   {{ i18n.month }}
-                 </label>
-                 <select class="govuk-select{% if errors %} govuk-select--error{% endif %}"
-                         id="wicc-month"
-                         name="wicc-month">
-                   <option value="" disabled selected>{{ i18n.chooseMonth }}</option>
-                   <option value="01" {% if payload["wicc-month"] == '01' %}selected{% endif %}>{{ i18n.january }}</option>
-                   <option value="02" {% if payload["wicc-month"] == '02' %}selected{% endif %}>{{ i18n.february }}</option>
-                   <option value="03" {% if payload["wicc-month"] == '03' %}selected{% endif %}>{{ i18n.march }}</option>
-                   <option value="04" {% if payload["wicc-month"] == '04' %}selected{% endif %}>{{ i18n.april }}</option>
-                   <option value="05" {% if payload["wicc-month"] == '05' %}selected{% endif %}>{{ i18n.may }}</option>
-                   <option value="06" {% if payload["wicc-month"] == '06' %}selected{% endif %}>{{ i18n.june }}</option>
-                   <option value="07" {% if payload["wicc-month"] == '07' %}selected{% endif %}>{{ i18n.july }}</option>
-                   <option value="08" {% if payload["wicc-month"] == '08' %}selected{% endif %}>{{ i18n.august }}</option>
-                   <option value="09" {% if payload["wicc-month"] == '09' %}selected{% endif %}>{{ i18n.september }}</option>
-                   <option value="10" {% if payload["wicc-month"] == '10' %}selected{% endif %}>{{ i18n.october }}</option>
-                   <option value="11" {% if payload["wicc-month"] == '11' %}selected{% endif %}>{{ i18n.november }}</option>
-                   <option value="12" {% if payload["wicc-month"] == '12' %}selected{% endif %}>{{ i18n.december }}</option>
-                 </select>
-               </div>
-             </div>
-             <div class="govuk-date-input__item">
-               <div class="govuk-form-group">
-                 <label class="govuk-label govuk-date-input__label" for="wicc-year">
-                   {{ i18n.year }}
-                 </label>
-                 <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors %} govuk-input--error{% endif %}"
-                        id="wicc-year"
-                        name="wicc-year"
-                        value="{{ payload["wicc-year"] | default('') }}">
-               </div>
-             </div>
-           </div>
-         </fieldset>
-       </div>
-
-       {{ govukInsetText({
-        text: i18n.identityChecksCompletedInsetText
-      }) }}
-
-       {{ govukButton({
-         text: i18n.Continue,
-         id: "continue-button"
-       }) }}
-     </form>
-   </div>
+    {{ govukButton({
+    text: i18n.Continue,
+    id: "continue-button"
+    }) }}
+  </form>
+</div>
 
 
- {% endblock main_content %}
+{% endblock main_content %}
