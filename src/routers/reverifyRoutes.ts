@@ -14,7 +14,6 @@ import { nameValidator } from "../validations/personName";
 import { homeAddressValidator } from "../validations/homeAddress";
 import { useNameOnPublicRegisterValidator } from "../validations/useNameOnPublicRegister";
 import { dateValidator } from "../validations/dateValidationCommon";
-import { url } from "inspector";
 
 const reverifyRoutes = Router();
 
