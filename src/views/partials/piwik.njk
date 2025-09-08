@@ -75,6 +75,10 @@
 
       //  The block below covers the Matomo analysis for the href clicks.
       $(document).on("click", "a", function() {
+        // Don't track language toggle links as this is tracked through a script within ch-node-utils locales-banner.njk
+        if ($(this).hasClass('language-link')) {
+          return;
+        }
         // Provide different email stop screen - removes user name from link analytics
         if ($(this).attr('id') && $(this).attr('id') === "provide-different-email-link-id") {
           textOnHrefClick = $(this).text().split('for')[0];

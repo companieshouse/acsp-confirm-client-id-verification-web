@@ -1,18 +1,18 @@
 {% from "govuk/components/cookie-banner/macro.njk"  import govukCookieBanner %}
 
 {% set html %}
-<p>{{i18n.cookiesBanner1}}</p>
-<p>{{i18n.cookiesBanner2}}</p>
+<p class="govuk-body">{{i18n.cookiesBanner1}}</p>
+<p class="govuk-body">{{i18n.cookiesBanner2}}</p>
 {% endset %}
 
 {% set acceptHtml %}
- <p>{{ i18n.acceptedAnalyticsCookies }} {{ i18n.changeCookie1 }} <a class="govuk-link" target="_blank" rel="noopener noreferrer"
- href="{{ CHS_URL }}/help/cookies">{{ i18n.changeCookie2 }}</a> {{ i18n.changeCookie3 }}</p>
+  <p class="govuk-body">{{ i18n.acceptedAnalyticsCookies }} {{ i18n.changeCookie1 }} <a class="govuk-link" target="_blank" rel="noopener noreferrer"
+  href="{{ CHS_URL }}/help/cookies">{{ i18n.changeCookie2 | replace ('{OPEN_IN_NEW_TAB}', i18n.opensInANewTab) }}</a> {{ i18n.changeCookie3 }}</p>
 {% endset %}
 
 {% set rejectHtml %}
- <p>{{ i18n.rejectedAnalyticsCookies }} {{ i18n.changeCookie1 }} <a class="govuk-link" target="_blank" rel="noopener noreferrer" 
- href="{{ CHS_URL }}/help/cookies">{{ i18n.changeCookie2 }}</a> {{ i18n.changeCookie3 }}</p>
+  <p class="govuk-body">{{ i18n.rejectedAnalyticsCookies }} {{ i18n.changeCookie1 }} <a class="govuk-link" target="_blank" rel="noopener noreferrer"
+  href="{{ CHS_URL }}/help/cookies">{{ i18n.changeCookie2 | replace ('{OPEN_IN_NEW_TAB}', i18n.opensInANewTab) }}</a> {{ i18n.changeCookie3 }}</p>
 {% endset %}
 
 {{ govukCookieBanner({
@@ -49,7 +49,7 @@
       }
       },
       {
-        text: i18n.viewCookies,
+        text: i18n.viewCookies | replace ('{OPEN_IN_NEW_TAB}', i18n.opensInANewTab),
         href: chsUrl + "/help/cookies",
         attributes: {
           target: "_blank",
