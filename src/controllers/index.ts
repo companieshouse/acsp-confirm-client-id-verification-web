@@ -34,3 +34,4 @@ export * as whatIsTheirHomeAddressController from "./reverify-someones-identity/
 export * as reverifyDateOfBirthController from "./reverify-someones-identity/dateOfBirthController";
 export * as reverifyConfirmHomeAddressController from "./reverify-someones-identity/confirmHomeAddressController";
 export * as whatIsTheirPersonalCodeController from "./reverify-someones-identity/whatIsTheirPersonalCodeController";
+export * as reverifyIdentityChecksCompletedController from "./reverify-someones-identity/reverifyIdentityChecksCompletedController";
