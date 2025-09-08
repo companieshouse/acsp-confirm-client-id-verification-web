@@ -71,7 +71,6 @@ describe("GET" + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, () => {
         expect(res.status).toBe(200);
         expect(res.text).toContain("When did you complete the identity checks to reverify them?");
     });
-
 });
 
 describe("POST" + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, () => {
@@ -191,6 +190,23 @@ describe("POST" + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, () => {
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED).send(sendData);
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED + "?lang=en");
+    });
+
+    it("should handle POST with null session for optional chaining coverage", async () => {
+        const sessionMiddlewareMock = sessionMiddleware as jest.Mock;
+        sessionMiddlewareMock.mockImplementationOnce((req: Request, res: Response, next: NextFunction) => {
+            req.session = null as any;
+            next();
+        });
+
+        const sendData = {
+            "wicc-day": "08",
+            "wicc-month": "07",
+            "wicc-year": "2024"
+        };
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED).send(sendData);
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("When did you complete the identity checks to reverify them?");
     });
 });
 
