@@ -8,7 +8,8 @@ import {
     whatIsTheirHomeAddressController,
     reverifyDateOfBirthController,
     reverifyConfirmHomeAddressController,
-    reverifyHomeAddressManualController
+    reverifyHomeAddressManualController,
+    reverifyIdentityChecksCompletedController
 } from "../controllers";
 import { nameValidator } from "../validations/personName";
 import { homeAddressValidator } from "../validations/homeAddress";
@@ -37,6 +38,9 @@ reverifyRoutes.post(urls.REVERIFY_DATE_OF_BIRTH, dateValidator("dob"), reverifyD
 
 reverifyRoutes.get(urls.REVERIFY_CONFIRM_HOME_ADDRESS, reverifyConfirmHomeAddressController.get);
 reverifyRoutes.post(urls.REVERIFY_CONFIRM_HOME_ADDRESS, reverifyConfirmHomeAddressController.post);
+
+reverifyRoutes.get(urls.REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, reverifyIdentityChecksCompletedController.get);
+reverifyRoutes.post(urls.REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator("wicc"), reverifyIdentityChecksCompletedController.post);
 
 reverifyRoutes.get(urls.REVERIFY_HOME_ADDRESS_MANUAL, reverifyHomeAddressManualController.get);
 reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS_MANUAL, reverifyHomeAddressManualController.post);

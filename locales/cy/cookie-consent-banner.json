@@ -4,11 +4,11 @@
   "cookiesBanner2": "Hoffem hefyd ddefnyddio cwcis dadansoddol fel y gallwn ddeall sut rydych yn defnyddio ein gwasanaethau ac i wneud gwelliannau.",
   "acceptAnalyticCookies": "Derbyn cwcis dadansoddol",
   "rejectAnalyticCookies": "Gwrthod cwcis dadansoddol",
-  "viewCookies": "Gweld cwcis",
+  "viewCookies": "Gweld cwcis ({OPEN_IN_NEW_TAB})",
   "acceptedAnalyticsCookies": "Rydych wedi derbyn cwcis dadansoddol.",
   "rejectedAnalyticsCookies": "Rydych wedi gwrthod cwcis dadansoddol.",
   "changeCookie1": "Gallwch",
-  "changeCookie2": "newid eich gosodiadau cwcis",
+  "changeCookie2": "newid eich gosodiadau cwcis ({OPEN_IN_NEW_TAB})",
   "changeCookie3": "ar unrhyw adeg.",
   "cookieNoJS": "Rydym yn defnyddio cwcis i wneud i'n gwasanaethau weithio a chasglu gwybodaeth ddadansoddol. I dderbyn neu wrthod cwcis dadansoddol, trowch JavaScript ymlaen yn osodiadau eich porwr ac ail-lwytho'r dudalen hon.",
   "cookieHide": "Cuddio'r neges hon"

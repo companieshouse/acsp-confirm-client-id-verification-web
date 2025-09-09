@@ -1,0 +1,10 @@
+<script type="application/javascript" nonce={{ nonce | dump | safe }}>
+  window.SERVICE_NAME = '{{ serviceName }}' + ' - '
+  window.PIWIK_URL = '{{ PIWIK_URL }}'
+  window.PIWIK_SITE_ID = '{{ PIWIK_SITE_ID }}'
+</script>
+<div id="templateName" data-id="{{templateTitle}}" hidden></div>
+<script src="{{ cdnHost }}/javascripts/app/cookie-consent/cookie-consent-1.0.0.js"></script>
+<script src="{{ cdnHost }}/javascripts/app/cookie-consent/matomo-only-cookie-consent.js"></script>
+<script src="{{ cdnHost }}/javascripts/vendor/jquery-3.3.1.min.js"></script>
+<script src="{{ cdnHost }}/javascripts/lib/navbar.js"></script>
