@@ -39,6 +39,34 @@ export const findIdentityByEmail = async (email: string): Promise<Identity | und
     return Promise.resolve(castedSdkResponse.resource);
 };
 
+export const findIdentityByUvid = async (uvid: string): Promise<Identity | undefined> => {
+    const apiClient = createPrivateApiKeyClient();
+
+    logger.info(`Received request to find identity by uvid ${uvid}`);
+
+    const sdkResponse: Resource<Identity> | ApiErrorResponse = await apiClient.identityVerificationService.findByUvid(uvid);
+
+    if (!sdkResponse) {
+        logger.error(`Find identity by uvid returned no response for uvid ${uvid}`);
+        return Promise.reject(sdkResponse);
+    }
+    if (!sdkResponse.httpStatusCode || (sdkResponse.httpStatusCode >= 400 && sdkResponse.httpStatusCode !== 404)) {
+        logger.error(`Http status code ${sdkResponse.httpStatusCode} and error ${JSON.stringify(sdkResponse)} - Failed to get identity by uvid ${uvid}`);
+        return Promise.reject(sdkResponse);
+    }
+    if (sdkResponse.httpStatusCode === 404) {
+        logger.debug(`Find identity by uvid returned status 404, no identity found with uvid ${uvid}`);
+        return Promise.resolve(undefined);
+    }
+    const castedSdkResponse: Resource<Identity> = sdkResponse as Resource<Identity>;
+    if (castedSdkResponse.resource === undefined) {
+        logger.error(`Find identity by uvid returned no resource for uvid ${uvid}`);
+        return Promise.reject(sdkResponse);
+    }
+    logger.info(`Recieved identity details for uvid ${uvid}`);
+    return Promise.resolve(castedSdkResponse.resource);
+};
+
 export const sendVerifiedClientDetails = async (verifiedClientData: VerifiedClientData): Promise<Identity | undefined> => {
     const createUvidType = "acsp";
     const apiClient = createPrivateApiKeyClient();
