@@ -4,7 +4,6 @@ import * as config from "../../config";
 import {
     REVERIFY_DATE_OF_BIRTH,
     REVERIFY_BASE_URL,
-    REVERIFY_CHECK_YOUR_ANSWERS,
     REVERIFY_PERSONAL_CODE,
     REVERIFY_EMAIL_ADDRESS
 } from "../../types/pageURL";
@@ -22,11 +21,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
         const previousPageUrl = getPreviousPageUrl(req, REVERIFY_BASE_URL);
         saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
-
-        const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL, lang)
-            ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(REVERIFY_BASE_URL, lang);
-
+        const previousPage = addLangToUrl(REVERIFY_BASE_URL, lang);
         res.render(config.REVERIFY_PERSONAL_CODE, {
             ...getLocaleInfo(locales, lang),
             previousPage: previousPage,
@@ -47,10 +42,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const previousPageUrl = getPreviousPageUrl(req, REVERIFY_DATE_OF_BIRTH);
 
         saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
-
-        const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
-            ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH, lang);
+        const previousPage = addLangToUrl(REVERIFY_BASE_URL, lang);
 
         if (errorList.isEmpty()) {
             res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_EMAIL_ADDRESS, lang));
