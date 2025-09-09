@@ -3,7 +3,7 @@ import { Resource } from "@companieshouse/api-sdk-node";
 import { Session } from "@companieshouse/node-session-handler";
 import { createPrivateApiClient } from "private-api-sdk-node";
 import { Identity } from "private-api-sdk-node/dist/services/identity-verification/types";
-import { IdentityVerificationService, findIdentityByEmail, sendVerifiedClientDetails } from "../../../src/services/identityVerificationService";
+import { IdentityVerificationService, findIdentityByEmail, findIdentityByUvid, sendVerifiedClientDetails } from "../../../src/services/identityVerificationService";
 import { dummyIdentity, verifiedClientDetails, clientDetails, clientDetailsBiometricPassport } from "../../mocks/identity.mock";
 import { createRequest, MockRequest } from "node-mocks-http";
 
@@ -11,17 +11,20 @@ jest.mock("private-api-sdk-node");
 
 const mockCreatePrivateApiClient = createPrivateApiClient as jest.Mock;
 const mockFindIdentityByEmail = jest.fn();
+const mockFindIdentityByUvid = jest.fn();
 const mockSendVerifiedClientDetails = jest.fn();
 
 mockCreatePrivateApiClient.mockReturnValue({
     identityVerificationService: {
         findIdentityByEmail: mockFindIdentityByEmail,
+        findByUvid: mockFindIdentityByUvid,
         sendVerifiedClientDetails: mockSendVerifiedClientDetails
     }
 });
 
 let session;
 const MOCK_EMAIL = "demo@ch.gov.uk";
+const MOCK_UVID = "12345";
 const createUvidType = "acsp";
 
 describe("verification api service tests", () => {
@@ -76,6 +79,55 @@ describe("verification api service tests", () => {
             } as Resource<Identity>);
 
             await expect(findIdentityByEmail(MOCK_EMAIL)).rejects.toEqual({ httpStatusCode: 204 });
+        });
+    });
+
+    describe("findIdentityByUvid tests", () => {
+
+        it("should return an Identity", async () => {
+
+            mockFindIdentityByUvid.mockResolvedValueOnce({
+                httpStatusCode: 200,
+                resource: dummyIdentity
+            } as Resource<Identity>);
+
+            const identity = await findIdentityByUvid(MOCK_UVID);
+
+            expect(identity).toStrictEqual(dummyIdentity);
+        });
+
+        it("Should throw an error when no identity-verification-api response", async () => {
+            mockFindIdentityByUvid.mockResolvedValueOnce(undefined);
+
+            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toBe(undefined);
+        });
+
+        it("Should throw an error when identity-verification-api returns a status greater than 400 but not 404", async () => {
+            mockFindIdentityByUvid.mockResolvedValueOnce({
+                httpStatusCode: 400
+            });
+
+            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toEqual({ httpStatusCode: 400 });
+        });
+
+        it("should return undefined when status code is 404", async () => {
+
+            mockFindIdentityByUvid.mockResolvedValueOnce({
+                httpStatusCode: 404,
+                resource: undefined
+            } as Resource<Identity>);
+
+            const identity = await findIdentityByUvid(MOCK_UVID);
+
+            expect(identity).toStrictEqual(undefined);
+        });
+
+        it("Should throw an error when identity-verification-api returns no resource", async () => {
+            mockFindIdentityByUvid.mockResolvedValueOnce({
+                httpStatusCode: 204
+            } as Resource<Identity>);
+
+            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toEqual({ httpStatusCode: 204 });
         });
     });
 
