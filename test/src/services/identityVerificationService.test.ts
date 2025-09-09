@@ -99,7 +99,7 @@ describe("verification api service tests", () => {
         it("Should throw an error when no identity-verification-api response", async () => {
             mockFindIdentityByUvid.mockResolvedValueOnce(undefined);
 
-            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toBe(undefined);
+            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toEqual(new Error("Find identity by uvid returned no response for uvid 12345"));
         });
 
         it("Should throw an error when identity-verification-api returns a status greater than 400 but not 404", async () => {
@@ -107,7 +107,7 @@ describe("verification api service tests", () => {
                 httpStatusCode: 400
             });
 
-            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toEqual({ httpStatusCode: 400 });
+            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toEqual(new Error("Http status code 400 and error {\"httpStatusCode\":400} - Failed to get identity by uvid 12345"));
         });
 
         it("should return undefined when status code is 404", async () => {
@@ -117,9 +117,7 @@ describe("verification api service tests", () => {
                 resource: undefined
             } as Resource<Identity>);
 
-            const identity = await findIdentityByUvid(MOCK_UVID);
-
-            expect(identity).toStrictEqual(undefined);
+            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toEqual(new Error("Find identity by uvid returned status 404, no identity found with uvid 12345"));
         });
 
         it("Should throw an error when identity-verification-api returns no resource", async () => {
@@ -127,7 +125,7 @@ describe("verification api service tests", () => {
                 httpStatusCode: 204
             } as Resource<Identity>);
 
-            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toEqual({ httpStatusCode: 204 });
+            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toEqual(new Error("Find identity by uvid returned no resource for uvid 12345"));
         });
     });
 

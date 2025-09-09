@@ -47,21 +47,30 @@ export const findIdentityByUvid = async (uvid: string): Promise<Identity | undef
     const sdkResponse: Resource<Identity> | ApiErrorResponse = await apiClient.identityVerificationService.findByUvid(uvid);
 
     if (!sdkResponse) {
-        logger.error(`Find identity by uvid returned no response for uvid ${uvid}`);
-        return Promise.reject(sdkResponse);
+        const errorMessage = `Find identity by uvid returned no response for uvid ${uvid}`;
+        const error = new Error(errorMessage);
+        (error as any).sdkResponse = sdkResponse;
+        return Promise.reject(error);
     }
     if (!sdkResponse.httpStatusCode || (sdkResponse.httpStatusCode >= 400 && sdkResponse.httpStatusCode !== 404)) {
-        logger.error(`Http status code ${sdkResponse.httpStatusCode} and error ${JSON.stringify(sdkResponse)} - Failed to get identity by uvid ${uvid}`);
-        return Promise.reject(sdkResponse);
+        const errorMessage = `Http status code ${sdkResponse.httpStatusCode} and error ${JSON.stringify(sdkResponse)} - Failed to get identity by uvid ${uvid}`;
+        logger.error(errorMessage);
+        const error = new Error(errorMessage);
+        (error as any).sdkResponse = sdkResponse;
+        return Promise.reject(error);
     }
     if (sdkResponse.httpStatusCode === 404) {
-        logger.debug(`Find identity by uvid returned status 404, no identity found with uvid ${uvid}`);
-        return Promise.resolve(undefined);
+        const errorMessage = `Find identity by uvid returned status 404, no identity found with uvid ${uvid}`;
+        const error = new Error(errorMessage);
+        (error as any).sdkResponse = sdkResponse;
+        return Promise.reject(error);
     }
     const castedSdkResponse: Resource<Identity> = sdkResponse as Resource<Identity>;
     if (castedSdkResponse.resource === undefined) {
-        logger.error(`Find identity by uvid returned no resource for uvid ${uvid}`);
-        return Promise.reject(sdkResponse);
+        const errorMessage = `Find identity by uvid returned no resource for uvid ${uvid}`;
+        const error = new Error(errorMessage);
+        (error as any).sdkResponse = sdkResponse;
+        return Promise.reject(error);
     }
     logger.info(`Recieved identity details for uvid ${uvid}`);
     return Promise.resolve(castedSdkResponse.resource);
