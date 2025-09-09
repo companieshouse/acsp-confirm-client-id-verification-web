@@ -33,10 +33,13 @@
             </span>
         </summary>
         <div class="govuk-details__text">
-          <p class="govuk-body">{{i18n.detailsText1}}</p>
+          <p class="govuk-body">{{i18n.reVerifyCodePageText}}</p>
           <p>{{i18n.detailsText2}}</p>
         </div>
     </details>
   </form>
-
+<script src="{{cdnHost}}/javascripts/app/uvid-live-formatter.js"></script>
+<script type="text/javascript" nonce={{ nonce | dump | safe }}>
+  window.UVID_INPUT_ID = "personalCode";
+</script>
 {% endblock %}
