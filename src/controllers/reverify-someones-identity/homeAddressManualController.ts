@@ -1,0 +1,68 @@
+import { Session } from "@companieshouse/node-session-handler";
+import * as config from "../../config";
+import { NextFunction, Request, Response } from "express";
+import { BASE_URL, CONFIRM_HOME_ADDRESS, HOME_ADDRESS, HOME_ADDRESS_MANUAL, REVERIFY_BASE_URL } from "../../types/pageURL";
+import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
+import { ClientData } from "../../model/ClientData";
+import { USER_DATA } from "../../utils/constants";
+import { validationResult } from "express-validator";
+import { formatValidationError, getPageProperties } from "../../validations/validation";
+import { AddressManualService } from "../../services/addressManualService";
+
+export const get = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + HOME_ADDRESS, lang);
+        const currentUrl: string = REVERIFY_BASE_URL + HOME_ADDRESS_MANUAL;
+
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+
+        const addressManualService = new AddressManualService();
+        const payload = addressManualService.getManualAddress(clientData);
+
+        res.render(config.HOME_ADDRESS_MANUAL, {
+            ...getLocaleInfo(locales, lang),
+            previousPage,
+            currentUrl,
+            firstName: clientData?.firstName,
+            lastName: clientData?.lastName,
+            payload
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const post = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const lang = selectLang(req.query.lang);
+        const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + HOME_ADDRESS, lang);
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+        const currentUrl: string = REVERIFY_BASE_URL + HOME_ADDRESS_MANUAL;
+
+        const errorList = validationResult(req);
+
+        if (!errorList.isEmpty()) {
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
+            res.status(400).render(config.HOME_ADDRESS_MANUAL, {
+                ...getLocaleInfo(locales, lang),
+                ...pageProperties,
+                previousPage,
+                currentUrl,
+                payload: req.body,
+                firstName: clientData?.firstName,
+                lastName: clientData?.lastName
+            });
+        } else {
+            const addressManualService = new AddressManualService();
+            addressManualService.saveManualAddress(req, clientData);
+            res.redirect(addLangToUrl(REVERIFY_BASE_URL + CONFIRM_HOME_ADDRESS, lang));
+        }
+    } catch (error) {
+        next(error);
+    }
+};
