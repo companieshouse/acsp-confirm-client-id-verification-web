@@ -117,12 +117,14 @@ describe("verification api service tests", () => {
                 resource: undefined
             } as Resource<Identity>);
 
-            await expect(findIdentityByUvid(MOCK_UVID)).rejects.toEqual(new Error("Find identity by uvid returned status 404, no identity found with uvid 12345"));
+            const identity = await findIdentityByUvid(MOCK_UVID);
+            expect(identity).toBe(undefined);
         });
 
         it("Should throw an error when identity-verification-api returns no resource", async () => {
             mockFindIdentityByUvid.mockResolvedValueOnce({
-                httpStatusCode: 204
+                httpStatusCode: 204,
+                resource: undefined
             } as Resource<Identity>);
 
             await expect(findIdentityByUvid(MOCK_UVID)).rejects.toEqual(new Error("Find identity by uvid returned no resource for uvid 12345"));

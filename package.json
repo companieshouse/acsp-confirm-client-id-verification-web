@@ -50,7 +50,7 @@
     "nocache": "4.0.0",
     "node-mocks-http": "^1.12.2",
     "nunjucks": "^3.2.3",
-    "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.72",
+    "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.85",
     "tslib": "^2.0.3",
     "uuid": "^11.0.4",
     "yargs": "15.3.1"

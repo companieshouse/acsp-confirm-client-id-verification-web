@@ -61,13 +61,13 @@ export const findIdentityByUvid = async (uvid: string): Promise<Identity | undef
     }
     if (sdkResponse.httpStatusCode === 404) {
         const errorMessage = `Find identity by uvid returned status 404, no identity found with uvid ${uvid}`;
-        const error = new Error(errorMessage);
-        (error as any).sdkResponse = sdkResponse;
-        return Promise.reject(error);
+        logger.debug(errorMessage);
+        return Promise.resolve(undefined);
     }
     const castedSdkResponse: Resource<Identity> = sdkResponse as Resource<Identity>;
     if (castedSdkResponse.resource === undefined) {
         const errorMessage = `Find identity by uvid returned no resource for uvid ${uvid}`;
+        logger.error(errorMessage);
         const error = new Error(errorMessage);
         (error as any).sdkResponse = sdkResponse;
         return Promise.reject(error);
