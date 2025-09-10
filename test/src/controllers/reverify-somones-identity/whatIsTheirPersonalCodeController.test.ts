@@ -35,8 +35,8 @@ describe("WHat is their personal code GET", () => {
 
 describe("What is their personal code POST", () => {
 
-    it("Should redirect to the email verification page", async () => {
-        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE).send({ personalCode: "A1B-2H3D-4E5F" });
+    it("Should redirect to the email verification page on submission with the stripped hyphened personal code", async () => {
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE).send({ personalCode: "A1B2H3D4E5F" });
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_EMAIL_ADDRESS + "?lang=en");
         expect(res.status).toBe(302);
     });
