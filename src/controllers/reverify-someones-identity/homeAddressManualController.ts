@@ -1,7 +1,7 @@
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../../config";
 import { NextFunction, Request, Response } from "express";
-import { BASE_URL, CONFIRM_HOME_ADDRESS, HOME_ADDRESS, HOME_ADDRESS_MANUAL, REVERIFY_BASE_URL } from "../../types/pageURL";
+import { REVERIFY_CONFIRM_HOME_ADDRESS, REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, REVERIFY_HOME_ADDRESS_MANUAL, REVERIFY_BASE_URL } from "../../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
 import { ClientData } from "../../model/ClientData";
 import { USER_DATA } from "../../utils/constants";
@@ -14,8 +14,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + HOME_ADDRESS, lang);
-        const currentUrl: string = REVERIFY_BASE_URL + HOME_ADDRESS_MANUAL;
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, lang);
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL;
 
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
@@ -40,9 +40,9 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + HOME_ADDRESS, lang);
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, lang);
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
-        const currentUrl: string = REVERIFY_BASE_URL + HOME_ADDRESS_MANUAL;
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL;
 
         const errorList = validationResult(req);
 
@@ -60,7 +60,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         } else {
             const addressManualService = new AddressManualService();
             addressManualService.saveManualAddress(req, clientData);
-            res.redirect(addLangToUrl(REVERIFY_BASE_URL + CONFIRM_HOME_ADDRESS, lang));
+            res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS, lang));
         }
     } catch (error) {
         next(error);
