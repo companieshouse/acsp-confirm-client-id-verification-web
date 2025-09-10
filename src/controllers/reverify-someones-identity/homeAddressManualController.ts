@@ -1,13 +1,13 @@
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../../config";
 import { NextFunction, Request, Response } from "express";
-import { REVERIFY_CONFIRM_HOME_ADDRESS, REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, REVERIFY_HOME_ADDRESS_MANUAL, REVERIFY_BASE_URL } from "../../types/pageURL";
-import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
 import { ClientData } from "../../model/ClientData";
-import { USER_DATA } from "../../utils/constants";
-import { validationResult } from "express-validator";
-import { formatValidationError, getPageProperties } from "../../validations/validation";
 import { AddressManualService } from "../../services/addressManualService";
+import { USER_DATA } from "../../utils/constants";
+import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
+import { REVERIFY_CONFIRM_HOME_ADDRESS, REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, REVERIFY_HOME_ADDRESS_MANUAL, REVERIFY_BASE_URL } from "../../types/pageURL";
+import { formatValidationError, getPageProperties } from "../../validations/validation";
+import { validationResult } from "express-validator";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
