@@ -1,9 +1,15 @@
 import mocks from "../../../mocks/all_middleware_mock";
 import app from "../../../../src/app";
 import supertest from "supertest";
-import { REVERIFY_BASE_URL, REVERIFY_PERSONAL_CODE, REVERIFY_EMAIL_ADDRESS } from "../../../../src/types/pageURL";
+import { REVERIFY_BASE_URL, REVERIFY_EMAIL_ADDRESS, REVERIFY_PERSONAL_CODE, REVERIFY_PERSONAL_CODE_IS_INVALID } from "../../../../src/types/pageURL";
 import * as localise from "../../../../src/utils/localise";
 import * as urlService from "../../../../src/services/url";
+import { findIdentityByUvid } from "../../../../src/services/identityVerificationService";
+import { dummyIdentity, dummyReverificationIdentity } from "../../../mocks/identity.mock";
+
+jest.mock("../../../../src/services/identityVerificationService.ts");
+
+const mockFindIdentityByUvid = findIdentityByUvid as jest.Mock;
 
 const router = supertest(app);
 
@@ -35,6 +41,15 @@ describe("What is their personal code GET", () => {
 
 describe("What is their personal code POST", () => {
 
+    it("should return status 302 after redirect", async () => {
+        await mockFindIdentityByUvid.mockResolvedValueOnce(dummyReverificationIdentity);
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE).send({ personalCode: "A1B2H3D4E5F" });
+        expect(res.status).toBe(302);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+        expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_EMAIL_ADDRESS + "?lang=en");
+    });
+
     it("Should show a validation error when the personal code is empty", async () => {
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE).send({ personalCode: "" });
         expect(res.text).toContain("Enter their personal code");
@@ -54,5 +69,23 @@ describe("What is their personal code POST", () => {
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE);
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
+
+    it("should return status 302 and redirect to kickout screen if identity has invalid status", async () => {
+        await mockFindIdentityByUvid.mockResolvedValueOnce(dummyIdentity);
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE).send({ personalCode: "A1B2H3D4E5F" });
+        expect(res.status).toBe(302);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+        expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE_IS_INVALID + "?lang=en");
+    });
+
+    it("should return status 302 and redirect to kickout screen if identity is undefined", async () => {
+        await mockFindIdentityByUvid.mockResolvedValueOnce(undefined);
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE).send({ personalCode: "A1B2H3D4E5F" });
+        expect(res.status).toBe(302);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+        expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE_IS_INVALID + "?lang=en");
     });
 });
