@@ -9,8 +9,10 @@ import {
     reverifyDateOfBirthController,
     reverifyConfirmHomeAddressController,
     reverifyHomeAddressManualController,
+    whatIsTheirPersonalCodeController,
     reverifyIdentityChecksCompletedController
 } from "../controllers";
+import { personalCodeValidator } from "../validations/personalCode";
 import { nameValidator } from "../validations/personName";
 import { homeAddressValidator } from "../validations/homeAddress";
 import { useNameOnPublicRegisterValidator } from "../validations/useNameOnPublicRegister";
@@ -33,6 +35,9 @@ reverifyRoutes.post(urls.REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, nameValidator
 
 reverifyRoutes.get(urls.REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, whatIsTheirHomeAddressController.get);
 reverifyRoutes.post(urls.REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, homeAddressValidator, whatIsTheirHomeAddressController.post);
+
+reverifyRoutes.get(urls.REVERIFY_PERSONAL_CODE, whatIsTheirPersonalCodeController.get);
+reverifyRoutes.post(urls.REVERIFY_PERSONAL_CODE, personalCodeValidator, whatIsTheirPersonalCodeController.post);
 
 reverifyRoutes.get(urls.REVERIFY_DATE_OF_BIRTH, reverifyDateOfBirthController.get);
 reverifyRoutes.post(urls.REVERIFY_DATE_OF_BIRTH, dateValidator("dob"), reverifyDateOfBirthController.post);
