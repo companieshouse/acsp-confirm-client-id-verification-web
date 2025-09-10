@@ -10,10 +10,10 @@
     "asPart": "fel rhan o rai ffeilio'r cwmni, megis y datganiad cadarnhau",
     "ifThey": "os ydynt yn cael ei benodi fel cyfarwyddwr",
     "ifTheyBecome": "os ydynt yn dod yn berson â rheolaeth arwyddocaol (PRhA)",
-    "reVerifyCodePageTitle": "What is their personal code? -Welsh",
-    "reVerifyCodePageHint": "There is an 11 character code, for example A1B-2H3D-4E5F -Welsh",
-    "reVerifyCodePageFAQ": "Where they can find their personal code -Welsh",
-    "reVerifyCodePageText":"TBC -Welsh",
-    "error-noPersonalCode": "Enter their personal code -Welsh",
-    "error-personalCodeInvalidFormat": "Enter a valid personal code -Welsh"
+    "reVerifyCodePageTitle": "What is their personal code? - Welsh",
+    "reVerifyCodePageHint": "There is an 11 character code, for example A1B-2H3D-4E5F - Welsh",
+    "reVerifyCodePageFAQ": "Where they can find their personal code - Welsh",
+    "reVerifyCodePageText":"TBC - Welsh",
+    "error-noPersonalCode": "Enter their personal code - Welsh",
+    "error-personalCodeInvalidFormat": "Enter a valid personal code - Welsh"
 }
