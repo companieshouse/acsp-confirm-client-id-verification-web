@@ -97,8 +97,6 @@ export const REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED = "/how-were-the-identity-d
 
 export const REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1 = "/identity-documents-checked-using-technology";
 
-export const REVERIFY_ID_DOCUMENT_DETAILS = "/enter-the-document-details";
-
 export const REVERIFY_ENTER_ID_DOCUMENT_DETAILS = "/enter-the-document-details";
 
 export const REVERIFY_CONFIRM_IDENTITY_REVERIFICATION = "/confirm-you-reverified-their-identity";

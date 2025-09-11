@@ -1,7 +1,7 @@
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../../config";
 import { NextFunction, Request, Response } from "express";
-import { REVERIFY_BASE_URL, REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, REVERIFY_ID_DOCUMENT_DETAILS } from "../../types/pageURL";
+import { REVERIFY_BASE_URL, REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, REVERIFY_ENTER_ID_DOCUMENT_DETAILS } from "../../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
 import { CheckedDocumentsService } from "../../services/checkedDocumentsService";
 import { ClientData } from "../../model/ClientData";
@@ -57,7 +57,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             const checkedDocumentsService = new CheckedDocumentsService();
             checkedDocumentsService.saveDocuments(req, clientData, req.body.documentsGroup1);
 
-            res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_ID_DOCUMENT_DETAILS, lang));
+            res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS, lang));
         }
     } catch (error) {
         next(error);

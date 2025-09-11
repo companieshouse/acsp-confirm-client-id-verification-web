@@ -1,7 +1,7 @@
 import mocks from "../../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../../src/app";
-import { REVERIFY_BASE_URL, REVERIFY_ID_DOCUMENT_DETAILS, REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1 } from "../../../../src/types/pageURL";
+import { REVERIFY_BASE_URL, REVERIFY_ENTER_ID_DOCUMENT_DETAILS, REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1 } from "../../../../src/types/pageURL";
 import * as localise from "../../../../src/utils/localise";
 
 jest.mock("@companieshouse/api-sdk-node");
@@ -37,7 +37,7 @@ describe("POST" + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, () => {
         };
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1).send(inputData);
         expect(res.status).toBe(302);
-        expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_ID_DOCUMENT_DETAILS + "?lang=en");
+        expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS + "?lang=en");
     });
 
     it("should return status 400 when no documents are selected", async () => {
