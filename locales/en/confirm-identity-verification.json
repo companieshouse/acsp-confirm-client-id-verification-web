@@ -1,13 +1,10 @@
 {
     "confirmVerificationHeading": "Confirm you have verified this person's identity",
-    "confirmVerificationWarningText1": "We could suspend or stop",
-    "confirmVerificationWarningText2": "from acting as an authorised agent if you have not met Companies House identity verification standard.",
+    "confirmVerificationWarningText": "We could suspend or stop {ACSP_NAME} from acting as an authorised agent if you have not met Companies House identity verification standard.",
     "declarationSubHeading": "Declaration",
-    "confirmationStatement1": "I confirm that",
-    "confirmationStatement2": "verified the identity of",
-    "confirmationStatement3": " to the standard set by Companies House and is satisfied that the required personal information is true. The verification checks were completed on",
+    "confirmationStatement": "I confirm that {ACSP_NAME} verified the identity of {PERSON_NAME} to the standard set by Companies House and is satisfied that the required personal information is true. The verification checks were completed on {VERIFICATION_DATE}.",
     "Mae": "",
-    "isSupervisedBy": "is supervised by",
+    "isSupervisedBy": "{ACSP_NAME} is supervised by",
     "informationShownOnPublicRegister": "What information we'll show on the public register",
     "showThisDeclaration": "We will show this declaration as part of any records about the person on the online Companies House register.",
 
