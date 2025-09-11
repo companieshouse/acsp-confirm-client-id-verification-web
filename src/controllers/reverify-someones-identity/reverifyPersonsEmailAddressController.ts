@@ -48,11 +48,11 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
-        const errorList = validationResult(req);
         const session: Session = req.session as any as Session;
+        const lang = selectLang(req.query.lang);
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
+        const errorList = validationResult(req);
         if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
             renderValidationError(req, res, locales, lang, clientData, pageProperties);
@@ -61,13 +61,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             clientData.confirmEmailAddress = req.body.confirm;
             saveDataInSession(req, USER_DATA, clientData);
 
-            const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
+            const previousPage: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
 
             await findIdentityByEmail(req.body["email-address"]).then(identity => {
                 if (identity !== undefined) {
                     res.redirect(addLangToUrl(REVERIFY_BASE_URL + PROVIDE_DIFFERENT_EMAIL, lang));
                 } else {
-                    const redirectUrl = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+                    const redirectUrl = previousPage === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
                         ? REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS
                         : REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH;
 
