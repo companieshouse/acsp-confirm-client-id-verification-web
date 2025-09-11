@@ -16,7 +16,6 @@ import { formatValidationError, getPageProperties } from "../../validations/vali
 import { validationResult } from "express-validator";
 import { PREVIOUS_PAGE_URL, REVERIFY_IDENTITY } from "../../utils/constants";
 import { findIdentityByUvid } from "../../services/identityVerificationService";
-import { ErrorService } from "../../services/errorService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -57,9 +56,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                     session.setExtraData(REVERIFY_IDENTITY, identity);
                     res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_EMAIL_ADDRESS, lang));
                 }
-            }).catch(() => {
-                const errorService = new ErrorService();
-                errorService.renderErrorPage(res, locales, lang, currentUrl);
             });
         } else {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
