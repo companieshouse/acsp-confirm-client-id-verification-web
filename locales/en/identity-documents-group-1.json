@@ -1,5 +1,6 @@
 {
     "identityDocumentsIDVTitle": "Which documents did you check to verify their identity?",
+    "reverifyIdentityDocumentsIDVTitle": "Which documents did you check to reverify their identity?",
     "identityDocumentsIDVHint": "Select at least one document.",
     "biometric_passport": "Biometric or machine readable passport",
     "irish_passport_card": "Irish passport card",
@@ -9,5 +10,6 @@
     "UK_biometric_residence_card": "UK biometric residence card (BRC)",
     "UK_frontier_worker_permit": "UK Frontier Worker permit",
 
-    "error-identityDocumentsGroup1Empty": "Select which documents you checked to verify their identity"
+    "error-identityDocumentsGroup1Empty": "Select which documents you checked to verify their identity",
+    "error-reverifyIdentityDocumentsGroup1Empty": "Select which documents you checked to reverify their identity"
 }

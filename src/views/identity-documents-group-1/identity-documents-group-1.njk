@@ -1,7 +1,14 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "layouts/default.njk" %}
-{% set title = i18n.identityDocumentsIDVTitle %}
+
+{% if reqType !== "reverify" %}
+  {% set title = i18n.identityDocumentsIDVTitle %}
+  {% set pageHeader = i18n.identityDocumentsIDVTitle %}
+{% else %}
+  {% set title = i18n.reverifyIdentityDocumentsIDVTitle %}
+  {% set pageHeader = i18n.reverifyIdentityDocumentsIDVTitle %}
+{% endif %}
 
 {% block main_content %}
     <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
@@ -11,7 +18,7 @@
             name: "documentsGroup1",
             fieldset: {
                 legend: {
-                    text: i18n.identityDocumentsIDVTitle,
+                    text: pageHeader,
                     isPageHeading: true,
                     classes: "govuk-fieldset__legend--l"
                 }
