@@ -7,7 +7,7 @@ i18n.identityDocumentsIDVTitle %}
         {% include "partials/csrf_token.njk" %}
         {% include "partials/user_name.njk" %}
         {% if reqType == "reverify"%}
-           {% set title = i18n.identityDocumentsIDVTitleReverification %}
+           {% set title = i18n.reverifyIdentityDocumentsIDVTitle %}
         {% else %}
            {% set title = i18n.identityDocumentsIDVTitle %}
         {% endif %}
