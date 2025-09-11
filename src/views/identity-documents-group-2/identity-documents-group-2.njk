@@ -6,7 +6,14 @@ i18n.identityDocumentsIDVTitle %}
     <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
         {% include "partials/csrf_token.njk" %}
         {% include "partials/user_name.njk" %}
-        <h1 class="govuk-heading-l">{{i18n.identityDocumentsIDVTitle}}</h1>
+        {% if reqType == "reverify"%}
+           {% set title = i18n.identityDocumentsIDVTitleReverification %}
+        {% else %}
+           {% set title = i18n.identityDocumentsIDVTitle %}
+        {% endif %}
+        <h1 class="govuk-heading-l">
+            {{title}}
+        </h1>
         <p class="govuk-hint">{{i18n.identityDocumentsIDVHint2}} </p>
         {{ govukCheckboxes({
             name: "documentsGroup2A",

@@ -10,6 +10,7 @@ import {
     reverifyConfirmHomeAddressController,
     reverifyHomeAddressManualController,
     whatIsTheirPersonalCodeController,
+    identityDocumentsCheckedReverificationGroup2Controller,
     reverifyIdentityChecksCompletedController
 } from "../controllers";
 import { personalCodeValidator } from "../validations/personalCode";
@@ -18,6 +19,7 @@ import { homeAddressValidator } from "../validations/homeAddress";
 import { useNameOnPublicRegisterValidator } from "../validations/useNameOnPublicRegister";
 import { dateValidator } from "../validations/dateValidationCommon";
 import { manualAddressValidator } from "../validations/homeAddressManual";
+import { identityDocsGroup2Validator } from "../validations/identityDocumentsGroup2";
 
 const reverifyRoutes = Router();
 
@@ -50,5 +52,8 @@ reverifyRoutes.post(urls.REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator(
 
 reverifyRoutes.get(urls.REVERIFY_HOME_ADDRESS_MANUAL, reverifyHomeAddressManualController.get);
 reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS_MANUAL, manualAddressValidator, reverifyHomeAddressManualController.post);
+
+reverifyRoutes.get(urls.REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2, identityDocumentsCheckedReverificationGroup2Controller.get);
+reverifyRoutes.post(urls.REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2, identityDocsGroup2Validator, identityDocumentsCheckedReverificationGroup2Controller.post);
 
 export default reverifyRoutes;

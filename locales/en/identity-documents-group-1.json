@@ -1,5 +1,6 @@
 {
     "identityDocumentsIDVTitle": "Which documents did you check to verify their identity?",
+    "identityDocumentsIDVTitleReverification": "Which documents did you check to reverify their identity?",
     "identityDocumentsIDVHint": "Select at least one document.",
     "biometric_passport": "Biometric or machine readable passport",
     "irish_passport_card": "Irish passport card",
