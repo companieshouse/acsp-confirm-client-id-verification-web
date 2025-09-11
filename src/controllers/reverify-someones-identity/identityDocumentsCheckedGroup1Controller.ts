@@ -14,15 +14,13 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
-        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
         const payload = { documentsGroup1: clientData.documentsChecked };
 
         res.render(config.IDENTITY_DOCUMETS_GROUP_1, {
             ...getLocaleInfo(locales, lang),
-            previousPage,
-            currentUrl,
+            previousPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, lang),
+            currentUrl: REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1,
             firstName: clientData?.firstName,
             lastName: clientData?.lastName,
             payload
@@ -37,8 +35,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
-        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
         const errorList = validationResult(req);
 
@@ -47,8 +43,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             res.status(400).render(config.IDENTITY_DOCUMETS_GROUP_1, {
                 ...getLocaleInfo(locales, lang),
                 ...pageProperties,
-                previousPage,
-                currentUrl,
+                previousPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, lang),
+                currentUrl: REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1,
                 payload: req.body,
                 firstName: clientData?.firstName,
                 lastName: clientData?.lastName
