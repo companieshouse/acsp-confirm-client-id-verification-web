@@ -31,15 +31,15 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             previousPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS, lang),
             ...getLocaleInfo(locales, lang),
             currentUrl: REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION,
+            payload,
+            formattedDate,
             firstName: clientData?.firstName,
             lastName: clientData?.lastName,
-            formattedDate,
-            payload,
             acspName: acspDetails.name,
             amlBodies,
+            useNameOnPublicRegister: clientData?.useNameOnPublicRegister,
             preferredFirstName: clientData?.preferredFirstName,
-            preferredLastName: clientData?.preferredLastName,
-            useNameOnPublicRegister: clientData?.useNameOnPublicRegister
+            preferredLastName: clientData?.preferredLastName
         });
     } catch (error) {
         next(error);
@@ -58,21 +58,21 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             .toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
 
         if (!errorList.isEmpty()) {
-            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
             const amlBodies = getAmlBodiesAsString(acspDetails);
+            const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
             res.status(400).render(config.CONFIRM_IDENTITY_VERIFICATION, {
                 previousPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS, lang),
                 ...getLocaleInfo(locales, lang),
                 ...pageProperties,
                 currentUrl: REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION,
-                firstName: clientData?.firstName,
-                lastName: clientData?.lastName,
                 formattedDate,
                 amlBodies,
+                firstName: clientData?.firstName,
+                lastName: clientData?.lastName,
                 acspName: acspDetails.name,
+                useNameOnPublicRegister: clientData?.useNameOnPublicRegister,
                 preferredFirstName: clientData?.preferredFirstName,
-                preferredLastName: clientData?.preferredLastName,
-                useNameOnPublicRegister: clientData?.useNameOnPublicRegister
+                preferredLastName: clientData?.preferredLastName
             });
         } else {
             if (clientData) {
