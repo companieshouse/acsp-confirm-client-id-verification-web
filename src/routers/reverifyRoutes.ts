@@ -12,7 +12,8 @@ import {
     whatIsTheirPersonalCodeController,
     reverifyIdentityChecksCompletedController,
     reverifyIdentityDocumentsCheckedGroup1Controller,
-    reverifyConfirmIdentityReverificationController
+    reverifyConfirmIdentityReverificationController,
+    reverifyCheckYourAnswersController
 } from "../controllers";
 import { personalCodeValidator } from "../validations/personalCode";
 import { nameValidator } from "../validations/personName";
@@ -22,6 +23,7 @@ import { dateValidator } from "../validations/dateValidationCommon";
 import { reverifyIdentityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { confirmIdentityReverificationValidator } from "../validations/confirmIdentityVerification";
+import { checkYourAnswerValidator } from "../validations/checkYourAnswer";
 
 const reverifyRoutes = Router();
 
@@ -60,5 +62,8 @@ reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS_MANUAL, manualAddressValidator, r
 
 reverifyRoutes.get(urls.REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, reverifyConfirmIdentityReverificationController.get);
 reverifyRoutes.post(urls.REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, confirmIdentityReverificationValidator, reverifyConfirmIdentityReverificationController.post);
+
+reverifyRoutes.get(urls.CHECK_YOUR_ANSWERS, reverifyCheckYourAnswersController.get);
+reverifyRoutes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswerValidator, reverifyCheckYourAnswersController.post);
 
 export default reverifyRoutes;
