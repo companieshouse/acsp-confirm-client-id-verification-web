@@ -10,10 +10,11 @@ import {
 } from "../../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
 import { getPreviousPageUrl } from "../../services/url";
+import { Session } from "@companieshouse/node-session-handler";
 import { saveDataInSession } from "../../utils/sessionHelper";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
 import { validationResult } from "express-validator";
-import { PREVIOUS_PAGE_URL } from "../../utils/constants";
+import { PREVIOUS_PAGE_URL, REVERIFY_IDENTITY } from "../../utils/constants";
 import { findIdentityByUvid } from "../../services/identityVerificationService";
 import { ErrorService } from "../../services/errorService";
 
@@ -39,6 +40,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     try {
 
         const lang = selectLang(req.query.lang);
+        const session: Session = req.session as any as Session;
         const locales = getLocalesService();
         const errorList = validationResult(req);
         const currentUrl = REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE;
@@ -52,6 +54,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 if (identity === undefined || identity.status !== "valid_pending_reverification") {
                     res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE_IS_INVALID, lang));
                 } else {
+                    session.setExtraData(REVERIFY_IDENTITY, identity);
                     res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_EMAIL_ADDRESS, lang));
                 }
             }).catch(() => {
