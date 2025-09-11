@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../../utils/localise";
 import * as config from "../../config";
-import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, CONFIRMATION } from "../../types/pageURL";
+import { REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, REVERIFY_CONFIRMATION } from "../../types/pageURL";
 import { USER_DATA, REFERENCE, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS, CEASED, DATA_SUBMITTED_AND_EMAIL_SENT } from "../../utils/constants";
 import { ClientData } from "../../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
@@ -21,8 +21,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
-        const previousPage: string = addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang);
-        const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS;
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
@@ -30,7 +30,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         // Redirect to confirmation page if the data has already been submitted
         // This is if user refreshes Check Your Answers page URL in browser
         if (session.getExtraData(DATA_SUBMITTED_AND_EMAIL_SENT)) {
-            return res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
+            return res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRMATION, lang));
         }
 
         // setting CYA flag to true when user reaches this page - used for routing back if they change a value
@@ -80,8 +80,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const errorList = validationResult(req);
-        const previousPage: string = addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang);
-        const currentUrl: string = BASE_URL + CHECK_YOUR_ANSWERS;
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS;
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
@@ -127,7 +127,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             // Redirect to confirmation page if the data has already been submitted
             // This is if user refreshes browswer and selects to resubmit the form
             if (session.getExtraData(DATA_SUBMITTED_AND_EMAIL_SENT)) {
-                return res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
+                return res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRMATION, lang));
             }
 
             const identityFromEmail = await findIdentityByEmail(clientData.emailAddress!);
@@ -163,7 +163,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             // If user faces issue before seeing confirmation page we use this flag to check and redirect if they refresh
             session.setExtraData(DATA_SUBMITTED_AND_EMAIL_SENT, true);
 
-            res.redirect(addLangToUrl(BASE_URL + CONFIRMATION, lang));
+            res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRMATION, lang));
 
         }
     } catch (error) {
