@@ -85,14 +85,18 @@ export const REVERIFY_DATE_OF_BIRTH = "/what-is-their-date-of-birth";
 
 export const REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS = "/what-is-their-home-address";
 
+export const REVERIFY_HOME_ADDRESS_MANUAL = "/enter-their-home-address";
+
 export const REVERIFY_CHOOSE_AN_ADDRESS = "/choose-an-address";
 
 export const REVERIFY_CONFIRM_HOME_ADDRESS = "/confirm-their-address";
 
-export const REVERIFY_HOME_ADDRESS_MANUAL = "/enter-their-home-address";
-
-export const REVERIFY_CHECK_YOUR_ANSWERS = "/check-your-answers";
-
 export const REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED = "/when-did-you-complete-the-identity-checks";
 
 export const REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED = "/how-were-the-identity-documents-checked";
+
+export const REVERIFY_ENTER_ID_DOCUMENT_DETAILS = "/enter-the-document-details";
+
+export const REVERIFY_CONFIRM_IDENTITY_REVERIFICATION = "/confirm-you-reverified-their-identity";
+
+export const REVERIFY_CHECK_YOUR_ANSWERS = "/check-your-answers";

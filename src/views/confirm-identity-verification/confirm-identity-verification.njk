@@ -2,36 +2,48 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% extends "layouts/default.njk" %}
-{% set title = i18n.confirmVerificationHeading %}
+
+{% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
+    {% set displayedFirstName = (preferredFirstName | escape) %}
+    {% set displayedLastName = (preferredLastName | escape) %}
+{% else %}   
+    {% set displayedFirstName = (firstName | escape) %}
+    {% set displayedLastName = (lastName | escape) %}
+{% endif %}
+{% set personFullName = displayedFirstName + " " + displayedLastName %}
+
+{% if reqType == "reverify"%}
+    {% set title = i18n.confirmReverificationTitle %}
+    {% set warningText = i18n.confirmReverificationWarningText | replace ('{ACSP_NAME}', acspName) %}
+    {% set confirmationStatement = i18n.confirmationReverificationStatement 
+        | replace('{ACSP_NAME}', acspName | escape)
+        | replace('{PERSON_NAME}', personFullName) 
+        | replace('{REVERIFICATION_DATE}', formattedDate) 
+    %}
+{% else %}
+    {% set title = i18n.confirmVerificationHeading %}
+    {% set warningText = i18n.confirmVerificationWarningText | replace ('{ACSP_NAME}', acspName) %}
+    {% set confirmationStatement = i18n.confirmationStatement 
+        | replace('{ACSP_NAME}', acspName | escape)
+        | replace('{PERSON_NAME}', personFullName) 
+        | replace('{VERIFICATION_DATE}', formattedDate) 
+    %}
+{% endif %}
+
+{% set checkBoxText = 
+    "<p class=\"govuk-body\">" + confirmationStatement 
+    + "</p><p class=\"govuk-body\">" + i18n.Mae + i18n.isSupervisedBy | replace ('{ACSP_NAME}', acspName | escape) + " " + amlBodies + ".</p>" 
+%}
+
 {% block main_content %}
-{% set displayedFirstName = " " %}
-    {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
-        {% set displayedFirstName = (preferredFirstName | escape) + " " %}
-    {% else %}   
-        {% set displayedFirstName = (firstName | escape) + " " %}
-    {% endif %}
-
-
-{% set displayedLastName = " " %}
-    {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
-        {% set displayedLastName =  (preferredLastName | escape) + " " %}
-    {% else %}   
-        {% set displayedLastName =  (lastName | escape) + " " %}
-    {% endif %}
-
-
-
-{% set checkBoxText = "<p>" + i18n.confirmationStatement1 + " " + (acspName | escape) + " " + i18n.confirmationStatement2 + " " + displayedFirstName + displayedLastName + i18n.confirmationStatement3 + " " + formattedDate + "." + 
-    "</p><br><p>" + i18n.Mae + (acspName | escape) + " " + i18n.isSupervisedBy + " " + amlBodies + ".</p>"%}
-
 {% include "partials/user_name.njk" %}
-<h1 class="govuk-heading-l">{{ i18n.confirmVerificationHeading }}</h1>
+<h1 class="govuk-heading-l">{{ title }}</h1>
 
 <div class="govuk-warning-text">
     <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
     <strong class="govuk-warning-text__text">
       <span class="govuk-visually-hidden">{{ i18n.warning }}</span>
-      {{ i18n.confirmVerificationWarningText1 }} {{ acspName }} {{ i18n.confirmVerificationWarningText2 }}
+      {{ warningText }}
     </strong>
 </div>
 
@@ -57,7 +69,7 @@
 
     <div class="govuk-inset-text">
         <h2 class="govuk-heading-m">{{ i18n.informationShownOnPublicRegister }}</h2>
-        <p>{{ i18n.showThisDeclaration }}</p>
+        <p class="govuk-body">{{ i18n.showThisDeclaration }}</p>
     </div>
 
     {{ govukButton({
