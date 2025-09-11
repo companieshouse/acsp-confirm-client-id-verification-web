@@ -42,3 +42,5 @@ export const USE_NAME_ON_PUBLIC_REGISTER_NO = "use_name_on_public_register_no";
 // service names
 export const VERIFY_SERVICE_NAME = "Tell Companies House you have verified someone's identity";
 export const REVERIFY_SERVICE_NAME = "Reverify someone's identity for Companies House";
+
+export const REVERIFY_IDENTITY = "reverifyIdentity";

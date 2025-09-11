@@ -39,6 +39,43 @@ export const findIdentityByEmail = async (email: string): Promise<Identity | und
     return Promise.resolve(castedSdkResponse.resource);
 };
 
+export const findIdentityByUvid = async (uvid: string): Promise<Identity | undefined> => {
+    const apiClient = createPrivateApiKeyClient();
+
+    logger.info(`Received request to find identity by uvid ${uvid}`);
+
+    const sdkResponse: Resource<Identity> | ApiErrorResponse = await apiClient.identityVerificationService.findByUvid(uvid);
+
+    if (!sdkResponse) {
+        const errorMessage = `Find identity by uvid returned no response for uvid ${uvid}`;
+        const error = new Error(errorMessage);
+        (error as any).sdkResponse = sdkResponse;
+        return Promise.reject(error);
+    }
+    if (!sdkResponse.httpStatusCode || (sdkResponse.httpStatusCode >= 400 && sdkResponse.httpStatusCode !== 404)) {
+        const errorMessage = `Http status code ${sdkResponse.httpStatusCode} and error ${JSON.stringify(sdkResponse)} - Failed to get identity by uvid ${uvid}`;
+        logger.error(errorMessage);
+        const error = new Error(errorMessage);
+        (error as any).sdkResponse = sdkResponse;
+        return Promise.reject(error);
+    }
+    if (sdkResponse.httpStatusCode === 404) {
+        const errorMessage = `Find identity by uvid returned status 404, no identity found with uvid ${uvid}`;
+        logger.debug(errorMessage);
+        return Promise.resolve(undefined);
+    }
+    const castedSdkResponse: Resource<Identity> = sdkResponse as Resource<Identity>;
+    if (castedSdkResponse.resource === undefined) {
+        const errorMessage = `Find identity by uvid returned no resource for uvid ${uvid}`;
+        logger.error(errorMessage);
+        const error = new Error(errorMessage);
+        (error as any).sdkResponse = sdkResponse;
+        return Promise.reject(error);
+    }
+    logger.info(`Recieved identity details for uvid ${uvid}`);
+    return Promise.resolve(castedSdkResponse.resource);
+};
+
 export const sendVerifiedClientDetails = async (verifiedClientData: VerifiedClientData): Promise<Identity | undefined> => {
     const createUvidType = "acsp";
     const apiClient = createPrivateApiKeyClient();

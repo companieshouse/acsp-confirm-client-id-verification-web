@@ -6,7 +6,8 @@ import {
     HOW_IDENTITY_DOCUMENTS_CHECKED,
     REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED,
     REVERIFY_BASE_URL,
-    REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2
+    REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2,
+    REVERIFY_ENTER_ID_DOCUMENT_DETAILS
 } from "../../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
 import { ClientData } from "../../model/ClientData";
@@ -61,7 +62,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 lastName: clientData?.lastName
             });
         } else {
-            res.redirect(addLangToUrl(REVERIFY_BASE_URL, lang));
+            res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS, lang));
         }
     } catch (error) {
         next(error);

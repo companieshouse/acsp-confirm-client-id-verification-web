@@ -1,13 +1,10 @@
 {
     "confirmVerificationHeading": "Cadarnhau eich bod wedi gwirio hunaniaeth y person hwn",
-    "confirmVerificationWarningText1": "Gallwn stopio neu atal",
-    "confirmVerificationWarningText2": "rhag gweithredu fel asiant awdurdodedig os nad ydych wedi cyrraedd ein safon gwiriad hunaniaeth.",
+    "confirmVerificationWarningText": "Gallwn stopio neu atal {ACSP_NAME} rhag gweithredu fel asiant awdurdodedig os nad ydych wedi cyrraedd ein safon gwiriad hunaniaeth.",
     "declarationSubHeading": "Datganiad",
-    "confirmationStatement1": "Rwy'n cadarnhau bod ",
-    "confirmationStatement2": "wedi gwirio hunaniaeth",
-    "confirmationStatement3": " i'r safon a osodwyd gan Dŷ'r Cwmnïau ac mae'n fodlon bod y wybodaeth bersonol ofynnol yn wir.  Cwblhawyd y gwiriadau gwirio ar ",
+    "confirmationStatement": "Rwy'n cadarnhau bod {ACSP_NAME} wedi gwirio hunaniaeth {PERSON_NAME} i'r safon a osodwyd gan Dŷ'r Cwmnïau ac mae'n fodlon bod y wybodaeth bersonol ofynnol yn wir.  Cwblhawyd y gwiriadau gwirio ar {VERIFICATION_DATE}.",
     "Mae": "Mae ",
-    "isSupervisedBy": "yn cael ei oruchwylio gan ",
+    "isSupervisedBy": "{ACSP_NAME} yn cael ei oruchwylio gan ",
     "informationShownOnPublicRegister": "Pa wybodaeth y byddwn yn dangos ar y gofrestr gyhoeddus",
     "showThisDeclaration": "Byddwn yn dangos y datganiad hwn fel rhan o unrhyw gofnodion am y person ar gofrestr ar-lein Tŷ'r Cwmnïau.",
 
