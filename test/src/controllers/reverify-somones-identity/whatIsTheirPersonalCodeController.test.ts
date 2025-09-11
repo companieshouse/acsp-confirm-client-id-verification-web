@@ -50,6 +50,16 @@ describe("What is their personal code POST", () => {
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_EMAIL_ADDRESS + "?lang=en");
     });
 
+    it("should show the error page if an error occurs", async () => {
+        const errorMessage = "Test error";
+        await mockFindIdentityByUvid.mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE).send({ personalCode: "A1B2H3D4E5F" });
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
+
     it("Should show a validation error when the personal code is empty", async () => {
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE).send({ personalCode: "" });
         expect(res.text).toContain("Enter their personal code");
