@@ -48,15 +48,14 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
-        const errorList = validationResult(req);
+        const lang = selectLang(req.query.lang);
         const session: Session = req.session as any as Session;
+        const errorList = validationResult(req);
         const clientData: ClientData = session.getExtraData(USER_DATA)!;
-        const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
         const formattedDate = clientData?.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted)
             .toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
-
+        const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
         if (!errorList.isEmpty()) {
             const amlBodies = getAmlBodiesAsString(acspDetails);
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
