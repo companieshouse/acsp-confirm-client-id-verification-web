@@ -20,7 +20,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const reverificationFlag: boolean = true;
         const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
         const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2;
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
@@ -29,7 +28,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             ...getLocaleInfo(locales, lang),
             previousPage,
             currentUrl,
-            reverificationFlag,
             firstName: clientData?.firstName,
             lastName: clientData?.lastName
         });
@@ -50,13 +48,11 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
         if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-            const reverificationFlag: boolean = true;
             res.status(400).render(config.IDENTITY_DOCUMETS_GROUP_2, {
                 ...getLocaleInfo(locales, lang),
                 ...pageProperties,
                 previousPage,
                 currentUrl,
-                reverificationFlag,
                 payload: req.body,
                 firstName: clientData?.firstName,
                 lastName: clientData?.lastName
