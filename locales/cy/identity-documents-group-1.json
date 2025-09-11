@@ -1,5 +1,6 @@
 {
     "identityDocumentsIDVTitle": "Pa ddogfennau wnaethoch chi wirio i wirio ei hunaniaeth?",
+    "reverifyIdentityDocumentsIDVTitle": "Which documents did you check to reverify their identity? - Welsh",
     "identityDocumentsIDVHint": "Dewiswch o leiaf un ddogfen.",
     "biometric_passport": "Pasbort biometrig neu ddarllenadwy gan beiriant",
     "irish_passport_card": "Cerdyn pasbort Gwyddelig",
@@ -9,5 +10,6 @@
     "UK_biometric_residence_card": "Cerdyn preswylio biometrig y DU (BRC)",
     "UK_frontier_worker_permit": "Trwydded waith ffiniau'r DU",
 
-    "error-identityDocumentsGroup1Empty": "Dewiswch pa ddogfennau y gwnaethoch eu gwirio i wirio ei hunaniaeth"
+    "error-identityDocumentsGroup1Empty": "Dewiswch pa ddogfennau y gwnaethoch eu gwirio i wirio ei hunaniaeth",
+    "error-reverifyIdentityDocumentsGroup1Empty": "Select which documents you checked to reverify their identity - Welsh"
 }
