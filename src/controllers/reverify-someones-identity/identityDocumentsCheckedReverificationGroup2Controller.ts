@@ -43,8 +43,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const session: Session = req.session as any as Session;
         const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
         const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2;
-        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
         const errorList = validationResult(req);
+        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
         if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
@@ -52,10 +52,10 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 ...getLocaleInfo(locales, lang),
                 ...pageProperties,
                 previousPage,
-                currentUrl,
                 payload: req.body,
                 firstName: clientData?.firstName,
-                lastName: clientData?.lastName
+                lastName: clientData?.lastName,
+                currentUrl
             });
         } else {
             res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS, lang));

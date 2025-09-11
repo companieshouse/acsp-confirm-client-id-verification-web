@@ -45,7 +45,7 @@ describe("POST", () => {
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.status).toBe(400);
-        expect(res.text).toContain("Select which documents you checked to verify their identity");
+        expect(res.text).toContain("Select which documents you checked to reverify their identity");
     });
 
     it("Should handle the exceptions with an appropiate error page.", async () => {
