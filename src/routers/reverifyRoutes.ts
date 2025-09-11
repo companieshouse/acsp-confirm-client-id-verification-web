@@ -8,12 +8,14 @@ import {
     whatIsTheirHomeAddressController,
     reverifyDateOfBirthController,
     reverifyConfirmHomeAddressController,
-    reverifyIdentityChecksCompletedController
+    reverifyIdentityChecksCompletedController,
+    reverifyPersonsEmailAddressController
 } from "../controllers";
 import { nameValidator } from "../validations/personName";
 import { homeAddressValidator } from "../validations/homeAddress";
 import { useNameOnPublicRegisterValidator } from "../validations/useNameOnPublicRegister";
 import { dateValidator } from "../validations/dateValidationCommon";
+import { emailValidator } from "../validations/personEmail";
 
 const reverifyRoutes = Router();
 
@@ -40,5 +42,8 @@ reverifyRoutes.post(urls.REVERIFY_CONFIRM_HOME_ADDRESS, reverifyConfirmHomeAddre
 
 reverifyRoutes.get(urls.REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, reverifyIdentityChecksCompletedController.get);
 reverifyRoutes.post(urls.REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator("wicc"), reverifyIdentityChecksCompletedController.post);
+
+reverifyRoutes.get(urls.REVERIFY_PERSONS_EMAIL_ADDRESS, reverifyPersonsEmailAddressController.get);
+reverifyRoutes.post(urls.REVERIFY_PERSONS_EMAIL_ADDRESS, emailValidator, reverifyPersonsEmailAddressController.post);
 
 export default reverifyRoutes;

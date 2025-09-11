@@ -10,7 +10,7 @@ export * as confirmHomeAddressController from "./confirmHomeAddressController";
 export * as dateOfBirthController from "./dateOfBirthController";
 export * as identityDocumentsCheckedGroup1Controller from "./identityDocumentsCheckedGroup1Controller";
 export * as identityDocumentsCheckedGroup2Controller from "./identityDocumentsCheckedGroup2Controller";
-export * as personsEmailController from "./personsEmailController";
+export * as personsEmailController from "././personsEmailController";
 export * as provideDifferentEmailController from "./provideDifferentEmailController";
 export * as howIdentityDocumentsCheckedController from "./howIdentityDocumentsCheckedController";
 export * as whenIdentityChecksCompletedController from "./whenIdentityChecksCompletedController";
@@ -34,3 +34,4 @@ export * as whatIsTheirHomeAddressController from "./reverify-someones-identity/
 export * as reverifyDateOfBirthController from "./reverify-someones-identity/dateOfBirthController";
 export * as reverifyConfirmHomeAddressController from "./reverify-someones-identity/confirmHomeAddressController";
 export * as reverifyIdentityChecksCompletedController from "./reverify-someones-identity/reverifyIdentityChecksCompletedController";
+export * as reverifyPersonsEmailAddressController from "./reverify-someones-identity/reverifyPersonsEmailAddressController";

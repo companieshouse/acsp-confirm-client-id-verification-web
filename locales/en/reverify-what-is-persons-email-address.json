@@ -1,0 +1,17 @@
+{
+    "whatIs": "What is ",
+    "emailAddress": " {NAME}'s email address",
+    "emailAddressTabTitle": "What is their email address?",
+    "theyMustAbleToAccess": "They must be able to access emails sent to this address.",
+    "correctEmailAddressAlert": "You must check the email address is correct. It is the only place we will send their personal code.",
+    "enterEmailAddress": "Enter their email address",
+    "confirmEmail": "Re-enter their email address",
+    
+    "reverifyEmailAddressCanOnlyUsedOnce": "The email address you give can only be used once to reverify someone’s identity. You will not be able to use it for anyone else whose identity you have reverified.",
+    "continue": "Continue",
+
+    "error-noEmailAddress": "Enter their email address",
+    "error-noConfirmAddress": "Confirm their email address",
+    "error-invalidEmail": "Enter an email address in the correct format, like name@example.com",
+    "error-emailAddressDontMatch": "Email addresses must match"
+}

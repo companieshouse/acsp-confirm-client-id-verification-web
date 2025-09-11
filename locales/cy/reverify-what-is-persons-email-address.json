@@ -1,0 +1,17 @@
+{
+    "whatIs": "What is - Welsh",
+    "emailAddress": " {NAME}'s email address - Welsh",
+    "emailAddressTabTitle": "What is their email address? - Welsh",
+    "theyMustAbleToAccess": "They must be able to access emails sent to this address. - Welsh",
+    "correctEmailAddressAlert": "You must check the email address is correct. It is the only place we will send their personal code. - Welsh",
+    "enterEmailAddress": "Enter their email address - Welsh",
+    "confirmEmail": "Re-enter their email address - Welsh",
+    
+    "reverifyEmailAddressCanOnlyUsedOnce": "The email address you give can only be used once to verify someone’s identity. You will not be able to use it for anyone else whose identity you have verified. - Welsh",
+    "continue": "Continue - Welsh",
+
+    "error-noEmailAddress": "Enter their email address - Welsh",
+    "error-noConfirmAddress": "Confirm their email address - Welsh",
+    "error-invalidEmail": "Enter an email address in the correct format, like name@example.com - Welsh",
+    "error-emailAddressDontMatch": "Email addresses must match - Welsh"
+}
