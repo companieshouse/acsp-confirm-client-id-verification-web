@@ -96,3 +96,7 @@ export const REVERIFY_CHECK_YOUR_ANSWERS = "/check-your-answers";
 export const REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED = "/when-did-you-complete-the-identity-checks";
 
 export const REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED = "/how-were-the-identity-documents-checked";
+
+export const REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1 = "/identity-documents-checked-using-technology";
+
+export const REVERIFY_ID_DOCUMENT_DETAILS = "/enter-the-document-details";

@@ -9,13 +9,15 @@ import {
     reverifyDateOfBirthController,
     reverifyConfirmHomeAddressController,
     whatIsTheirPersonalCodeController,
-    reverifyIdentityChecksCompletedController
+    reverifyIdentityChecksCompletedController,
+    reverifyIdentityDocumentsCheckedGroup1Controller
 } from "../controllers";
 import { personalCodeValidator } from "../validations/personalCode";
 import { nameValidator } from "../validations/personName";
 import { homeAddressValidator } from "../validations/homeAddress";
 import { useNameOnPublicRegisterValidator } from "../validations/useNameOnPublicRegister";
 import { dateValidator } from "../validations/dateValidationCommon";
+import { reverifyIdentityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 
 const reverifyRoutes = Router();
 
@@ -45,5 +47,8 @@ reverifyRoutes.post(urls.REVERIFY_CONFIRM_HOME_ADDRESS, reverifyConfirmHomeAddre
 
 reverifyRoutes.get(urls.REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, reverifyIdentityChecksCompletedController.get);
 reverifyRoutes.post(urls.REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator("wicc"), reverifyIdentityChecksCompletedController.post);
+
+reverifyRoutes.get(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, reverifyIdentityDocumentsCheckedGroup1Controller.get);
+reverifyRoutes.post(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, reverifyIdentityDocsGroup1Validator, reverifyIdentityDocumentsCheckedGroup1Controller.post);
 
 export default reverifyRoutes;
