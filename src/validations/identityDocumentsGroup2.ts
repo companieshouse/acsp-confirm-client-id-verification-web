@@ -24,7 +24,7 @@ export const identityDocsGroup2Validator: ValidationChain[] = [
             }
 
             if (documentsGroup2A.length === 0 && documentsGroup2B.length === 0) {
-                if (req.originalUrl?.includes("reverify")) {
+                if (req.originalUrl.includes("reverify")) {
                     throw new Error("reverifyIdentityDocumentsGroup1Empty");
                 } else {
                     throw new Error("identityDocumentsGroup1Empty");
