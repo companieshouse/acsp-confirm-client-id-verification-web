@@ -15,6 +15,7 @@
 {% if reqType == "reverify"%}
     {% set title = i18n.confirmReverificationTitle %}
     {% set warningText = i18n.confirmReverificationWarningText | replace ('{ACSP_NAME}', acspName) %}
+    {% set declarationSubHeading = i18n.identityVerificationStatement %}
     {% set confirmationStatement = i18n.confirmationReverificationStatement 
         | replace('{ACSP_NAME}', acspName | escape)
         | replace('{PERSON_NAME}', personFullName) 
@@ -23,6 +24,7 @@
 {% else %}
     {% set title = i18n.confirmVerificationHeading %}
     {% set warningText = i18n.confirmVerificationWarningText | replace ('{ACSP_NAME}', acspName) %}
+    {% set declarationSubHeading = i18n.declarationSubHeading %}
     {% set confirmationStatement = i18n.confirmationStatement 
         | replace('{ACSP_NAME}', acspName | escape)
         | replace('{PERSON_NAME}', personFullName) 
@@ -54,7 +56,7 @@
         errorMessage: errors.declaration if errors,
         fieldset: {
             legend: {
-                text: i18n.declarationSubHeading,
+                text: declarationSubHeading,
                 classes: "govuk-fieldset__legend--m"
             }
         },

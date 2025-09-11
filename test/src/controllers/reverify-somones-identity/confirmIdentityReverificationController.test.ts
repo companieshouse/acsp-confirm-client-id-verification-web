@@ -125,6 +125,50 @@ describe("GET " + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, () => {
         expect(res.text).toContain("Test User");
         expect(res.text).toContain("15 March 2024");
     });
+
+    it("should render page when session returns undefined for user data", async () => {
+        const sessionMiddlewareMock = sessionMiddleware as jest.Mock;
+        sessionMiddlewareMock.mockImplementationOnce((req: Request, res: Response, next: NextFunction) => {
+            const session = getSessionRequestWithPermission();
+            session.getExtraData = jest.fn().mockImplementation((key: string) => {
+                if (key === USER_DATA) {
+                    return undefined;
+                }
+                if (key === ACSP_DETAILS) {
+                    return dummyFullProfile;
+                }
+                return null;
+            });
+            req.session = session;
+            next();
+        });
+
+        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION);
+        expect(res.status).toBe(200);
+        expect(res.text).toContain("Confirm you have reverified this person&#39;s identity");
+    });
+
+    it("should render page when session returns false for user data", async () => {
+        const sessionMiddlewareMock = sessionMiddleware as jest.Mock;
+        sessionMiddlewareMock.mockImplementationOnce((req: Request, res: Response, next: NextFunction) => {
+            const session = getSessionRequestWithPermission();
+            session.getExtraData = jest.fn().mockImplementation((key: string) => {
+                if (key === USER_DATA) {
+                    return false;
+                }
+                if (key === ACSP_DETAILS) {
+                    return dummyFullProfile;
+                }
+                return null;
+            });
+            req.session = session;
+            next();
+        });
+
+        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION);
+        expect(res.status).toBe(200);
+        expect(res.text).toContain("Confirm you have reverified this person&#39;s identity");
+    });
 });
 
 describe("POST " + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, () => {
@@ -299,5 +343,27 @@ describe("POST " + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, () => {
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION).send({ declaration: "confirm" });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS + "?lang=en");
+    });
+
+    it("should return status 400 with validation error when clientData is null", async () => {
+        const sessionMiddlewareMock = sessionMiddleware as jest.Mock;
+        sessionMiddlewareMock.mockImplementationOnce((req: Request, res: Response, next: NextFunction) => {
+            const session = getSessionRequestWithPermission();
+            session.getExtraData = jest.fn().mockImplementation((key: string) => {
+                if (key === USER_DATA) {
+                    return null;
+                }
+                if (key === ACSP_DETAILS) {
+                    return dummyFullProfile;
+                }
+                return null;
+            });
+            req.session = session;
+            next();
+        });
+
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION).send({ declaration: "" });
+        expect(res.status).toBe(400);
+        expect(res.text).toContain("Select to confirm you have reverified their identity");
     });
 });

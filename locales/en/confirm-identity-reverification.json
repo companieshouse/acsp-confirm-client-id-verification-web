@@ -1,7 +1,7 @@
 {
     "confirmReverificationTitle": "Confirm you have reverified this person's identity",
     "confirmReverificationWarningText": "We could suspend or stop {ACSP_NAME} from acting as an Authorised Corporate Service Provider (ACSP) if you have not met our identity verification standard.",
-    "IdentityVerificationStatement": "Identity verification statement",
+    "identityVerificationStatement": "Identity verification statement",
     "confirmationReverificationStatement": "I confirm that {ACSP_NAME} reverified the identity of {PERSON_NAME} to the standard set by Companies House and is satisfied that the required personal information is true. The reverification checks were completed on {REVERIFICATION_DATE}.",
 
     "error-reverificationDeclarationNotChecked": "Select to confirm you have reverified their identity"
