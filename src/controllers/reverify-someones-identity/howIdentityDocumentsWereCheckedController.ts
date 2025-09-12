@@ -26,9 +26,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             ...getLocaleInfo(locales, lang),
             previousPage: previousPage,
             currentUrl: REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED,
-            selectedOption: clientData?.howIdentityDocsChecked,
             firstName: clientData?.firstName,
-            lastName: clientData?.lastName
+            lastName: clientData?.lastName,
+            selectedOption: clientData?.howIdentityDocsChecked
         });
     } catch (error) {
         next(error);
@@ -37,12 +37,12 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
-        const session: Session = req.session as any as Session;
-        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
+        const lang = selectLang(req.query.lang);
         const errorList = validationResult(req);
         const selectedOption = req.body.howIdentityDocsCheckedRadio;
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
         if (!errorList.isEmpty()) {
             const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
 
