@@ -19,27 +19,25 @@ import { AcspCeasedError } from "../../errors/acspCeasedError";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const lang = selectLang(req.query.lang);
-        const locales = getLocalesService();
-        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
-        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS;
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
+        const lang = selectLang(req.query.lang);
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
+        const locales = getLocalesService();
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS;
 
-        // Redirect to confirmation page if the data has already been submitted
-        // This is if user refreshes Check Your Answers page URL in browser
         if (session.getExtraData(DATA_SUBMITTED_AND_EMAIL_SENT)) {
             return res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRMATION, lang));
         }
-
-        // setting CYA flag to true when user reaches this page - used for routing back if they change a value
         saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, true);
 
         const formattedAddress = FormatService.formatAddress(clientData.address);
+
         const formattedDateOfBirth = FormatService.formatDate(
             clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
         );
+
         const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
             clientData.whenIdentityChecksCompleted
                 ? new Date(clientData.whenIdentityChecksCompleted)
@@ -77,20 +75,22 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const lang = selectLang(req.query.lang);
-        const locales = getLocalesService();
-        const errorList = validationResult(req);
-        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
-        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS;
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
+        const locales = getLocalesService();
+        const lang = selectLang(req.query.lang);
+        const errorList = validationResult(req);
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS;
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
 
         if (!errorList.isEmpty()) {
             const formattedAddress = FormatService.formatAddress(clientData.address);
+
             const formattedDateOfBirth = FormatService.formatDate(
                 clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
             );
+
             const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
                 clientData.whenIdentityChecksCompleted
                     ? new Date(clientData.whenIdentityChecksCompleted)
@@ -123,9 +123,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 acspName: acspDetails.name
             });
         } else {
-
-            // Redirect to confirmation page if the data has already been submitted
-            // This is if user refreshes browswer and selects to resubmit the form
             if (session.getExtraData(DATA_SUBMITTED_AND_EMAIL_SENT)) {
                 return res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRMATION, lang));
             }
@@ -135,7 +132,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 throw new Error("Email address already exists");
             }
 
-            // Check the ACSP's status and if they are ceased throw an error
             const acspNumber: string = getLoggedInAcspNumber(req.session);
             const acspDetails = await getAcspFullProfile(acspNumber);
             session.setExtraData(ACSP_DETAILS, acspDetails);
@@ -159,12 +155,9 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
             await sendIdentityVerificationConfirmationEmail(emailData);
 
-            // Sets a flag for when data is sent to verification api and email is sent
-            // If user faces issue before seeing confirmation page we use this flag to check and redirect if they refresh
             session.setExtraData(DATA_SUBMITTED_AND_EMAIL_SENT, true);
 
             res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRMATION, lang));
-
         }
     } catch (error) {
         next(error);
