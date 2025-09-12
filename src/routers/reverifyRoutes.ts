@@ -11,6 +11,7 @@ import {
     reverifyHomeAddressManualController,
     whatIsTheirPersonalCodeController,
     identityDocumentsCheckedReverificationGroup2Controller,
+    enterTheDocumentDetailsController,
     reverifyIdentityChecksCompletedController,
     reverifyIdentityDocumentsCheckedGroup1Controller,
     reverifyConfirmIdentityReverificationController
@@ -57,11 +58,15 @@ reverifyRoutes.post(urls.REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator(
 reverifyRoutes.get(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, reverifyIdentityDocumentsCheckedGroup1Controller.get);
 reverifyRoutes.post(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, reverifyIdentityDocsGroup1Validator, reverifyIdentityDocumentsCheckedGroup1Controller.post);
 
+reverifyRoutes.get(urls.REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2, identityDocumentsCheckedReverificationGroup2Controller.get);
+reverifyRoutes.post(urls.REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2, identityDocsGroup2Validator, identityDocumentsCheckedReverificationGroup2Controller.post);
+
+reverifyRoutes.get(urls.REVERIFY_ENTER_ID_DOCUMENT_DETAILS, enterTheDocumentDetailsController.get);
+reverifyRoutes.post(urls.REVERIFY_ENTER_ID_DOCUMENT_DETAILS, enterTheDocumentDetailsController.post);
+
 reverifyRoutes.get(urls.REVERIFY_HOME_ADDRESS_MANUAL, reverifyHomeAddressManualController.get);
 reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS_MANUAL, manualAddressValidator, reverifyHomeAddressManualController.post);
 
-reverifyRoutes.get(urls.REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2, identityDocumentsCheckedReverificationGroup2Controller.get);
-reverifyRoutes.post(urls.REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2, identityDocsGroup2Validator, identityDocumentsCheckedReverificationGroup2Controller.post);
 reverifyRoutes.get(urls.REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, reverifyConfirmIdentityReverificationController.get);
 reverifyRoutes.post(urls.REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, confirmIdentityReverificationValidator, reverifyConfirmIdentityReverificationController.post);
 
