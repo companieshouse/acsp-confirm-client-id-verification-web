@@ -3,19 +3,39 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% extends "layouts/default.njk" %}
-{% set title = i18n.howIdentityDocsCheckedTabTitle %}
+
+{% if reqType == "reverify" %}
+    {% set title = i18n.reverifyHowIdentityDocsCheckedTitle %}
+    {% set dropDownText %}
+        <p class="govuk-body">
+            {{ i18n.reverifyDocumentsCheckedAnotherWayText1 }}
+            <a target="_blank" href="https://www.gov.uk/guidance/how-to-meet-companies-house-identity-verification-standard" id="identity-verification-standard-link-id">
+                {{ i18n.reverifyDocumentsCheckedAnotherWayVerificationStandardLink | replace ("{OPENS_IN_NEW_TAB}", i18n.opensInANewTab) }}</a>
+                {{ i18n.reverifyDocumentsCheckedAnotherWayText2 }}
+        </p>
+        <p class="govuk-body">{{ i18n.reverifyDocumentsCheckedAnotherWayText3 }}</p>
+    {% endset %}
+{% else %}
+    {% set title = i18n.howIdentityDocsCheckedTitle %}
+    {% set bodyText1 %}
+        <p class="govuk-body">
+            {{ i18n.howIdentityDocsCheckedBodyText1 }}<a target="_blank" href="https://www.gov.uk/guidance/how-to-meet-companies-house-identity-verification-standard" id="identity-verification-standard-link-id">{{ i18n.howIdentityDocsCheckedVerificationStandardLink | replace ("{OPENS_IN_NEW_TAB}", i18n.opensInANewTab) }}</a>.
+        </p>
+    {% endset %}
+    {% set bodyText2 %}
+        <p class="govuk-body">{{ i18n.howIdentityDocsCheckedBodyText2 }}</p>
+    {% endset %}
+{% endif %}
+
 
 {% block main_content %}
   <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
     {% include "partials/csrf_token.njk" %}
     {% include "partials/user_name.njk" %}
     <div class="govuk-form-group">
-        <h1 class="govuk-heading-l">{{ i18n.howIdentityDocsCheckedTitle }}</h1>
-        <p class="govuk-body">
-            {{ i18n.howIdentityDocsCheckedBodyText1 }}<a target="_blank" href="https://www.gov.uk/guidance/how-to-meet-companies-house-identity-verification-standard" id="identity-verification-standard-link-id">{{ i18n.howIdentityDocsCheckedVerificationStandardLink | replace ("{OPENS_IN_NEW_TAB}", i18n.opensInANewTab) }}</a>.
-        </p>
-        <p class="govuk-body">{{ i18n.howIdentityDocsCheckedBodyText2 }}</p>
-
+        <h1 class="govuk-heading-l">{{ title }}</h1>
+        {{ bodyText1 | safe if bodyText1 }}
+        {{ bodyText2 | safe if bodyText2 }}
         {{ govukRadios({
             errorMessage: errors.howIdentityDocsCheckedRadio if errors,
             classes: "govuk-radios",
@@ -26,32 +46,35 @@
                     text: i18n.howIdentityDocsCheckedWhichOptionHeading,
                     classes: "govuk-fieldset__legend--m"
                 }
-            },
-            hint: {
-                text: i18n.howIdentityDocsCheckedHint
-            },
+            } if reqType != "reverify",
             value: selectedOption,
             items: [
                 {
                     value: "cryptographic_security_features_checked",
-                    text: i18n.howIdentityDocsCheckedOption1,
+                    text: i18n.reverifyHowIdentityDocsCheckedOption1 if reqType == "reverify" else i18n.howIdentityDocsCheckedOption1,
                     id: "option-1",
                     hint: {
-                        text: i18n.howIdentityDocsCheckedOption1hint
+                        text: i18n.reverifyHowIdentityDocsCheckedOption1hint if reqType == "reverify" else i18n.howIdentityDocsCheckedOption1hint
                     }
                 },
                 {
                     value: "physical_security_features_checked",
-                    text: i18n.howIdentityDocsCheckedOption2,
+                    text: i18n.reverifyHowIdentityDocsCheckedOption2 if reqType == "reverify" else i18n.howIdentityDocsCheckedOption2,
                     id: "option-2",
                     hint: {
                         text: i18n.howIdentityDocsCheckedOption2hint
-                    }
+                    } if reqType != "reverify"
                 }
             ]
-        }) }}
+        }) }}     
+        {% if reqType == "reverify" %}
+            <br>
+            {{ govukDetails({
+                summaryText: i18n.reverifyDocumentsCheckedAnotherWayDropdown,
+                html: dropDownText | safe
+            }) }}
+        {% endif %}
     </div>
-
         {{ govukButton({
             text: i18n.Continue,
             id: "continue-button"
