@@ -95,6 +95,8 @@ export const REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED = "/how-were-the-identity-d
 
 export const REVERIFY_PERSONS_EMAIL_ADDRESS = "/what-is-their-email-address";
 
+export const REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2 = "/identity-documents-checked-group-2";
+
 export const REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1 = "/identity-documents-checked-using-technology";
 
 export const REVERIFY_ENTER_ID_DOCUMENT_DETAILS = "/enter-the-document-details";
