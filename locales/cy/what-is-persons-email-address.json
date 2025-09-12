@@ -10,6 +10,8 @@
     "emailAddressCanOnlyUsedOnce": "Dim ond unwaith gallwch ddefnyddio'r cyfeiriad e-bost wnaethoch rhoi i wirio hunaniaeth rhywun. Ni allwch ei ddefnyddio ar gyfer unrhyw un arall yr ydych wedi gwirio ei hunaniaeth.",
     "continue": "Pharhau",
 
+    "reverifyEmailAddressCanOnlyUsedOnce": "The email address you give can only be used once to verify someone’s identity. You will not be able to use it for anyone else whose identity you have verified. - Welsh",
+
     "error-noEmailAddress": "Cofnodwch ei gyfeiriad e-bost",
     "error-noConfirmAddress": "Cadarnhau cyfeiriad e-bost",
     "error-invalidEmail": "Cofnodwch gyfeiriad e-bost yn y fformat cywir, fel enw@enghraifft.com",

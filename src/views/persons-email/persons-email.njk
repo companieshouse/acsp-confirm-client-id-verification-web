@@ -3,13 +3,19 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "layouts/default.njk" %}
 
+{% if reqType !== "reverify" %}
+  {% set bodyText = i18n.emailAddressCanOnlyUsedOnce %}
+{% else %}
+  {% set bodyText = i18n.reverifyEmailAddressCanOnlyUsedOnce %}
+{% endif %}
+
 {% set title = i18n.emailAddressTabTitle %}
 
 {% block main_content %}
     <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
         {% include "partials/csrf_token.njk" %}
         <h1 class="govuk-heading-l">{{ i18n.emailAddress | replace("{NAME}", firstName + " " + lastName) }}</h1>
-        <p class="govuk-body">{{ i18n.emailAddressCanOnlyUsedOnce }}</p>
+        <p class="govuk-body">{{ bodyText }}</p>
         <div class="govuk-form-group">
         <div class="govuk-warning-text">
             <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
