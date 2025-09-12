@@ -163,4 +163,14 @@ describe("POST" + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, () => {
         expect(res.status).toBe(400);
         expect(res.text).toContain("Select if the identity documents were checked using technology or by a person");
     });
+
+    it("should show the error page if an error occurs in POST", async () => {
+        const errorMessage = "Test error";
+        jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
+            throw new Error(errorMessage);
+        });
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED);
+        expect(res.status).toBe(500);
+        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
 });
