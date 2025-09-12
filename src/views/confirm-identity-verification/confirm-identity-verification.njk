@@ -21,6 +21,7 @@
         | replace('{PERSON_NAME}', personFullName) 
         | replace('{REVERIFICATION_DATE}', formattedDate) 
     %}
+    {% set showThisDeclarationInsetText = i18n.reverifyShowThisDeclaration %}
 {% else %}
     {% set title = i18n.confirmVerificationHeading %}
     {% set warningText = i18n.confirmVerificationWarningText | replace ('{ACSP_NAME}', acspName) %}
@@ -30,6 +31,7 @@
         | replace('{PERSON_NAME}', personFullName) 
         | replace('{VERIFICATION_DATE}', formattedDate) 
     %}
+    {% set showThisDeclarationInsetText = i18n.showThisDeclaration %}
 {% endif %}
 
 {% set checkBoxText = 
@@ -71,7 +73,7 @@
 
     <div class="govuk-inset-text">
         <h2 class="govuk-heading-m">{{ i18n.informationShownOnPublicRegister }}</h2>
-        <p class="govuk-body">{{ i18n.showThisDeclaration }}</p>
+        <p class="govuk-body">{{ showThisDeclarationInsetText }}</p>
     </div>
 
     {{ govukButton({
