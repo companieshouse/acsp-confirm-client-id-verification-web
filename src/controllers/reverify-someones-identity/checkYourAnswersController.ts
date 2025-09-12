@@ -23,7 +23,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
         const lang = selectLang(req.query.lang);
-        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
+        const previousUrl: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
         const locales = getLocalesService();
         const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS;
 
@@ -32,38 +32,19 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         }
         saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, true);
 
-        const formattedAddress = FormatService.formatAddress(clientData.address);
-
-        const formattedDateOfBirth = FormatService.formatDate(
-            clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
-        );
-
-        const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
-            clientData.whenIdentityChecksCompleted
-                ? new Date(clientData.whenIdentityChecksCompleted)
-                : undefined
-        );
-
-        const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
-            clientData.documentsChecked,
-            locales.i18nCh.resolveNamespacesKeys(lang)
-        );
-
-        const identityDocuments = clientData.idDocumentDetails!;
-
         const amlBodies = getAmlBodiesAsString(acspDetails);
 
         res.render(config.CHECK_YOUR_ANSWERS, {
             ...getLocaleInfo(locales, lang),
             currentUrl,
-            previousPage,
+            previousUrl,
             clientData: {
                 ...clientData,
-                address: formattedAddress,
-                dateOfBirth: formattedDateOfBirth,
-                whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
-                documentsChecked: formattedDocumentsChecked,
-                idDocumentDetails: identityDocuments
+                address: FormatService.formatAddress(clientData.address),
+                dateOfBirth: FormatService.formatDate(clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined),
+                whenIdentityChecksCompleted: FormatService.formatDate(clientData.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted) : undefined),
+                documentsChecked: FormatService.formatDocumentsChecked(clientData.documentsChecked, locales.i18nCh.resolveNamespacesKeys(lang)),
+                idDocumentDetails: clientData.idDocumentDetails!
             },
             amlBodies,
             acspName: acspDetails.name
@@ -85,25 +66,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
 
         if (!errorList.isEmpty()) {
-            const formattedAddress = FormatService.formatAddress(clientData.address);
-
-            const formattedDateOfBirth = FormatService.formatDate(
-                clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
-            );
-
-            const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
-                clientData.whenIdentityChecksCompleted
-                    ? new Date(clientData.whenIdentityChecksCompleted)
-                    : undefined
-            );
-
-            const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
-                clientData.documentsChecked,
-                locales.i18nCh.resolveNamespacesKeys(lang)
-            );
-
             const amlBodies = getAmlBodiesAsString(acspDetails);
-            const identityDocuments = clientData.idDocumentDetails!;
 
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
             res.status(400).render(config.CHECK_YOUR_ANSWERS, {
@@ -113,11 +76,11 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 ...pageProperties,
                 clientData: {
                     ...clientData,
-                    address: formattedAddress,
-                    dateOfBirth: formattedDateOfBirth,
-                    whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
-                    documentsChecked: formattedDocumentsChecked,
-                    idDocumentDetails: identityDocuments
+                    address: FormatService.formatAddress(clientData.address),
+                    dateOfBirth: FormatService.formatDate(clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined),
+                    whenIdentityChecksCompleted: FormatService.formatDate(clientData.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted) : undefined),
+                    documentsChecked: FormatService.formatDocumentsChecked(clientData.documentsChecked, locales.i18nCh.resolveNamespacesKeys(lang)),
+                    idDocumentDetails: clientData.idDocumentDetails!
                 },
                 amlBodies,
                 acspName: acspDetails.name
@@ -141,19 +104,18 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             }
 
             const identityVerificationService = new IdentityVerificationService();
-            const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData, req);
 
-            const verifiedIdentity = await sendVerifiedClientDetails(verifiedClientData);
+            const verifiedIdentity = await sendVerifiedClientDetails(identityVerificationService.prepareVerifiedClientData(clientData, req));
             saveDataInSession(req, REFERENCE, verifiedIdentity?.id);
 
-            const emailData: ClientVerificationEmail = {
+            const clientVerificationEmailData: ClientVerificationEmail = {
                 to: getLoggedInUserEmail(req.session),
                 clientName: clientData.preferredFirstName + " " + clientData.preferredLastName,
                 referenceNumber: verifiedIdentity?.id!,
                 clientEmailAddress: clientData.emailAddress!
             };
 
-            await sendIdentityVerificationConfirmationEmail(emailData);
+            await sendIdentityVerificationConfirmationEmail(clientVerificationEmailData);
 
             session.setExtraData(DATA_SUBMITTED_AND_EMAIL_SENT, true);
 
