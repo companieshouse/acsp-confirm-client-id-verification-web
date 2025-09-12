@@ -14,7 +14,8 @@ import {
     identityDocumentsCheckedReverificationGroup2Controller,
     reverifyIdentityChecksCompletedController,
     reverifyIdentityDocumentsCheckedGroup1Controller,
-    reverifyConfirmIdentityReverificationController
+    reverifyConfirmIdentityReverificationController,
+    reverifyHowIdentityDocumentsWereCheckedController
 } from "../controllers";
 import { personalCodeValidator } from "../validations/personalCode";
 import { nameValidator } from "../validations/personName";
@@ -26,11 +27,15 @@ import { reverifyIdentityDocsGroup1Validator } from "../validations/identityDocu
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { identityDocsGroup2Validator } from "../validations/identityDocumentsGroup2";
 import { confirmIdentityReverificationValidator } from "../validations/confirmIdentityVerification";
+import { reverifyHowIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
 
 const reverifyRoutes = Router();
 
 reverifyRoutes.get(urls.HOME_URL, reverifySomeonesIdentityController.get);
 reverifyRoutes.post(urls.HOME_URL, reverifySomeonesIdentityController.post);
+
+reverifyRoutes.get(urls.REVERIFY_PERSONAL_CODE, whatIsTheirPersonalCodeController.get);
+reverifyRoutes.post(urls.REVERIFY_PERSONAL_CODE, personalCodeValidator, whatIsTheirPersonalCodeController.post);
 
 reverifyRoutes.get(urls.REVERIFY_PERSONS_NAME, reverifyWhatIsThePersonsNameController.get);
 reverifyRoutes.post(urls.REVERIFY_PERSONS_NAME, nameValidator, reverifyWhatIsThePersonsNameController.post);
@@ -47,8 +52,8 @@ reverifyRoutes.post(urls.REVERIFY_DATE_OF_BIRTH, dateValidator("dob"), reverifyD
 reverifyRoutes.get(urls.REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, whatIsTheirHomeAddressController.get);
 reverifyRoutes.post(urls.REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, homeAddressValidator, whatIsTheirHomeAddressController.post);
 
-reverifyRoutes.get(urls.REVERIFY_PERSONAL_CODE, whatIsTheirPersonalCodeController.get);
-reverifyRoutes.post(urls.REVERIFY_PERSONAL_CODE, personalCodeValidator, whatIsTheirPersonalCodeController.post);
+reverifyRoutes.get(urls.REVERIFY_HOME_ADDRESS_MANUAL, reverifyHomeAddressManualController.get);
+reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS_MANUAL, manualAddressValidator, reverifyHomeAddressManualController.post);
 
 reverifyRoutes.get(urls.REVERIFY_CONFIRM_HOME_ADDRESS, reverifyConfirmHomeAddressController.get);
 reverifyRoutes.post(urls.REVERIFY_CONFIRM_HOME_ADDRESS, reverifyConfirmHomeAddressController.post);
@@ -59,14 +64,15 @@ reverifyRoutes.post(urls.REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator(
 reverifyRoutes.get(urls.REVERIFY_PERSONS_EMAIL_ADDRESS, reverifyPersonsEmailAddressController.get);
 reverifyRoutes.post(urls.REVERIFY_PERSONS_EMAIL_ADDRESS, emailValidator, reverifyPersonsEmailAddressController.post);
 
+reverifyRoutes.get(urls.REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, reverifyHowIdentityDocumentsWereCheckedController.get);
+reverifyRoutes.post(urls.REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, reverifyHowIdentityDocsCheckedValidator, reverifyHowIdentityDocumentsWereCheckedController.post);
+
 reverifyRoutes.get(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, reverifyIdentityDocumentsCheckedGroup1Controller.get);
 reverifyRoutes.post(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, reverifyIdentityDocsGroup1Validator, reverifyIdentityDocumentsCheckedGroup1Controller.post);
 
-reverifyRoutes.get(urls.REVERIFY_HOME_ADDRESS_MANUAL, reverifyHomeAddressManualController.get);
-reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS_MANUAL, manualAddressValidator, reverifyHomeAddressManualController.post);
+reverifyRoutes.get(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2, identityDocumentsCheckedReverificationGroup2Controller.get);
+reverifyRoutes.post(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2, identityDocsGroup2Validator, identityDocumentsCheckedReverificationGroup2Controller.post);
 
-reverifyRoutes.get(urls.REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2, identityDocumentsCheckedReverificationGroup2Controller.get);
-reverifyRoutes.post(urls.REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2, identityDocsGroup2Validator, identityDocumentsCheckedReverificationGroup2Controller.post);
 reverifyRoutes.get(urls.REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, reverifyConfirmIdentityReverificationController.get);
 reverifyRoutes.post(urls.REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, confirmIdentityReverificationValidator, reverifyConfirmIdentityReverificationController.post);
 
