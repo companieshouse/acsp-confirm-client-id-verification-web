@@ -9,8 +9,8 @@
     
     "emailAddressCanOnlyUsedOnce": "The email address you give can only be used once to verify someone’s identity. You will not be able to use it for anyone else whose identity you have verified.",
     "continue": "Continue",
-
-    "reverifyEmailAddressCanOnlyUsedOnce": "The email address you give can only be used once to reverify someone’s identity. You will not be able to use it for anyone else whose identity you have reverified.",
+"reverifyMustProvideEmailAddressVerificationRecord": "You must provide the email address that is on their current verification record.",
+    
 
     "error-noEmailAddress": "Enter their email address",
     "error-noConfirmAddress": "Confirm their email address",
