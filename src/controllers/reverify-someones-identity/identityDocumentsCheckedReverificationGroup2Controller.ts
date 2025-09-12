@@ -6,7 +6,7 @@ import {
     HOW_IDENTITY_DOCUMENTS_CHECKED,
     REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED,
     REVERIFY_BASE_URL,
-    REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2,
+    REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2,
     REVERIFY_ENTER_ID_DOCUMENT_DETAILS
 } from "../../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
@@ -21,7 +21,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
         const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
-        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2;
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
         res.render(config.IDENTITY_DOCUMETS_GROUP_2, {
@@ -42,7 +42,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
         const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
-        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2;
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
         const errorList = validationResult(req);
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 

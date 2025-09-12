@@ -1,0 +1,13 @@
+{
+    "reverifyHowIdentityDocsCheckedTitle": "How were the identity documents checked?",
+    "reverifyHowIdentityDocsCheckedOption1": "Using technology to validate the cryptographic features of the document",
+    "reverifyHowIdentityDocsCheckedOption1hint": "Cryptographic features are security features that identify the person or organisation that issued the document.",
+    "reverifyHowIdentityDocsCheckedOption2": "By a person",
+    "reverifyDocumentsCheckedAnotherWayDropdown": "The documents were checked another way",
+    "reverifyDocumentsCheckedAnotherWayText1": "You must use one of the 2 options for checking identity documents from the ",
+    "reverifyDocumentsCheckedAnotherWayVerificationStandardLink": "identity verification standard ({OPENS_IN_NEW_TAB})",
+    "reverifyDocumentsCheckedAnotherWayText2": " to verify someone for Companies House.",
+    "reverifyDocumentsCheckedAnotherWayText3": "If you used a commercial identity verification provider or platform to complete the checks for you, you must find out how they checked the person's documents.",
+
+    "error-reverifyHowIdentityDocsCheckedEmpty" : "Select if the identity documents were checked using technology or by a person"
+}
