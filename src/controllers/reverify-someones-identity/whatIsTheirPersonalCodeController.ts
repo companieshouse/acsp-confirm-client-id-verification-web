@@ -5,7 +5,7 @@ import {
     REVERIFY_DATE_OF_BIRTH,
     REVERIFY_BASE_URL,
     REVERIFY_PERSONAL_CODE,
-    REVERIFY_EMAIL_ADDRESS,
+    REVERIFY_PERSONS_EMAIL_ADDRESS,
     REVERIFY_PERSONAL_CODE_IS_INVALID
 } from "../../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
@@ -54,7 +54,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                     res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE_IS_INVALID, lang));
                 } else {
                     session.setExtraData(REVERIFY_IDENTITY, identity);
-                    res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_EMAIL_ADDRESS, lang));
+                    res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS, lang));
                 }
             });
         } else {
