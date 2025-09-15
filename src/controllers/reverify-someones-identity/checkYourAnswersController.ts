@@ -44,7 +44,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
                 dateOfBirth: FormatService.formatDate(clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined),
                 whenIdentityChecksCompleted: FormatService.formatDate(clientData.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted) : undefined),
                 documentsChecked: FormatService.formatDocumentsChecked(clientData.documentsChecked, locales.i18nCh.resolveNamespacesKeys(lang)),
-                idDocumentDetails: clientData.idDocumentDetails!
+                idDocumentDetails: clientData.idDocumentDetails!,
+                reverifyBaseUrl: REVERIFY_BASE_URL
             },
             amlBodies,
             acspName: acspDetails.name
