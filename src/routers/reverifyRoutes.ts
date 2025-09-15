@@ -14,7 +14,7 @@ import {
     reverifyIdentityChecksCompletedController,
     reverifyIdentityDocumentsCheckedGroup1Controller,
     reverifyConfirmIdentityReverificationController,
-    reverifyCheckYourAnswersController
+    reverifyCheckYourAnswersController,
     reverifyHowIdentityDocumentsWereCheckedController
 } from "../controllers";
 import { personalCodeValidator } from "../validations/personalCode";
