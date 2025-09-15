@@ -119,7 +119,7 @@ COOKIE_SECRET| Used for cookie encryption |
 COOKIE_SECURE_ONLY| Flag to enforce secure-only cookies |
 DEFAULT_SESSION_EXPIRATION| Default session expiration time in seconds |
 ENV_SUBDOMAIN| Environment subdomain for service routing |
-FEATURE_FLAG_REVERIFY_SOMEONES_IDENTITY| Feature flag for enabling Reverify someone's identity for Companies House web service (under development) |
+FEATURE_FLAG_ENABLE_REVERIFY_SOMEONES_IDENTITY| Feature flag for enabling Reverify someone's identity for Companies House web service (under development) |
 HUMAN_LOG| Whether to produce a human-readable "pretty" log (1 or 0) |
 INTERNAL_API_URL| Internal API base URL |
 LOCALES_ENABLED| Flag to enable/disable localisation |
