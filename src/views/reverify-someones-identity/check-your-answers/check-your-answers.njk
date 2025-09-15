@@ -75,6 +75,40 @@
       },
       {
         key: {
+          text: i18n.emailAddressConfirmation
+        },
+        value: {
+          html: clientData.emailAddress
+        },
+        actions: {
+          items: [
+            {
+              href: reverifyBaseUrl + "/what-is-their-email-address" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.emailAddressConfirmation
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: i18n.dateOfBirth
+        },
+        value: {
+          text: clientData.dateOfBirth
+        },
+        actions: {
+          items: [
+            {
+              href: reverifyBaseUrl + "/what-is-their-date-of-birth" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.dateOfBirth
+            }
+          ]
+        } 
+      },
+      {
+        key: {
           text: i18n.name
         },
         value: {
@@ -123,40 +157,6 @@
             }
           ]
         }
-      },
-      {
-        key: {
-          text: i18n.emailAddressConfirmation
-        },
-        value: {
-          html: clientData.emailAddress
-        },
-        actions: {
-          items: [
-            {
-              href: reverifyBaseUrl + "/what-is-their-email-address" + "?lang=" + lang,
-              text: i18n.checkAnswerDetailsChange,
-              visuallyHiddenText: i18n.emailAddressConfirmation
-            }
-          ]
-        }
-      },
-      {
-        key: {
-          text: i18n.dateOfBirth
-        },
-        value: {
-          text: clientData.dateOfBirth
-        },
-        actions: {
-          items: [
-            {
-              href: reverifyBaseUrl + "/what-is-their-date-of-birth" + "?lang=" + lang,
-              text: i18n.checkAnswerDetailsChange,
-              visuallyHiddenText: i18n.dateOfBirth
-            }
-          ]
-        } 
       },
       {
         key: {

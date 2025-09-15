@@ -23,7 +23,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
         const lang = selectLang(req.query.lang);
-        const previousUrl: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
         const locales = getLocalesService();
         const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS;
 
@@ -39,7 +39,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         res.render(config.REVERIFY_CHECK_YOUR_ANSWERS, {
             ...getLocaleInfo(locales, lang),
             currentUrl,
-            previousUrl,
+            previousPage,
             clientData: {
                 ...clientData,
                 address: FormatService.formatAddress(clientData.address),
