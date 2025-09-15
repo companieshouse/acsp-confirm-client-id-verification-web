@@ -36,6 +36,17 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
         const amlBodies = getAmlBodiesAsString(acspDetails);
 
+        const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
+            clientData.documentsChecked,
+            locales.i18nCh.resolveNamespacesKeys(lang)
+        );
+
+        const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
+            clientData.whenIdentityChecksCompleted
+                ? new Date(clientData.whenIdentityChecksCompleted)
+                : undefined
+        );
+
         res.render(config.REVERIFY_CHECK_YOUR_ANSWERS, {
             ...getLocaleInfo(locales, lang),
             currentUrl,
@@ -44,8 +55,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
                 ...clientData,
                 address: FormatService.formatAddress(clientData.address),
                 dateOfBirth: FormatService.formatDate(clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined),
-                whenIdentityChecksCompleted: FormatService.formatDate(clientData.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted) : undefined),
-                documentsChecked: FormatService.formatDocumentsChecked(clientData.documentsChecked, locales.i18nCh.resolveNamespacesKeys(lang)),
+                whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
+                documentsChecked: formattedDocumentsChecked,
                 idDocumentDetails: clientData.idDocumentDetails!,
                 reverifyBaseUrl: REVERIFY_BASE_URL
             },
