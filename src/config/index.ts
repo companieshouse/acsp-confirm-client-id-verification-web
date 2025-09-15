@@ -41,3 +41,4 @@ const BASE_REVERIFY_URL = `${BASE_VIEWS_URL}/reverify-someones-identity`;
 export const REVERIFY_HOME = `${BASE_REVERIFY_URL}/index/home`;
 export const REVERIFY_WHAT_WE_SHOW_ON_PUBLIC_REGISTER = `${BASE_REVERIFY_URL}/what-we-show-on-public-register/what-we-show-on-public-register`;
 export const REVERIFY_PERSONAL_CODE = `${BASE_REVERIFY_URL}/personal-code/personal-code`;
+export const REVERIFY_CHECK_YOUR_ANSWERS = `${BASE_REVERIFY_URL}/check-your-answers/check-your-answers`;

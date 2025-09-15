@@ -34,7 +34,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
         const amlBodies = getAmlBodiesAsString(acspDetails);
 
-        res.render(config.CHECK_YOUR_ANSWERS, {
+        res.render(config.REVERIFY_CHECK_YOUR_ANSWERS, {
             ...getLocaleInfo(locales, lang),
             currentUrl,
             previousUrl,
@@ -69,7 +69,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             const amlBodies = getAmlBodiesAsString(acspDetails);
 
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
-            res.status(400).render(config.CHECK_YOUR_ANSWERS, {
+            res.status(400).render(config.REVERIFY_CHECK_YOUR_ANSWERS, {
                 previousPage,
                 ...getLocaleInfo(locales, lang),
                 currentUrl,

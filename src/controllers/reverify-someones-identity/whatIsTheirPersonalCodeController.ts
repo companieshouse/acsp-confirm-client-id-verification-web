@@ -14,8 +14,9 @@ import { Session } from "@companieshouse/node-session-handler";
 import { saveDataInSession } from "../../utils/sessionHelper";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
 import { validationResult } from "express-validator";
-import { PREVIOUS_PAGE_URL, REVERIFY_IDENTITY } from "../../utils/constants";
+import { PREVIOUS_PAGE_URL, REVERIFY_IDENTITY, USER_DATA } from "../../utils/constants";
 import { findIdentityByUvid } from "../../services/identityVerificationService";
+import { ClientData } from "../../model/ClientData";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -44,6 +45,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const errorList = validationResult(req);
         const currentUrl = REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE;
         const previousPageUrl = getPreviousPageUrl(req, REVERIFY_DATE_OF_BIRTH);
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
         saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
         const previousPage = addLangToUrl(REVERIFY_BASE_URL, lang);
@@ -54,6 +56,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                     res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE_IS_INVALID, lang));
                 } else {
                     session.setExtraData(REVERIFY_IDENTITY, identity);
+                    clientData.personalCode = req.body.personalCode;
+                    saveDataInSession(req, USER_DATA, clientData);
                     res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_EMAIL_ADDRESS, lang));
                 }
             });
