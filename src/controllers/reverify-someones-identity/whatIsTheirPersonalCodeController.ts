@@ -2,12 +2,11 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../../config";
 import {
-    REVERIFY_DATE_OF_BIRTH,
     REVERIFY_BASE_URL,
     REVERIFY_PERSONAL_CODE,
-    REVERIFY_EMAIL_ADDRESS,
-    REVERIFY_PERSONAL_CODE_IS_INVALID,
-    REVERIFY_CHECK_YOUR_ANSWERS
+    REVERIFY_CHECK_YOUR_ANSWERS,
+    REVERIFY_PERSONS_EMAIL_ADDRESS,
+    REVERIFY_PERSONAL_CODE_IS_INVALID
 } from "../../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
 import { getPreviousPageUrl } from "../../services/url";
@@ -72,7 +71,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                     if (checkYourAnswersFlag) {
                         res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang));
                     } else {
-                        res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_EMAIL_ADDRESS, lang));
+                        res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS, lang));
                     }
                 }
             });
