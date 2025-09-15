@@ -9,10 +9,12 @@ This repository contains the following web applications:
 
 ### Tell Companies House you have verified someone's identity:
 (Must be a registered ACSP to access this service):
+
 [http://chs.local/tell-companies-house-you-have-verified-someones-identity](http://chs.local/tell-companies-house-you-have-verified-someones-identity)
 
 ### Reverify someone’s identity for Companies House (Under Development):
-Please note that this service is currently under development and is held behind the feature flag FEATURE_FLAG_REVERIFY_SOMEONES_IDENTITY
+Please note that this service is currently under development and is held behind the feature flag `FEATURE_FLAG_REVERIFY_SOMEONES_IDENTITY`
+
 [http://chs.local/reverify-someones-identity-for-companies-house](http://chs.local/reverify-someones-identity-for-companies-house)
 
 ## Frontend technologies and utils
@@ -71,7 +73,7 @@ chs-dev up
 ### Tell Companies House you have verified someone's identity: 
 [http://chs.local/tell-companies-house-you-have-verified-someones-identity](http://chs.local/tell-companies-house-you-have-verified-someones-identity) (or whatever hostname/port number combination you've changed the config values to)
 
-### Re-verify someone's identity: 
+### Reverify someone’s identity for Companies House: 
 [http://chs.local/reverify-someones-identity-for-companies-house](http://chs.local/reverify-someones-identity-for-companies-house) (or whatever hostname/port number combination you've changed the config values to)
 
 For SSL connections, navigate to https://localhost:3443
