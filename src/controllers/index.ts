@@ -27,17 +27,18 @@ export * as mustBeAnAuthorisedAgentController from "././mustBeAuthorisedAgentCon
 
 // reverify someones identity for companies house
 export * as reverifySomeonesIdentityController from "./reverify-someones-identity/indexController";
+export * as whatIsTheirPersonalCodeController from "./reverify-someones-identity/whatIsTheirPersonalCodeController";
+export * as reverifyPersonsEmailAddressController from "./reverify-someones-identity/reverifyPersonsEmailAddressController";
 export * as reverifyWhatIsThePersonsNameController from "./reverify-someones-identity/whatIsThePersonsNameController";
 export * as reverifyWhatWeShowOnPublicRegisterController from "./reverify-someones-identity/whatWeShowOnPublicRegisterController";
+export * as reverifyDateOfBirthController from "./reverify-someones-identity/dateOfBirthController";
 export * as nameOnVerificationStatementController from "./reverify-someones-identity/nameOnVerificationStatementController";
 export * as whatIsTheirHomeAddressController from "./reverify-someones-identity/whatIsTheirHomeAddressController";
-export * as reverifyDateOfBirthController from "./reverify-someones-identity/dateOfBirthController";
-export * as reverifyConfirmHomeAddressController from "./reverify-someones-identity/confirmHomeAddressController";
-export * as whatIsTheirPersonalCodeController from "./reverify-someones-identity/whatIsTheirPersonalCodeController";
-export * as identityDocumentsCheckedReverificationGroup2Controller from "./reverify-someones-identity/identityDocumentsCheckedReverificationGroup2Controller";
-export * as reverifyIdentityChecksCompletedController from "./reverify-someones-identity/reverifyIdentityChecksCompletedController";
-export * as reverifyPersonsEmailAddressController from "./reverify-someones-identity/reverifyPersonsEmailAddressController";
-export * as reverifyIdentityDocumentsCheckedGroup1Controller from "./reverify-someones-identity/identityDocumentsCheckedGroup1Controller";
-export * as reverifyHowIdentityDocumentsWereCheckedController from "./reverify-someones-identity/howIdentityDocumentsWereCheckedController";
 export * as reverifyHomeAddressManualController from "./reverify-someones-identity/homeAddressManualController";
+export * as reverifyChooseAnAddressController from "./reverify-someones-identity/chooseAnAddressController";
+export * as reverifyConfirmHomeAddressController from "./reverify-someones-identity/confirmHomeAddressController";
+export * as reverifyIdentityChecksCompletedController from "./reverify-someones-identity/reverifyIdentityChecksCompletedController";
+export * as reverifyHowIdentityDocumentsWereCheckedController from "./reverify-someones-identity/howIdentityDocumentsWereCheckedController";
+export * as reverifyIdentityDocumentsCheckedGroup1Controller from "./reverify-someones-identity/identityDocumentsCheckedGroup1Controller";
+export * as identityDocumentsCheckedReverificationGroup2Controller from "./reverify-someones-identity/identityDocumentsCheckedReverificationGroup2Controller";
 export * as reverifyConfirmIdentityReverificationController from "./reverify-someones-identity/confirmIdentityReverificationController";

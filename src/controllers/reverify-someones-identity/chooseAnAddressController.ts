@@ -1,24 +1,24 @@
 import { NextFunction, Request, Response } from "express";
-import * as config from "../config";
+import * as config from "../../config";
 import { validationResult } from "express-validator";
-import { formatValidationError, getPageProperties } from "../validations/validation";
-import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
-import { HOME_ADDRESS_MANUAL, HOME_ADDRESS, BASE_URL, CHOOSE_AN_ADDRESS, CONFIRM_HOME_ADDRESS } from "../types/pageURL";
+import { formatValidationError, getPageProperties } from "../../validations/validation";
+import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../../utils/localise";
+import { REVERIFY_HOME_ADDRESS_MANUAL, REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, REVERIFY_BASE_URL, REVERIFY_CHOOSE_AN_ADDRESS, REVERIFY_CONFIRM_HOME_ADDRESS } from "../../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { ADDRESS_LIST, USER_DATA } from "../utils/constants";
+import { ADDRESS_LIST, USER_DATA } from "../../utils/constants";
 import { ClientData } from "model/ClientData";
 import { Address } from "model/Address";
-import { saveDataInSession } from "../utils/sessionHelper";
+import { saveDataInSession } from "../../utils/sessionHelper";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
-        const previousPage: string = addLangToUrl(BASE_URL + HOME_ADDRESS, lang);
-        const currentUrl: string = BASE_URL + CHOOSE_AN_ADDRESS;
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, lang);
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHOOSE_AN_ADDRESS;
         const session: Session = req.session as any as Session;
         const addressList = session.getExtraData(ADDRESS_LIST);
-        const manualAddressLink: string = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
+        const manualAddressLink: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang);
 
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
@@ -40,13 +40,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
-        const currentUrl: string = BASE_URL + CHOOSE_AN_ADDRESS;
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHOOSE_AN_ADDRESS;
         const errorList = validationResult(req);
-        const previousPage: string = addLangToUrl(BASE_URL + HOME_ADDRESS, lang);
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, lang);
         const session: Session = req.session as any as Session;
         const addressList: Address[] = session.getExtraData(ADDRESS_LIST)!;
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
-        const manualAddressLink: string = addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang);
+        const manualAddressLink: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang);
 
         if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
@@ -69,7 +69,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             clientData.address = homeAddress;
             saveDataInSession(req, USER_DATA, clientData);
 
-            const nextPageUrl = addLangToUrl(BASE_URL + CONFIRM_HOME_ADDRESS, lang);
+            const nextPageUrl = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_HOME_ADDRESS, lang);
             res.redirect(nextPageUrl);
         }
     } catch (error) {

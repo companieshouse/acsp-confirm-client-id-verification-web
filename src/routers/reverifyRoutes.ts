@@ -15,7 +15,8 @@ import {
     reverifyIdentityChecksCompletedController,
     reverifyIdentityDocumentsCheckedGroup1Controller,
     reverifyConfirmIdentityReverificationController,
-    reverifyHowIdentityDocumentsWereCheckedController
+    reverifyHowIdentityDocumentsWereCheckedController,
+    reverifyChooseAnAddressController
 } from "../controllers";
 import { personalCodeValidator } from "../validations/personalCode";
 import { nameValidator } from "../validations/personName";
@@ -28,6 +29,7 @@ import { manualAddressValidator } from "../validations/homeAddressManual";
 import { identityDocsGroup2Validator } from "../validations/identityDocumentsGroup2";
 import { confirmIdentityReverificationValidator } from "../validations/confirmIdentityVerification";
 import { reverifyHowIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
+import { addressListValidator } from "../validations/addressList";
 
 const reverifyRoutes = Router();
 
@@ -54,6 +56,9 @@ reverifyRoutes.post(urls.REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, homeAddressValidat
 
 reverifyRoutes.get(urls.REVERIFY_HOME_ADDRESS_MANUAL, reverifyHomeAddressManualController.get);
 reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS_MANUAL, manualAddressValidator, reverifyHomeAddressManualController.post);
+
+reverifyRoutes.get(urls.REVERIFY_CHOOSE_AN_ADDRESS, reverifyChooseAnAddressController.get);
+reverifyRoutes.post(urls.REVERIFY_CHOOSE_AN_ADDRESS, addressListValidator("reverify"), reverifyChooseAnAddressController.post);
 
 reverifyRoutes.get(urls.REVERIFY_CONFIRM_HOME_ADDRESS, reverifyConfirmHomeAddressController.get);
 reverifyRoutes.post(urls.REVERIFY_CONFIRM_HOME_ADDRESS, reverifyConfirmHomeAddressController.post);
