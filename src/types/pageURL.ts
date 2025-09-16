@@ -73,7 +73,7 @@ export const REVERIFY_FEEDBACK_LINK = "#"; // TO BE UPDATED: FEEDBACK LINK FOR C
 
 export const REVERIFY_PERSONAL_CODE = "/what-is-their-personal-code";
 
-export const REVERIFY_EMAIL_ADDRESS = "/what-is-their-email-address";
+export const REVERIFY_PERSONAL_CODE_IS_INVALID = "/personal-code-is-invalid";
 
 export const REVERIFY_PERSONS_NAME = "/what-is-the-persons-name";
 
@@ -95,14 +95,16 @@ export const REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED = "/when-did-you-complete-t
 
 export const REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED = "/how-were-the-identity-documents-checked";
 
+export const REVERIFY_PERSONS_EMAIL_ADDRESS = "/what-is-their-email-address";
+
 export const REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2 = "/identity-documents-checked-group-2";
 
 export const REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1 = "/identity-documents-checked-using-technology";
+
+export const REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2 = "/identity-documents-checked";
 
 export const REVERIFY_ENTER_ID_DOCUMENT_DETAILS = "/enter-the-document-details";
 
 export const REVERIFY_CONFIRM_IDENTITY_REVERIFICATION = "/confirm-you-reverified-their-identity";
 
 export const REVERIFY_CHECK_YOUR_ANSWERS = "/check-your-answers";
-
-export const REVERIFY_PERSONAL_CODE_IS_INVALID = "/personal-code-is-invalid";

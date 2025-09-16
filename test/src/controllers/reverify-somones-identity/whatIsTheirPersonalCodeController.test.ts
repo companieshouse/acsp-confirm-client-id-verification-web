@@ -1,7 +1,7 @@
 import mocks from "../../../mocks/all_middleware_mock";
 import app from "../../../../src/app";
 import supertest from "supertest";
-import { REVERIFY_BASE_URL, REVERIFY_EMAIL_ADDRESS, REVERIFY_PERSONAL_CODE, REVERIFY_PERSONAL_CODE_IS_INVALID } from "../../../../src/types/pageURL";
+import { REVERIFY_BASE_URL, REVERIFY_PERSONS_EMAIL_ADDRESS, REVERIFY_PERSONAL_CODE, REVERIFY_PERSONAL_CODE_IS_INVALID } from "../../../../src/types/pageURL";
 import * as localise from "../../../../src/utils/localise";
 import * as urlService from "../../../../src/services/url";
 import { findIdentityByUvid } from "../../../../src/services/identityVerificationService";
@@ -47,7 +47,7 @@ describe("What is their personal code POST", () => {
         expect(res.status).toBe(302);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
-        expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_EMAIL_ADDRESS + "?lang=en");
+        expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS + "?lang=en");
     });
 
     it("should show the error page if an error occurs", async () => {
