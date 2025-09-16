@@ -2,9 +2,9 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../../config";
 import {
-    REVERIFY_DATE_OF_BIRTH,
     REVERIFY_BASE_URL,
     REVERIFY_PERSONAL_CODE,
+    REVERIFY_CHECK_YOUR_ANSWERS,
     REVERIFY_PERSONS_EMAIL_ADDRESS,
     REVERIFY_PERSONAL_CODE_IS_INVALID
 } from "../../types/pageURL";
@@ -14,8 +14,9 @@ import { Session } from "@companieshouse/node-session-handler";
 import { saveDataInSession } from "../../utils/sessionHelper";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
 import { validationResult } from "express-validator";
-import { PREVIOUS_PAGE_URL, REVERIFY_IDENTITY } from "../../utils/constants";
+import { CHECK_YOUR_ANSWERS_FLAG, PREVIOUS_PAGE_URL, REVERIFY_IDENTITY, USER_DATA } from "../../utils/constants";
 import { findIdentityByUvid } from "../../services/identityVerificationService";
+import { ClientData } from "../../model/ClientData";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -24,7 +25,11 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
         const previousPageUrl = getPreviousPageUrl(req, REVERIFY_BASE_URL);
         saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
-        const previousPage = addLangToUrl(REVERIFY_BASE_URL, lang);
+
+        const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(REVERIFY_BASE_URL, lang);
+
         res.render(config.REVERIFY_PERSONAL_CODE, {
             ...getLocaleInfo(locales, lang),
             previousPage: previousPage,
@@ -43,10 +48,14 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const locales = getLocalesService();
         const errorList = validationResult(req);
         const currentUrl = REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE;
-        const previousPageUrl = getPreviousPageUrl(req, REVERIFY_DATE_OF_BIRTH);
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
+        const previousPageUrl = getPreviousPageUrl(req, REVERIFY_BASE_URL);
         saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
-        const previousPage = addLangToUrl(REVERIFY_BASE_URL, lang);
+
+        const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+            : addLangToUrl(REVERIFY_BASE_URL, lang);
 
         if (errorList.isEmpty()) {
             await findIdentityByUvid(req.body.personalCode).then(identity => {
@@ -54,7 +63,16 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                     res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE_IS_INVALID, lang));
                 } else {
                     session.setExtraData(REVERIFY_IDENTITY, identity);
-                    res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS, lang));
+                    clientData.personalCode = req.body.personalCode;
+                    saveDataInSession(req, USER_DATA, clientData);
+
+                    const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
+
+                    if (checkYourAnswersFlag) {
+                        res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang));
+                    } else {
+                        res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS, lang));
+                    }
                 }
             });
         } else {

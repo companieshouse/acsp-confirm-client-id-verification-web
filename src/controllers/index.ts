@@ -41,3 +41,4 @@ export * as reverifyIdentityDocumentsCheckedGroup1Controller from "./reverify-so
 export * as reverifyHowIdentityDocumentsWereCheckedController from "./reverify-someones-identity/howIdentityDocumentsWereCheckedController";
 export * as reverifyHomeAddressManualController from "./reverify-someones-identity/homeAddressManualController";
 export * as reverifyConfirmIdentityReverificationController from "./reverify-someones-identity/confirmIdentityReverificationController";
+export * as reverifyCheckYourAnswersController from "./reverify-someones-identity/checkYourAnswersController";
