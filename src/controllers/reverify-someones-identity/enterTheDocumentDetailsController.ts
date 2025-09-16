@@ -26,38 +26,33 @@ import { DocumentDetails } from "../../model/DocumentDetails";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        let payload;
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session?.getExtraData(USER_DATA)! || {};
 
-        const formattedHintText = FormatService.formatDocumentHintText(
-            clientData.documentsChecked,
-            clientData.howIdentityDocsChecked,
-            locales.i18nCh.resolveNamespacesKeys(lang));
-
-        const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
-            clientData.documentsChecked,
+        const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(clientData.documentsChecked,
             clientData.howIdentityDocsChecked,
             locales.i18nCh.resolveNamespacesKeys(lang)
         );
-
-        let payload;
+        const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked,
+            clientData.howIdentityDocsChecked,
+            locales.i18nCh.resolveNamespacesKeys(lang));
 
         if (clientData.idDocumentDetails != null) {
-            payload = createPayload(
-                clientData.idDocumentDetails,
+            payload = createPayloadForReverification(clientData.idDocumentDetails,
                 formattedDocumentsChecked,
                 locales.i18nCh.resolveNamespacesKeys(lang));
         }
 
         res.render(config.ID_DOCUMENT_DETAILS, {
-            previousPage: addLangToUrl(getReverifyBackUrl(clientData.howIdentityDocsChecked!), lang),
             ...getLocaleInfo(locales, lang),
-            currentUrl: REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS,
+            previousPage: addLangToUrl(getReverifyBackUrl(clientData.howIdentityDocsChecked!), lang),
             documentsChecked: formattedDocumentsChecked,
-            hintText: formattedHintText,
+            currentUrl: REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS,
             countryList: countryList,
+            hintText: formattedHintText,
             payload
         });
     } catch (error) {
@@ -67,27 +62,25 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const lang = selectLang(req.query.lang);
-        const locales = getLocalesService();
+        const errorList = validationResult(req);
         const session: Session = req.session as any as Session;
-        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS;
+        const locales = getLocalesService();
+        const lang = selectLang(req.query.lang);
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
-        const errorList = validationResult(req);
-        const formattedHintText = FormatService.formatDocumentHintText(
-            clientData.documentsChecked,
+        const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked,
             clientData.howIdentityDocsChecked,
             locales.i18nCh.resolveNamespacesKeys(lang));
 
-        const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
-            clientData.documentsChecked,
+        const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(clientData.documentsChecked,
             clientData.howIdentityDocsChecked,
             locales.i18nCh.resolveNamespacesKeys(lang)
         );
 
         const documentDetailsService = new IdDocumentDetailsService();
-        const whenIdentityChecksCompleted = new Date(clientData.whenIdentityChecksCompleted!);
         const typeOfTheDocumentCheck = clientData.howIdentityDocsChecked!;
+        const whenIdentityChecksCompleted = new Date(clientData.whenIdentityChecksCompleted!);
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS;
         const errorArray = documentDetailsService.errorListDisplay(
             errorList.array(),
             formattedDocumentsChecked,
@@ -109,9 +102,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             });
         } else {
             documentDetailsService.saveIdDocumentDetails(req, clientData, clientData.documentsChecked!);
-            const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
-
-            if (checkYourAnswersFlag) {
+            const reverificationCheckYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
+            if (reverificationCheckYourAnswersFlag) {
                 res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang));
             } else {
                 res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang));
@@ -122,20 +114,20 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export const createPayload = (idDocumentDetails: DocumentDetails[], formatDocumentsCheckedText: string[], i18n: any): { [key: string]: string | undefined } => {
+export const createPayloadForReverification = (idDocumentDetails: DocumentDetails[], formatDocumentsCheckedText: string[], i18n: any): { [key: string]: string | undefined } => {
     const payload: { [key: string]: any | undefined } = {};
-    idDocumentDetails.forEach((body, index) => {
+    idDocumentDetails.forEach((body) => {
         for (let i = 0; i < formatDocumentsCheckedText.length; i++) {
             if (formatDocumentsCheckedText[i] === i18n[body.docName]) {
                 payload[`documentNumber_${i + 1}`] = body.documentNumber;
-                if (body.expiryDate) {
-                    payload[`expiryDateDay_${i + 1}`] = body.expiryDate.getDate();
-                    payload[`expiryDateMonth_${i + 1}`] = body.expiryDate.getMonth() + 1;
-                    payload[`expiryDateYear_${i + 1}`] = body.expiryDate.getFullYear();
-                } else {
+                if (!body.expiryDate) {
                     payload[`expiryDateDay_${i + 1}`] = undefined;
                     payload[`expiryDateMonth_${i + 1}`] = undefined;
                     payload[`expiryDateYear_${i + 1}`] = undefined;
+                } else {
+                    payload[`expiryDateDay_${i + 1}`] = body.expiryDate.getDate();
+                    payload[`expiryDateMonth_${i + 1}`] = body.expiryDate.getMonth() + 1;
+                    payload[`expiryDateYear_${i + 1}`] = body.expiryDate.getFullYear();
                 }
                 payload[`countryInput_${i + 1}`] = body.countryOfIssue;
             }
@@ -145,9 +137,7 @@ export const createPayload = (idDocumentDetails: DocumentDetails[], formatDocume
 };
 
 const getReverifyBackUrl = (selectedOption: string) => {
-    if (selectedOption === CRYPTOGRAPHIC_SECURITY_FEATURES) {
-        return REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
-    } else {
-        return REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
-    }
+    return selectedOption !== CRYPTOGRAPHIC_SECURITY_FEATURES
+        ? REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2
+        : REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
 };
