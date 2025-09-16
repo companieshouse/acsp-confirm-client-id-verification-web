@@ -8,5 +8,6 @@
     "checkYourAnswersIDCheckTableHeading": "Identity check details",
     "confirmSend": "Confirm and send",
     "notProvided": "Not provided",
-    "error-checkYourAnswerEmpty":"Select to confirm the declaration"
+    "error-checkYourAnswerEmpty":"Select to confirm the declaration",
+    "personalCode": "Personal Code"
 }

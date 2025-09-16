@@ -106,3 +106,5 @@ export const REVERIFY_ENTER_ID_DOCUMENT_DETAILS = "/enter-the-document-details";
 export const REVERIFY_CONFIRM_IDENTITY_REVERIFICATION = "/confirm-you-reverified-their-identity";
 
 export const REVERIFY_CHECK_YOUR_ANSWERS = "/check-your-answers";
+
+export const REVERIFY_CONFIRMATION = "/confirmation";

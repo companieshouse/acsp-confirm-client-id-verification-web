@@ -1,0 +1,350 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "layouts/default.njk" %}
+{% set title = i18n.checkYourAnswersHeading %}
+{% block main_content %}
+
+  {% set fullName = clientData.firstName %}
+  {% if clientData.middleName %}
+    {% set fullName = fullName + ' ' + clientData.middleName %}
+  {% endif %}
+  {% set fullName = fullName + ' ' + clientData.lastName %}
+
+  {% set useNameOnVerificationStatement = clientData.useNameOnPublicRegister %}
+  {% if useNameOnVerificationStatement == "use_name_on_public_register_yes" %}
+    {% set useNameOnVerificationStatement = i18n.useNameOption1 %}
+  {% elseif useNameOnVerificationStatement == "use_name_on_public_register_no" %}
+    {% set useNameOnVerificationStatement = i18n.useNameOption2 %}
+  {% endif %}
+
+  {% set useNameOnPublicRegister = clientData.useNameOnPublicRegister %}
+  {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
+    {% set fullPreferredName = clientData.preferredFirstName %}
+    {% if clientData.preferredMiddleName %}
+      {% set fullPreferredName = fullPreferredName + ' ' + clientData.preferredMiddleName %}
+    {% endif %}
+    {% set fullPreferredName = fullPreferredName + ' ' + clientData.preferredLastName %}
+  {% else %}
+    {% set fullPreferredName = fullName | escape %}
+  {% endif %}
+
+  {% set identityChecksCompletedDate = clientData.whenIdentityChecksCompleted %}
+  {% set identityDocHref = "" %}
+
+  {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
+  {% if howIdentityDocsChecked == "cryptographic_security_features_checked" %}
+    {% set identityDocHref = clientData.reverifyBaseUrl + "/identity-documents-checked-group-1" + "?lang=" + lang %}
+    {% set howIdentityDocsChecked = i18n.option1Confirmation %}
+  {% elseif howIdentityDocsChecked == "physical_security_features_checked" %}
+    {% set identityDocHref = clientData.reverifyBaseUrl + "/identity-documents-checked-group-2" + "?lang=" + lang %}
+    {% set howIdentityDocsChecked = i18n.option2Confirmation %}
+  {% endif %}
+
+  {% set textContent = i18n.checkYourAnswersDeclarationText1 + " " + (acspName | escape) + " " + i18n.checkYourAnswersDeclarationText2 + " " + (fullName | escape) + i18n.checkYourAnswersDeclarationText3 %}
+
+  {% set verificationStatement1 = i18n.iConfirm + " " + (acspName | escape) + " " + i18n.verifiedThe +  " " + (fullName | escape) + " " + i18n.toTheStandard + " " + identityChecksCompletedDate + "." %}
+
+  {% set verificationStatement2 = " " + (acspName | escape) + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
+
+  {% set groupBDocs = [i18n.birth_certificate, i18n.marriage_certificate, i18n.immigration_document_non_photo_id, i18n.visa_non_photo_id, i18n.work_permit_non_photo_id, i18n.bank_statement, i18n.rental_agreement, i18n.mortgage_statement, i18n.UK_council_tax_statement, i18n.utility_bill] %}
+
+  <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
+    {% include "partials/csrf_token.njk" %}
+    <h1 class="govuk-heading-xl">{{ i18n.checkYourAnswersHeading }}</h1>
+    <h2 class="govuk-heading-m">{{ i18n.checkYourAnswersDetailsTableHeading | replace("{NAME}", fullName) }}</h2>
+    {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-9',
+    rows: [
+      {
+        key: {
+          text: i18n.personalCode
+        },
+        value: {
+          text: clientData.personalCode
+        },
+        actions: {
+          items: [
+            {
+              href: clientData.reverifyBaseUrl + "/what-is-their-personal-code" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.personalCode
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: i18n.emailAddressConfirmation
+        },
+        value: {
+          html: clientData.emailAddress
+        },
+        actions: {
+          items: [
+            {
+              href: clientData.reverifyBaseUrl + "/what-is-their-email-address" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.emailAddressConfirmation
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: i18n.dateOfBirth
+        },
+        value: {
+          text: clientData.dateOfBirth
+        },
+        actions: {
+          items: [
+            {
+              href: clientData.reverifyBaseUrl + "/what-is-their-date-of-birth" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.dateOfBirth
+            }
+          ]
+        } 
+      },
+      {
+        key: {
+          text: i18n.name
+        },
+        value: {
+          text: fullName
+        },
+        actions: {
+          items: [
+            {
+              href: clientData.reverifyBaseUrl + "/what-is-the-persons-name" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.name
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: i18n.useNameOnVerificationStatement
+        },
+        value: {
+          text: useNameOnVerificationStatement
+        },
+        actions: {
+          items: [
+            {
+              href: clientData.reverifyBaseUrl + "/use-name-on-public-register" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.useNameOnVerificationStatement
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: i18n.preferredName
+        },
+        value: {
+          text: fullPreferredName
+        },
+        actions: {
+          items: [
+            {
+              href: clientData.reverifyBaseUrl + "/use-name-on-public-register" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.preferredName
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: i18n.homeAdd
+        },
+        value: {
+          text: clientData.address | safe
+        },
+        actions: {
+          items: [
+            {
+              href: clientData.reverifyBaseUrl + "/what-is-their-home-address" + "?lang=" + lang,
+              text: i18n.checkAnswerDetailsChange,
+              visuallyHiddenText: i18n.homeAdd
+            }
+          ]
+        }
+      }
+    ]
+  }) }}
+
+<h2 class="govuk-heading-m">{{ i18n.checkYourAnswersIDCheckTableHeading }}</h2>
+  {{ govukSummaryList({
+  classes: 'govuk-!-margin-bottom-9',
+  rows: [      
+    {
+      key: {
+        text: i18n.dateIdentityCompleted
+      },
+      value: {
+        text: identityChecksCompletedDate
+      },
+      actions: {
+        items: [
+          {
+            href: clientData.reverifyBaseUrl + "/identity-checks-completed" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: i18n.dateIdentityCompleted
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: i18n.howTheIdentityDocsWereChecked
+      },
+      value: {
+        text: howIdentityDocsChecked
+      },
+      actions: {
+        items: [
+          {
+            href: clientData.reverifyBaseUrl + "/how-were-identity-documents-checked" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: i18n.howTheIdentityDocsWereChecked
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: i18n.identityDocsThatWereChecked
+      },
+      value: {
+        html: clientData.documentsChecked | safe
+      },
+      actions: {
+        items: [
+          {
+            href: identityDocHref,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: i18n.identityDocsThatWereChecked
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: i18n.identityVerification
+      },
+      value: {
+        text: ("<p>" + verificationStatement1 + "</p></p>" + verificationStatement2 + "</p>") | safe
+      },
+      actions: {
+        items: [
+          {
+            href: clientData.reverifyBaseUrl + "/confirm-you-verified-their-identity" + "?lang=" + lang,
+            text: i18n.checkAnswerDetailsChange,
+            visuallyHiddenText: i18n.identityVerification
+          }
+        ]
+      }
+    }
+    ]
+  }) }}
+
+  {% for doc in clientData.idDocumentDetails %}
+  {% if not (groupBDocs.includes(i18n[doc.docName])) %}
+  {% set docNumber = doc.documentNumber if doc.documentNumber else i18n.notProvided %}
+  {% set expiryDate = doc.formattedExpiryDate if doc.formattedExpiryDate else i18n.notProvided %}
+  {% set countryOfIssue = doc.countryOfIssue if doc.countryOfIssue else i18n.notProvided %}
+  <h2 class="govuk-heading-m">{{ i18n.details | replace("{DOCNAME}", i18n[doc.docName]) }}</h2>
+    {{ govukSummaryList({
+      classes: 'govuk-!-margin-bottom-9',
+      rows: [
+        {
+          key: {
+            text: i18n.number | replace("{DOCNAME}", i18n[doc.docName])
+          },
+          value: {
+            text: docNumber
+          },
+          actions: {
+            items: [
+              {
+                href: clientData.reverifyBaseUrl + "/id-document-details" + "?lang=" + lang + "#documentNumber_" + loop.index,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: i18n.number | replace("{DOCNAME}", i18n[doc.docName])
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: i18n.ExpiryDate
+          },
+          value: {
+            text: expiryDate
+          },
+          actions: {
+            items: [
+              {
+                href: clientData.reverifyBaseUrl + "/id-document-details" + "?lang=" + lang + "#expiryDateDay_" + loop.index,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: i18n.ExpiryDate + " " + i18n[doc.docName]
+              }
+            ]
+          }
+        },
+        {
+          key: {
+            text: i18n.chooseCountryText
+          },
+          value: {
+            text: countryOfIssue
+          },
+          actions: {
+            items: [
+              {
+                href: clientData.reverifyBaseUrl + "/id-document-details" + "?lang=" + lang + "#countryInput_" + loop.index,
+                text: i18n.checkAnswerDetailsChange,
+                visuallyHiddenText: i18n.chooseCountryText + " " + i18n[doc.docName]
+              }
+            ]
+          }
+        }
+      ]
+    }) }}
+{% endif %}    
+{% endfor %}
+
+
+    {{ govukCheckboxes({
+        name: "checkYourAnswerDeclaration",
+        errorMessage: errors.checkYourAnswerDeclaration if errors,
+        fieldset: {
+            legend: {
+                text: i18n.declarationSubHeading,
+                classes: "govuk-fieldset__legend--m"
+            }
+        },
+        items: [
+        {
+            value: "confirm",
+            html: textContent
+        }
+        ]
+    }) }}
+
+    {{ govukButton({
+        text: i18n.confirmSend,
+        id: "confirm-send-button"
+    }) }}
+
+  </form>
+
+  <script type="text/javascript" nonce={{ nonce | dump | safe }}>
+    ignoreCheckboxForThisPage = true;
+  </script>
+
+{% endblock main_content %}

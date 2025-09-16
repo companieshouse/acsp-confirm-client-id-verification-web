@@ -2,6 +2,7 @@ import { Address } from "./Address";
 import { DocumentDetails } from "./DocumentDetails";
 
 export interface ClientData {
+    personalCode?: string,
     firstName?: string;
     middleName?: string;
     lastName?: string;
