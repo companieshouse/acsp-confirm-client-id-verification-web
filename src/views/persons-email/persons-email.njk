@@ -4,9 +4,13 @@
 {% extends "layouts/default.njk" %}
 
 {% if reqType !== "reverify" %}
-{% set bodyText = i18n.emailAddressCanOnlyUsedOnce %}
+  {% set title = i18n.emailAddress %}
+  {% set pageHeader = i18n.emailAddress %}
+  {% set bodyText = i18n.emailAddressCanOnlyUsedOnce %}
 {% else %}
-{% set bodyText = i18n.reverifyMustProvideEmailAddressVerificationRecord %}
+  {% set title = i18n.reverifyEmailAddressTabTitle %}
+  {% set pageHeader = i18n.reverifyEmailAddressTabTitle %}
+  {% set bodyText = i18n.reverifyMustProvideEmailAddressVerificationRecord %}
 {% endif %}
 
 {% set title = i18n.emailAddressTabTitle %}
@@ -14,7 +18,7 @@
 {% block main_content %}
 <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
     {% include "partials/csrf_token.njk" %}
-    <h1 class="govuk-heading-l">{{ i18n.emailAddress | replace("{NAME}", firstName + " " + lastName) }}</h1>
+    <h1 class="govuk-heading-l">{{ pageHeader | replace("{NAME}", firstName + " " + lastName) }}</h1>
     <p class="govuk-body">{{ bodyText }}</p>
     <div class="govuk-form-group">
         {% if reqType != "reverify" %}
