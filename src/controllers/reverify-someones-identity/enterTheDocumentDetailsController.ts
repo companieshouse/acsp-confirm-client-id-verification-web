@@ -115,7 +115,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const createPayloadForReverification = (idDocumentDetails: DocumentDetails[], formatDocumentsCheckedText: string[], i18n: any): { [key: string]: string | undefined } => {
-    const payload: { [key: string]: any | undefined } = {};
+    const payload: { [key: string]: any } = {};
     idDocumentDetails.forEach((body) => {
         for (let i = 0; i < formatDocumentsCheckedText.length; i++) {
             if (formatDocumentsCheckedText[i] === i18n[body.docName]) {
