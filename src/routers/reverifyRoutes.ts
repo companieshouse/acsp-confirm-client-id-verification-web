@@ -24,6 +24,7 @@ import { dateValidator } from "../validations/dateValidationCommon";
 import { reverifyIdentityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { identityDocsGroup2Validator } from "../validations/identityDocumentsGroup2";
+import idDocumentDetailsValidator from "../validations/idDocumentDetails";
 import { confirmIdentityReverificationValidator } from "../validations/confirmIdentityVerification";
 
 const reverifyRoutes = Router();
@@ -62,7 +63,7 @@ reverifyRoutes.get(urls.REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2, identityDocu
 reverifyRoutes.post(urls.REVERIFY_IDENTITY_DOCUMENTS_CHECKED_GROUP2, identityDocsGroup2Validator, identityDocumentsCheckedReverificationGroup2Controller.post);
 
 reverifyRoutes.get(urls.REVERIFY_ENTER_ID_DOCUMENT_DETAILS, enterTheDocumentDetailsController.get);
-reverifyRoutes.post(urls.REVERIFY_ENTER_ID_DOCUMENT_DETAILS, enterTheDocumentDetailsController.post);
+reverifyRoutes.post(urls.REVERIFY_ENTER_ID_DOCUMENT_DETAILS, idDocumentDetailsValidator.call(this), enterTheDocumentDetailsController.post);
 
 reverifyRoutes.get(urls.REVERIFY_HOME_ADDRESS_MANUAL, reverifyHomeAddressManualController.get);
 reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS_MANUAL, manualAddressValidator, reverifyHomeAddressManualController.post);

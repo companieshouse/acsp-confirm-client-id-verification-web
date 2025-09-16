@@ -2,7 +2,7 @@ import { Session } from "@companieshouse/node-session-handler";
 import { NextFunction, Request, Response } from "express";
 import countryList from "../../lib/countryList";
 import * as config from "../../config";
-import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../../types/pageURL";
+import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, ID_DOCUMENT_DETAILS, REVERIFY_BASE_URL, REVERIFY_ENTER_ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../../types/pageURL";
 import { ClientData } from "../../model/ClientData";
 import { CHECK_YOUR_ANSWERS_FLAG, CRYPTOGRAPHIC_SECURITY_FEATURES, USER_DATA } from "../../utils/constants";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
@@ -22,25 +22,37 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-        /* const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked, clientData.howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
+        const clientData: ClientData = session?.getExtraData(USER_DATA)! || {};
+        /* -- to be removed -- */
+        clientData.documentsChecked = clientData.documentsChecked || ["passport", "irish_passport_card", "birth_certificate"];
+        clientData.howIdentityDocsChecked = clientData.howIdentityDocsChecked || "physical_security_features_checked";
+        /* -- -- -- -- -- -- -- */
+        const formattedHintText = FormatService.formatDocumentHintText(
+            clientData.documentsChecked,
+            clientData.howIdentityDocsChecked,
+            locales.i18nCh.resolveNamespacesKeys(lang));
+
         const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
             clientData.documentsChecked,
             clientData.howIdentityDocsChecked,
             locales.i18nCh.resolveNamespacesKeys(lang)
-        ); */
+        );
+
         let payload;
-        /*
+
         if (clientData.idDocumentDetails != null) {
-            payload = createPayload(clientData.idDocumentDetails, formattedDocumentsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
+            payload = createPayload(
+                clientData.idDocumentDetails,
+                formattedDocumentsChecked,
+                locales.i18nCh.resolveNamespacesKeys(lang));
         }
-        */
+
         res.render(config.ID_DOCUMENT_DETAILS, {
             previousPage: "",
             ...getLocaleInfo(locales, lang),
-            currentUrl: BASE_URL + ID_DOCUMENT_DETAILS,
-            // documentsChecked: formattedDocumentsChecked,
-            // hintText: formattedHintText,
+            currentUrl: REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS,
+            documentsChecked: formattedDocumentsChecked,
+            hintText: formattedHintText,
             countryList: countryList,
             payload
         });
@@ -54,11 +66,19 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const currentUrl: string = BASE_URL + ID_DOCUMENT_DETAILS;
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS;
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
         const errorList = validationResult(req);
-        const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked, clientData.howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
+        /* -- to be removed -- */
+        clientData.documentsChecked = clientData.documentsChecked || ["passport", "irish_passport_card", "birth_certificate"];
+        clientData.howIdentityDocsChecked = clientData.howIdentityDocsChecked || "physical_security_features_checked";
+        /* -- -- -- -- -- -- -- */
+        const formattedHintText = FormatService.formatDocumentHintText(
+            clientData.documentsChecked,
+            clientData.howIdentityDocsChecked,
+            locales.i18nCh.resolveNamespacesKeys(lang));
+
         const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
             clientData.documentsChecked,
             clientData.howIdentityDocsChecked,
@@ -68,7 +88,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const documentDetailsService = new IdDocumentDetailsService();
         const whenIdentityChecksCompleted = new Date(clientData.whenIdentityChecksCompleted!);
         const typeOfTheDocumentCheck = clientData.howIdentityDocsChecked!;
-        const errorArray = documentDetailsService.errorListDisplay(errorList.array(), formattedDocumentsChecked, lang, whenIdentityChecksCompleted, typeOfTheDocumentCheck);
+        const errorArray = documentDetailsService.errorListDisplay(
+            errorList.array(),
+            formattedDocumentsChecked,
+            lang,
+            whenIdentityChecksCompleted,
+            typeOfTheDocumentCheck);
+
         if (errorArray.length) {
             const pageProperties = getPageProperties(formatValidationError(errorArray, lang));
             res.status(400).render(config.ID_DOCUMENT_DETAILS, {
