@@ -19,15 +19,14 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const session: Session = req.session as any as Session;
         const addressList = session.getExtraData(ADDRESS_LIST);
         const manualAddressLink: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOME_ADDRESS_MANUAL, lang);
-
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
         res.render(config.HOME_ADDRESS_LIST, {
             ...getLocaleInfo(locales, lang),
-            currentUrl,
             previousPage,
-            addresses: addressList,
+            currentUrl,
             manualAddressLink,
+            addresses: addressList,
             firstname: clientData.firstName,
             lastname: clientData.lastName
         });
@@ -38,8 +37,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
 export const post = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
+        const lang = selectLang(req.query.lang);
         const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHOOSE_AN_ADDRESS;
         const errorList = validationResult(req);
         const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS, lang);
@@ -52,20 +51,18 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
             res.status(400).render(config.HOME_ADDRESS_LIST, {
                 ...getLocaleInfo(locales, lang),
-                currentUrl,
+                pageProperties: pageProperties,
                 previousPage,
-                addresses: addressList,
+                currentUrl,
                 firstname: clientData.firstName,
                 lastname: clientData.lastName,
                 manualAddressLink,
-                pageProperties: pageProperties
+                addresses: addressList
             });
         } else {
             const selectPremise = req.body.homeAddress;
-
             // Save selected address to the session
             const homeAddress: Address = addressList.filter((address) => address.propertyDetails === selectPremise)[0];
-
             clientData.address = homeAddress;
             saveDataInSession(req, USER_DATA, clientData);
 
