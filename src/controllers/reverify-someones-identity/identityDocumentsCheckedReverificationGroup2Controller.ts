@@ -14,6 +14,7 @@ import { ClientData } from "../../model/ClientData";
 import { USER_DATA } from "../../utils/constants";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
+import { CheckedDocumentsService } from "../../services/checkedDocumentsService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -58,6 +59,14 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 currentUrl
             });
         } else {
+            const documentsGroup2 = {
+                documentsGroup2A: req.body.documentsGroup2A,
+                documentsGroup2B: req.body.documentsGroup2B
+            };
+
+            const checkedDocumentsService = new CheckedDocumentsService();
+            checkedDocumentsService.saveDocumentGroupAB(req, clientData, documentsGroup2);
+
             res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS, lang));
         }
     } catch (error) {

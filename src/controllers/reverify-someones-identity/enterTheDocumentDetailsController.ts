@@ -2,7 +2,14 @@ import { Session } from "@companieshouse/node-session-handler";
 import { NextFunction, Request, Response } from "express";
 import countryList from "../../lib/countryList";
 import * as config from "../../config";
-import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, ID_DOCUMENT_DETAILS, REVERIFY_BASE_URL, REVERIFY_ENTER_ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../../types/pageURL";
+import {
+    REVERIFY_BASE_URL,
+    REVERIFY_ENTER_ID_DOCUMENT_DETAILS,
+    REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1,
+    REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2,
+    REVERIFY_CHECK_YOUR_ANSWERS,
+    REVERIFY_CONFIRM_IDENTITY_REVERIFICATION
+} from "../../types/pageURL";
 import { ClientData } from "../../model/ClientData";
 import { CHECK_YOUR_ANSWERS_FLAG, CRYPTOGRAPHIC_SECURITY_FEATURES, USER_DATA } from "../../utils/constants";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
@@ -23,10 +30,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session?.getExtraData(USER_DATA)! || {};
-        /* -- to be removed -- */
-        clientData.documentsChecked = clientData.documentsChecked || ["passport", "irish_passport_card", "birth_certificate"];
-        clientData.howIdentityDocsChecked = clientData.howIdentityDocsChecked || "physical_security_features_checked";
-        /* -- -- -- -- -- -- -- */
+
         const formattedHintText = FormatService.formatDocumentHintText(
             clientData.documentsChecked,
             clientData.howIdentityDocsChecked,
@@ -48,7 +52,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         }
 
         res.render(config.ID_DOCUMENT_DETAILS, {
-            previousPage: "",
+            previousPage: addLangToUrl(getReverifyBackUrl(clientData.howIdentityDocsChecked!), lang),
             ...getLocaleInfo(locales, lang),
             currentUrl: REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS,
             documentsChecked: formattedDocumentsChecked,
@@ -70,10 +74,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
 
         const errorList = validationResult(req);
-        /* -- to be removed -- */
-        clientData.documentsChecked = clientData.documentsChecked || ["passport", "irish_passport_card", "birth_certificate"];
-        clientData.howIdentityDocsChecked = clientData.howIdentityDocsChecked || "physical_security_features_checked";
-        /* -- -- -- -- -- -- -- */
         const formattedHintText = FormatService.formatDocumentHintText(
             clientData.documentsChecked,
             clientData.howIdentityDocsChecked,
@@ -98,7 +98,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         if (errorArray.length) {
             const pageProperties = getPageProperties(formatValidationError(errorArray, lang));
             res.status(400).render(config.ID_DOCUMENT_DETAILS, {
-                previousPage: addLangToUrl(getBackUrl(clientData.howIdentityDocsChecked!), lang),
+                previousPage: addLangToUrl(getReverifyBackUrl(clientData.howIdentityDocsChecked!), lang),
                 ...getLocaleInfo(locales, lang),
                 pageProperties: pageProperties,
                 payload: req.body,
@@ -112,21 +112,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             const checkYourAnswersFlag = session?.getExtraData(CHECK_YOUR_ANSWERS_FLAG);
 
             if (checkYourAnswersFlag) {
-                res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
+                res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang));
             } else {
-                res.redirect(addLangToUrl(BASE_URL + CONFIRM_IDENTITY_VERIFICATION, lang));
+                res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang));
             }
         }
     } catch (error) {
         next(error);
-    }
-};
-
-const getBackUrl = (selectedOption: string) => {
-    if (selectedOption === CRYPTOGRAPHIC_SECURITY_FEATURES) {
-        return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
-    } else {
-        return BASE_URL + WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
     }
 };
 
@@ -150,4 +142,12 @@ export const createPayload = (idDocumentDetails: DocumentDetails[], formatDocume
         }
     });
     return payload;
+};
+
+const getReverifyBackUrl = (selectedOption: string) => {
+    if (selectedOption === CRYPTOGRAPHIC_SECURITY_FEATURES) {
+        return REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1;
+    } else {
+        return REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
+    }
 };
