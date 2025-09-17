@@ -44,3 +44,4 @@ export * as reverifyHomeAddressManualController from "./reverify-someones-identi
 export * as reverifyChooseAnAddressController from "./reverify-someones-identity/chooseAnAddressController";
 export * as reverifyConfirmIdentityReverificationController from "./reverify-someones-identity/confirmIdentityReverificationController";
 export * as reverifyCheckYourAnswersController from "./reverify-someones-identity/checkYourAnswersController";
+export * as reverifyInvalidPersonalCodeController from "./reverify-someones-identity/reverifyInvalidPersonalCodeController";
