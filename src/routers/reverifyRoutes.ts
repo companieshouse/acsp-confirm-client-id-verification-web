@@ -29,7 +29,7 @@ import { emailValidator } from "../validations/personEmail";
 import { reverifyIdentityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { identityDocsGroup2Validator } from "../validations/identityDocumentsGroup2";
-import idDocumentDetailsValidator from "../validations/idDocumentDetails";
+import { idDocumentDetailsValidator } from "../validations/idDocumentDetails";
 import { confirmIdentityReverificationValidator } from "../validations/confirmIdentityVerification";
 import { checkYourAnswerValidator } from "../validations/checkYourAnswer";
 import { reverifyHowIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
@@ -82,8 +82,6 @@ reverifyRoutes.post(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, reverifyId
 reverifyRoutes.get(urls.REVERIFY_ENTER_ID_DOCUMENT_DETAILS, enterTheDocumentDetailsController.get);
 reverifyRoutes.post(urls.REVERIFY_ENTER_ID_DOCUMENT_DETAILS, idDocumentDetailsValidator.call(this), enterTheDocumentDetailsController.post);
 
-reverifyRoutes.get(urls.REVERIFY_HOME_ADDRESS_MANUAL, reverifyHomeAddressManualController.get);
-reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS_MANUAL, manualAddressValidator, reverifyHomeAddressManualController.post);
 reverifyRoutes.get(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2, identityDocumentsCheckedReverificationGroup2Controller.get);
 reverifyRoutes.post(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2, identityDocsGroup2Validator, identityDocumentsCheckedReverificationGroup2Controller.post);
 
