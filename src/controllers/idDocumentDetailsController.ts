@@ -23,9 +23,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
-        console.log(JSON.stringify(clientData.documentsChecked));
-        console.log(JSON.stringify(clientData.howIdentityDocsChecked));
-        console.log(JSON.stringify(locales.i18nCh.resolveNamespacesKeys(lang)));
         const formattedHintText = FormatService.formatDocumentHintText(clientData.documentsChecked, clientData.howIdentityDocsChecked, locales.i18nCh.resolveNamespacesKeys(lang));
         const formattedDocumentsChecked = FormatService.formatDocumentsCheckedText(
             clientData.documentsChecked,
