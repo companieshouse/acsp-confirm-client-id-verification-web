@@ -21,20 +21,21 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
-        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
         const clientData: ClientData = session?.getExtraData(USER_DATA)!;
         const payload = {
             documentsGroup2A: clientData.documentsChecked,
             documentsGroup2B: clientData.documentsChecked
         };
+        const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
+        const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
+
         res.render(config.IDENTITY_DOCUMETS_GROUP_2, {
             ...getLocaleInfo(locales, lang),
             previousPage,
-            currentUrl,
             firstName: clientData?.firstName,
             lastName: clientData?.lastName,
-            payload
+            payload,
+            currentUrl
         });
     } catch (error) {
         next(error);
