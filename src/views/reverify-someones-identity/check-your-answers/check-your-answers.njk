@@ -134,7 +134,7 @@
         actions: {
           items: [
             {
-              href: clientData.reverifyBaseUrl + "/use-name-on-public-register" + "?lang=" + lang,
+              href: clientData.reverifyBaseUrl + "/what-we-show-on-the-public-register" + "?lang=" + lang,
               text: i18n.checkAnswerDetailsChange,
               visuallyHiddenText: i18n.useNameOnVerificationStatement
             }
@@ -151,7 +151,7 @@
         actions: {
           items: [
             {
-              href: clientData.reverifyBaseUrl + "/use-name-on-public-register" + "?lang=" + lang,
+              href: clientData.reverifyBaseUrl + "/what-we-show-on-the-public-register" + "?lang=" + lang,
               text: i18n.checkAnswerDetailsChange,
               visuallyHiddenText: i18n.preferredName
             }
@@ -192,7 +192,7 @@
       actions: {
         items: [
           {
-            href: clientData.reverifyBaseUrl + "/identity-checks-completed" + "?lang=" + lang,
+            href: clientData.reverifyBaseUrl + "/when-did-you-complete-the-identity-checks" + "?lang=" + lang,
             text: i18n.checkAnswerDetailsChange,
             visuallyHiddenText: i18n.dateIdentityCompleted
           }
@@ -209,7 +209,7 @@
       actions: {
         items: [
           {
-            href: clientData.reverifyBaseUrl + "/how-were-identity-documents-checked" + "?lang=" + lang,
+            href: clientData.reverifyBaseUrl + "/how-were-the-identity-documents-checked" + "?lang=" + lang,
             text: i18n.checkAnswerDetailsChange,
             visuallyHiddenText: i18n.howTheIdentityDocsWereChecked
           }
@@ -243,7 +243,7 @@
       actions: {
         items: [
           {
-            href: clientData.reverifyBaseUrl + "/confirm-you-verified-their-identity" + "?lang=" + lang,
+            href: clientData.reverifyBaseUrl + "/confirm-you-reverified-their-identity" + "?lang=" + lang,
             text: i18n.checkAnswerDetailsChange,
             visuallyHiddenText: i18n.identityVerification
           }
@@ -272,7 +272,7 @@
           actions: {
             items: [
               {
-                href: clientData.reverifyBaseUrl + "/id-document-details" + "?lang=" + lang + "#documentNumber_" + loop.index,
+                href: clientData.reverifyBaseUrl + "/enter-the-document-details" + "?lang=" + lang + "#documentNumber_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
                 visuallyHiddenText: i18n.number | replace("{DOCNAME}", i18n[doc.docName])
               }
@@ -289,7 +289,7 @@
           actions: {
             items: [
               {
-                href: clientData.reverifyBaseUrl + "/id-document-details" + "?lang=" + lang + "#expiryDateDay_" + loop.index,
+                href: clientData.reverifyBaseUrl + "/enter-the-document-details" + "?lang=" + lang + "#expiryDateDay_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
                 visuallyHiddenText: i18n.ExpiryDate + " " + i18n[doc.docName]
               }
@@ -306,7 +306,7 @@
           actions: {
             items: [
               {
-                href: clientData.reverifyBaseUrl + "/id-document-details" + "?lang=" + lang + "#countryInput_" + loop.index,
+                href: clientData.reverifyBaseUrl + "/enter-the-document-details" + "?lang=" + lang + "#countryInput_" + loop.index,
                 text: i18n.checkAnswerDetailsChange,
                 visuallyHiddenText: i18n.chooseCountryText + " " + i18n[doc.docName]
               }
