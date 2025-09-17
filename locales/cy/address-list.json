@@ -1,5 +1,6 @@
 {
     "addressListTitle": "Dewiswch gyfeiriad",
 
-    "error-addresListNoRadioBtnSelected" : "Dewiswch y cyfeiriad cartref"    
+    "error-addressListNoRadioBtnSelected" : "Dewiswch y cyfeiriad cartref",
+    "error-reverifyChooseAddressNoRadioBtnSelected" : "Select the correspondence address - Welsh" 
 }

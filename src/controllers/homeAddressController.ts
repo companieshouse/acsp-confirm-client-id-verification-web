@@ -8,7 +8,7 @@ import { ValidationError, validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
 import { AddressLookUpService } from "../services/addressLookup";
-import { USER_DATA, MATOMO_LINK_CLICK, PREVIOUS_PAGE_URL } from "../utils/constants";
+import { USER_DATA, PREVIOUS_PAGE_URL } from "../utils/constants";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -33,7 +33,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             previousPage: previousPage,
             AddressManualLink: addLangToUrl(BASE_URL + HOME_ADDRESS_MANUAL, lang),
             currentUrl: BASE_URL + HOME_ADDRESS,
-            matomoLinkClick: MATOMO_LINK_CLICK,
             payload,
             firstName: clientData.firstName,
             lastName: clientData.lastName
