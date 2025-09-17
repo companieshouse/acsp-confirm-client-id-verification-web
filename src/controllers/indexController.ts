@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { BASE_URL, PERSONS_NAME } from "../types/pageURL";
-import { CHECK_YOUR_ANSWERS_FLAG, MATOMO_LINK_CLICK, REFERENCE, USER_DATA } from "../utils/constants";
+import { CHECK_YOUR_ANSWERS_FLAG, REFERENCE, USER_DATA } from "../utils/constants";
 import {
     addLangToUrl,
     getLocaleInfo,
@@ -29,7 +29,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
         res.render(config.HOME, {
             ...getLocaleInfo(locales, lang),
-            matomoLinkClick: MATOMO_LINK_CLICK,
             PIWIK_START_GOAL_ID,
             currentUrl: BASE_URL
         });
