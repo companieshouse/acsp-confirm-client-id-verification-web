@@ -7,7 +7,7 @@ import {
     REVERIFY_ENTER_ID_DOCUMENT_DETAILS,
     REVERIFY_CONFIRM_IDENTITY_REVERIFICATION
 } from "../../../../src/types/pageURL";
-import { createPayload } from "../../../../src/controllers/idDocumentDetailsController";
+import { createPayloadForReverification } from "../../../../src/controllers/reverify-someones-identity/enterTheDocumentDetailsController";
 import { sessionMiddleware } from "../../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
 import { CHECK_YOUR_ANSWERS_FLAG, USER_DATA } from "../../../../src/utils/constants";
@@ -98,7 +98,7 @@ describe("POST " + REVERIFY_ENTER_ID_DOCUMENT_DETAILS, () => {
     });
 });
 
-describe("createPayload tests", () => {
+describe("createPayloadForReverification tests", () => {
     it("should handle UK accredited PASS card identity document with optional expiryDate correctly", () => {
         const idDocumentDetails = [
             {
@@ -111,7 +111,7 @@ describe("createPayload tests", () => {
         const formatDocumentsCheckedText = ["UK accredited PASS card"];
         const i18n = { UK_PASS_card: "UK accredited PASS card" };
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n);
+        const result = createPayloadForReverification(idDocumentDetails, formatDocumentsCheckedText, i18n);
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
@@ -134,7 +134,7 @@ describe("createPayload tests", () => {
         const formatDocumentsCheckedText = ["UK HM Armed Forces Veteran Card"];
         const i18n = { UK_HM_veteran_card: "UK HM Armed Forces Veteran Card" };
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n);
+        const result = createPayloadForReverification(idDocumentDetails, formatDocumentsCheckedText, i18n);
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
@@ -157,7 +157,7 @@ describe("createPayload tests", () => {
         const formatDocumentsCheckedText = ["Irish passport card"];
         const i18n = { irish_passport_card: "Irish passport card" };
 
-        const result = createPayload(idDocumentDetails, formatDocumentsCheckedText, i18n);
+        const result = createPayloadForReverification(idDocumentDetails, formatDocumentsCheckedText, i18n);
 
         expect(result).toEqual({
             documentNumber_1: "12345678",
