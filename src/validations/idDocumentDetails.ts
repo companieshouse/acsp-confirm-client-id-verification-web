@@ -5,7 +5,7 @@ import { CRYPTOGRAPHIC_SECURITY_FEATURES, OPTION_1_ID_DOCUMENTS_WITH_GRACED_EXPI
 
 const documentNumberFormat:RegExp = /^[A-Za-z0-9\-',\s]*$/;
 
-const idDocumentDetailsValidator = (): ValidationChain[] => {
+export const idDocumentDetailsValidator = (): ValidationChain[] => {
     const documentDetailsValidatorErrors: ValidationChain[] = [];
     const numberOfDocumentDetails = 16;
 

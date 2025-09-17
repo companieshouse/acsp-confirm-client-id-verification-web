@@ -12,6 +12,7 @@ import {
     reverifyHomeAddressManualController,
     whatIsTheirPersonalCodeController,
     identityDocumentsCheckedReverificationGroup2Controller,
+    enterTheDocumentDetailsController,
     reverifyIdentityChecksCompletedController,
     reverifyIdentityDocumentsCheckedGroup1Controller,
     reverifyConfirmIdentityReverificationController,
@@ -28,6 +29,7 @@ import { emailValidator } from "../validations/personEmail";
 import { reverifyIdentityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { identityDocsGroup2Validator } from "../validations/identityDocumentsGroup2";
+import { idDocumentDetailsValidator } from "../validations/idDocumentDetails";
 import { confirmIdentityReverificationValidator } from "../validations/confirmIdentityVerification";
 import { checkYourAnswerValidator } from "../validations/checkYourAnswer";
 import { reverifyHowIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
@@ -76,6 +78,9 @@ reverifyRoutes.post(urls.REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, reverifyHowIde
 
 reverifyRoutes.get(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, reverifyIdentityDocumentsCheckedGroup1Controller.get);
 reverifyRoutes.post(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP1, reverifyIdentityDocsGroup1Validator, reverifyIdentityDocumentsCheckedGroup1Controller.post);
+
+reverifyRoutes.get(urls.REVERIFY_ENTER_ID_DOCUMENT_DETAILS, enterTheDocumentDetailsController.get);
+reverifyRoutes.post(urls.REVERIFY_ENTER_ID_DOCUMENT_DETAILS, idDocumentDetailsValidator.call(this), enterTheDocumentDetailsController.post);
 
 reverifyRoutes.get(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2, identityDocumentsCheckedReverificationGroup2Controller.get);
 reverifyRoutes.post(urls.REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2, identityDocsGroup2Validator, identityDocumentsCheckedReverificationGroup2Controller.post);

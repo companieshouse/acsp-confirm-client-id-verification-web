@@ -14,22 +14,28 @@ import { ClientData } from "../../model/ClientData";
 import { USER_DATA } from "../../utils/constants";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
+import { CheckedDocumentsService } from "../../services/checkedDocumentsService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
+        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
+        const payload = {
+            documentsGroup2A: clientData.documentsChecked,
+            documentsGroup2B: clientData.documentsChecked
+        };
         const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_HOW_IDENTITY_DOCUMENTS_CHECKED, lang);
         const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_WHICH_IDENTITY_DOCS_CHECKED_GROUP2;
-        const clientData: ClientData = session?.getExtraData(USER_DATA)!;
 
         res.render(config.IDENTITY_DOCUMETS_GROUP_2, {
             ...getLocaleInfo(locales, lang),
             previousPage,
-            currentUrl,
             firstName: clientData?.firstName,
-            lastName: clientData?.lastName
+            lastName: clientData?.lastName,
+            payload,
+            currentUrl
         });
     } catch (error) {
         next(error);
@@ -58,6 +64,14 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 currentUrl
             });
         } else {
+            const documentsGroup2 = {
+                documentsGroup2A: req.body.documentsGroup2A,
+                documentsGroup2B: req.body.documentsGroup2B
+            };
+
+            const checkedDocumentsService = new CheckedDocumentsService();
+            checkedDocumentsService.saveDocumentGroupAB(req, clientData, documentsGroup2);
+
             res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_ENTER_ID_DOCUMENT_DETAILS, lang));
         }
     } catch (error) {
