@@ -18,7 +18,8 @@ import {
     reverifyConfirmIdentityReverificationController,
     reverifyHowIdentityDocumentsWereCheckedController,
     reverifyChooseAnAddressController,
-    reverifyCheckYourAnswersController
+    reverifyCheckYourAnswersController,
+    reverifyInvalidPersonalCodeController
 } from "../controllers";
 import { personalCodeValidator } from "../validations/personalCode";
 import { nameValidator } from "../validations/personName";
@@ -90,5 +91,7 @@ reverifyRoutes.post(urls.REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, confirmIdenti
 
 reverifyRoutes.get(urls.CHECK_YOUR_ANSWERS, reverifyCheckYourAnswersController.get);
 reverifyRoutes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswerValidator, reverifyCheckYourAnswersController.post);
+
+reverifyRoutes.get(urls.REVERIFY_PERSONAL_CODE_IS_INVALID, reverifyInvalidPersonalCodeController.get);
 
 export default reverifyRoutes;
