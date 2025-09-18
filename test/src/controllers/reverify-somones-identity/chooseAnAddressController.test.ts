@@ -41,7 +41,7 @@ describe("POST" + REVERIFY_CHOOSE_AN_ADDRESS, () => {
     it("should return status 400 after incorrect data entered", async () => {
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CHOOSE_AN_ADDRESS).send({ homeAddress: "" });
         expect(res.status).toBe(400);
-        expect(res.text).toContain("Select the correspondence address");
+        expect(res.text).toContain("Select the home address");
     });
 
     it("should return status 500 if an error occurs", async () => {

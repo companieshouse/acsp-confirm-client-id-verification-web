@@ -70,7 +70,7 @@ routes.get(urls.HOME_ADDRESS_MANUAL, homeAddressManualController.get);
 routes.post(urls.HOME_ADDRESS_MANUAL, manualAddressValidator, homeAddressManualController.post);
 
 routes.get(urls.CHOOSE_AN_ADDRESS, addressListController.get);
-routes.post(urls.CHOOSE_AN_ADDRESS, addressListValidator(), addressListController.post);
+routes.post(urls.CHOOSE_AN_ADDRESS, addressListValidator, addressListController.post);
 
 routes.get(urls.DATE_OF_BIRTH, dateOfBirthController.get);
 routes.post(urls.DATE_OF_BIRTH, dateValidator("dob"), dateOfBirthController.post);

@@ -63,7 +63,7 @@ reverifyRoutes.get(urls.REVERIFY_HOME_ADDRESS_MANUAL, reverifyHomeAddressManualC
 reverifyRoutes.post(urls.REVERIFY_HOME_ADDRESS_MANUAL, manualAddressValidator, reverifyHomeAddressManualController.post);
 
 reverifyRoutes.get(urls.REVERIFY_CHOOSE_AN_ADDRESS, reverifyChooseAnAddressController.get);
-reverifyRoutes.post(urls.REVERIFY_CHOOSE_AN_ADDRESS, addressListValidator("reverify"), reverifyChooseAnAddressController.post);
+reverifyRoutes.post(urls.REVERIFY_CHOOSE_AN_ADDRESS, addressListValidator, reverifyChooseAnAddressController.post);
 
 reverifyRoutes.get(urls.REVERIFY_CONFIRM_HOME_ADDRESS, reverifyConfirmHomeAddressController.get);
 reverifyRoutes.post(urls.REVERIFY_CONFIRM_HOME_ADDRESS, reverifyConfirmHomeAddressController.post);
