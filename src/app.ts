@@ -16,7 +16,7 @@ import {
     PIWIK_SITE_ID,
     ANY_PROTOCOL_CDN_HOST
 } from "./utils/properties";
-import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT, MUST_BE_AUTHORISED_AGENT, REVERIFY_BASE_URL } from "./types/pageURL";
+import { BASE_URL, HEALTHCHECK, ACCESSIBILITY_STATEMENT, MUST_BE_AUTHORISED_AGENT, REVERIFY_BASE_URL, REVERIFY_MUST_BE_AUTHORISED_AGENT } from "./types/pageURL";
 import { commonTemplateVariablesMiddleware } from "./middleware/common_variables_middleware";
 import { getLocalesService, selectLang } from "./utils/localise";
 import { ErrorService } from "./services/errorService";
@@ -88,8 +88,8 @@ app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}|${BASE_URL}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, csrfProtectionMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, authenticationMiddleware);
 app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}))*`, userIsPartOfAcspMiddleware);
-app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}$|${BASE_URL}${MUST_BE_AUTHORISED_AGENT}))*`, acspAuthMiddleware);
-app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}$|${BASE_URL}${MUST_BE_AUTHORISED_AGENT}))*`, acspIsActiveMiddleware);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}$|${BASE_URL}${MUST_BE_AUTHORISED_AGENT}|${REVERIFY_BASE_URL}${REVERIFY_MUST_BE_AUTHORISED_AGENT}))*`, acspAuthMiddleware);
+app.use(`^(?!(${BASE_URL}${HEALTHCHECK}$|${BASE_URL}${ACCESSIBILITY_STATEMENT}$|${BASE_URL}${MUST_BE_AUTHORISED_AGENT}|${REVERIFY_BASE_URL}${REVERIFY_MUST_BE_AUTHORISED_AGENT}))*`, acspIsActiveMiddleware);
 app.use(commonTemplateVariablesMiddleware);
 app.use(BASE_URL, verifyVariablesMiddleware);
 

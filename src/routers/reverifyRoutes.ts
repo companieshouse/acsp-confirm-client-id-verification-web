@@ -19,7 +19,8 @@ import {
     reverifyHowIdentityDocumentsWereCheckedController,
     reverifyChooseAnAddressController,
     reverifyCheckYourAnswersController,
-    reverifyInvalidPersonalCodeController
+    reverifyInvalidPersonalCodeController,
+    reverifyMustBeAuthorisedAgentController
 } from "../controllers";
 import { personalCodeValidator } from "../validations/personalCode";
 import { nameValidator } from "../validations/personName";
@@ -93,5 +94,7 @@ reverifyRoutes.get(urls.CHECK_YOUR_ANSWERS, reverifyCheckYourAnswersController.g
 reverifyRoutes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswerValidator, reverifyCheckYourAnswersController.post);
 
 reverifyRoutes.get(urls.REVERIFY_PERSONAL_CODE_IS_INVALID, reverifyInvalidPersonalCodeController.get);
+
+reverifyRoutes.get(urls.REVERIFY_MUST_BE_AUTHORISED_AGENT, reverifyMustBeAuthorisedAgentController.get);
 
 export default reverifyRoutes;

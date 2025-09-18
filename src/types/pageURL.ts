@@ -108,3 +108,5 @@ export const REVERIFY_CONFIRM_IDENTITY_REVERIFICATION = "/confirm-you-reverified
 export const REVERIFY_CHECK_YOUR_ANSWERS = "/check-your-answers";
 
 export const REVERIFY_CONFIRMATION = "/confirmation";
+
+export const REVERIFY_MUST_BE_AUTHORISED_AGENT = "/must-be-authorised-agent";
