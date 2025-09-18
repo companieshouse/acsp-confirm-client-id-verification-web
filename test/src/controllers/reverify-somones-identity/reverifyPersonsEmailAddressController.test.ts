@@ -1,18 +1,14 @@
 import mocks from "../../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../../src/app";
-import { REVERIFY_PERSONS_EMAIL_ADDRESS, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_DATE_OF_BIRTH, PROVIDE_DIFFERENT_EMAIL, REVERIFY_BASE_URL } from "../../../../src/types/pageURL";
-import { findIdentityByEmail } from "../../../../src/services/identityVerificationService";
-import { dummyIdentity } from "../../../mocks/identity.mock";
+import { REVERIFY_PERSONS_EMAIL_ADDRESS, REVERIFY_CHECK_YOUR_ANSWERS, PROVIDE_DIFFERENT_EMAIL, REVERIFY_BASE_URL, REVERIFY_PERSONS_NAME } from "../../../../src/types/pageURL";
 import { sessionMiddleware } from "../../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
-import { PREVIOUS_PAGE_URL, USER_DATA } from "../../../../src/utils/constants";
+import { PREVIOUS_PAGE_URL, REVERIFY_IDENTITY, USER_DATA } from "../../../../src/utils/constants";
 import { Request, Response, NextFunction } from "express";
 import * as localise from "../../../../src/utils/localise";
 
 jest.mock("../../../../src/services/identityVerificationService");
-
-const mockFindIdentityByEmail = findIdentityByEmail as jest.Mock;
 
 const router = supertest(app);
 
@@ -38,27 +34,27 @@ describe("GET" + REVERIFY_PERSONS_EMAIL_ADDRESS, () => {
 });
 
 describe("POST" + REVERIFY_PERSONS_EMAIL_ADDRESS, () => {
-    // Test for correct form details entered, will return 302 after redirecting to the next page.
-    it("should return status 302 after redirect", async () => {
-        await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
+    // Test for correct form details entered, and matching email to existing identity record.
+    it("should return status 302 after redirect with matching email", async () => {
+        createMockSessionMiddleware();
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS)
             .send({
-                "email-address": "test@gmail.com",
-                confirm: "test@gmail.com"
+                "email-address": "test10@test.com",
+                confirm: "test10@test.com"
             });
         expect(res.status).toBe(302);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
-        expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH + "?lang=en");
+        expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME + "?lang=en");
     });
 
-    // Test for when email exists in verification api to redirect to stop screen
-    it("should return status 302 if email address exists in verification api and redirect to stop screen", async () => {
-        await mockFindIdentityByEmail.mockResolvedValueOnce(dummyIdentity);
+    // Test for when email does not match existing identity record.
+    it("should return status 302 if email address does match existing identity record then redirect to stop screen", async () => {
+        createMockSessionMiddleware();
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS)
             .send({
-                "email-address": "test@gmail.com",
-                confirm: "test@gmail.com"
+                "email-address": "test@test.com",
+                confirm: "test@test.com"
             });
         expect(res.status).toBe(302);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
@@ -97,24 +93,12 @@ describe("POST" + REVERIFY_PERSONS_EMAIL_ADDRESS, () => {
         expect(res.text).toContain("Email addresses must match");
     });
 
-    it("should return status 500 if verification api errors", async () => {
-        await mockFindIdentityByEmail.mockRejectedValueOnce(new Error("Verification API error"));
-        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS)
-            .send({
-                "email-address": "test@email.com",
-                confirm: "test@email.com"
-            });
-        expect(res.status).toBe(500);
-        expect(res.text).toContain("Sorry we are experiencing technical difficulties");
-    });
-
     it("should return status 302 after redirect to Check Your Answers", async () => {
-        await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
-        createMockSessionMiddleware();
+        createMockSessionMiddlewareCheckYourAnswers();
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS)
             .send({
-                "email-address": "test@gmail.com",
-                confirm: "test@gmail.com"
+                "email-address": "test10@test.com",
+                confirm: "test10@test.com"
             });
         expect(res.status).toBe(302);
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
@@ -132,7 +116,7 @@ describe("POST" + REVERIFY_PERSONS_EMAIL_ADDRESS, () => {
     });
 });
 
-function createMockSessionMiddleware () {
+function createMockSessionMiddlewareCheckYourAnswers () {
     customMockSessionMiddleware = sessionMiddleware as jest.Mock;
     const session = getSessionRequestWithPermission();
     session.setExtraData(PREVIOUS_PAGE_URL, "/reverify-someones-identity-for-companies-house/check-your-answers?lang=en");
@@ -142,6 +126,28 @@ function createMockSessionMiddleware () {
         lastName: "Doe"
     }
     );
+    session.setExtraData(REVERIFY_IDENTITY, {
+        email: "test10@test.com"
+    });
+    customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+        req.session = session;
+        next();
+    });
+}
+
+function createMockSessionMiddleware () {
+    customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+    const session = getSessionRequestWithPermission();
+    session.setExtraData(PREVIOUS_PAGE_URL, "/reverify-someones-identity-for-companies-house/what-is-their-personal-code?lang=en");
+    session.setExtraData(USER_DATA, {
+        firstName: "John",
+        middleName: "",
+        lastName: "Doe"
+    }
+    );
+    session.setExtraData(REVERIFY_IDENTITY, {
+        email: "test10@test.com"
+    });
     customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
         req.session = session;
         next();

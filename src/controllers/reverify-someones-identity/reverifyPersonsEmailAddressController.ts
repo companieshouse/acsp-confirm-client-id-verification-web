@@ -1,18 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../../config";
-import { REVERIFY_PERSONAL_CODE, REVERIFY_PERSONS_EMAIL_ADDRESS, REVERIFY_DATE_OF_BIRTH, PROVIDE_DIFFERENT_EMAIL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_BASE_URL } from "../../types/pageURL";
+import { REVERIFY_PERSONAL_CODE, REVERIFY_PERSONS_EMAIL_ADDRESS, PROVIDE_DIFFERENT_EMAIL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_BASE_URL, REVERIFY_PERSONS_NAME } from "../../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
 import { validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
-import { USER_DATA, PREVIOUS_PAGE_URL } from "../../utils/constants";
+import { USER_DATA, PREVIOUS_PAGE_URL, REVERIFY_IDENTITY } from "../../utils/constants";
 import { saveDataInSession } from "../../utils/sessionHelper";
-import { findIdentityByEmail } from "../../services/identityVerificationService";
-import logger from "../../utils/logger";
-import { ErrorService } from "../../services/errorService";
 import { LocalesService } from "@companieshouse/ch-node-utils";
 import { getPreviousPageUrl } from "../../services/url";
+import { Identity } from "private-api-sdk-node/dist/services/identity-verification/types";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -63,21 +61,17 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
             const previousPage: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
 
-            await findIdentityByEmail(req.body["email-address"]).then(identity => {
-                if (identity !== undefined) {
-                    res.redirect(addLangToUrl(REVERIFY_BASE_URL + PROVIDE_DIFFERENT_EMAIL, lang));
-                } else {
-                    const redirectUrl = previousPage === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
-                        ? REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS
-                        : REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH;
+            const reverifyIdentity: Identity = session.getExtraData(REVERIFY_IDENTITY)!;
 
-                    res.redirect(addLangToUrl(redirectUrl, lang));
-                }
-            }).catch(error => {
-                logger.error("Verification-Api error" + JSON.stringify(error));
-                const errorService = new ErrorService();
-                errorService.renderErrorPage(res, locales, lang, REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS);
-            });
+            if (req.body["email-address"].trim().toLowerCase() !== reverifyIdentity.email.trim().toLowerCase()) {
+                res.redirect(addLangToUrl(REVERIFY_BASE_URL + PROVIDE_DIFFERENT_EMAIL, lang));
+            } else {
+                const redirectUrl = previousPage === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
+                    ? REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS
+                    : REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME;
+
+                res.redirect(addLangToUrl(redirectUrl, lang));
+            }
         }
     } catch (error) {
         next(error);
