@@ -34,10 +34,10 @@
 
   {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
   {% if howIdentityDocsChecked == "cryptographic_security_features_checked" %}
-    {% set identityDocHref = clientData.reverifyBaseUrl + "/identity-documents-checked-group-1" + "?lang=" + lang %}
+    {% set identityDocHref = clientData.reverifyBaseUrl + "/identity-documents-checked-using-technology" + "?lang=" + lang %}
     {% set howIdentityDocsChecked = i18n.option1Confirmation %}
   {% elseif howIdentityDocsChecked == "physical_security_features_checked" %}
-    {% set identityDocHref = clientData.reverifyBaseUrl + "/identity-documents-checked-group-2" + "?lang=" + lang %}
+    {% set identityDocHref = clientData.reverifyBaseUrl + "/identity-documents-checked" + "?lang=" + lang %}
     {% set howIdentityDocsChecked = i18n.option2Confirmation %}
   {% endif %}
 
