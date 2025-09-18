@@ -8,7 +8,7 @@ import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../../services/formatService";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
-import { findIdentityByEmail, IdentityVerificationService, sendVerifiedClientDetails } from "../../services/identityVerificationService";
+import { findIdentityByEmail } from "../../services/identityVerificationService";
 import { saveDataInSession } from "../../utils/sessionHelper";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { getAcspFullProfile, getAmlBodiesAsString } from "../../services/acspProfileService";
@@ -117,7 +117,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 throw new AcspCeasedError("ACSP is ceased. Cannot proceed with verification.");
             }
 
-            const identityVerificationService = new IdentityVerificationService();
+            // const identityVerificationService = new IdentityVerificationService();
 
             // TO DO: Call new PATCH endpoint with reverification details once developed
             // const verifiedIdentity = await sendVerifiedClientDetails(identityVerificationService.prepareVerifiedClientData(clientData, req));
