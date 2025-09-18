@@ -119,13 +119,15 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
             const identityVerificationService = new IdentityVerificationService();
 
-            const verifiedIdentity = await sendVerifiedClientDetails(identityVerificationService.prepareVerifiedClientData(clientData, req));
-            saveDataInSession(req, REFERENCE, verifiedIdentity?.id);
+            // TO DO: Call new PATCH endpoint with reverification details once developed
+            // const verifiedIdentity = await sendVerifiedClientDetails(identityVerificationService.prepareVerifiedClientData(clientData, req));
+            const verifiedIdentityId = "123456"; // TO BE REMOVED: temporary id until endpoint developed
+            saveDataInSession(req, REFERENCE, verifiedIdentityId);
 
             const clientVerificationEmailData: ClientVerificationEmail = {
                 to: getLoggedInUserEmail(req.session),
                 clientName: clientData.preferredFirstName + " " + clientData.preferredLastName,
-                referenceNumber: verifiedIdentity?.id!,
+                referenceNumber: verifiedIdentityId,
                 clientEmailAddress: clientData.emailAddress!
             };
 
