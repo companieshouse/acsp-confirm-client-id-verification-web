@@ -8,7 +8,7 @@ import * as config from "../../config";
 import { saveDataInSession } from "../../utils/sessionHelper";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
-import { getPreviousPageUrl, getRedirectUrl, UrlData } from "../../services/url";
+import { getPreviousPageUrl } from "../../services/url";
 import { FormatService } from "../../services/formatService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
@@ -84,20 +84,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 clientData.preferredFirstName = "";
                 clientData.preferredMiddleName = "";
                 clientData.preferredLastName = "";
+                saveDataInSession(req, USER_DATA, clientData);
+                res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang));
+            } else if (selectedOption === USE_NAME_ON_PUBLIC_REGISTER_YES) {
+                res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH, lang));
+            } else if (selectedOption === USE_NAME_ON_PUBLIC_REGISTER_NO) {
+                res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, lang));
             }
-
-            saveDataInSession(req, USER_DATA, clientData);
-
-            const serviceConfig: UrlData = {
-                baseUrl: REVERIFY_BASE_URL,
-                checkYourAnswersUrl: REVERIFY_CHECK_YOUR_ANSWERS,
-                nextPageUrl: REVERIFY_DATE_OF_BIRTH,
-                optionalNextPageUrl: REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER
-            };
-
-            const useOptionalNextPageUrl = selectedOption === USE_NAME_ON_PUBLIC_REGISTER_NO;
-            const redirectUrl = getRedirectUrl(req, serviceConfig, useOptionalNextPageUrl);
-            res.redirect(redirectUrl);
         }
     } catch (error) {
         next(error);
