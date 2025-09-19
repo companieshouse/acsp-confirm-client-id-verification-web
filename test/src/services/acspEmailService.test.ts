@@ -1,5 +1,5 @@
 import { createPublicApiKeyClient } from "../../../src/services/apiService";
-import { sendIdentityVerificationConfirmationEmail } from "../../../src/services/acspEmailService";
+import { sendIdentityConfirmationEmail } from "../../../src/services/acspEmailService";
 
 jest.mock("../../../src/services/apiService");
 jest.mock("@companieshouse/api-sdk-node");
@@ -24,22 +24,56 @@ describe("acspEmailService test", () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
-    it("should return http status code 200 when email sends successfully", async () => {
-        mockSendIdentityVerificationEmail.mockResolvedValueOnce({ status: 200 });
-        await expect(sendIdentityVerificationConfirmationEmail(MOCK_EMAIL_DATA)).resolves.toEqual({ status: 200 });
+
+    describe("Verification emails", () => {
+        it("should return http status code 200 when verification email sends successfully", async () => {
+            mockSendIdentityVerificationEmail.mockResolvedValueOnce({ status: 200 });
+            await expect(sendIdentityConfirmationEmail(MOCK_EMAIL_DATA, "verification")).resolves.toEqual({ status: 200 });
+            expect(mockSendIdentityVerificationEmail).toHaveBeenCalledWith(MOCK_EMAIL_DATA, { application_type: "verification" });
+        });
+
+        it("should use verification as default when no application type is provided", async () => {
+            mockSendIdentityVerificationEmail.mockResolvedValueOnce({ status: 200 });
+            await expect(sendIdentityConfirmationEmail(MOCK_EMAIL_DATA)).resolves.toEqual({ status: 200 });
+            expect(mockSendIdentityVerificationEmail).toHaveBeenCalledWith(MOCK_EMAIL_DATA, { application_type: "verification" });
+        });
+
+        it("should reject the promise when verification email API returns undefined", async () => {
+            mockSendIdentityVerificationEmail.mockResolvedValueOnce(undefined);
+            await expect(sendIdentityConfirmationEmail(MOCK_EMAIL_DATA, "verification")).rejects.toEqual(undefined);
+        });
+
+        it("should reject the promise when verification email API returns a status code over 400", async () => {
+            mockSendIdentityVerificationEmail.mockResolvedValueOnce({ status: 500 });
+            await expect(sendIdentityConfirmationEmail(MOCK_EMAIL_DATA, "verification")).rejects.toEqual({ status: 500 });
+        });
+
+        it("should reject the promise when verification email API returns no status code", async () => {
+            mockSendIdentityVerificationEmail.mockResolvedValueOnce({ body: "error body" });
+            await expect(sendIdentityConfirmationEmail(MOCK_EMAIL_DATA, "verification")).rejects.toEqual({ body: "error body" });
+        });
     });
 
-    it("Should reject the promise when acsp-api returns undefined", async () => {
-        mockSendIdentityVerificationEmail.mockResolvedValueOnce(undefined);
-        await expect(sendIdentityVerificationConfirmationEmail(MOCK_EMAIL_DATA)).rejects.toEqual(undefined);
-    });
+    describe("Reverification emails", () => {
+        it("should return http status code 200 when reverification email sends successfully", async () => {
+            mockSendIdentityVerificationEmail.mockResolvedValueOnce({ status: 200 });
+            await expect(sendIdentityConfirmationEmail(MOCK_EMAIL_DATA, "reverification")).resolves.toEqual({ status: 200 });
+            expect(mockSendIdentityVerificationEmail).toHaveBeenCalledWith(MOCK_EMAIL_DATA, { application_type: "reverification" });
+        });
 
-    it("Should reject the promise when acsp-api returns a status code over 400", async () => {
-        mockSendIdentityVerificationEmail.mockResolvedValueOnce({ status: 500 });
-        await expect(sendIdentityVerificationConfirmationEmail(MOCK_EMAIL_DATA)).rejects.toEqual({ status: 500 });
-    });
-    it("Should reject the promise when acsp-api returns no status code", async () => {
-        mockSendIdentityVerificationEmail.mockResolvedValueOnce({ body: "error body" });
-        await expect(sendIdentityVerificationConfirmationEmail(MOCK_EMAIL_DATA)).rejects.toEqual({ body: "error body" });
+        it("should reject the promise when reverification email API returns undefined", async () => {
+            mockSendIdentityVerificationEmail.mockResolvedValueOnce(undefined);
+            await expect(sendIdentityConfirmationEmail(MOCK_EMAIL_DATA, "reverification")).rejects.toEqual(undefined);
+        });
+
+        it("should reject the promise when reverification email API returns a status code over 400", async () => {
+            mockSendIdentityVerificationEmail.mockResolvedValueOnce({ status: 500 });
+            await expect(sendIdentityConfirmationEmail(MOCK_EMAIL_DATA, "reverification")).rejects.toEqual({ status: 500 });
+        });
+
+        it("should reject the promise when reverification email API returns no status code", async () => {
+            mockSendIdentityVerificationEmail.mockResolvedValueOnce({ body: "error body" });
+            await expect(sendIdentityConfirmationEmail(MOCK_EMAIL_DATA, "reverification")).rejects.toEqual({ body: "error body" });
+        });
     });
 });

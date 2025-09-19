@@ -12,7 +12,7 @@ import { findIdentityByEmail, IdentityVerificationService, sendVerifiedClientDet
 import { saveDataInSession } from "../utils/sessionHelper";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { getAcspFullProfile, getAmlBodiesAsString } from "../services/acspProfileService";
-import { sendIdentityVerificationConfirmationEmail } from "../services/acspEmailService";
+import { sendIdentityConfirmationEmail } from "../services/acspEmailService";
 import { getLoggedInAcspNumber, getLoggedInUserEmail } from "../utils/session";
 import { ClientVerificationEmail } from "@companieshouse/api-sdk-node/dist/services/acsp/types";
 import { AcspCeasedError } from "../errors/acspCeasedError";
@@ -157,7 +157,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 clientEmailAddress: clientData.emailAddress!
             };
 
-            await sendIdentityVerificationConfirmationEmail(emailData);
+            await sendIdentityConfirmationEmail(emailData, "verification");
 
             // Sets a flag for when data is sent to verification api and email is sent
             // If user faces issue before seeing confirmation page we use this flag to check and redirect if they refresh
