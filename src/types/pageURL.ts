@@ -109,4 +109,6 @@ export const REVERIFY_CHECK_YOUR_ANSWERS = "/check-your-answers";
 
 export const REVERIFY_CONFIRMATION = "/confirmation";
 
+export const REVERIFY_CANNOT_USE_SERVICE_WHILE_SUSPENDED = "/cannot-use-service-while-suspended";
+
 export const REVERIFY_MUST_BE_AUTHORISED_AGENT = "/must-be-authorised-agent";

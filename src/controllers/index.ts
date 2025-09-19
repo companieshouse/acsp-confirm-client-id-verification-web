@@ -44,6 +44,7 @@ export * as reverifyHomeAddressManualController from "./reverify-someones-identi
 export * as reverifyChooseAnAddressController from "./reverify-someones-identity/chooseAnAddressController";
 export * as reverifyConfirmIdentityReverificationController from "./reverify-someones-identity/confirmIdentityReverificationController";
 export * as reverifyCheckYourAnswersController from "./reverify-someones-identity/checkYourAnswersController";
+export * as reverifyCannotUseServiceWhileSuspendedController from "./reverify-someones-identity/cannotUseServiceWhileSuspendedController";
 export * as reverifyInvalidPersonalCodeController from "./reverify-someones-identity/reverifyInvalidPersonalCodeController";
 export * as reverifyMustBeAuthorisedAgentController from "./reverify-someones-identity/mustBeAuthorisedAgentController";
 export * as reverifyConfirmationController from "./reverify-someones-identity/reverifyConfirmationController";
