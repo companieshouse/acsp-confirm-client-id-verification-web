@@ -1,0 +1,9 @@
+{
+    "reverifyIdentityTitle": "Reverification details submitted",
+    "thisIsNotReverify": "This is not the Companies House personal code for the person you have reverified.",
+    "printOrSaveTheReverificationDetailsHeading": "Print or save the reverification details",
+    "weWillNotIncludeReverify": "We will not include the reverification details you've submitted on the confirmation email.",
+    "weWillEmailReverify": "We'll email ",
+    "toLetReverify": " to let them know you've reverified their identity.",
+    "reverificationHeading": "Reverification details for"
+}

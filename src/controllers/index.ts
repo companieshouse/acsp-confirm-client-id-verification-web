@@ -46,3 +46,4 @@ export * as reverifyConfirmIdentityReverificationController from "./reverify-som
 export * as reverifyCheckYourAnswersController from "./reverify-someones-identity/checkYourAnswersController";
 export * as reverifyInvalidPersonalCodeController from "./reverify-someones-identity/reverifyInvalidPersonalCodeController";
 export * as reverifyMustBeAuthorisedAgentController from "./reverify-someones-identity/mustBeAuthorisedAgentController";
+export * as reverifyConfirmationController from "./reverify-someones-identity/reverifyConfirmationController";

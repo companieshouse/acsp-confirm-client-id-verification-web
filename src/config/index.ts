@@ -43,3 +43,4 @@ export const REVERIFY_WHAT_WE_SHOW_ON_PUBLIC_REGISTER = `${BASE_REVERIFY_URL}/wh
 export const REVERIFY_PERSONAL_CODE = `${BASE_REVERIFY_URL}/personal-code/personal-code`;
 export const REVERIFY_CHECK_YOUR_ANSWERS = `${BASE_REVERIFY_URL}/check-your-answers/check-your-answers`;
 export const REVERIFY_INVALID_PERSONAL_CODE = `${BASE_REVERIFY_URL}/reverify-invalid-personal-code/reverify-invalid-personal-code`;
+export const REVERIFY_CONFIRMATION = `${BASE_REVERIFY_URL}/confirmation/confirmation`;
