@@ -6,7 +6,7 @@ import { ACSP_DETAILS } from "../../../src/utils/constants";
 import { getAcspFullProfile } from "../../../src/services/acspProfileService";
 import { createRequest, MockRequest } from "node-mocks-http";
 import { Session } from "@companieshouse/node-session-handler";
-import { BASE_URL, CANNOT_USE_SERVICE_WHILE_SUSPENDED } from "../../../src/types/pageURL";
+import { BASE_URL, CANNOT_USE_SERVICE_WHILE_SUSPENDED, REVERIFY_BASE_URL, REVERIFY_CANNOT_USE_SERVICE_WHILE_SUSPENDED } from "../../../src/types/pageURL";
 
 jest.mock("../../../src/services/acspProfileService");
 
@@ -67,7 +67,7 @@ describe("acspIsActiveMiddleware", () => {
         expect(next).toHaveBeenCalledWith(error);
     });
 
-    it("should redirect to CANNOT_USE_SERVICE_WHILE_SUSPENDED when ACSP status is suspended", async () => {
+    it("should redirect to CANNOT_USE_SERVICE_WHILE_SUSPENDED when ACSP status is suspended for verify service", async () => {
         const session = req.session as any as Session;
         session.setExtraData(ACSP_DETAILS, { status: "suspended" });
 
@@ -77,8 +77,29 @@ describe("acspIsActiveMiddleware", () => {
         expect(next).not.toHaveBeenCalled();
     });
 
+    it("should redirect to REVERIFY_CANNOT_USE_SERVICE_WHILE_SUSPENDED when ACSP status is suspended for reverify service", async () => {
+        const session = req.session as any as Session;
+        session.setExtraData(ACSP_DETAILS, { status: "suspended" });
+
+        req.originalUrl = REVERIFY_BASE_URL;
+        await acspIsActiveMiddleware(req, res as Response, next);
+        expect(res.redirect).toHaveBeenCalledWith(REVERIFY_BASE_URL + REVERIFY_CANNOT_USE_SERVICE_WHILE_SUSPENDED + "?lang=en");
+        expect(next).not.toHaveBeenCalled();
+    });
+
     it("should not redirect for suspended ACSPs when request comes from CANNOT_USE_SERVICE_WHILE_SUSPENDED URL", async () => {
         req.originalUrl = BASE_URL + CANNOT_USE_SERVICE_WHILE_SUSPENDED;
+        const session = req.session as any as Session;
+        session.setExtraData(ACSP_DETAILS, { status: "suspended" });
+
+        await acspIsActiveMiddleware(req, res as Response, next);
+
+        expect(res.redirect).not.toHaveBeenCalled();
+        expect(next).toHaveBeenCalled();
+    });
+
+    it("should not redirect for suspended ACSPs when request comes from REVERIFY_CANNOT_USE_SERVICE_WHILE_SUSPENDED URL", async () => {
+        req.originalUrl = REVERIFY_BASE_URL + REVERIFY_CANNOT_USE_SERVICE_WHILE_SUSPENDED;
         const session = req.session as any as Session;
         session.setExtraData(ACSP_DETAILS, { status: "suspended" });
 

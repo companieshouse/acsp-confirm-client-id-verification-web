@@ -6,7 +6,7 @@ import { ACSP_DETAILS, ACTIVE_STATUS } from "../utils/constants";
 import { Session } from "@companieshouse/node-session-handler";
 import { InvalidAcspNumberError } from "@companieshouse/web-security-node";
 import { addLangToUrl, selectLang } from "../utils/localise";
-import { BASE_URL, CANNOT_USE_SERVICE_WHILE_SUSPENDED } from "../types/pageURL";
+import { BASE_URL, CANNOT_USE_SERVICE_WHILE_SUSPENDED, REVERIFY_BASE_URL, REVERIFY_CANNOT_USE_SERVICE_WHILE_SUSPENDED } from "../types/pageURL";
 
 export const acspIsActiveMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -21,10 +21,11 @@ export const acspIsActiveMiddleware = async (req: Request, res: Response, next: 
         }
 
         if (acspDetails.status === "suspended") {
-            if (req.originalUrl.includes(CANNOT_USE_SERVICE_WHILE_SUSPENDED)) {
-                return next();
-            } else {
-                res.redirect(addLangToUrl(BASE_URL + CANNOT_USE_SERVICE_WHILE_SUSPENDED, lang));
+            const isReverifyService: boolean = req.originalUrl.includes(REVERIFY_BASE_URL);
+            const cannotUseThisServiceWhileSuspendedUrl = isReverifyService ? REVERIFY_CANNOT_USE_SERVICE_WHILE_SUSPENDED : CANNOT_USE_SERVICE_WHILE_SUSPENDED;
+            const baseUrl = isReverifyService ? REVERIFY_BASE_URL : BASE_URL;
+            if (!req.originalUrl.includes(cannotUseThisServiceWhileSuspendedUrl)) {
+                res.redirect(addLangToUrl(baseUrl + cannotUseThisServiceWhileSuspendedUrl, lang));
                 return;
             }
         } else if (acspDetails.status !== ACTIVE_STATUS) {

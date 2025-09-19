@@ -20,7 +20,8 @@ import {
     reverifyChooseAnAddressController,
     reverifyCheckYourAnswersController,
     reverifyInvalidPersonalCodeController,
-    reverifyMustBeAuthorisedAgentController
+    reverifyMustBeAuthorisedAgentController,
+    reverifyCannotUseServiceWhileSuspendedController
 } from "../controllers";
 import { personalCodeValidator } from "../validations/personalCode";
 import { nameValidator } from "../validations/personName";
@@ -96,5 +97,7 @@ reverifyRoutes.post(urls.CHECK_YOUR_ANSWERS, checkYourAnswerValidator, reverifyC
 reverifyRoutes.get(urls.REVERIFY_PERSONAL_CODE_IS_INVALID, reverifyInvalidPersonalCodeController.get);
 
 reverifyRoutes.get(urls.REVERIFY_MUST_BE_AUTHORISED_AGENT, reverifyMustBeAuthorisedAgentController.get);
+
+reverifyRoutes.get(urls.REVERIFY_CANNOT_USE_SERVICE_WHILE_SUSPENDED, reverifyCannotUseServiceWhileSuspendedController.get);
 
 export default reverifyRoutes;
