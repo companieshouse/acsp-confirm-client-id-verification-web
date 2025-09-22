@@ -34,7 +34,7 @@ describe("What is their personal code GET", () => {
         expect(res.text).toContain(REVERIFY_BASE_URL + "?lang=en");
     });
 
-    it("Shuld handle the error", async () => {
+    it("Should handle the error", async () => {
         const errorMessage = "Test error";
         jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
             throw new Error(errorMessage);
@@ -43,6 +43,18 @@ describe("What is their personal code GET", () => {
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
+
+    it("it should use check your answer as PreviousPage when getPreviousPageUrl matches ", async () => {
+        const addLangToUrl = localise.addLangToUrl;
+        const lang = "en";
+
+        const expectedPreviousPage = addLangToUrl(REVERIFY_BASE_URL + CHECK_YOUR_ANSWERS, lang);
+        jest.spyOn(urlService, "getPreviousPageUrl").mockReturnValueOnce(expectedPreviousPage);
+        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE);
+        expect(res.status).toBe(200);
+        expect(res.text).toContain(expectedPreviousPage);
+    });
+
 });
 
 describe("What is their personal code POST", () => {
@@ -116,6 +128,19 @@ describe("What is their personal code POST", () => {
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.header.location).toBe(REVERIFY_BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
+    });
+
+    it("it should use check your answer as PreviousPage when getPreviousPageUrl matches ", async () => {
+        const addLangToUrl = localise.addLangToUrl;
+        const lang = "en";
+
+        const expectedPreviousPage = addLangToUrl(REVERIFY_BASE_URL + CHECK_YOUR_ANSWERS, lang);
+        jest.spyOn(urlService, "getPreviousPageUrl").mockReturnValueOnce(expectedPreviousPage);
+        await mockFindIdentityByUvid.mockResolvedValueOnce(dummyReverificationIdentity);
+
+        const res = await router.get(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE).send({ personalCode: "A1B2H3D4E5F" });
+        expect(res.status).toBe(200);
+        expect(res.text).toContain(expectedPreviousPage);
     });
 
 });
