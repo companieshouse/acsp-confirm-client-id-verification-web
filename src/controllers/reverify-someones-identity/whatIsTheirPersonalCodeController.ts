@@ -22,6 +22,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
+        const session: Session = req.session as any as Session;
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+        const payload = { personalCode: clientData?.personalCode };
 
         const previousPageUrl = getPreviousPageUrl(req, REVERIFY_BASE_URL);
         saveDataInSession(req, PREVIOUS_PAGE_URL, previousPageUrl);
@@ -33,7 +36,8 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         res.render(config.REVERIFY_PERSONAL_CODE, {
             ...getLocaleInfo(locales, lang),
             previousPage: previousPage,
-            currentUrl: REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE
+            currentUrl: REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE,
+            payload
         });
     } catch (error) {
         next(error);

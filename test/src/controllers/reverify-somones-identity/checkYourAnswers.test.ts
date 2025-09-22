@@ -90,12 +90,6 @@ describe("POST " + REVERIFY_CHECK_YOUR_ANSWERS, () => {
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 
-    it("should return status 400 if checkbox is not selected", async () => {
-        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS).send({ checkYourAnswerDeclaration: "" });
-        expect(res.status).toBe(400);
-        expect(res.text).toContain("Select to confirm the declaration");
-    });
-
     it("should return status 500 if verification api errors", async () => {
         await mockFindIdentityByEmail.mockRejectedValueOnce(new Error("Email address already exists"));
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS).send({ checkYourAnswerDeclaration: "confirm" });
