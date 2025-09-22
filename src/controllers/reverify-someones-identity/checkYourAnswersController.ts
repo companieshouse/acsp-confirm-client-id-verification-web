@@ -104,17 +104,12 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 return res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRMATION, lang));
             }
 
-            const identityFromEmail = await findIdentityByEmail(clientData.emailAddress!);
-            if (identityFromEmail !== undefined) {
-                throw new Error("Email address already exists");
-            }
-
             const acspNumber: string = getLoggedInAcspNumber(req.session);
             const acspDetails = await getAcspFullProfile(acspNumber);
             session.setExtraData(ACSP_DETAILS, acspDetails);
 
             if (acspDetails.status === CEASED) {
-                throw new AcspCeasedError("ACSP is ceased. Cannot proceed with verification.");
+                throw new AcspCeasedError("ACSP is ceased. Cannot proceed with reverification");
             }
 
             // const identityVerificationService = new IdentityVerificationService();
