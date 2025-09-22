@@ -11,28 +11,29 @@ import { getAmlBodiesAsString } from "../../services/acspProfileService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
+        const lang = selectLang(req.query.lang);
         const session: Session = req.session as any as Session;
+
         const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
+
         const reference = session.getExtraData(REFERENCE);
-        const formattedAddress = FormatService.formatAddress(clientData.address);
+
         const formattedDateOfBirth = FormatService.formatDate(
             clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
+        );
+        const amlBodies = getAmlBodiesAsString(acspDetails);
+        const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
+            clientData.documentsChecked,
+            locales.i18nCh.resolveNamespacesKeys(lang)
         );
         const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
             clientData.whenIdentityChecksCompleted
                 ? new Date(clientData.whenIdentityChecksCompleted)
                 : undefined
         );
-        const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
-            clientData.documentsChecked,
-            locales.i18nCh.resolveNamespacesKeys(lang)
-        );
-
-        const amlBodies = getAmlBodiesAsString(acspDetails);
-
+        const formattedAddress = FormatService.formatAddress(clientData.address);
         const identityDocuments = clientData.idDocumentDetails!;
 
         session.deleteExtraData(DATA_SUBMITTED_AND_EMAIL_SENT);
