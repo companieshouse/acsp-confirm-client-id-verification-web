@@ -118,21 +118,9 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             const verifiedIdentityId = "123456"; // TO BE REMOVED: temporary id until endpoint developed
             saveDataInSession(req, REFERENCE, verifiedIdentityId);
 
-            let clientFirstName: string;
-            let clientLastName: string;
-
-            // Adding check if preferred name details exists in clientData object, otherwise use the original client name to send in email
-            if (clientData.preferredFirstName && clientData.preferredLastName) {
-                clientFirstName = clientData.preferredFirstName;
-                clientLastName = clientData.preferredLastName;
-            } else {
-                clientFirstName = clientData.firstName!;
-                clientLastName = clientData.lastName!;
-            }
-
             const clientReverificationEmailData: ClientVerificationEmail = {
                 to: getLoggedInUserEmail(req.session),
-                clientName: clientFirstName + " " + clientLastName,
+                clientName: getClientFullName(clientData),
                 referenceNumber: verifiedIdentityId,
                 clientEmailAddress: clientData.emailAddress!
             };
@@ -145,5 +133,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         }
     } catch (error) {
         next(error);
+    }
+};
+
+const getClientFullName = (clientData: ClientData): string => {
+    if (clientData.preferredFirstName && clientData.preferredLastName) {
+        return clientData.preferredFirstName + " " + clientData.preferredLastName;
+    } else {
+        return clientData.firstName! + " " + clientData.lastName!;
     }
 };
