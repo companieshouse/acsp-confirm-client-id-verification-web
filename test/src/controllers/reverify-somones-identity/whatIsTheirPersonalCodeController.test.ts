@@ -1,17 +1,23 @@
 import mocks from "../../../mocks/all_middleware_mock";
 import app from "../../../../src/app";
 import supertest from "supertest";
-import { REVERIFY_BASE_URL, REVERIFY_PERSONS_EMAIL_ADDRESS, REVERIFY_PERSONAL_CODE, REVERIFY_PERSONAL_CODE_IS_INVALID } from "../../../../src/types/pageURL";
+import { REVERIFY_BASE_URL, REVERIFY_PERSONS_EMAIL_ADDRESS, REVERIFY_PERSONAL_CODE, REVERIFY_PERSONAL_CODE_IS_INVALID, CHECK_YOUR_ANSWERS } from "../../../../src/types/pageURL";
 import * as localise from "../../../../src/utils/localise";
 import * as urlService from "../../../../src/services/url";
 import { findIdentityByUvid } from "../../../../src/services/identityVerificationService";
 import { dummyIdentity, dummyReverificationIdentity } from "../../../mocks/identity.mock";
+import { CHECK_YOUR_ANSWERS_FLAG, PREVIOUS_PAGE_URL } from "../../../../src/utils/constants";
+import { sessionMiddleware } from "../../../../src/middleware/session_middleware";
+import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
+import { Request, NextFunction } from "express";
 
 jest.mock("../../../../src/services/identityVerificationService.ts");
 
 const mockFindIdentityByUvid = findIdentityByUvid as jest.Mock;
 
 const router = supertest(app);
+
+let customMockSessionMiddleware: any;
 
 describe("What is their personal code GET", () => {
 
@@ -98,4 +104,29 @@ describe("What is their personal code POST", () => {
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE_IS_INVALID + "?lang=en");
     });
+
+    it("should redirect to check your answer if CHECK_YOUR_ANSWER_FLAG is set", async () => {
+        createMockSessionCheckYourAnswersFlagMiddleware();
+        await mockFindIdentityByUvid.mockResolvedValueOnce(dummyReverificationIdentity);
+
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE)
+            .send({ personalCode: "A1B2H3D4E5F" });
+
+        expect(res.status).toBe(302);
+        expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
+        expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
+        expect(res.header.location).toBe(REVERIFY_BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
+    });
+
 });
+
+function createMockSessionCheckYourAnswersFlagMiddleware () {
+    customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+    const session = getSessionRequestWithPermission();
+    session.setExtraData(PREVIOUS_PAGE_URL, "/tell-companies-house-you-have-verified-someones-identity/check-your-answers?lang=en");
+    session.setExtraData(CHECK_YOUR_ANSWERS_FLAG, true);
+    customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+        req.session = session;
+        next();
+    });
+}
