@@ -6,7 +6,7 @@ import * as localise from "../../../../src/utils/localise";
 import * as urlService from "../../../../src/services/url";
 import { findIdentityByUvid } from "../../../../src/services/identityVerificationService";
 import { dummyIdentity, dummyReverificationIdentity } from "../../../mocks/identity.mock";
-import { CHECK_YOUR_ANSWERS_FLAG, PREVIOUS_PAGE_URL } from "../../../../src/utils/constants";
+import { CHECK_YOUR_ANSWERS_FLAG, PREVIOUS_PAGE_URL, USER_DATA } from "../../../../src/utils/constants";
 import { sessionMiddleware } from "../../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
 import { Request, NextFunction } from "express";
@@ -143,6 +143,16 @@ describe("What is their personal code POST", () => {
         expect(res.text).toContain(expectedPreviousPage);
     });
 
+    it("it should reuse exsisting USER_DATA from session and update personalCode ", async () => {
+        const session = createMockSessionMiddleware();
+        await mockFindIdentityByUvid.mockResolvedValueOnce(dummyReverificationIdentity);
+
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_PERSONAL_CODE).send({ personalCode: "A1B2H3D4E5F" });
+        expect(res.status).toBe(302);
+        const updateUserData = session.getExtraData(USER_DATA);
+        expect(updateUserData).toEqual({ personalCode: "A1B2H3D4E5F" });
+    });
+
 });
 
 function createMockSessionCheckYourAnswersFlagMiddleware () {
@@ -154,4 +164,16 @@ function createMockSessionCheckYourAnswersFlagMiddleware () {
         req.session = session;
         next();
     });
+}
+
+function createMockSessionMiddleware () {
+    customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+    const session = getSessionRequestWithPermission();
+    session.setExtraData(PREVIOUS_PAGE_URL, "/tell-companies-house-you-have-verified-someones-identity/check-your-answers?lang=en");
+    session.setExtraData(USER_DATA, { personalCode: "A1B2H3D4E5F" });
+    customMockSessionMiddleware.mockImplementation((req: Request, res: Response, next: NextFunction) => {
+        req.session = session;
+        next();
+    });
+    return session;
 }
