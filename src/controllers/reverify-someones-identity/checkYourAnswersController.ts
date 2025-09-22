@@ -8,7 +8,6 @@ import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../../services/formatService";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
-import { findIdentityByEmail } from "../../services/identityVerificationService";
 import { saveDataInSession } from "../../utils/sessionHelper";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { getAcspFullProfile, getAmlBodiesAsString } from "../../services/acspProfileService";
@@ -119,9 +118,21 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             const verifiedIdentityId = "123456"; // TO BE REMOVED: temporary id until endpoint developed
             saveDataInSession(req, REFERENCE, verifiedIdentityId);
 
+            let clientFirstName: string;
+            let clientLastName: string;
+
+            // Adding check if preferred name details exists in clientData object, otherwise use the original client name to send in email
+            if (clientData.preferredFirstName && clientData.preferredLastName) {
+                clientFirstName = clientData.preferredFirstName;
+                clientLastName = clientData.preferredLastName;
+            } else {
+                clientFirstName = clientData.firstName!;
+                clientLastName = clientData.lastName!;
+            }
+
             const clientReverificationEmailData: ClientVerificationEmail = {
                 to: getLoggedInUserEmail(req.session),
-                clientName: clientData.preferredFirstName + " " + clientData.preferredLastName,
+                clientName: clientFirstName + " " + clientLastName,
                 referenceNumber: verifiedIdentityId,
                 clientEmailAddress: clientData.emailAddress!
             };
