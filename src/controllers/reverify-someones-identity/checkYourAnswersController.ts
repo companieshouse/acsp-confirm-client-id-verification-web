@@ -136,7 +136,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-const getClientFullName = (clientData: ClientData): string => {
+export const getClientFullName = (clientData: ClientData): string => {
     if (clientData.preferredFirstName && clientData.preferredLastName) {
         return clientData.preferredFirstName + " " + clientData.preferredLastName;
     } else {

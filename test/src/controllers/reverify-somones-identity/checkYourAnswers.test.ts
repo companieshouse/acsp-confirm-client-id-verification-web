@@ -12,6 +12,8 @@ import { Request, Response, NextFunction } from "express";
 import { dummyFullProfile } from "../../../mocks/acsp_profile.mock";
 import * as localise from "../../../../src/utils/localise";
 import { getAcspFullProfile } from "../../../../src/services/acspProfileService";
+import { getClientFullName } from "../../../../src/controllers/reverify-someones-identity/checkYourAnswersController";
+import { ClientData } from "../../../../src/model/ClientData";
 
 jest.mock("@companieshouse/api-sdk-node");
 jest.mock("../../../../src/services/identityVerificationService.ts");
@@ -114,6 +116,36 @@ describe("POST " + REVERIFY_CHECK_YOUR_ANSWERS, () => {
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS);
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
+    });
+});
+
+describe("getClientFullName", () => {
+    describe("when preferred names are provided", () => {
+        it("should return the preferred first and last name", () => {
+            const clientData: ClientData = {
+                firstName: "John",
+                lastName: "Doe",
+                preferredFirstName: "Johnny",
+                preferredLastName: "Smith"
+            };
+
+            const result = getClientFullName(clientData);
+
+            expect(result).toBe("Johnny Smith");
+        });
+    });
+
+    describe("when preferred names are not provided", () => {
+        it("should return the client's first and last name", () => {
+            const clientData: ClientData = {
+                firstName: "John",
+                lastName: "Doe"
+            };
+
+            const result = getClientFullName(clientData);
+
+            expect(result).toBe("John Doe");
+        });
     });
 });
 
