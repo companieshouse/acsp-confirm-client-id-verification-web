@@ -9,7 +9,6 @@ export const PASSPORT = "passport";
 export const ACTIVE_STATUS = "active";
 export const CEASED = "ceased";
 export const VERIFY_SERVICE_LINK = "verify-service-link";
-export const REVERIFY_SERVICE_LINK = "reverify-service-link";
 export const SERVICE_URL_LINK = "service-url-link";
 export const REVERIFY_SERVICE_URL_LINK = "reverify-service-url-link";
 export const AUTHORISED_AGENT_ACCOUNT_LINK = "authorised-agent-account-link";
