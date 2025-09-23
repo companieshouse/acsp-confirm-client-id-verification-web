@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../../utils/localise";
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../../config";
-import { REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_PERSONS_NAME, REVERIFY_SHOW_ON_PUBLIC_REGISTER } from "../../types/pageURL";
+import { REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_PERSONS_EMAIL_ADDRESS, REVERIFY_PERSONS_NAME, REVERIFY_SHOW_ON_PUBLIC_REGISTER } from "../../types/pageURL";
 import { PREVIOUS_PAGE_URL, USER_DATA } from "../../utils/constants";
 import { ClientData } from "../../model/ClientData";
 import { saveDataInSession } from "../../utils/sessionHelper";
@@ -28,7 +28,7 @@ export const get = (req: Request, res: Response, next: NextFunction) => {
 
         const previousPage = previousPageUrl === addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
             ? addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(REVERIFY_BASE_URL, lang);
+            : addLangToUrl(REVERIFY_BASE_URL + REVERIFY_PERSONS_EMAIL_ADDRESS, lang);
 
         res.render(config.PERSONS_NAME, {
             ...getLocaleInfo(locales, lang),

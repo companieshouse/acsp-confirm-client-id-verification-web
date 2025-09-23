@@ -12,7 +12,7 @@ import { findIdentityByEmail } from "../../services/identityVerificationService"
 import { saveDataInSession } from "../../utils/sessionHelper";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { getAcspFullProfile, getAmlBodiesAsString } from "../../services/acspProfileService";
-import { sendIdentityVerificationConfirmationEmail } from "../../services/acspEmailService";
+import { sendIdentityConfirmationEmail } from "../../services/acspEmailService";
 import { getLoggedInAcspNumber, getLoggedInUserEmail } from "../../utils/session";
 import { ClientVerificationEmail } from "@companieshouse/api-sdk-node/dist/services/acsp/types";
 import { AcspCeasedError } from "../../errors/acspCeasedError";
@@ -119,14 +119,14 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             const verifiedIdentityId = "123456"; // TO BE REMOVED: temporary id until endpoint developed
             saveDataInSession(req, REFERENCE, verifiedIdentityId);
 
-            const clientVerificationEmailData: ClientVerificationEmail = {
+            const clientReverificationEmailData: ClientVerificationEmail = {
                 to: getLoggedInUserEmail(req.session),
                 clientName: clientData.preferredFirstName + " " + clientData.preferredLastName,
                 referenceNumber: verifiedIdentityId,
                 clientEmailAddress: clientData.emailAddress!
             };
 
-            await sendIdentityVerificationConfirmationEmail(clientVerificationEmailData);
+            await sendIdentityConfirmationEmail(clientReverificationEmailData, "reverification");
 
             session.setExtraData(DATA_SUBMITTED_AND_EMAIL_SENT, true);
 

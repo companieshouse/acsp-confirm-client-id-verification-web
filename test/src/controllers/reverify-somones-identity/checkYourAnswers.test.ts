@@ -4,7 +4,7 @@ import app from "../../../../src/app";
 import { REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_CONFIRMATION } from "../../../../src/types/pageURL";
 import { findIdentityByEmail, sendVerifiedClientDetails } from "../../../../src/services/identityVerificationService";
 import { dummyIdentity } from "../../../mocks/identity.mock";
-import { sendIdentityVerificationConfirmationEmail } from "../../../../src/services/acspEmailService";
+import { sendIdentityConfirmationEmail } from "../../../../src/services/acspEmailService";
 import { sessionMiddleware } from "../../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
 import { ACSP_DETAILS, DATA_SUBMITTED_AND_EMAIL_SENT, USER_DATA } from "../../../../src/utils/constants";
@@ -20,7 +20,7 @@ jest.mock("../../../../src/services/acspProfileService.ts");
 
 const mockSendVerifiedClientDetails = sendVerifiedClientDetails as jest.Mock;
 const mockFindIdentityByEmail = findIdentityByEmail as jest.Mock;
-const mockSendIdentityVerificationConfirmationEmail = sendIdentityVerificationConfirmationEmail as jest.Mock;
+const mockSendIdentityConfirmationEmail = sendIdentityConfirmationEmail as jest.Mock;
 const mockGetAcspFullProfile = getAcspFullProfile as jest.Mock;
 
 const router = supertest(app);
@@ -59,7 +59,7 @@ describe("POST " + REVERIFY_CHECK_YOUR_ANSWERS, () => {
         createMockSessionMiddleware();
         await mockSendVerifiedClientDetails.mockResolvedValueOnce({ id: "12345" });
         await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
-        await mockSendIdentityVerificationConfirmationEmail.mockResolvedValueOnce({ status: 200 });
+        await mockSendIdentityConfirmationEmail.mockResolvedValueOnce({ status: 200 });
         await mockGetAcspFullProfile.mockResolvedValueOnce({ status: "active" });
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS)
             .send({ checkYourAnswerDeclaration: "confirm" });
