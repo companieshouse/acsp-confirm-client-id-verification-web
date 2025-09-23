@@ -144,8 +144,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 throw new AcspCeasedError("ACSP is ceased. Cannot proceed with verification.");
             }
 
-            console.log("USE NAME ON PUBLIC REGISTER: -----------------------------------------", clientData.useNameOnPublicRegister);
-
             const identityVerificationService = new IdentityVerificationService();
             const verifiedClientData = identityVerificationService.prepareVerifiedClientData(clientData, req);
 
