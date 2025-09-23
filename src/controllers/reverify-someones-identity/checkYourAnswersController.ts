@@ -2,13 +2,12 @@ import { NextFunction, Request, Response } from "express";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../../utils/localise";
 import * as config from "../../config";
 import { REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, REVERIFY_CONFIRMATION } from "../../types/pageURL";
-import { USER_DATA, REFERENCE, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS, CEASED, DATA_SUBMITTED_AND_EMAIL_SENT } from "../../utils/constants";
+import { USER_DATA, REFERENCE, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS, CEASED, DATA_SUBMITTED_AND_EMAIL_SENT, HAS_SUBMITTED_APPLICATION } from "../../utils/constants";
 import { ClientData } from "../../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../../services/formatService";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
-import { findIdentityByEmail } from "../../services/identityVerificationService";
 import { saveDataInSession } from "../../utils/sessionHelper";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { getAcspFullProfile, getAmlBodiesAsString } from "../../services/acspProfileService";
@@ -26,6 +25,20 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const previousPage: string = addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, lang);
         const locales = getLocalesService();
         const currentUrl: string = REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS;
+
+        // Check if user has submitted an application (value is set to true when navigating back from confirmation screen)
+        const hasSubmittedApplication = session.getExtraData(HAS_SUBMITTED_APPLICATION);
+
+        // If the user has submitted an application, then they are navigating from the confirmation screen
+        // User should then be redirected to start page of the service
+        if (hasSubmittedApplication) {
+            session.deleteExtraData(USER_DATA);
+            session.deleteExtraData(CHECK_YOUR_ANSWERS_FLAG);
+            session.deleteExtraData(REFERENCE);
+            session.deleteExtraData(DATA_SUBMITTED_AND_EMAIL_SENT);
+            session.deleteExtraData(HAS_SUBMITTED_APPLICATION);
+            return res.redirect(addLangToUrl(REVERIFY_BASE_URL, lang));
+        }
 
         if (session.getExtraData(DATA_SUBMITTED_AND_EMAIL_SENT)) {
             return res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRMATION, lang));

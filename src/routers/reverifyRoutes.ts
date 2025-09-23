@@ -22,7 +22,8 @@ import {
     reverifyInvalidPersonalCodeController,
     reverifyMustBeAuthorisedAgentController,
     reverifyConfirmationController,
-    reverifyCannotUseServiceWhileSuspendedController
+    reverifyCannotUseServiceWhileSuspendedController,
+    confirmationRedirectController
 } from "../controllers";
 import { personalCodeValidator } from "../validations/personalCode";
 import { nameValidator } from "../validations/personName";
@@ -100,6 +101,8 @@ reverifyRoutes.get(urls.REVERIFY_PERSONAL_CODE_IS_INVALID, reverifyInvalidPerson
 reverifyRoutes.get(urls.REVERIFY_MUST_BE_AUTHORISED_AGENT, reverifyMustBeAuthorisedAgentController.get);
 
 reverifyRoutes.get(urls.REVERIFY_CONFIRMATION, reverifyConfirmationController.get);
+
+reverifyRoutes.get(urls.CONFIRMATION_REDIRECT, confirmationRedirectController.get);
 
 reverifyRoutes.get(urls.REVERIFY_CANNOT_USE_SERVICE_WHILE_SUSPENDED, reverifyCannotUseServiceWhileSuspendedController.get);
 

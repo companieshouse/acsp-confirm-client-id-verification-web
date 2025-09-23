@@ -2,12 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import * as config from "../../config";
 import { FormatService } from "../../services/formatService";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../../utils/localise";
-import { BASE_URL, CONFIRMATION_REDIRECT, REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_CONFIRMATION } from "../../types/pageURL";
+import { CONFIRMATION_REDIRECT, REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_CONFIRMATION } from "../../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { ACSP_DETAILS, DATA_SUBMITTED_AND_EMAIL_SENT, REFERENCE, USER_DATA } from "../../utils/constants";
+import { ACSP_DETAILS, DATA_SUBMITTED_AND_EMAIL_SENT, HAS_SUBMITTED_APPLICATION, REFERENCE, USER_DATA } from "../../utils/constants";
 import { ClientData } from "../../model/ClientData";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { getAmlBodiesAsString } from "../../services/acspProfileService";
+import { saveDataInSession } from "../../utils/sessionHelper";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -19,6 +20,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
 
         const reference = session.getExtraData(REFERENCE);
+
+        // Set flag to indicate user has submitted the application to prevent browser back navigation to check your answers page
+        saveDataInSession(req, HAS_SUBMITTED_APPLICATION, true);
 
         const formattedDateOfBirth = FormatService.formatDate(
             clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
@@ -46,7 +50,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             amlBodies,
             acspName: acspDetails.name,
             feedbackSurveyLink: "#",
-            reverifyServiceLink: addLangToUrl(REVERIFY_BASE_URL + CONFIRMATION_REDIRECT + "?id=reverify-service-link", lang),
             authorisedAgentLink: addLangToUrl(REVERIFY_BASE_URL + CONFIRMATION_REDIRECT + "?id=authorised-agent-account-link", lang),
             serviceUrl: REVERIFY_BASE_URL + CONFIRMATION_REDIRECT + "?id=reverify-service-url-link",
             clientData: {
