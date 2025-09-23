@@ -7,7 +7,7 @@ import { dummyIdentity } from "../../../mocks/identity.mock";
 import { sendIdentityConfirmationEmail } from "../../../../src/services/acspEmailService";
 import { sessionMiddleware } from "../../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
-import { ACSP_DETAILS, DATA_SUBMITTED_AND_EMAIL_SENT, USER_DATA } from "../../../../src/utils/constants";
+import { ACSP_DETAILS, DATA_SUBMITTED_AND_EMAIL_SENT, USER_DATA, USE_NAME_ON_PUBLIC_REGISTER_NO } from "../../../../src/utils/constants";
 import { Request, Response, NextFunction } from "express";
 import { dummyFullProfile } from "../../../mocks/acsp_profile.mock";
 import * as localise from "../../../../src/utils/localise";
@@ -120,13 +120,14 @@ describe("POST " + REVERIFY_CHECK_YOUR_ANSWERS, () => {
 });
 
 describe("getClientFullName", () => {
-    describe("when preferred names are provided", () => {
+    describe("when useNameOnPublicRegister is USE_NAME_ON_PUBLIC_REGISTER_NO", () => {
         it("should return the preferred first and last name", () => {
             const clientData: ClientData = {
                 firstName: "John",
                 lastName: "Doe",
                 preferredFirstName: "Johnny",
-                preferredLastName: "Smith"
+                preferredLastName: "Smith",
+                useNameOnPublicRegister: USE_NAME_ON_PUBLIC_REGISTER_NO
             };
 
             const result = getClientFullName(clientData);
@@ -135,11 +136,14 @@ describe("getClientFullName", () => {
         });
     });
 
-    describe("when preferred names are not provided", () => {
-        it("should return the client's first and last name", () => {
+    describe("when useNameOnPublicRegister is not USE_NAME_ON_PUBLIC_REGISTER_NO", () => {
+        it("should return the first and last name", () => {
             const clientData: ClientData = {
                 firstName: "John",
-                lastName: "Doe"
+                lastName: "Doe",
+                preferredFirstName: "Johnny",
+                preferredLastName: "Smith",
+                useNameOnPublicRegister: "use_name_on_public_register_yes"
             };
 
             const result = getClientFullName(clientData);

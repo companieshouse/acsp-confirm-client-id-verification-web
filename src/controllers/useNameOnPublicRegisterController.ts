@@ -3,7 +3,7 @@ import { BASE_URL, CHECK_YOUR_ANSWERS, PERSONAL_CODE, PERSONS_NAME, PERSONS_NAME
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { Session } from "@companieshouse/node-session-handler";
 import { ClientData } from "model/ClientData";
-import { PREVIOUS_PAGE_URL, USER_DATA } from "../utils/constants";
+import { PREVIOUS_PAGE_URL, USE_NAME_ON_PUBLIC_REGISTER_NO, USE_NAME_ON_PUBLIC_REGISTER_YES, USER_DATA } from "../utils/constants";
 import * as config from "../config";
 import { saveDataInSession } from "../utils/sessionHelper";
 import { validationResult } from "express-validator";
@@ -68,16 +68,16 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         } else {
             clientData.useNameOnPublicRegister = selectedOption;
             saveDataInSession(req, USER_DATA, clientData);
-            if (selectedOption === "use_name_on_public_register_yes" && previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)) {
+            if (selectedOption === USE_NAME_ON_PUBLIC_REGISTER_YES && previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)) {
             // Clearing previous values when switching answer to yes
                 clientData.preferredFirstName = "";
                 clientData.preferredMiddleName = "";
                 clientData.preferredLastName = "";
                 saveDataInSession(req, USER_DATA, clientData);
                 res.redirect(addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang));
-            } else if (selectedOption === "use_name_on_public_register_yes") {
+            } else if (selectedOption === USE_NAME_ON_PUBLIC_REGISTER_YES) {
                 res.redirect(addLangToUrl(BASE_URL + PERSONAL_CODE, lang));
-            } else if (selectedOption === "use_name_on_public_register_no") {
+            } else if (selectedOption === USE_NAME_ON_PUBLIC_REGISTER_NO) {
                 res.redirect(addLangToUrl(BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER, lang));
             }
         }

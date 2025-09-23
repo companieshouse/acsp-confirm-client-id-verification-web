@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../../utils/localise";
 import * as config from "../../config";
 import { REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, REVERIFY_CONFIRMATION } from "../../types/pageURL";
-import { USER_DATA, REFERENCE, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS, CEASED, DATA_SUBMITTED_AND_EMAIL_SENT } from "../../utils/constants";
+import { USER_DATA, REFERENCE, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS, CEASED, DATA_SUBMITTED_AND_EMAIL_SENT, USE_NAME_ON_PUBLIC_REGISTER_NO } from "../../utils/constants";
 import { ClientData } from "../../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../../services/formatService";
@@ -137,9 +137,9 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const getClientFullName = (clientData: ClientData): string => {
-    if (clientData.preferredFirstName && clientData.preferredLastName) {
+    if (clientData.useNameOnPublicRegister === USE_NAME_ON_PUBLIC_REGISTER_NO) {
         return clientData.preferredFirstName + " " + clientData.preferredLastName;
     } else {
-        return clientData.firstName! + " " + clientData.lastName!;
+        return clientData.firstName + " " + clientData.lastName;
     }
 };
