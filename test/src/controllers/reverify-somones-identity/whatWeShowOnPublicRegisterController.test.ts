@@ -4,7 +4,7 @@ import app from "../../../../src/app";
 import { REVERIFY_SHOW_ON_PUBLIC_REGISTER, REVERIFY_BASE_URL, REVERIFY_DATE_OF_BIRTH, REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER, REVERIFY_CHECK_YOUR_ANSWERS } from "../../../../src/types/pageURL";
 import { sessionMiddleware } from "../../../../src/middleware/session_middleware";
 import { getSessionRequestWithPermission } from "../../../mocks/session.mock";
-import { PREVIOUS_PAGE_URL, USER_DATA } from "../../../../src/utils/constants";
+import { PREVIOUS_PAGE_URL, USE_NAME_ON_PUBLIC_REGISTER_NO, USE_NAME_ON_PUBLIC_REGISTER_YES, USER_DATA } from "../../../../src/utils/constants";
 import { Request, Response, NextFunction } from "express";
 import * as localise from "../../../../src/utils/localise";
 
@@ -42,13 +42,13 @@ describe("GET" + REVERIFY_SHOW_ON_PUBLIC_REGISTER, () => {
 
 describe("POST" + REVERIFY_SHOW_ON_PUBLIC_REGISTER, () => {
     it("should return status 302 after redirect - option 1 selected", async () => {
-        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER).send({ useNameOnPublicRegisterRadio: "use_name_on_public_register_yes" });
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER).send({ useNameOnPublicRegisterRadio: USE_NAME_ON_PUBLIC_REGISTER_YES });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH + "?lang=en");
     });
 
     it("should return status 302 after redirect - option 2 selected", async () => {
-        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER).send({ useNameOnPublicRegisterRadio: "use_name_on_public_register_no" });
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER).send({ useNameOnPublicRegisterRadio: USE_NAME_ON_PUBLIC_REGISTER_NO });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_PERSONS_NAME_ON_PUBLIC_REGISTER + "?lang=en");
     });
@@ -61,7 +61,7 @@ describe("POST" + REVERIFY_SHOW_ON_PUBLIC_REGISTER, () => {
 
     it("should return status 302 after redirect to Check Your Answers - option 1 selected", async () => {
         createMockSessionMiddleware();
-        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER).send({ useNameOnPublicRegisterRadio: "use_name_on_public_register_yes" });
+        const res = await router.post(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER).send({ useNameOnPublicRegisterRadio: USE_NAME_ON_PUBLIC_REGISTER_YES });
         expect(res.status).toBe(302);
         expect(res.header.location).toBe(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS + "?lang=en");
     });
@@ -84,7 +84,7 @@ describe("POST" + REVERIFY_SHOW_ON_PUBLIC_REGISTER, () => {
         });
 
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_SHOW_ON_PUBLIC_REGISTER)
-            .send({ useNameOnPublicRegisterRadio: "use_name_on_public_register_yes" });
+            .send({ useNameOnPublicRegisterRadio: USE_NAME_ON_PUBLIC_REGISTER_YES });
 
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");

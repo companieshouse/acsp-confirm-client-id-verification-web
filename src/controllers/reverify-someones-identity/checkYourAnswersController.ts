@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../../utils/localise";
 import * as config from "../../config";
 import { REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_CONFIRM_IDENTITY_REVERIFICATION, REVERIFY_CONFIRMATION } from "../../types/pageURL";
-import { USER_DATA, REFERENCE, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS, CEASED, DATA_SUBMITTED_AND_EMAIL_SENT, HAS_SUBMITTED_APPLICATION } from "../../utils/constants";
+import { USER_DATA, REFERENCE, CHECK_YOUR_ANSWERS_FLAG, ACSP_DETAILS, CEASED, DATA_SUBMITTED_AND_EMAIL_SENT, USE_NAME_ON_PUBLIC_REGISTER_NO, HAS_SUBMITTED_APPLICATION } from "../../utils/constants";
 import { ClientData } from "../../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { FormatService } from "../../services/formatService";
@@ -43,7 +43,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         if (session.getExtraData(DATA_SUBMITTED_AND_EMAIL_SENT)) {
             return res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRMATION, lang));
         }
-
         // setting CYA flag to true when user reaches this page - used for routing back if they change a value
         saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, true);
 
@@ -134,7 +133,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
             const clientReverificationEmailData: ClientVerificationEmail = {
                 to: getLoggedInUserEmail(req.session),
-                clientName: clientData.preferredFirstName + " " + clientData.preferredLastName,
+                clientName: getClientFullName(clientData),
                 referenceNumber: verifiedIdentityId,
                 clientEmailAddress: clientData.emailAddress!
             };
@@ -147,5 +146,13 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         }
     } catch (error) {
         next(error);
+    }
+};
+
+export const getClientFullName = (clientData: ClientData): string => {
+    if (clientData.useNameOnPublicRegister === USE_NAME_ON_PUBLIC_REGISTER_NO) {
+        return clientData.preferredFirstName + " " + clientData.preferredLastName;
+    } else {
+        return clientData.firstName + " " + clientData.lastName;
     }
 };
