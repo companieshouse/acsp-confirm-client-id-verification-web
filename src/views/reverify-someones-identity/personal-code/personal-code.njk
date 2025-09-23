@@ -11,6 +11,10 @@
       {{ i18n.reVerifyCodePageTitle }}
     </h1>
     {{ govukInput({
+      label: {
+        text: i18n.reVerifyCodePageTitle,
+        classes: "govuk-visually-hidden"
+      },
       errorMessage: {
         text: errors.personalCode.text
       } if errors.personalCode | length,
@@ -30,7 +34,7 @@
         </summary>
         <div class="govuk-details__text">
           <p class="govuk-body">{{i18n.reVerifyCodePageText}}</p>
-          <p class="govuk-body">{{i18n.reVerifyCodePageMore1}} <a href='https://www.gov.uk/guidance/companies-house-personal-codes-for-identity-verification#where-to-find-your-personal-code' target='_blank'>{{i18n.reVerifyCodePageMore2}}</a>.</p>
+          <p class="govuk-body">{{i18n.reVerifyCodePageMore1}} <a href='https://www.gov.uk/guidance/companies-house-personal-codes-for-identity-verification#where-to-find-your-personal-code' target='_blank' rel='noopener'>{{i18n.reVerifyCodePageMore2 | replace ('{OPEN_IN_NEW_TAB}', i18n.opensInANewTab)}}</a>.</p>
         </div>
     </details>
     {{ govukButton({

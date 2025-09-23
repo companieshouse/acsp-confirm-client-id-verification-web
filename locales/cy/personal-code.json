@@ -15,7 +15,7 @@
     "reVerifyCodePageFAQ": "Where they can find their personal code - Welsh",
     "reVerifyCodePageText":"They can find this on the email we sent when their identity was verified. - Welsh",
     "reVerifyCodePageMore1":"For more information, read the guidance on - Welsh",
-    "reVerifyCodePageMore2": "Companies House personal codes (opens in a new tab) - Welsh",
+    "reVerifyCodePageMore2": "Companies House personal codes ({OPEN_IN_NEW_TAB}) - Welsh",
     "error-noPersonalCode": "Enter their personal code - Welsh",
     "error-personalCodeInvalidFormat": "Enter a valid personal code - Welsh"
 }
