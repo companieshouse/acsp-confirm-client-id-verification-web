@@ -3,6 +3,7 @@ import supertest from "supertest";
 import app from "../../../src/app";
 import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, USE_NAME_ON_PUBLIC_REGISTER, PERSONS_NAME_ON_PUBLIC_REGISTER } from "../../../src/types/pageURL";
 import * as localise from "../../../src/utils/localise";
+import { USE_NAME_ON_PUBLIC_REGISTER_NO, USE_NAME_ON_PUBLIC_REGISTER_YES } from "../../../src/utils/constants";
 
 const router = supertest(app);
 
@@ -29,7 +30,7 @@ describe("GET " + PERSONAL_CODE, () => {
 it("should return the correct previous page URL when selectedOption is 'use_name_on_public_register_no'", async () => {
     const mockSessionData = {
         getExtraData: jest.fn().mockReturnValue({
-            useNameOnPublicRegister: "use_name_on_public_register_no"
+            useNameOnPublicRegister: USE_NAME_ON_PUBLIC_REGISTER_NO
         })
     };
     mocks.mockSessionMiddleware.mockImplementation((req, res, next) => {
@@ -45,7 +46,7 @@ it("should return the correct previous page URL when selectedOption is 'use_name
 it("should return the correct previous page URL when selectedOption is 'use_name_on_public_register_no'", async () => {
     const mockSessionData = {
         getExtraData: jest.fn().mockReturnValue({
-            useNameOnPublicRegister: "use_name_on_public_register_yes"
+            useNameOnPublicRegister: USE_NAME_ON_PUBLIC_REGISTER_YES
         })
     };
     mocks.mockSessionMiddleware.mockImplementation((req, res, next) => {
