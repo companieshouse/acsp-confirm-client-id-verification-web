@@ -29,7 +29,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         if (session.getExtraData(DATA_SUBMITTED_AND_EMAIL_SENT)) {
             return res.redirect(addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CONFIRMATION, lang));
         }
-
         // setting CYA flag to true when user reaches this page - used for routing back if they change a value
         saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, true);
 
