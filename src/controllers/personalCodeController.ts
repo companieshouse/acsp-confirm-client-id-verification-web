@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, PERSONS_NAME_ON_PUBLIC_REGISTER, USE_NAME_ON_PUBLIC_REGISTER } from "../types/pageURL";
 import { Session } from "@companieshouse/node-session-handler";
-import { USER_DATA } from "../utils/constants";
+import { USE_NAME_ON_PUBLIC_REGISTER_NO, USER_DATA } from "../utils/constants";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { ClientData } from "../model/ClientData";
 
@@ -37,7 +37,7 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getPreviousPage = (selectedOption: string): string => {
-    if (selectedOption === "use_name_on_public_register_no") {
+    if (selectedOption === USE_NAME_ON_PUBLIC_REGISTER_NO) {
         return BASE_URL + PERSONS_NAME_ON_PUBLIC_REGISTER;
     } else {
         return BASE_URL + USE_NAME_ON_PUBLIC_REGISTER;
