@@ -47,3 +47,4 @@ export * as reverifyCheckYourAnswersController from "./reverify-someones-identit
 export * as reverifyCannotUseServiceWhileSuspendedController from "./reverify-someones-identity/cannotUseServiceWhileSuspendedController";
 export * as reverifyInvalidPersonalCodeController from "./reverify-someones-identity/reverifyInvalidPersonalCodeController";
 export * as reverifyMustBeAuthorisedAgentController from "./reverify-someones-identity/mustBeAuthorisedAgentController";
+export * as reverifyConfirmationController from "./reverify-someones-identity/reverifyConfirmationController";

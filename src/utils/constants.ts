@@ -10,8 +10,12 @@ export const ACTIVE_STATUS = "active";
 export const CEASED = "ceased";
 export const VERIFY_SERVICE_LINK = "verify-service-link";
 export const SERVICE_URL_LINK = "service-url-link";
+export const REVERIFY_SERVICE_URL_LINK = "reverify-service-url-link";
 export const AUTHORISED_AGENT_ACCOUNT_LINK = "authorised-agent-account-link";
 export const REQ_TYPE_REVERIFY: string = "reverify";
+
+// Flag to indicate user has submitted the application to prevent browser back navigation to check your answers page within Reverify service
+export const HAS_SUBMITTED_APPLICATION = "hasSubmittedApplication";
 
 // ID Document Details for the extended expiry date exceptions
 const GRACED_EXPIRY_OF_SIX_MONTHS = 6;

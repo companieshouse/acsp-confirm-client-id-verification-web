@@ -1,0 +1,206 @@
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% extends "layouts/default.njk" %}
+
+{% block backLink %}
+  {# Remove back button on this page by replacing it with nothing #}
+{% endblock %}
+
+{% set title = i18n.reverifyIdentityTitle %}
+
+{% block main_content %}
+  {{ govukPanel({
+    titleText: i18n.reverifyIdentityTitle
+  }) }}
+
+  {% set fullName = clientData.firstName %}
+  {% if clientData.middleName %}
+    {% set fullName = fullName + ' ' + clientData.middleName %}
+  {% endif %}
+  {% set fullName = fullName + ' ' + clientData.lastName %}
+
+  {% set useNameOnVerificationStatement = clientData.useNameOnPublicRegister %}
+  {% if useNameOnVerificationStatement == "use_name_on_public_register_yes" %}
+    {% set useNameOnVerificationStatement = i18n.useNameOption1 %}
+  {% elseif useNameOnVerificationStatement == "use_name_on_public_register_no" %}
+    {% set useNameOnVerificationStatement = i18n.useNameOption2 %}
+  {% endif %}
+
+  {% set useNameOnPublicRegister = clientData.useNameOnPublicRegister %}
+  {% if useNameOnPublicRegister == "use_name_on_public_register_no" %}
+    {% set fullPreferredName = clientData.preferredFirstName %}
+    {% if clientData.preferredMiddleName %}
+      {% set fullPreferredName = fullPreferredName + ' ' + clientData.preferredMiddleName %}
+    {% endif %}
+    {% set fullPreferredName = fullPreferredName + ' ' + clientData.preferredLastName %}
+  {% else %}
+    {% set fullPreferredName = fullName %}
+  {% endif %}
+
+  {% set howIdentityDocsChecked = clientData.howIdentityDocsChecked %}
+  {% if howIdentityDocsChecked == "cryptographic_security_features_checked" %}
+    {% set howIdentityDocsChecked = i18n.option1Confirmation %}
+  {% elseif howIdentityDocsChecked == "physical_security_features_checked" %}
+    {% set howIdentityDocsChecked = i18n.option2Confirmation %}
+  {% endif %}
+
+  {% set verificationStatement1 = i18n.iConfirm + " " + (acspName | escape) + " " + i18n.verifiedThe +  " " + (fullName | escape) + " " + i18n.toTheStandard + " " + clientData.whenIdentityChecksCompleted + "." %}
+
+  {% set verificationStatement2 = " " + (acspName | escape) + " "  + i18n.isSupervised + "  " + amlBodies + "."%}
+
+  {% set groupBDocs = [i18n.birth_certificate, i18n.marriage_certificate, i18n.immigration_document_non_photo_id, i18n.visa_non_photo_id, i18n.work_permit_non_photo_id, i18n.bank_statement, i18n.rental_agreement, i18n.mortgage_statement, i18n.UK_council_tax_statement, i18n.utility_bill] %}
+
+  <p class="govuk-body">{{ i18n.yourRef }} {{ reference }}.  {{ i18n.thisIsNotReverify }}</p>
+
+  <h2 class="govuk-heading-m">{{ i18n.printOrSaveTheReverificationDetailsHeading }}</h2>
+  <p class="govuk-body">{{ i18n.weWillNotIncludeReverify }}</p>
+
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-visually-hidden">{{ i18n.warning }}</span>
+      {{ i18n.toKeepARecordOfWarningText }}
+    </strong>
+  </div>
+
+  {% include "partials/print_button.njk" %}
+
+  <h2 class="govuk-heading-m">{{ i18n.whatHappens }}</h2>
+  <p class="govuk-body">{{ i18n.weWillEmailReverify }} <strong>{{ clientData.emailAddress }}</strong> {{ i18n.toLetReverify }}</p>
+
+  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+  <h2 class="govuk-heading-m">{{ i18n.reverificationHeading + " " + fullName }}</h2>
+  {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-0',
+    rows: [
+    {
+      key: {
+        text: i18n.name
+      },
+      value: {
+        text: fullName
+      }
+    },
+    {
+      key: {
+        text: i18n.useNameOnVerificationStatement
+      },
+      value: {
+        text: useNameOnVerificationStatement
+      }
+    },
+    {
+      key: {
+        text: i18n.preferredName
+      },
+      value: {
+        text: fullPreferredName
+      }
+    },
+    {
+      key: {
+        text: i18n.emailAddressConfirmation
+      },
+      value: {
+        text: clientData.emailAddress
+      }
+    },
+    {
+      key: {
+        text: i18n.dateOfBirth
+      },
+      value: {
+        text: clientData.dateOfBirth
+      }
+    },
+    {
+      key: {
+        text: i18n.homeAdd
+      },
+      value: {
+        text: clientData.address | safe
+      }
+    },
+    {
+      key: {
+        text: i18n.dateIdentityCompleted
+      },
+      value: {
+        text: clientData.whenIdentityChecksCompleted
+      }
+    },
+    {
+      key: {
+        text: i18n.howTheIdentityDocsWereChecked
+      },
+      value: {
+        text: howIdentityDocsChecked
+      }
+    },
+    {
+      key: {
+        text: i18n.identityDocsThatWereChecked
+      },
+      value: {
+        text: clientData.documentsChecked | safe
+      }
+    },
+    {
+      key: {
+        text: i18n.identityVerification
+      },
+      value: {
+        text: ("<p>" + verificationStatement1 + "</p>" + verificationStatement2 + "</p>") | safe
+      }
+    }
+    ]
+  }) }}
+  {% for doc in clientData.idDocumentDetails %}
+  {% if not (groupBDocs.includes(i18n[doc.docName])) %}
+  {% set docNumber = doc.documentNumber if doc.documentNumber else i18n.notProvided %}
+  {% set expiryDate = doc.formattedExpiryDate if doc.formattedExpiryDate else i18n.notProvided %}
+  {% set countryOfIssue = doc.countryOfIssue if doc.countryOfIssue else i18n.notProvided %}
+  {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-0',
+    rows: [
+    {
+      key: {
+        text: i18n.number | replace("{DOCNAME}", i18n[doc.docName])
+      },
+      value: {
+        text: docNumber
+      }
+    },
+    {
+      key: {
+        text: i18n[doc.docName] + " " + i18n.ExpiryDate
+      },
+      value: {
+        text: expiryDate
+      }
+    },
+    {
+      key: {
+        text: i18n[doc.docName] + " " + i18n.chooseCountryText
+      },
+      value: {
+        text: countryOfIssue
+      }
+    }
+    ]
+  }) }}
+  {% endif %}    
+  {% endfor %}
+  <br><br>
+  <h2 class="govuk-heading-m">{{ i18n.feedbackSurveyTitle }}</h2>
+  <p class="govuk-body">
+    {{ i18n.feedbackSurveyBodyText }} <a href={{feedbackSurveyLink}} class="govuk-link" id="feedback-survey-link" target="_blank">{{i18n.feedbackSurveyLink}}</a>.
+  </p>
+
+  <h2 class="govuk-heading-m">{{ i18n.whatToDoNext }}</h2>
+  <p class="govuk-body">
+    <a href={{authorisedAgentLink}} class="govuk-link" id="authorised-agent-account-link">{{ i18n.linkAuthorisedAgentAccount }}</a>
+  </p>
+{% endblock %}

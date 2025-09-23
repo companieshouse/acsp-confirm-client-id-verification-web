@@ -1,0 +1,67 @@
+import { NextFunction, Request, Response } from "express";
+import * as config from "../../config";
+import { FormatService } from "../../services/formatService";
+import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../../utils/localise";
+import { CONFIRMATION_REDIRECT, REVERIFY_BASE_URL, REVERIFY_CHECK_YOUR_ANSWERS, REVERIFY_CONFIRMATION } from "../../types/pageURL";
+import { Session } from "@companieshouse/node-session-handler";
+import { ACSP_DETAILS, DATA_SUBMITTED_AND_EMAIL_SENT, HAS_SUBMITTED_APPLICATION, REFERENCE, USER_DATA } from "../../utils/constants";
+import { ClientData } from "../../model/ClientData";
+import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
+import { getAmlBodiesAsString } from "../../services/acspProfileService";
+import { saveDataInSession } from "../../utils/sessionHelper";
+
+export const get = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const locales = getLocalesService();
+        const lang = selectLang(req.query.lang);
+        const session: Session = req.session as any as Session;
+
+        const clientData: ClientData = session.getExtraData(USER_DATA) ? session.getExtraData(USER_DATA)! : {};
+        const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
+
+        const reference = session.getExtraData(REFERENCE);
+
+        // Set flag to indicate user has submitted the application to prevent browser back navigation to check your answers page
+        saveDataInSession(req, HAS_SUBMITTED_APPLICATION, true);
+
+        const formattedDateOfBirth = FormatService.formatDate(
+            clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
+        );
+        const amlBodies = getAmlBodiesAsString(acspDetails);
+        const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
+            clientData.documentsChecked,
+            locales.i18nCh.resolveNamespacesKeys(lang)
+        );
+        const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
+            clientData.whenIdentityChecksCompleted
+                ? new Date(clientData.whenIdentityChecksCompleted)
+                : undefined
+        );
+        const formattedAddress = FormatService.formatAddress(clientData.address);
+        const identityDocuments = clientData.idDocumentDetails!;
+
+        session.deleteExtraData(DATA_SUBMITTED_AND_EMAIL_SENT);
+
+        res.render(config.REVERIFY_CONFIRMATION, {
+            previousPage: addLangToUrl(REVERIFY_BASE_URL + REVERIFY_CHECK_YOUR_ANSWERS, lang),
+            ...getLocaleInfo(locales, lang),
+            currentUrl: REVERIFY_BASE_URL + REVERIFY_CONFIRMATION,
+            reference,
+            amlBodies,
+            acspName: acspDetails.name,
+            feedbackSurveyLink: "#",
+            authorisedAgentLink: addLangToUrl(REVERIFY_BASE_URL + CONFIRMATION_REDIRECT + "?id=authorised-agent-account-link", lang),
+            serviceUrl: REVERIFY_BASE_URL + CONFIRMATION_REDIRECT + "?id=reverify-service-url-link",
+            clientData: {
+                ...clientData,
+                address: formattedAddress,
+                dateOfBirth: formattedDateOfBirth,
+                whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
+                documentsChecked: formattedDocumentsChecked,
+                idDocumentDetails: identityDocuments
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
