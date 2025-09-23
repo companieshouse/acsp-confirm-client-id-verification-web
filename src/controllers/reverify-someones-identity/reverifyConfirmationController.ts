@@ -46,9 +46,9 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             amlBodies,
             acspName: acspDetails.name,
             feedbackSurveyLink: "#",
-            verifyServiceLink: addLangToUrl(BASE_URL + CONFIRMATION_REDIRECT + "?id=verify-service-link", lang),
-            authorisedAgentLink: addLangToUrl(BASE_URL + CONFIRMATION_REDIRECT + "?id=authorised-agent-account-link", lang),
-            serviceUrl: BASE_URL + CONFIRMATION_REDIRECT + "?id=service-url-link",
+            reverifyServiceLink: addLangToUrl(REVERIFY_BASE_URL + CONFIRMATION_REDIRECT + "?id=reverify-service-link", lang),
+            authorisedAgentLink: addLangToUrl(REVERIFY_BASE_URL + CONFIRMATION_REDIRECT + "?id=authorised-agent-account-link", lang),
+            serviceUrl: REVERIFY_BASE_URL + CONFIRMATION_REDIRECT + "?id=reverify-service-url-link",
             clientData: {
                 ...clientData,
                 address: formattedAddress,
