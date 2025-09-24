@@ -26,8 +26,5 @@
     "countryOfIssueBullet": "country of issue, if the document has one",
     "youDoNotNeedToUploadCopies": "You do not need to upload copies of the documents you checked. However, you will need to keep records of the identity checks, including copies of the documents. We may ask to see these records.",
     "suspendOrStopBusinessWarningText": "We could suspend or stop your business from acting as an authorised agent if you have not met our identity verification standard.",
-    "startTimeout": "It takes around 10 minutes to use this service.",
-    "startNow": "Start now",
-    "readThe": "Read the ",
-    "guidanceAboutVerifyingLink": "guidance about verifying someone's identity for Companies House"
+    "startTimeout": "It takes around 10 minutes to use this service."
 }

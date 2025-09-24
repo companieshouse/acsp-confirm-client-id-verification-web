@@ -1,4 +1,5 @@
 {
+    "startNow": "Dechrau nawr",
     "Continue": "Pharhau",
     "SaveAndContinue": "Cadw a pharhau",
     "ConfirmAndContinue": "Cadarnhau a pharhau",
@@ -10,5 +11,7 @@
     "companiesHouseDoesNotVerify": "Nid yw Tŷ'r Cwmnïau yn gwirio cywirdeb y wybodaeth a ffeiliwyd",
     "CommonTabTitleVerify": "Dywedwch wrth Dŷ'r Cwmnïau eich bod wedi gwirio hunaniaeth rhywun - GOV.UK",
     "CommonTabTitleReverify": "Reverify someone's identity for Companies House - GOV.UK - Welsh",
-    "opensInANewTab": "yn agor mewn tab newydd"
+    "opensInANewTab": "yn agor mewn tab newydd",
+    "readThe": "Darllenwch y ",
+    "guidanceAboutVerifyingLink": "cyfarwyddyd ar wirio hunaniaeth rhywun ar gyfer Tŷ'r Cwmnïau"
 }

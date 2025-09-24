@@ -1,4 +1,5 @@
 {
+    "startNow": "Start now",
     "Continue": "Continue",
     "SaveAndContinue": "Save and continue",
     "ConfirmAndContinue": "Confirm and continue",
@@ -10,5 +11,7 @@
     "companiesHouseDoesNotVerify": "Companies House does not verify the accuracy of the information filed",
     "CommonTabTitleVerify": "Tell Companies House you have verified someone’s identity - GOV.UK",
     "CommonTabTitleReverify": "Reverify someone's identity for Companies House - GOV.UK",
-    "opensInANewTab": "opens in a new tab"
+    "opensInANewTab": "opens in a new tab",
+    "readThe": "Read the ",
+    "guidanceAboutVerifyingLink": "guidance about verifying someone's identity for Companies House"
 }
