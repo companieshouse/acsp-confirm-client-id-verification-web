@@ -16,7 +16,7 @@ describe("Reverify Home Page tests", () => {
             expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
             expect(mocks.mockAcspAuthenticationMiddleware).toHaveBeenCalled();
             expect(200);
-            expect(res.text).toContain("Tell Companies House you have verified someone’s identity");
+            expect(res.text).toContain("Reverify someone’s identity for Companies House");
         });
     });
 

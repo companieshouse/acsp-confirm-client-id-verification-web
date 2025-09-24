@@ -1,5 +1,5 @@
 {% extends "layouts/default.njk" %}
-{% set title = i18n.startPageTitle %}
+{% set title = i18n.reverifyStartPageTitle %}
 
 {% block backLink %}
     {# Remove back button on this page by replacing it with nothing #}
@@ -8,61 +8,38 @@
 {% block main_content %}
     <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
         {% include "partials/csrf_token.njk" %}
-        <h1 class="govuk-heading-l">{{ i18n.startPageTitle }}</h1>
+        <h1 class="govuk-heading-l">{{ i18n.reverifyStartPageTitle }}</h1>
 
-        <p class="govuk-body">{{ i18n.useThisService }}</p>
+        <p class="govuk-body">{{ i18n.reverifyUseThisService }}</p>
+        <p class="govuk-body">{{ i18n.theReverificationNoticesWeSend }}</p>
 
-        <h2 class="govuk-heading-m">{{ i18n.whatYoullNeedPersonHeading }}</h2>
-        <p class="govuk-body">{{ i18n.youllNeedToTellUsTheir }}</p>
+        <p class="govuk-body">{{ i18n.theIdentityChecksYouDoToReverify }}</p>
         <ul class="govuk-list govuk-list--bullet">
-            <li>{{ i18n.fullName }}</li>
-            <li>{{ i18n.dob }}</li>
-            <li>{{ i18n.homeAddress }}</li>
-            <li>{{ i18n.emailAddress1 }}</li>
+            <li>{{ i18n.meetOurListItem }} <a href="#" id="identity-verification-standard-link">{{ i18n.identityVerificationStandardLink }}</a></li>
+            <li>{{ i18n.followAnyInstructionsListItem }}</li>
+        </ul>
+        <p class="govuk-body">{{ i18n.wellAskYouToConfirmThis }}</p>
+
+        <h2 class="govuk-heading-m">{{ i18n.whatYoullNeedSubHeading }}</h2>
+
+        <p class="govuk-body">{{ i18n.youllNeedToGiveDetails }}</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>{{ i18n.personalCodeListItem }}</li>
+            <li>{{ i18n.emailAddressListItem }}</li>
         </ul>
 
-        <p class="govuk-body">{{ i18n.theEmailCanOnlyBeUsedOnce }}</p>
-
-        <details class="govuk-details">
-            <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                    {{ i18n.whatIsACompaniesHousePersonalCode }}
-                </span>
-            </summary>
-            <div class="govuk-details__text">
-                <p>
-                    {{ i18n.thisIsACharacterCode }} <br><br> {{ i18n.itCanBeUsedToConnect }}
-                </p>
-        </details>
-
-        <h2 class="govuk-heading-m">{{ i18n.whatYoullNeedIdentityHeading }}</h2>
-        <p class="govuk-body">
-            {{ i18n.theChecksYouCompleteMustMeet }}
-            <a target="_blank" href="https://www.gov.uk/guidance/how-to-meet-companies-house-identity-verification-standard" id="identity-verification-standard-link">{{ i18n.ourIdentityVerificationLink }}</a>.
-            {{ i18n.thisListsWhichDocuments }}
-        </p>
-        <p class="govuk-body">{{ i18n.youllNeedToTellUs }}</p>
+        <p class="govuk-body">{{ i18n.youllAlsoNeedToGiveReverifcationDetails }}</p>
         <ul class="govuk-list govuk-list--bullet">
-            <li>{{ i18n.ifTheDocumentsWereCheckedBullet }}</li>
-            <li>{{ i18n.whichDocumentsProvidedBullet }}</li>
-            <li>{{ i18n.theDatesYouCompletedIDChecksBullet }}</li>
+            <li>{{ i18n.personsFullNameListItem }}</li>
+            <li>{{ i18n.personsDateOfBirthListItem }}</li>
+            <li>{{ i18n.personsHomeAddressListItem }}</li>
+            <li>{{ i18n.howYouCheckIdentityDocsListItem }}</li>
+            <li>{{ i18n.whichDocumentsProvidedListItem }}</li>
+            <li>{{ i18n.theDocumentReferencesListItem }}</li>
+            <li>{{ i18n.theDateYouCompletedTheChecksListItem }}</li>
         </ul>
-        <p class="govuk-body">{{ i18n.forMostDocuments }}</p>
-        <p class="govuk-body">{{ i18n.whereRelevantYoullNeedToProvide }}</p>
-        <ul class="govuk-list govuk-list--bullet">
-            <li>{{ i18n.documentReferenceBullet }}</li>
-            <li>{{ i18n.expiryDateBullet }}</li>
-            <li>{{ i18n.countryOfIssueBullet }}</li>
-        </ul>
-        <p class="govuk-body">{{ i18n.youDoNotNeedToUploadCopies }}</p>
-        <div class="govuk-warning-text">
-            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-            <strong class="govuk-warning-text__text">
-                <span class="govuk-visually-hidden">{{ i18n.warning }}</span>
-                {{ i18n.suspendOrStopBusinessWarningText }}
-            </strong>
-        </div>
-        <p class="govuk-body">{{ i18n.startTimeout }}</p>
+
+        <p class="govuk-body">{{ i18n.itTakesAroundTenMinutes }}</p>
 
         <button class="govuk-button govuk-button--start" data-module="govuk-button" id="start-now">
             {{ i18n.startNow }}
@@ -78,8 +55,17 @@
             </svg>
         </button>
 
-        <p>
-            {{ i18n.readThe}}<a href="https://www.gov.uk/guidance/how-to-meet-companies-house-identity-verification-standard" id="read-the-guidance-verification-link">{{ i18n.guidanceAboutVerifyingLink }}</a>.
+        <h2 class="govuk-heading-m">{{ i18n.whatHappensWhenYouReverifySubHeading }}</h2>
+
+        <p class="govuk-body">{{ i18n.weWill }}</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>{{ i18n.emailThePersonListItem }}</li>
+            <li>{{ i18n.updateTheirIdentityVerificationRecordListItem }}</li>
+        </ul>
+        <p class="govuk-body">{{ i18n.ifThePersonConnectsTheirVerifiedIdentity }}</p>
+
+        <p class="govuk-body">
+            {{ i18n.readThe}}<a href="#" id="read-the-guidance-verification-link">{{ i18n.guidanceAboutVerifyingLink }}</a>{{ i18n.toFindOutWhatInformationTheStatementIncludes }}
         </p>
     </form>
 
