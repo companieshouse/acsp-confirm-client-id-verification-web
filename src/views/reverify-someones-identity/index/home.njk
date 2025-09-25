@@ -15,7 +15,7 @@
 
         <p class="govuk-body">{{ i18n.theIdentityChecksYouDoToReverify }}</p>
         <ul class="govuk-list govuk-list--bullet">
-            <li>{{ i18n.meetOurListItem }} <a href="#" id="identity-verification-standard-link">{{ i18n.identityVerificationStandardLink }}</a></li>
+            <li>{{ i18n.meetOurListItem }} <a href="{{ identityVerificationStandardLink }}" id="identity-verification-standard-link">{{ i18n.identityVerificationStandardLink }}</a></li>
             <li>{{ i18n.followAnyInstructionsListItem }}</li>
         </ul>
         <p class="govuk-body">{{ i18n.wellAskYouToConfirmThis }}</p>
@@ -65,7 +65,7 @@
         <p class="govuk-body">{{ i18n.ifThePersonConnectsTheirVerifiedIdentity }}</p>
 
         <p class="govuk-body">
-            {{ i18n.readThe}}<a href="#" id="read-the-guidance-verification-link">{{ i18n.guidanceAboutVerifyingLink }}</a>{{ i18n.toFindOutWhatInformationTheStatementIncludes }}
+            {{ i18n.readThe}}<a href="{{ guidanceAboutVerifyingSomeonesIdentityLink }}" id="read-the-guidance-verification-link">{{ i18n.guidanceAboutVerifyingLink }}</a>{{ i18n.toFindOutWhatInformationTheStatementIncludes }}
         </p>
     </form>
 
