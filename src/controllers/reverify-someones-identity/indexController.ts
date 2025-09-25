@@ -16,8 +16,6 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
     res.render(config.REVERIFY_HOME, {
         ...getLocaleInfo(locales, lang),
         currentUrl: REVERIFY_BASE_URL,
-        identityVerificationStandardLink: "https://www.gov.uk/guidance/how-to-meet-companies-house-identity-verification-standard",
-        guidanceAboutVerifyingSomeonesIdentityLink: "https://www.gov.uk/guidance/tell-companies-house-you-have-verified-someones-identity",
         PIWIK_REVERIFY_START_GOAL_ID
     });
 };
