@@ -1,6 +1,7 @@
 {
     "identityChecksTitle" : "When were the identity checks completed?",
     "identityChecksCompletedInsetText" : "You must keep records of the identity checks you completed for 7 years from this date. We may ask to see these records to check you’ve met Companies House identity verification standard.",
+    "wiccDateHint": "For example, 17 1 2026.",
     "error-invalidIdentity" : "The date must be a real date",
     "error-dateInFutureIdentity" : "The date must be in the past",
     "error-noDataIdentity" : "Enter the date the identity checks were completed",
