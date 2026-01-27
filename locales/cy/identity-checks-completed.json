@@ -1,6 +1,7 @@
 {
     "identityChecksTitle" : "Pryd cafodd y gwiriadau hunaniaeth eu cwblhau?",
     "identityChecksCompletedInsetText" : "Bydd rhaid i chi gadw cofnodion o'r gwiriadau hunaniaeth am 7 mlynedd o'r dyddiad y gwnaethoch eu cwblhau. Efallai y byddwn yn gofyn am weld y cofnodion hyn i wirio eich bod wedi cyrraedd safon gwiriad hunaniaeth Tŷ'r Cwmnïau.",
+    "wiccDateHint": "Er enghraifft, 17 1 2026.",
     "error-invalidIdentity" : "Rhaid i'r dyddiad fod yn ddyddiad real",
     "error-dateInFutureIdentity" : "Rhaid i'r dyddiad fod yn y gorffennol",
     "error-noDataIdentity" : "Cofnodwch y dyddiad y cwblhawyd y gwiriadau hunaniaeth",
@@ -13,4 +14,4 @@
     "error-nonNumericIdentity" : "Rhaid i'r dyddiad gynnwys rhifau yn unig",
     "error-dateAfterDob": "Rhaid i'r dyddiad fod ar ôl y dyddiad geni",
     "error-tooYoungWicc": "Rhaid i'ch cleient fod o leiaf 16 mlwydd oed pan gwblhawyd y gwiriadau hunaniaeth"
-} 
+}

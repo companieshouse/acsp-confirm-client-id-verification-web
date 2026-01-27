@@ -61,7 +61,7 @@ describe("POST" + DATE_OF_BIRTH, () => {
     it("should return status 400", async () => {
         const sendData = {
             "dob-day": "",
-            "dob-month": undefined,
+            "dob-month": "",
             "dob-year": ""
         };
         const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData);

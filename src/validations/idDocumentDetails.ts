@@ -54,10 +54,10 @@ export default idDocumentDetailsValidator;
 
 type ValidationType = "expiryDate";
 
-export const dateDayChecker = (day: string, month: string | undefined, year: string): boolean => {
-    if (day.trim() === "" && month === undefined && year.trim() === "") {
+export const dateDayChecker = (day: string, month: string, year: string): boolean => {
+    if (day.trim() === "" && month === "" && year.trim() === "") {
         throw new Error("noExpiryDate");
-    } else if (day.trim() === "" && month === undefined) {
+    } else if (day.trim() === "" && month === "") {
         throw new Error("noExpiryDayMonth");
     } else if (day.trim() === "" && year.trim() === "") {
         throw new Error("noExpiryDayYear");
@@ -67,26 +67,26 @@ export const dateDayChecker = (day: string, month: string | undefined, year: str
     return true;
 };
 
-export const dateMonthChecker = (day: string, month: string | undefined, year: string): boolean => {
+export const dateMonthChecker = (day: string, month: string, year: string): boolean => {
     if (day !== undefined && year !== undefined) {
-        if (day.trim() !== "" && month === undefined && year.trim() === "") {
+        if (day.trim() !== "" && month === "" && year.trim() === "") {
             throw new Error("noExpiryMonthYear");
-        } else if (day.trim() !== "" && (month === undefined || month === "Choose month")) {
+        } else if (day.trim() !== "" && (month === "" || month === "Choose month")) {
             throw new Error("noExpiryMonth");
         }
     }
     return true;
 };
 
-export const dateYearChecker = (day: string, month: string | undefined, year: string): boolean => {
-    if (day.trim() !== "" && month !== undefined && year.trim() === "") {
+export const dateYearChecker = (day: string, month: string, year: string): boolean => {
+    if (day.trim() !== "" && month !== "" && year.trim() === "") {
         throw new Error("noExpiryYear");
     }
     return true;
 };
 
-export const validDataChecker = (day: string, month: string | undefined, year: string, docSequence: number, req: Session): boolean => {
-    if (day !== "" && month !== undefined && year !== "") {
+export const validDataChecker = (day: string, month: string, year: string, docSequence: number, req: Session): boolean => {
+    if (day !== "" && month !== "" && year !== "") {
         validateNumeric(day, month, year);
         validateMonthYearRange(month, year);
         validateDayLength(day, month, year);

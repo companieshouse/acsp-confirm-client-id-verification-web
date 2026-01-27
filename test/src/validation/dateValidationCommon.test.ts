@@ -11,19 +11,19 @@ import { USER_DATA } from "../../../src/utils/constants";
 
 describe("Missing input validation tests", () => {
     test("Error if date field is completely empty", () => {
-        expect(() => dateDayChecker("", undefined, "", "dob")).toThrow(new Error("noData"));
+        expect(() => dateDayChecker("", "", "", "dob")).toThrow(new Error("noData"));
     });
 
     test("Error if date field is completely empty", () => {
-        expect(() => dateDayChecker("", undefined, "", "wicc")).toThrow(new Error("noDataIdentity"));
+        expect(() => dateDayChecker("", "", "", "wicc")).toThrow(new Error("noDataIdentity"));
     });
 
     test("Error if day and month fields are empty", () => {
-        expect(() => dateDayChecker("", undefined, "1999", "dob")).toThrow(new Error("noDayMonth"));
+        expect(() => dateDayChecker("", "", "1999", "dob")).toThrow(new Error("noDayMonth"));
     });
 
     test("Error if day and month fields are empty", () => {
-        expect(() => dateDayChecker("", undefined, "1999", "wicc")).toThrow(new Error("noDayMonthIdentity"));
+        expect(() => dateDayChecker("", "", "1999", "wicc")).toThrow(new Error("noDayMonthIdentity"));
     });
 
     test("Error if day and year fields are empty", () => {
@@ -35,11 +35,11 @@ describe("Missing input validation tests", () => {
     });
 
     test("Error if month and year fields are empty", () => {
-        expect(() => dateMonthChecker("11", undefined, "", "dob")).toThrow(new Error("noMonthYear"));
+        expect(() => dateMonthChecker("11", "", "", "dob")).toThrow(new Error("noMonthYear"));
     });
 
     test("Error if month and year fields are empty", () => {
-        expect(() => dateMonthChecker("11", undefined, "", "wicc")).toThrow(new Error("noMonthYearIdentity"));
+        expect(() => dateMonthChecker("11", "", "", "wicc")).toThrow(new Error("noMonthYearIdentity"));
     });
 
     test("Error if day field is empty", () => {
@@ -51,11 +51,11 @@ describe("Missing input validation tests", () => {
     });
 
     test("Error if month field is empty", () => {
-        expect(() => dateMonthChecker("11", undefined, "1999", "dob")).toThrow(new Error("noMonth"));
+        expect(() => dateMonthChecker("11", "", "1999", "dob")).toThrow(new Error("noMonth"));
     });
 
     test("Error if month field is empty", () => {
-        expect(() => dateMonthChecker("11", undefined, "1999", "wicc")).toThrow(new Error("noMonthIdentity"));
+        expect(() => dateMonthChecker("11", "", "1999", "wicc")).toThrow(new Error("noMonthIdentity"));
     });
 
     test("Error if year field is empty", () => {

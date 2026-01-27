@@ -1,6 +1,6 @@
 {
     "dateOfBirthTitle" : "Beth yw ei dyddiad geni?",
-    "dateOfBirthHint" : "Er enghraifft, 27 Ebrill 1995.",
+    "dateOfBirthHint" : "Er enghraifft, 27 4 1995.",
     "day": "Dydd",
     "month": "Mis",
     "chooseMonth": "Dewiswch fis",
@@ -10,7 +10,7 @@
     "april": "Ebrill",
     "may": "Mai",
     "june": "Mehefin",
-    "july": "Gorffennaf", 
+    "july": "Gorffennaf",
     "august": "Awst",
     "september": "Medi",
     "october": "Hydref",
