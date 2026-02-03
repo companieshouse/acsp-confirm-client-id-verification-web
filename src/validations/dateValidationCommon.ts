@@ -12,11 +12,11 @@ export const dateValidator = (type: ValidationType): ValidationChain[] => [
     body(`${type}-day`).custom((value, { req }) => validDataChecker(req.body[`${type}-day`], req.body[`${type}-month`], req.body[`${type}-year`], type, req.session))
 ];
 
-export const dateDayChecker = (day: string, month: string | undefined, year: string, type: ValidationType): boolean => {
+export const dateDayChecker = (day: string, month: string, year: string, type: ValidationType): boolean => {
 
-    if (day.trim() === "" && month === undefined && year.trim() === "") {
+    if (day.trim() === "" && month.trim() === "" && year.trim() === "") {
         throw new Error(type === "dob" ? "noData" : "noDataIdentity");
-    } else if (day.trim() === "" && month === undefined) {
+    } else if (day.trim() === "" && month.trim() === "") {
         throw new Error(type === "dob" ? "noDayMonth" : "noDayMonthIdentity");
     } else if (day.trim() === "" && year.trim() === "") {
         throw new Error(type === "dob" ? "noDayYear" : "noDayYearIdentity");
@@ -26,27 +26,27 @@ export const dateDayChecker = (day: string, month: string | undefined, year: str
     return true;
 };
 
-export const dateMonthChecker = (day: string, month: string | undefined, year: string, type: ValidationType): boolean => {
-
-    if (day.trim() !== "" && month === undefined && year.trim() === "") {
+export const dateMonthChecker = (day: string, month: string, year: string, type: ValidationType): boolean => {
+    if (day.trim() !== "" && month.trim() === "" && year.trim() === "") {
         throw new Error(type === "dob" ? "noMonthYear" : "noMonthYearIdentity");
-    } else if (day.trim() !== "" && month === undefined) {
+    } else if (day.trim() !== "" && month.trim() === "") {
         throw new Error(type === "dob" ? "noMonth" : "noMonthIdentity");
     }
+
     return true;
 };
 
-export const dateYearChecker = (day: string, month: string | undefined, year: string, type: ValidationType): boolean => {
+export const dateYearChecker = (day: string, month: string, year: string, type: ValidationType): boolean => {
 
-    if (day.trim() !== "" && month !== undefined && year.trim() === "") {
+    if (day.trim() !== "" && month.trim() !== "" && year.trim() === "") {
         throw new Error(type === "dob" ? "noYear" : "noYearIdentity");
     }
     return true;
 };
 
-export const validDataChecker = (day: string, month: string | undefined, year: string, type: ValidationType, req: Session): boolean => {
+export const validDataChecker = (day: string, month: string, year: string, type: ValidationType, req: Session): boolean => {
 
-    if (day !== "" && month !== undefined && year !== "") {
+    if (day !== "" && month.trim() !== "" && year !== "") {
         validateNumeric(day, month, year, type);
         validateMonthYearRange(month, year, type);
         validateDayLength(day, month, year, type);
