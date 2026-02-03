@@ -119,7 +119,7 @@
               ]
           } %}
 
-        {% if errors is not undefined and errors is not null and errors | length %}
+        {% if errors and errors.confirmCorrectDateOfBirthEntered %}
             {{ govukCheckboxes({
                 name: checkboxConfig.name,
                 fieldset: checkboxConfig.fieldset,
