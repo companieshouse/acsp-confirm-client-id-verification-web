@@ -1,6 +1,6 @@
 {
     "emailAddressTitle": "Beth yw eu cyfeiriad e-bost?",
-    "emailAddressCanOnlyUsedOnce": "Dim ond unwaith y gellir defnyddio'r cyfeiriad e-bost i gwblhau gwiriad hunaniaeth rhywun. Ni fyddwch yn gallu ei ddefnyddio ar gyfer cwblhau gwiriad hunaniaeth unrhyw un arall.",
+    "emailAddressCanOnlyUsedOnce": "Dim ond unwaith y gellir defnyddio’r cyfeiriad e-bost a nodwch ar gyfer {NAME} i gwblhau gwiriad hunaniaeth. Ni fyddwch yn gallu ei ddefnyddio ar gyfer cwblhau gwiriad hunaniaeth unrhyw un arall.",
     "enterEmailAddress": "Rhoi cyfeiriad e-bost {NAME}",
     "correctEmailInsetText": "Rhaid iddyn nhw allu cael mynediad i'r e-byst a anfonir i'r cyfeiriad hwn. Dyma'r unig le y byddwn yn anfon eu cod personol.",
     "continue": "Pharhau",
