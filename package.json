@@ -50,7 +50,7 @@
     "nocache": "4.0.0",
     "node-mocks-http": "^1.17.2",
     "nunjucks": "^3.2.4",
-    "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.105",
+    "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.106",
     "tslib": "^2.8.1",
     "uuid": "^11.1.0",
     "yargs": "15.4.1"
@@ -87,7 +87,7 @@
     "nock": "12.0.3",
     "nodemon": "^3.1.11",
     "sass": "1.97.3",
-    "sonarqube-scanner": "^3.5.0",
+    "sonarqube-scanner": "^4.3.4",
     "supertest": "^6.3.4",
     "ts-jest": "^29.4.6",
     "ts-node": "8.10.2",
