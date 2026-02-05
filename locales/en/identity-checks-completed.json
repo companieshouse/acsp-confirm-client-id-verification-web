@@ -1,8 +1,10 @@
 {
     "identityChecksTitle" : "When were the identity checks completed?",
+    "identityChecksOccurredInPastAdvice": "If you completed the checks in the past, you must make sure you met our identity verification standard.",
     "identityChecksCompletedInsetText" : "You must keep records of the identity checks you completed for 7 years from this date. We may ask to see these records to check you’ve met Companies House identity verification standard.",
+    "wiccDateHint": "For example, 17 2 2026.",
     "error-invalidIdentity" : "The date must be a real date",
-    "error-dateInFutureIdentity" : "The date must be in the past",
+    "error-dateInFutureIdentity" : "The date must be today or in the past",
     "error-noDataIdentity" : "Enter the date the identity checks were completed",
     "error-noDayMonthIdentity" : "The date must include a day and a month",
     "error-noDayYearIdentity" : "The date must include a day and a year",
@@ -11,6 +13,5 @@
     "error-noMonthIdentity" : "The date must include a month",
     "error-noYearIdentity" : "The date must include a year",
     "error-nonNumericIdentity" : "The date must only include numbers",
-    "error-dateAfterDob": "The date must be after Date of birth",
-    "error-tooYoungWicc": "Your client must be at least 16 years old when the identity checks were completed"
+    "error-dateAfterDob": "The date must be after Date of birth"
 }

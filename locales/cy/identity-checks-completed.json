@@ -1,6 +1,8 @@
 {
-    "identityChecksTitle" : "Pryd cafodd y gwiriadau hunaniaeth eu cwblhau?",
-    "identityChecksCompletedInsetText" : "Bydd rhaid i chi gadw cofnodion o'r gwiriadau hunaniaeth am 7 mlynedd o'r dyddiad y gwnaethoch eu cwblhau. Efallai y byddwn yn gofyn am weld y cofnodion hyn i wirio eich bod wedi cyrraedd safon gwiriad hunaniaeth Tŷ'r Cwmnïau.",
+    "identityChecksTitle" : "Pryd y cwblhawyd y gwiriadau hunaniaeth?",
+    "identityChecksOccurredInPastAdvice": "Os gwnaethoch gwblhau'r gwiriadau yn y gorffennol, rhaid i chi wneud yn siŵr eich bod yn bodloni ein safon gwiriad hunaniaeth.",
+    "identityChecksCompletedInsetText" : "Rhaid i chi gadw cofnodion o'r gwiriadau hunaniaeth a gwnaethoch eu cwblhau am 7 mlynedd o'r dyddiad hwn. Efallai y byddwn yn gofyn am weld y cofnodion hyn i wirio eich bod wedi bodloni safon gwiriad hunaniaeth Tŷ'r Cwmnïau.",
+    "wiccDateHint": "Er enghraifft, 17 2 2026.",
     "error-invalidIdentity" : "Rhaid i'r dyddiad fod yn ddyddiad real",
     "error-dateInFutureIdentity" : "Rhaid i'r dyddiad fod yn y gorffennol",
     "error-noDataIdentity" : "Cofnodwch y dyddiad y cwblhawyd y gwiriadau hunaniaeth",
@@ -11,6 +13,5 @@
     "error-noMonthIdentity" : "Rhaid i'r dyddiad gynnwys mis",
     "error-noYearIdentity" : "Rhaid i'r dyddiad gynnwys blwyddyn",
     "error-nonNumericIdentity" : "Rhaid i'r dyddiad gynnwys rhifau yn unig",
-    "error-dateAfterDob": "Rhaid i'r dyddiad fod ar ôl y dyddiad geni",
-    "error-tooYoungWicc": "Rhaid i'ch cleient fod o leiaf 16 mlwydd oed pan gwblhawyd y gwiriadau hunaniaeth"
-} 
+    "error-dateAfterDob": "Rhaid i'r dyddiad fod ar ôl y dyddiad geni"
+}
