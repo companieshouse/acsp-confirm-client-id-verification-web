@@ -36,15 +36,15 @@
                         {{ i18n.day }}
                     </label>
                     {% set dayValue = payload["expiryDateDay_" + index] %}
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errorMessageText %} govuk-input--error{% endif %}" id="expiryDateDay_{{index}}" name="expiryDateDay_{{index}}" value="{{ dayValue }}">
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errorMessageText %} govuk-input--error{% endif %}" id="expiryDateDay_{{index}}" name="expiryDateDay_{{index}}" value="{{ dayValue }}" type="text" inputmode="numeric" maxlength="2">
                 </div>
-            </div>    
+            </div>
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-date-input__label" for="expiryDateMonth_{{index}}">
                         {{ i18n.month }}
                     </label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errorMessageText %} govuk-input--error{% endif %}" id="expiryDateMonth_{{index}}" name="expiryDateMonth_{{index}}" value="{{ payload["expiryDateMonth_" + index] }}">
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errorMessageText %} govuk-input--error{% endif %}" id="expiryDateMonth_{{index}}" name="expiryDateMonth_{{index}}" value="{{ payload["expiryDateMonth_" + index] }}" type="text" inputmode="numeric" maxlength="2">
                 </div>
             </div>
             <div class="govuk-date-input__item">
@@ -53,7 +53,7 @@
                         {{ i18n.year }}
                     </label>
                     {% set yearValue = payload["expiryDateYear_" + index] %}
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errorMessageText %} govuk-input--error{% endif %}" id="expiryDateYear_{{index}}" name="expiryDateYear_{{index}}" value="{{ yearValue }}">
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errorMessageText %} govuk-input--error{% endif %}" id="expiryDateYear_{{index}}" name="expiryDateYear_{{index}}" value="{{ yearValue }}" type="text" inputmode="numeric" maxlength="4">
                 </div>
             </div>
         </div>
