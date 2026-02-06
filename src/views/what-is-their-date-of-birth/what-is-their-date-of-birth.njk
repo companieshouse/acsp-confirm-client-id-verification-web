@@ -58,7 +58,7 @@
                 <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if dateError %} govuk-input--error{% endif %}"
                        id="dob-day"
                        name="dob-day"
-                       value="{{ payload["dob-day"] | default('') }}">
+                       value="{{ payload["dob-day"] | default('') }}" type="text" inputmode="numeric" maxlength="2">
               </div>
             </div>
             <div class="govuk-date-input__item">
@@ -69,7 +69,7 @@
                 <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if dateError %} govuk-input--error{% endif %}"
                        id="dob-month"
                        name="dob-month"
-                       value="{{ payload["dob-month"] | default('') }}">
+                       value="{{ payload["dob-month"] | default('') }}" type="text" inputmode="numeric" maxlength="2">
               </div>
             </div>
             <div class="govuk-date-input__item">
@@ -80,7 +80,7 @@
                 <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if dateError %} govuk-input--error{% endif %}"
                        id="dob-year"
                        name="dob-year"
-                       value="{{ payload["dob-year"] | default('') }}">
+                       value="{{ payload["dob-year"] | default('') }}" type="text" inputmode="numeric" maxlength="4">
               </div>
             </div>
           </div>
