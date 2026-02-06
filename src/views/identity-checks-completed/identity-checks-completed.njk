@@ -57,7 +57,7 @@
                 </label>
                 <input
                   class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}"
-                  id="wicc-day" name="wicc-day" value="{{ payload["wicc-day"] | default('') }}">
+                  id="wicc-day" name="wicc-day" value="{{ payload["wicc-day"] | default('') }}" type="text" inputmode="numeric" maxlength="2">
               </div>
             </div>
             <div class="govuk-date-input__item">
@@ -69,7 +69,7 @@
                   class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}"
                   id="wicc-month"
                   name="wicc-month"
-                  value="{{ payload["wicc-month"] | default('') }}">
+                  value="{{ payload["wicc-month"] | default('') }}" type="text" inputmode="numeric" maxlength="2">
               </div>
             </div>
             <div class="govuk-date-input__item">
@@ -78,7 +78,7 @@
                   {{ i18n.year }}
                 </label>
                 <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors %} govuk-input--error{% endif %}"
-                      id="wicc-year" name="wicc-year" value="{{ payload["wicc-year"] | default('') }}">
+                      id="wicc-year" name="wicc-year" value="{{ payload["wicc-year"] | default('') }}" type="text" inputmode="numeric" maxlength="4">
               </div>
             </div>
           </div>
