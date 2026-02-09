@@ -1,4 +1,6 @@
 {% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set errors = pageProperties.errors %}
@@ -16,6 +18,11 @@
   {% elif errors[errorPrefix + "-year"] %}
     {% set errorMessageText = errors[errorPrefix + "-year"].text %}
   {% endif %}
+  {% if errorMessageText %}
+    {% set dateError = true %}
+  {% else %}
+    {% set dateError = false %}
+  {% endif %}
 
   <div>
     <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
@@ -26,7 +33,7 @@
         <span class="govuk-caption-l name-header">{{ personFullName }}</span>
       {% endif %}
 
-      <div class="govuk-form-group {% if errors %}govuk-form-group--error{% endif %}">
+      <div class="govuk-form-group {% if dateError %}govuk-form-group--error{% endif %}">
         <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
@@ -34,24 +41,24 @@
             </h1>
           </legend>
           {% if i18n.dateOfBirthHint %}
-            <span id="dob-hint" class="govuk-hint">{{ i18n.dateOfBirthHint }}</span>
+            <div id="dob-hint" class="govuk-hint govuk-!-margin-bottom-6">{{ i18n.dateOfBirthHint }}</div>
           {% endif %}
-          {% if errors %}
+          {% if dateError %}
             <span class="govuk-error-message">
               <span class="govuk-visually-hidden">Error:</span> {{ errorMessageText }}
             </span>
           {% endif %}
-          
+
           <div class="govuk-date-input" id="dob">
             <div class="govuk-date-input__item">
               <div class="govuk-form-group">
                 <label class="govuk-label govuk-date-input__label" for="dob-day">
                   {{ i18n.day }}
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}"
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if dateError %} govuk-input--error{% endif %}"
                        id="dob-day"
                        name="dob-day"
-                       value="{{ payload["dob-day"] | default('') }}">
+                       value="{{ payload["dob-day"] | default('') }}" type="text" inputmode="numeric" maxlength="2">
               </div>
             </div>
             <div class="govuk-date-input__item">
@@ -59,23 +66,10 @@
                 <label class="govuk-label govuk-date-input__label" for="dob-month">
                   {{ i18n.month }}
                 </label>
-                <select class="govuk-select{% if errors %} govuk-select--error{% endif %}"
-                        id="dob-month"
-                        name="dob-month">
-                  <option value="" disabled selected>{{ i18n.chooseMonth }}</option>
-                  <option value="01" {% if payload["dob-month"] == '01' %}selected{% endif %}>{{ i18n.january }}</option>
-                  <option value="02" {% if payload["dob-month"] == '02' %}selected{% endif %}>{{ i18n.february }}</option>
-                  <option value="03" {% if payload["dob-month"] == '03' %}selected{% endif %}>{{ i18n.march }}</option>
-                  <option value="04" {% if payload["dob-month"] == '04' %}selected{% endif %}>{{ i18n.april }}</option>
-                  <option value="05" {% if payload["dob-month"] == '05' %}selected{% endif %}>{{ i18n.may }}</option>
-                  <option value="06" {% if payload["dob-month"] == '06' %}selected{% endif %}>{{ i18n.june }}</option>
-                  <option value="07" {% if payload["dob-month"] == '07' %}selected{% endif %}>{{ i18n.july }}</option>
-                  <option value="08" {% if payload["dob-month"] == '08' %}selected{% endif %}>{{ i18n.august }}</option>
-                  <option value="09" {% if payload["dob-month"] == '09' %}selected{% endif %}>{{ i18n.september }}</option>
-                  <option value="10" {% if payload["dob-month"] == '10' %}selected{% endif %}>{{ i18n.october }}</option>
-                  <option value="11" {% if payload["dob-month"] == '11' %}selected{% endif %}>{{ i18n.november }}</option>
-                  <option value="12" {% if payload["dob-month"] == '12' %}selected{% endif %}>{{ i18n.december }}</option>
-                </select>
+                <input class="govuk-input govuk-date-input__input govuk-input--width-2{% if dateError %} govuk-input--error{% endif %}"
+                       id="dob-month"
+                       name="dob-month"
+                       value="{{ payload["dob-month"] | default('') }}" type="text" inputmode="numeric" maxlength="2">
               </div>
             </div>
             <div class="govuk-date-input__item">
@@ -83,14 +77,61 @@
                 <label class="govuk-label govuk-date-input__label" for="dob-year">
                   {{ i18n.year }}
                 </label>
-                <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors %} govuk-input--error{% endif %}"
+                <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if dateError %} govuk-input--error{% endif %}"
                        id="dob-year"
                        name="dob-year"
-                       value="{{ payload["dob-year"] | default('') }}">
+                       value="{{ payload["dob-year"] | default('') }}" type="text" inputmode="numeric" maxlength="4">
               </div>
             </div>
           </div>
         </fieldset>
+        <div class="govuk-warning-text govuk-!-margin-top-6">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+          <span class="govuk-visually-hidden">{{ i18n.warning }}</span>
+          {{ i18n.dateOfBirthWarningText }}
+          </strong>
+        </div>
+
+        <div class="govuk-!-margin-top-6 govuk-!-margin-bottom-6">
+
+          {% set checkboxConfig = {
+              name: "confirmCorrectDateOfBirthEntered",
+              fieldset: {
+                  legend: {
+                      text: i18n.confirmCorrectDateOfBirthHeading,
+                      isPageHeading: false,
+                      classes: "govuk-fieldset__legend--m"
+                  },
+                  attributes: {
+                      "data-event-id": "confirm-correct-dob-entered"
+                  }
+              },
+              items: [
+                  {
+                      value: "true",
+                      text: i18n.confirmCorrectDateOfBirthEntered + " " + firstName + " " + lastName + ".",
+                      id: "confirm-correct-dob-entered",
+                      label: {
+                          classes: "govuk-label govuk-checkboxes__label govuk-!-text-break-word"
+                      }
+                  }
+              ]
+          } %}
+
+        {% if errors and errors.confirmCorrectDateOfBirthEntered %}
+            {{ govukCheckboxes({
+                name: checkboxConfig.name,
+                fieldset: checkboxConfig.fieldset,
+                items: checkboxConfig.items,
+                errorMessage: {
+                    text: errors.confirmCorrectDateOfBirthEntered.text
+                }
+            }) }}
+        {% else %}
+            {{ govukCheckboxes(checkboxConfig) }}
+        {% endif %}
+
       </div>
 
       {{ govukButton({
@@ -99,5 +140,5 @@
       }) }}
     </form>
   </div>
-  
+
 {% endblock main_content %}
