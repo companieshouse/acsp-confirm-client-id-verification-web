@@ -54,39 +54,39 @@ export default idDocumentDetailsValidator;
 
 type ValidationType = "expiryDate";
 
-export const dateDayChecker = (day: string, month: string | undefined, year: string): boolean => {
-    if (day.trim() === "" && month === undefined && year.trim() === "") {
+const isEmpty = (value: string): boolean => (value?.trim() ?? "") === "";
+
+export const dateDayChecker = (day: string, month: string, year: string): boolean => {
+    if (isEmpty(day) && isEmpty(month) && isEmpty(year)) {
         throw new Error("noExpiryDate");
-    } else if (day.trim() === "" && month === undefined) {
+    } else if (isEmpty(day) && isEmpty(month)) {
         throw new Error("noExpiryDayMonth");
-    } else if (day.trim() === "" && year.trim() === "") {
+    } else if (isEmpty(day) && isEmpty(year)) {
         throw new Error("noExpiryDayYear");
-    } else if (day.trim() === "") {
+    } else if (isEmpty(day)) {
         throw new Error("noExpiryDay");
     }
     return true;
 };
 
-export const dateMonthChecker = (day: string, month: string | undefined, year: string): boolean => {
-    if (day !== undefined && year !== undefined) {
-        if (day.trim() !== "" && month === undefined && year.trim() === "") {
-            throw new Error("noExpiryMonthYear");
-        } else if (day.trim() !== "" && (month === undefined || month === "Choose month")) {
-            throw new Error("noExpiryMonth");
-        }
+export const dateMonthChecker = (day: string, month: string, year: string): boolean => {
+    if (!isEmpty(day) && isEmpty(month) && isEmpty(year)) {
+        throw new Error("noExpiryMonthYear");
+    } else if (!isEmpty(day) && isEmpty(month)) {
+        throw new Error("noExpiryMonth");
     }
     return true;
 };
 
-export const dateYearChecker = (day: string, month: string | undefined, year: string): boolean => {
-    if (day.trim() !== "" && month !== undefined && year.trim() === "") {
+export const dateYearChecker = (day: string, month: string, year: string): boolean => {
+    if (!isEmpty(day) && !isEmpty(month) && isEmpty(year)) {
         throw new Error("noExpiryYear");
     }
     return true;
 };
 
-export const validDataChecker = (day: string, month: string | undefined, year: string, docSequence: number, req: Session): boolean => {
-    if (day !== "" && month !== undefined && year !== "") {
+export const validDataChecker = (day: string, month: string, year: string, docSequence: number, req: Session): boolean => {
+    if (!isEmpty(day) && !isEmpty(month) && !isEmpty(year)) {
         validateNumeric(day, month, year);
         validateMonthYearRange(month, year);
         validateDayLength(day, month, year);
