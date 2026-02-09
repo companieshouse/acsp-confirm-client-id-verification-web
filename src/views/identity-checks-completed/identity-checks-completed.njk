@@ -39,8 +39,9 @@
               {{ pageHeader }}
             </h1>
           </legend>
-          {% if i18n.dateOfBirthHint %}
-            <div id="wicc-hint" class="govuk-hint">{{ i18n.dateOfBirthHint }}</div>
+        <p class="govuk-body">{{ i18n.identityChecksOccurredInPastAdvice }}</p>
+          {% if i18n.wiccDateHint %}
+            <div id="wicc-hint" class="govuk-hint">{{ i18n.wiccDateHint }}</div>
           {% endif %}
           {% if errors %}
             <span class="govuk-error-message">
@@ -56,7 +57,7 @@
                 </label>
                 <input
                   class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}"
-                  id="wicc-day" name="wicc-day" value="{{ payload["wicc-day"] | default('') }}">
+                  id="wicc-day" name="wicc-day" value="{{ payload["wicc-day"] | default('') }}" type="text" inputmode="numeric" maxlength="2">
               </div>
             </div>
             <div class="govuk-date-input__item">
@@ -64,23 +65,11 @@
                 <label class="govuk-label govuk-date-input__label" for="wicc-month">
                   {{ i18n.month }}
                 </label>
-                <select class="govuk-select{% if errors %} govuk-select--error{% endif %}" 
-                        id="wicc-month"
-                        name="wicc-month">
-                  <option value="" disabled selected>{{ i18n.chooseMonth }}</option>
-                  <option value="01" {% if payload["wicc-month"]=='01' %}selected{% endif %}>{{ i18n.january }}</option>
-                  <option value="02" {% if payload["wicc-month"]=='02' %}selected{% endif %}>{{ i18n.february }}</option>
-                  <option value="03" {% if payload["wicc-month"]=='03' %}selected{% endif %}>{{ i18n.march }}</option>
-                  <option value="04" {% if payload["wicc-month"]=='04' %}selected{% endif %}>{{ i18n.april }}</option>
-                  <option value="05" {% if payload["wicc-month"]=='05' %}selected{% endif %}>{{ i18n.may }}</option>
-                  <option value="06" {% if payload["wicc-month"]=='06' %}selected{% endif %}>{{ i18n.june }}</option>
-                  <option value="07" {% if payload["wicc-month"]=='07' %}selected{% endif %}>{{ i18n.july }}</option>
-                  <option value="08" {% if payload["wicc-month"]=='08' %}selected{% endif %}>{{ i18n.august }}</option>
-                  <option value="09" {% if payload["wicc-month"]=='09' %}selected{% endif %}>{{ i18n.september }}</option>
-                  <option value="10" {% if payload["wicc-month"]=='10' %}selected{% endif %}>{{ i18n.october }}</option>
-                  <option value="11" {% if payload["wicc-month"]=='11' %}selected{% endif %}>{{ i18n.november }}</option>
-                  <option value="12" {% if payload["wicc-month"]=='12' %}selected{% endif %}>{{ i18n.december }}</option>
-                </select>
+                <input
+                  class="govuk-input govuk-date-input__input govuk-input--width-2{% if errors %} govuk-input--error{% endif %}"
+                  id="wicc-month"
+                  name="wicc-month"
+                  value="{{ payload["wicc-month"] | default('') }}" type="text" inputmode="numeric" maxlength="2">
               </div>
             </div>
             <div class="govuk-date-input__item">
@@ -89,7 +78,7 @@
                   {{ i18n.year }}
                 </label>
                 <input class="govuk-input govuk-date-input__input govuk-input--width-4{% if errors %} govuk-input--error{% endif %}"
-                      id="wicc-year" name="wicc-year" value="{{ payload["wicc-year"] | default('') }}">
+                      id="wicc-year" name="wicc-year" value="{{ payload["wicc-year"] | default('') }}" type="text" inputmode="numeric" maxlength="4">
               </div>
             </div>
           </div>
