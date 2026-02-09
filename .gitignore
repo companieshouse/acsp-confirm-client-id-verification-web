@@ -112,3 +112,4 @@ typings/
 # IDE metadata
 .idea
 .vscode
+!.vscode/launch.json
