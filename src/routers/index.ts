@@ -39,7 +39,7 @@ import { dateValidator } from "../validations/dateValidationCommon";
 import { howIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
 import { identityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
 import { identityDocsGroup2Validator } from "../validations/identityDocumentsGroup2";
-import { confirmIdentityVerificationValidator } from "../validations/confirmIdentityVerification";
+import { confirmDateOfBirthEnteredCorrectlyValidator, confirmIdentityVerificationValidator } from "../validations/confirmIdentityVerification";
 import { selectsignOutValidator } from "../validations/signOut";
 import { checkYourAnswerValidator } from "../validations/checkYourAnswer";
 import idDocumentDetailsValidator from "../validations/idDocumentDetails";
@@ -73,7 +73,7 @@ routes.get(urls.CHOOSE_AN_ADDRESS, addressListController.get);
 routes.post(urls.CHOOSE_AN_ADDRESS, addressListValidator, addressListController.post);
 
 routes.get(urls.DATE_OF_BIRTH, dateOfBirthController.get);
-routes.post(urls.DATE_OF_BIRTH, dateValidator("dob"), dateOfBirthController.post);
+routes.post(urls.DATE_OF_BIRTH, dateValidator("dob"), confirmDateOfBirthEnteredCorrectlyValidator, dateOfBirthController.post);
 
 routes.get(urls.WHICH_IDENTITY_DOCS_CHECKED_GROUP1, identityDocumentsCheckedGroup1Controller.get);
 routes.post(urls.WHICH_IDENTITY_DOCS_CHECKED_GROUP1, identityDocsGroup1Validator, identityDocumentsCheckedGroup1Controller.post);

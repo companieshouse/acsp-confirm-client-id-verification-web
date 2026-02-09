@@ -7,3 +7,7 @@ export const confirmIdentityVerificationValidator = [
 export const confirmIdentityReverificationValidator = [
     body("declaration", "reverificationDeclarationNotChecked").notEmpty()
 ];
+
+export const confirmDateOfBirthEnteredCorrectlyValidator = [
+    body("confirmCorrectDateOfBirthEntered", "notConfirmed").notEmpty()
+];
