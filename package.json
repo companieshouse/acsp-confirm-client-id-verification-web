@@ -4,7 +4,7 @@
   "description": "A web application to tell Companies House you have verified someone’s identity.",
   "main": "dist/server.js",
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=22.0.0",
     "npm": ">=10"
   },
   "scripts": {
