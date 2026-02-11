@@ -36,7 +36,7 @@
     "@companieshouse/structured-logging-node": "^2.0.6",
     "@companieshouse/web-security-node": "4.4.14",
     "@types/express-validator": "^3.0.2",
-    "axios": "^1.13.4",
+    "axios": "^1.13.5",
     "cookie-parser": "^1.4.7",
     "express": "^4.22.1",
     "express-validator": "^6.15.0",
