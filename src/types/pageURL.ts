@@ -22,6 +22,8 @@ export const PERSONAL_CODE = "/companies-house-personal-code";
 
 export const EMAIL_ADDRESS = "/what-is-their-email-address";
 
+export const CONFIRM_EMAIL_ADDRESS = "/confirm-their-email-address";
+
 export const PROVIDE_DIFFERENT_EMAIL = "/provide-different-email";
 
 export const DATE_OF_BIRTH = "/what-is-their-date-of-birth";
