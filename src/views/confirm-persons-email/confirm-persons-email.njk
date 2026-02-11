@@ -1,0 +1,52 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% extends "layouts/default.njk" %}
+
+{% set title = i18n.confirmEmailAddressTitle %}
+
+{% block main_content %}
+    <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
+        {% include "partials/csrf_token.njk" %}
+        <h1 class="govuk-heading-l">{{ i18n.confirmEmailAddressTitle }}</h1>
+
+        {{ govukSummaryList({
+            rows: [{
+                key: {
+                    text: i18n.confirmEmailSummaryListEmail
+                },
+                value: {
+                    text: emailAddress
+                },
+                actions: {
+                    items: [{
+                        href: previousPage,
+                        text: i18n.confirmEmailSummaryListChange,
+                        visuallyHiddenText: i18n.confirmEmailSummaryListEmail
+                    }]
+                }
+            }]
+        }) }}
+
+        {{ govukWarningText({
+            text: i18n.confirmEmailWarningText,
+            iconFallbackText: "Warning"
+        }) }}
+        <div class="govuk-form-group">
+            {{ govukCheckboxes({
+                name: "confirm-email-address",
+                items: [
+                    {
+                        value: "true",
+                        text: i18n.confirmEmailCheckboxText.replace("{NAME}", firstName + " " + lastName)
+                    }
+                ]
+            }) }}
+        </div>
+        {{ govukButton({
+            text: i18n.confirmEmailContinue,
+            id: "continue-button"
+        })}}
+    </form>
+{% endblock main_content %}
