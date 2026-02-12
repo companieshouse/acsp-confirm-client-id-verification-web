@@ -14,6 +14,7 @@ import {
     identityDocumentsCheckedGroup2Controller,
     howIdentityDocumentsCheckedController,
     personsEmailController,
+    confirmPersonsEmailController,
     whenIdentityChecksCompletedController,
     checkYourAnswersController,
     confirmIdentityVerificationController,
@@ -34,7 +35,7 @@ import { nameValidator } from "../validations/personName";
 import { manualAddressValidator } from "../validations/homeAddressManual";
 import { homeAddressValidator } from "../validations/homeAddress";
 import { addressListValidator } from "../validations/addressList";
-import { emailValidator } from "../validations/personEmail";
+import { confirmEmailValidator, emailValidator } from "../validations/personEmail";
 import { dateValidator } from "../validations/dateValidationCommon";
 import { howIdentityDocsCheckedValidator } from "../validations/howIdentityDocsChecked";
 import { identityDocsGroup1Validator } from "../validations/identityDocumentsGroup1";
@@ -89,6 +90,9 @@ routes.post(urls.WHEN_IDENTITY_CHECKS_COMPLETED, dateValidator("wicc"), whenIden
 
 routes.get(urls.EMAIL_ADDRESS, personsEmailController.get);
 routes.post(urls.EMAIL_ADDRESS, emailValidator, personsEmailController.post);
+
+routes.get(urls.CONFIRM_EMAIL_ADDRESS, confirmPersonsEmailController.get);
+routes.post(urls.CONFIRM_EMAIL_ADDRESS, confirmEmailValidator, confirmPersonsEmailController.post);
 
 routes.get(urls.PROVIDE_DIFFERENT_EMAIL, provideDifferentEmailController.get);
 

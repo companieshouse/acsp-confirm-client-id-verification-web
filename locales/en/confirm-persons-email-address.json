@@ -1,0 +1,10 @@
+{
+    "confirmEmailAddressTitle": "Confirm their email address",
+    "confirmEmailSummaryListEmail": "Email",
+    "confirmEmailSummaryListChange": "Change",
+    "confirmEmailWarningText": "They will not receive their personal code if this is incorrect.",
+    "confirmEmailCheckboxText": "I confirm I have entered the correct email address for {NAME}.",
+    "confirmEmailContinue": "Confirm and continue",
+
+    "error-unconfirmedEmail": "Select to confirm the email address"
+}

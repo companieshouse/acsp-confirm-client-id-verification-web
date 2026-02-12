@@ -6,11 +6,6 @@ export const emailValidator = [
     body("confirm").trim().notEmpty().withMessage("noConfirmAddress").bail().custom((value, { req }) => emailChecker(req.body["email-address"], req.body.confirm))
 ];
 
-export const emailChecker = (emailAddress: string, confirmEmail: string) => {
-    emailAddress = emailAddress.trim();
-    confirmEmail = confirmEmail.trim();
-    if (emailAddress !== confirmEmail) {
-        throw new Error("emailAddressDontMatch");
-    }
-    return true;
-};
+export const confirmEmailValidator = [
+    body("confirm-email-address").equals("true").withMessage("unconfirmedEmail")
+];

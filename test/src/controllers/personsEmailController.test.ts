@@ -1,7 +1,7 @@
 import mocks from "../../mocks/all_middleware_mock";
 import supertest from "supertest";
 import app from "../../../src/app";
-import { BASE_URL, EMAIL_ADDRESS, DATE_OF_BIRTH, PROVIDE_DIFFERENT_EMAIL, CHECK_YOUR_ANSWERS } from "../../../src/types/pageURL";
+import { BASE_URL, EMAIL_ADDRESS, DATE_OF_BIRTH, PROVIDE_DIFFERENT_EMAIL, CHECK_YOUR_ANSWERS, CONFIRM_EMAIL_ADDRESS } from "../../../src/types/pageURL";
 import { findIdentityByEmail } from "../../../src/services/identityVerificationService";
 import { dummyIdentity } from "../../mocks/identity.mock";
 import { sessionMiddleware } from "../../../src/middleware/session_middleware";
@@ -49,7 +49,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
         expect(res.status).toBe(302);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
-        expect(res.header.location).toBe(BASE_URL + DATE_OF_BIRTH + "?lang=en");
+        expect(res.header.location).toBe(BASE_URL + CONFIRM_EMAIL_ADDRESS + "?lang=en");
     });
 
     // Test for when email exists in verification api to redirect to stop screen
@@ -108,7 +108,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
     });
 
-    it("should return status 302 after redirect to Check Your Answers", async () => {
+    it("should not redirect to the Check your Answers screen", async () => {
         await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
         createMockSessionMiddleware();
         const res = await router.post(BASE_URL + EMAIL_ADDRESS)
@@ -118,7 +118,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
             });
         expect(res.status).toBe(302);
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
-        expect(res.header.location).toBe(BASE_URL + CHECK_YOUR_ANSWERS + "?lang=en");
+        expect(res.header.location).toBe(BASE_URL + CONFIRM_EMAIL_ADDRESS + "?lang=en");
     });
 
     it("should show the error page if an error occurs", async () => {

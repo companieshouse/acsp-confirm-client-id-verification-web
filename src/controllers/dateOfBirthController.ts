@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
-import { BASE_URL, DATE_OF_BIRTH, EMAIL_ADDRESS, HOME_ADDRESS, CHECK_YOUR_ANSWERS } from "../types/pageURL";
+import { BASE_URL, DATE_OF_BIRTH, HOME_ADDRESS, CHECK_YOUR_ANSWERS, CONFIRM_EMAIL_ADDRESS } from "../types/pageURL";
 import { selectLang, addLangToUrl, getLocalesService, getLocaleInfo } from "../utils/localise";
 import { Session } from "@companieshouse/node-session-handler";
 import { USER_DATA, PREVIOUS_PAGE_URL } from "../utils/constants";
@@ -34,7 +34,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
 
         const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
             ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(BASE_URL + EMAIL_ADDRESS, lang);
+            : addLangToUrl(BASE_URL + CONFIRM_EMAIL_ADDRESS, lang);
 
         res.render(config.DATE_OF_BIRTH, {
             ...getLocaleInfo(locales, lang),
@@ -61,7 +61,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
         const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
             ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-            : addLangToUrl(BASE_URL + EMAIL_ADDRESS, lang);
+            : addLangToUrl(BASE_URL + CONFIRM_EMAIL_ADDRESS, lang);
 
         const errorList = validationResult(req);
         if (!errorList.isEmpty()) {
