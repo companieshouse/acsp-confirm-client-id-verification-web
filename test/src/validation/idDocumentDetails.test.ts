@@ -23,11 +23,11 @@ describe("idDocumentDetailsValidator", () => {
 
 describe("Missing input validation tests", () => {
     test("Error if date field is completely empty", () => {
-        expect(() => dateDayChecker("", undefined, "")).toThrow(new Error("noExpiryDate"));
+        expect(() => dateDayChecker("", "", "")).toThrow(new Error("noExpiryDate"));
     });
 
     test("Error if day and month fields are empty", () => {
-        expect(() => dateDayChecker("", undefined, "1999")).toThrow(new Error("noExpiryDayMonth"));
+        expect(() => dateDayChecker("", "", "1999")).toThrow(new Error("noExpiryDayMonth"));
     });
 
     test("Error if day and year fields are empty", () => {
@@ -35,7 +35,7 @@ describe("Missing input validation tests", () => {
     });
 
     test("Error if month and year fields are empty", () => {
-        expect(() => dateMonthChecker("11", undefined, "")).toThrow(new Error("noExpiryMonthYear"));
+        expect(() => dateMonthChecker("11", "", "")).toThrow(new Error("noExpiryMonthYear"));
     });
 
     test("Error if day field is empty", () => {
@@ -43,7 +43,7 @@ describe("Missing input validation tests", () => {
     });
 
     test("Error if month field is empty", () => {
-        expect(() => dateMonthChecker("11", undefined, "1999")).toThrow(new Error("noExpiryMonth"));
+        expect(() => dateMonthChecker("11", "", "1999")).toThrow(new Error("noExpiryMonth"));
     });
 
     test("Error if year field is empty", () => {

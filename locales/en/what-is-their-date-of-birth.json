@@ -1,8 +1,12 @@
 {
     "dateOfBirthTitle" : "What is their date of birth?",
-    "dateOfBirthHint" : "For example, 27 April 1995.",
+    "dateOfBirthHint" : "For example, 27 4 1995.",
+    "dateOfBirthWarningText": "If you provide an incorrect date of birth, they will not be able to connect their verified identity to the information we hold.",
+    "confirmCorrectDateOfBirthHeading": "Check and confirm you've entered the correct date",
+    "confirmCorrectDateOfBirthEntered": "I confirm I have entered the correct date of birth for ",
     "day": "Day",
     "month": "Month",
+    "year": "Year",
     "chooseMonth": "Choose month",
     "january": "January",
     "february": "February",
@@ -16,10 +20,9 @@
     "october": "October",
     "november": "November",
     "december": "December",
-    "year": "Year",
     "error-default" : "Your request contains validation errors",
-    "error-invalid" : "Date of birth must be a real date",
-    "error-dateInFuture" : "The date of birth must be in the past",
+    "error-invalid" : "The date must be a real date",
+    "error-dateInFuture" : "Date must be today or in the past",
     "error-noData" : "Enter their date of birth",
     "error-noDayMonth" : "Date of birth must include a day and a month",
     "error-noDayYear" : "Date of birth must include a day and a year",
@@ -27,7 +30,8 @@
     "error-noDay" : "Date of birth must include a day",
     "error-noMonth" : "Date of birth must include a month",
     "error-noYear" : "Date of birth must include a year",
-    "error-tooOld" : "Your client must be less than 110 years old",
-    "error-tooYoung" : "Your client must be at least 16 years old",
-    "error-nonNumeric" : "Date of birth must only include numbers"
+    "error-tooOld" : "They must be less than 110 years old",
+    "error-tooYoung" : "They must be at least 16 years old",
+    "error-nonNumeric" : "Date of birth must only include numbers",
+    "error-notConfirmed": "Select to confirm the date of birth"
 }

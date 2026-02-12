@@ -38,7 +38,8 @@ describe("POST" + DATE_OF_BIRTH, () => {
         const sendData = {
             "dob-day": "11",
             "dob-month": "2",
-            "dob-year": "1999"
+            "dob-year": "1999",
+            confirmCorrectDateOfBirthEntered: "true"
         };
         const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData);
         expect(res.status).toBe(302);
@@ -50,7 +51,8 @@ describe("POST" + DATE_OF_BIRTH, () => {
         const sendData = {
             "dob-day": "11",
             "dob-month": "2",
-            "dob-year": "1999"
+            "dob-year": "1999",
+            confirmCorrectDateOfBirthEntered: "true"
         };
         const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData);
         expect(res.status).toBe(302);
@@ -61,7 +63,7 @@ describe("POST" + DATE_OF_BIRTH, () => {
     it("should return status 400", async () => {
         const sendData = {
             "dob-day": "",
-            "dob-month": undefined,
+            "dob-month": "",
             "dob-year": ""
         };
         const res = await router.post(BASE_URL + DATE_OF_BIRTH).send(sendData);

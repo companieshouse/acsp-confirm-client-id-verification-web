@@ -15,7 +15,7 @@ package-install:
 	npm install
 
 .PHONY: build
-build:	
+build:
 		npm ci
 		npm run build
 
@@ -24,7 +24,7 @@ lint:
 		npm run lint
 
 .PHONY: sonar
-sonar: test
+sonar: build test
 		npm run sonarqube
 
 .PHONY: test-unit
@@ -32,10 +32,10 @@ test-unit:
 		npm run test:coverage
 
 .PHONY: test
-test: test-unit 
+test: test-unit
 
-.PHONY: security-check
-security-check:
+.PHONY: dependency-check
+dependency-check:
 		npm audit --audit-level=high
 
 .PHONY: package

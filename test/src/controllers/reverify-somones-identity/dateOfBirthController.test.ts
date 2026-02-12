@@ -83,7 +83,7 @@ describe("POST" + REVERIFY_DATE_OF_BIRTH, () => {
     it("should return status 400", async () => {
         const sendData = {
             "dob-day": "",
-            "dob-month": undefined,
+            "dob-month": "",
             "dob-year": ""
         };
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_DATE_OF_BIRTH).send(sendData);
