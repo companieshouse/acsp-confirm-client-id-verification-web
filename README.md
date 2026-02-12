@@ -20,7 +20,7 @@ The documentation of the project is available on [Confluence](https://companiesh
 
 ### Requirements
 
-1. node v20 (engines block in package.json is used to enforce this)
+1. node v24 (engines block in package.json is used to enforce this)
 2. npm v10 (engines block in package.json is used to enforce this)
 
 Having cloned the project into your project root, run the following commands:

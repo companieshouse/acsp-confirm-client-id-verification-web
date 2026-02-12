@@ -4,7 +4,7 @@
   "description": "A web application to tell Companies House you have verified someone’s identity.",
   "main": "dist/server.js",
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=24.0.0",
     "npm": ">=10"
   },
   "scripts": {
@@ -30,10 +30,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@companieshouse/api-sdk-node": "^2.0.324",
+    "@companieshouse/api-sdk-node": "^2.0.326",
     "@companieshouse/ch-node-utils": "^2.1.13",
-    "@companieshouse/node-session-handler": "5.2.8",
-    "@companieshouse/structured-logging-node": "^2.0.6",
+    "@companieshouse/node-session-handler": "5.2.10",
+    "@companieshouse/structured-logging-node": "^2.0.7",
     "@companieshouse/web-security-node": "4.4.14",
     "@types/express-validator": "^3.0.2",
     "axios": "^1.13.5",
@@ -50,7 +50,7 @@
     "nocache": "4.0.0",
     "node-mocks-http": "^1.17.2",
     "nunjucks": "^3.2.4",
-    "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.106",
+    "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.108",
     "tslib": "^2.8.1",
     "uuid": "^11.1.0",
     "yargs": "15.4.1"
