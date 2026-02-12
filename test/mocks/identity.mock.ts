@@ -134,7 +134,6 @@ export const clientDetails = {
         }
     ],
     emailAddress: "demo@ch.gov.uk",
-    confirmEmailAddress: "demo@ch.gov.uk",
     howIdentityDocsChecked: "",
     whenIdentityChecksCompleted: new Date()
 };
@@ -154,7 +153,7 @@ export const clientDetailsBiometricPassport = {
         propertyDetails: "Property Details"
     },
     documentsChecked: ["biometric_passport"],
-        idDocumentDetails: [
+    idDocumentDetails: [
         {
             docName: "biometric_passport",
             documentNumber: "123456789",
@@ -164,7 +163,6 @@ export const clientDetailsBiometricPassport = {
         }
     ],
     emailAddress: "john.doe@example.com",
-    confirmEmailAddress: "john.doe@example.com",
     howIdentityDocsChecked: "",
     whenIdentityChecksCompleted: new Date("2028-02-25")
 };

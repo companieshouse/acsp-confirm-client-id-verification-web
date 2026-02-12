@@ -26,6 +26,20 @@ describe("GET" + EMAIL_ADDRESS, () => {
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
     });
 
+    it("should return status 200 when session has no USER_DATA", async () => {
+        // Override the session middleware to provide a session without USER_DATA
+        customMockSessionMiddleware = sessionMiddleware as jest.Mock;
+        const session = getSessionRequestWithPermission();
+        session.setExtraData(USER_DATA, undefined);
+        customMockSessionMiddleware.mockImplementationOnce((req: Request, res: Response, next: NextFunction) => {
+            req.session = session;
+            next();
+        });
+
+        const res = await router.get(BASE_URL + EMAIL_ADDRESS);
+        expect(res.status).toBe(200);
+    });
+
     it("should show the error page if an error occurs", async () => {
         const errorMessage = "Test error";
         jest.spyOn(localise, "getLocalesService").mockImplementationOnce(() => {
@@ -43,8 +57,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
         await mockFindIdentityByEmail.mockResolvedValueOnce(undefined);
         const res = await router.post(BASE_URL + EMAIL_ADDRESS)
             .send({
-                "email-address": "test@gmail.com",
-                confirm: "test@gmail.com"
+                "email-address": "test@gmail.com"
             });
         expect(res.status).toBe(302);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
@@ -57,8 +70,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
         await mockFindIdentityByEmail.mockResolvedValueOnce(dummyIdentity);
         const res = await router.post(BASE_URL + EMAIL_ADDRESS)
             .send({
-                "email-address": "test@gmail.com",
-                confirm: "test@gmail.com"
+                "email-address": "test@gmail.com"
             });
         expect(res.status).toBe(302);
         expect(mocks.mockSessionMiddleware).toHaveBeenCalled();
@@ -67,42 +79,27 @@ describe("POST" + EMAIL_ADDRESS, () => {
     });
 
     // Test for incorrect form details entered, will return 400.
-    it("should return status 400 after incorrect data entered", async () => {
+    it("should return status 400 if email is undefined", async () => {
         const sendData = {
-            "email-address": "test@gmail.com",
-            confirm: ""
-        };
-        const res = await router.post(BASE_URL + EMAIL_ADDRESS).send(sendData);
-        expect(res.status).toBe(400);
-        expect(res.text).toContain("Confirm their email address");
-    });
-
-    it("should return status 400 after incorrect data entered", async () => {
-        const sendData = {
-            "email-address": "",
-            confirm: "test@gmail.com"
+            "email-address": undefined
         };
         const res = await router.post(BASE_URL + EMAIL_ADDRESS).send(sendData);
         expect(res.status).toBe(400);
         expect(res.text).toContain("Enter their email address");
     });
 
-    it("should return status 400 after incorrect data entered", async () => {
-        const sendData = {
-            "email-address": "test@gmail.com",
-            confirm: "different@gmail.com"
-        };
+    it("should return status 400 if the payload is undefined", async () => {
+        const sendData = undefined;
         const res = await router.post(BASE_URL + EMAIL_ADDRESS).send(sendData);
         expect(res.status).toBe(400);
-        expect(res.text).toContain("Email addresses must match");
+        expect(res.text).toContain("Enter their email address");
     });
 
     it("should return status 500 if verification api errors", async () => {
         await mockFindIdentityByEmail.mockRejectedValueOnce(new Error("Verification API error"));
         const res = await router.post(BASE_URL + EMAIL_ADDRESS)
             .send({
-                "email-address": "test@email.com",
-                confirm: "test@email.com"
+                "email-address": "test@email.com"
             });
         expect(res.status).toBe(500);
         expect(res.text).toContain("Sorry we are experiencing technical difficulties");
@@ -113,8 +110,7 @@ describe("POST" + EMAIL_ADDRESS, () => {
         createMockSessionMiddleware();
         const res = await router.post(BASE_URL + EMAIL_ADDRESS)
             .send({
-                "email-address": "test@gmail.com",
-                confirm: "test@gmail.com"
+                "email-address": "test@gmail.com"
             });
         expect(res.status).toBe(302);
         expect(mocks.mockAuthenticationMiddleware).toHaveBeenCalled();
