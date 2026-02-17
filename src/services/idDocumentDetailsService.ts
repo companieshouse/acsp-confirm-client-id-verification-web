@@ -30,8 +30,7 @@ export class IdDocumentDetailsService {
                 documentNumber: req.body[docNumberId] ? req.body[docNumberId] : "",
                 expiryDate: expiryDate,
                 countryOfIssue: req.body[countryOfIssueId] ? req.body[countryOfIssueId] : "",
-                docName: formattedDocumentsChecked[i],
-                formattedExpiryDate: FormatService.formatDate(expiryDate)
+                docName: formattedDocumentsChecked[i]
             });
         }
         if (clientData) {
@@ -50,7 +49,7 @@ export class IdDocumentDetailsService {
             const docName = documentsChecked[index - 1];
             const locales = getLocalesService();
 
-            errorMessage = getErrorForSpecificDocs(docName, errorMessage, errorText, whenIdDocsChecked, typeOfTheDocumentCheck, locales.i18nCh.resolveNamespacesKeys(lang));
+            errorMessage = getErrorForSpecificDocs(docName, errorMessage, errorText, whenIdDocsChecked, typeOfTheDocumentCheck, lang, locales.i18nCh.resolveNamespacesKeys(lang));
             // if error message is not empty, replace doc name placeholder
             if (errorMessage !== "") {
                 element.msg = errorMessage.replace("{doc selected}", docName);
@@ -61,7 +60,7 @@ export class IdDocumentDetailsService {
     };
 }
 
-const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date, typeOfTheDocumentCheck:string, i18n: any) => {
+const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date, typeOfTheDocumentCheck:string, lang: string, i18n: any) => {
     // make error message empty for optional fields for below specific docs
     let documentsWithGracedExpiryMap: Map<string, number> = new Map();
     if (typeOfTheDocumentCheck === CRYPTOGRAPHIC_SECURITY_FEATURES) {
@@ -77,9 +76,7 @@ const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText
     // replace date placeholder with formatted date if error is about invalid expirydate
     } else if (errorText === "dateAfterIdChecksDone" ||
         documentsWithGracedExpiryMap.has(errorText)) {
-        const idChecksCompletedDate = whenIdDocsChecked.getDate() + " " +
-                                      whenIdDocsChecked.toLocaleString("default", { month: "long" }) + " " +
-                                      whenIdDocsChecked.getFullYear();
+        const idChecksCompletedDate = FormatService.formatDateForLocale(whenIdDocsChecked, lang);
 
         errorMessage = errorMessage.replace("{id checks completed}", idChecksCompletedDate);
         errorMessage = errorMessage.replace("{ graced period }", documentsWithGracedExpiryMap.get(errorText)?.toString()!);

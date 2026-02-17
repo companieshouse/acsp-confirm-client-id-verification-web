@@ -31,8 +31,7 @@ describe("IdDocumentDetailsService tests", () => {
                 docName: "UK biometric residence permit (BRP)",
                 documentNumber: "1234",
                 expiryDate: date,
-                countryOfIssue: "India",
-                formattedExpiryDate: "28 February 2025"
+                countryOfIssue: "India"
             }]
         });
     });
@@ -57,8 +56,7 @@ describe("IdDocumentDetailsService tests", () => {
                 docName: "UK HM Armed Forces Veteran Card",
                 documentNumber: "123456789",
                 expiryDate: undefined,
-                countryOfIssue: "England",
-                formattedExpiryDate: ""
+                countryOfIssue: "England"
             }]
         });
     });
@@ -83,8 +81,7 @@ describe("IdDocumentDetailsService tests", () => {
                 docName: "Photographic ID listed on PRADO",
                 documentNumber: "",
                 expiryDate: undefined,
-                countryOfIssue: "England",
-                formattedExpiryDate: ""
+                countryOfIssue: "England"
             }]
         });
     });
@@ -117,15 +114,13 @@ describe("IdDocumentDetailsService tests", () => {
                 docName: "Photographic ID listed on PRADO",
                 documentNumber: "123456789",
                 expiryDate: undefined,
-                countryOfIssue: "",
-                formattedExpiryDate: ""
+                countryOfIssue: ""
             },
             {
                 docName: "UK or EU driver digital tachograph card",
                 documentNumber: "123456789",
                 expiryDate: date,
-                countryOfIssue: "",
-                formattedExpiryDate: "28 February 2025"
+                countryOfIssue: ""
             }]
         });
     });

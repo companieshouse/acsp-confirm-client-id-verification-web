@@ -37,13 +37,15 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         saveDataInSession(req, CHECK_YOUR_ANSWERS_FLAG, true);
 
         const formattedAddress = FormatService.formatAddress(clientData.address);
-        const formattedDateOfBirth = FormatService.formatDate(
-            clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
+        const formattedDateOfBirth = FormatService.formatDateForLocale(
+            clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined,
+            lang
         );
-        const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
+        const formattedWhenIdentityChecksCompleted = FormatService.formatDateForLocale(
             clientData.whenIdentityChecksCompleted
                 ? new Date(clientData.whenIdentityChecksCompleted)
-                : undefined
+                : undefined,
+            lang
         );
 
         const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
@@ -51,7 +53,11 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             locales.i18nCh.resolveNamespacesKeys(lang)
         );
 
-        const identityDocuments = clientData.idDocumentDetails!;
+        // Ensure expiryDate is a Date object and format for rendering
+        const identityDocuments = (clientData.idDocumentDetails ?? []).map(doc => ({
+            ...doc,
+            expiryDate: doc.expiryDate ? FormatService.formatDateForLocale(new Date(doc.expiryDate), lang) : undefined
+        }));
 
         const amlBodies = getAmlBodiesAsString(acspDetails);
 
@@ -63,7 +69,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
                 ...clientData,
                 address: formattedAddress,
                 dateOfBirth: formattedDateOfBirth,
-                whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
+                whenIdentityChecksCompleted: formattedWhenIdentityChecksCompleted,
                 documentsChecked: formattedDocumentsChecked,
                 idDocumentDetails: identityDocuments
             },
@@ -88,13 +94,15 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 
         if (!errorList.isEmpty()) {
             const formattedAddress = FormatService.formatAddress(clientData.address);
-            const formattedDateOfBirth = FormatService.formatDate(
-                clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
+            const formattedDateOfBirth = FormatService.formatDateForLocale(
+                clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined,
+                lang
             );
-            const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
+            const formattedWhenIdentityChecksCompleted = FormatService.formatDateForLocale(
                 clientData.whenIdentityChecksCompleted
                     ? new Date(clientData.whenIdentityChecksCompleted)
-                    : undefined
+                    : undefined,
+                lang
             );
 
             const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
@@ -115,7 +123,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                     ...clientData,
                     address: formattedAddress,
                     dateOfBirth: formattedDateOfBirth,
-                    whenIdentityChecksCompleted: formattedwhenIdentityChecksCompleted,
+                    whenIdentityChecksCompleted: formattedWhenIdentityChecksCompleted,
                     documentsChecked: formattedDocumentsChecked,
                     idDocumentDetails: identityDocuments
                 },

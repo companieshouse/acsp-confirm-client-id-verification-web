@@ -1,5 +1,7 @@
 import { CRYPTOGRAPHIC_SECURITY_FEATURES } from "../utils/constants";
 import { Address } from "../model/Address";
+import { DateTime } from "luxon";
+import logger from "../utils/logger";
 
 export class FormatService {
     public static formatAddress (address?: Address): string {
@@ -55,6 +57,17 @@ export class FormatService {
             year: "numeric"
         };
         return new Intl.DateTimeFormat("en-GB", options).format(date);
+    }
+
+    public static formatDateForLocale (date?: Date, lang = "en"): string {
+        if (!date || !(date instanceof Date) || isNaN(date.getTime())) {
+            return "";
+        }
+
+        const dateTime = DateTime.fromJSDate(date, { zone: "UTC" }).setZone("Europe/London");
+        const convertedDate = dateTime.setLocale(lang).toFormat("d MMMM yyyy");
+
+        return convertedDate;
     }
 
     public static formatDocumentsChecked (

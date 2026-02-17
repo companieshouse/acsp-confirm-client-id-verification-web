@@ -10,6 +10,7 @@ import { formatValidationError, getPageProperties } from "../validations/validat
 import { getAmlBodiesAsString } from "../services/acspProfileService";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { saveDataInSession } from "../utils/sessionHelper";
+import { FormatService } from "../services/formatService";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -17,8 +18,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA)!;
-        const formattedDate = clientData?.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted)
-            .toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
+        const formattedDate = clientData?.whenIdentityChecksCompleted ? FormatService.formatDateForLocale(new Date(clientData.whenIdentityChecksCompleted), lang) : "";
 
         const payload = {
             declaration: clientData.confirmIdentityVerified
@@ -54,8 +54,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
         const session: Session = req.session as any as Session;
         const clientData: ClientData = session.getExtraData(USER_DATA)!;
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
-        const formattedDate = clientData?.whenIdentityChecksCompleted ? new Date(clientData.whenIdentityChecksCompleted)
-            .toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
+        const formattedDate = clientData?.whenIdentityChecksCompleted ? FormatService.formatDateForLocale(new Date(clientData.whenIdentityChecksCompleted), lang) : "";
 
         if (!errorList.isEmpty()) {
             const pageProperties = getPageProperties(formatValidationError(errorList.array(), lang));
