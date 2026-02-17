@@ -18,13 +18,13 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const acspDetails: AcspFullProfile = session.getExtraData(ACSP_DETAILS)!;
         const reference = session.getExtraData(REFERENCE);
         const formattedAddress = FormatService.formatAddress(clientData.address);
-        const formattedDateOfBirth = FormatService.formatDate(
-            clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined
+        const formattedDateOfBirth = FormatService.formatDateForLocale(
+            clientData.dateOfBirth ? new Date(clientData.dateOfBirth) : undefined, lang
         );
-        const formattedwhenIdentityChecksCompleted = FormatService.formatDate(
+        const formattedwhenIdentityChecksCompleted = FormatService.formatDateForLocale(
             clientData.whenIdentityChecksCompleted
                 ? new Date(clientData.whenIdentityChecksCompleted)
-                : undefined
+                : undefined, lang
         );
         const formattedDocumentsChecked = FormatService.formatDocumentsChecked(
             clientData.documentsChecked,

@@ -127,11 +127,13 @@ function createMockSessionMiddleware () {
     customMockSessionMiddleware = sessionMiddleware as jest.Mock;
     const session = getSessionRequestWithPermission();
     session.setExtraData(USER_DATA, {
+        dateOfBirth: new Date("1990-01-22"),
+        whenIdentityChecksCompleted: new Date("2025-02-10"),
         idDocumentDetails: [
             {
-                docName: "passport",
+                docName: "biometric_passport",
                 documentNumber: "123456789",
-                expiryDate: new Date("2030-01-01"),
+                expiryDate: new Date("2030-11-18"),
                 countryOfIssue: "UK"
             }
         ]
