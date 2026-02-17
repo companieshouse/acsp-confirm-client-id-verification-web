@@ -6,7 +6,7 @@
             "request": "attach",
             "name": "Attach to Remote",
             "address": "localhost",
-            "port": 9242,
+            "port": 9227,
             "restart": true,
             "sourceMaps": true,
             "localRoot": "${workspaceFolder}/src",

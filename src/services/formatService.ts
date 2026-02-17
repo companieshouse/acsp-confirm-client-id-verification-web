@@ -1,7 +1,6 @@
 import { CRYPTOGRAPHIC_SECURITY_FEATURES } from "../utils/constants";
 import { Address } from "../model/Address";
 import { DateTime } from "luxon";
-import logger from "../utils/logger";
 
 export class FormatService {
     public static formatAddress (address?: Address): string {
