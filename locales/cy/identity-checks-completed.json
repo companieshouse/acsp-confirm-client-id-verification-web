@@ -6,7 +6,7 @@
     "error-invalidIdentity" : "Rhaid i'r dyddiad fod yn ddyddiad real",
     "error-dateInFutureIdentity" : "Rhaid i'r dyddiad fod heddiw neu yn y gorffennol",
     "error-noDataIdentity" : "Cofnodwch y dyddiad y cwblhawyd y gwiriadau hunaniaeth",
-    "error-noDayMonthIdentity" : "Rhaid i'r dyddiad geni gynnwys diwrnod a mis",
+    "error-noDayMonthIdentity" : "Rhaid i'r dyddiad gynnwys diwrnod a mis",
     "error-noDayYearIdentity" : "Rhaid i'r dyddiad gynnwys diwrnod a blwyddyn",
     "error-noMonthYearIdentity" : "Rhaid i'r dyddiad gynnwys mis a blwyddyn",
     "error-noDayIdentity" : "Rhaid i'r dyddiad gynnwys diwrnod",
