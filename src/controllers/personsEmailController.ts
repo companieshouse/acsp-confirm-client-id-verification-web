@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as config from "../config";
-import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, DATE_OF_BIRTH, PROVIDE_DIFFERENT_EMAIL, CHECK_YOUR_ANSWERS } from "../types/pageURL";
+import { BASE_URL, PERSONAL_CODE, EMAIL_ADDRESS, PROVIDE_DIFFERENT_EMAIL, CHECK_YOUR_ANSWERS, CONFIRM_EMAIL_ADDRESS } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { validationResult } from "express-validator";
@@ -59,17 +59,11 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             clientData.emailAddress = req.body["email-address"];
             saveDataInSession(req, USER_DATA, clientData);
 
-            const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
-
             await findIdentityByEmail(req.body["email-address"]).then(identity => {
                 if (identity !== undefined) {
                     res.redirect(addLangToUrl(BASE_URL + PROVIDE_DIFFERENT_EMAIL, lang));
                 } else {
-                    const redirectUrl = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-                        ? BASE_URL + CHECK_YOUR_ANSWERS
-                        : BASE_URL + DATE_OF_BIRTH;
-
-                    res.redirect(addLangToUrl(redirectUrl, lang));
+                    res.redirect(addLangToUrl(BASE_URL + CONFIRM_EMAIL_ADDRESS, lang));
                 }
             }).catch(error => {
                 logger.error("Verification-Api error" + JSON.stringify(error));
@@ -83,13 +77,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const renderValidationError = (req: Request, res: Response, locales: LocalesService, lang: string, clientData: ClientData, pageProperties: any) => {
-
-    const session: Session = req.session as any as Session;
-    const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
-
-    const previousPage = previousPageUrl === addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        ? addLangToUrl(BASE_URL + CHECK_YOUR_ANSWERS, lang)
-        : addLangToUrl(BASE_URL + PERSONAL_CODE, lang);
+    const previousPage = addLangToUrl(BASE_URL + PERSONAL_CODE, lang);
 
     res.status(400).render(config.PERSONS_EMAIL, {
         ...getLocaleInfo(locales, lang),
