@@ -236,13 +236,16 @@
     ]
   }) }}
 
-  {% for doc in clientData.idDocumentDetails %}
-  {% if not (groupBDocs.includes(i18n[doc.docName])) %}
-  {% set docNumber = doc.documentNumber if doc.documentNumber else i18n.notProvided %}
-  {% set expiryDate = doc.formattedExpiryDate if doc.formattedExpiryDate else i18n.notProvided %}
-  {% set countryOfIssue = doc.countryOfIssue if doc.countryOfIssue else i18n.notProvided %}
-  <h2 class="govuk-heading-m">{{ i18n.details | replace("{DOCNAME}", i18n[doc.docName]) }}</h2>
-    {{ govukSummaryList({
+    {% for doc in clientData.idDocumentDetails %}
+      {% if not(groupBDocs.includes(i18n[doc.docName])) %}
+        {% set docNumber = doc.documentNumber if doc.documentNumber else 
+          i18n.notProvided %}
+        {% set expiryDate = doc.expiryDate if doc.expiryDate else 
+          i18n.notProvided %}
+        {% set countryOfIssue = doc.countryOfIssue if doc.countryOfIssue else 
+          i18n.notProvided %}
+        <h2 class="govuk-heading-m">{{ i18n.details | replace("{DOCNAME}", i18n[doc.docName]) }}</h2>
+        {{ govukSummaryList({
       classes: 'govuk-!-margin-bottom-9',
       rows: [
         {
@@ -298,9 +301,8 @@
         }
       ]
     }) }}
-{% endif %}    
-{% endfor %}
-
+      {% endif %}
+    {% endfor %}
 
     {{ govukCheckboxes({
         name: "checkYourAnswerDeclaration",

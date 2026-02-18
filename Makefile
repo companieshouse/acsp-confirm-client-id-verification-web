@@ -34,6 +34,10 @@ test-unit:
 .PHONY: test
 test: test-unit
 
+.PHONY: security-check
+dependency-check:
+		npm audit --audit-level=high
+
 .PHONY: dependency-check
 dependency-check:
 		npm audit --audit-level=high

@@ -123,6 +123,43 @@ describe("FormatService tests", () => {
         });
     });
 
+    describe("formatDateForLocale", () => {
+        it("should return an empty string if no date is provided", () => {
+            const result = FormatService.formatDateForLocale();
+            expect(result).toBe("");
+        });
+
+        it("should return an empty string if an invalid date is provided", () => {
+            const invalidDate = new Date("invalid-date-string");
+            const result = FormatService.formatDateForLocale(invalidDate, "en");
+            expect(result).toBe(""); // Expect an empty string for invalid dates
+        });
+
+        it("should format the date correctly for English locale", () => {
+            const date = new Date("2024-08-02");
+            const result = FormatService.formatDateForLocale(date, "en");
+            expect(result).toBe("2 August 2024");
+        });
+
+        it("should format the date correctly for Welsh locale", () => {
+            const date = new Date("2024-08-02");
+            const result = FormatService.formatDateForLocale(date, "cy");
+            expect(result).toBe("2 Awst 2024"); // Assuming Welsh translation for August
+        });
+
+        it("should handle a date in the future for English locale", () => {
+            const futureDate = new Date("2099-12-31");
+            const result = FormatService.formatDateForLocale(futureDate, "en");
+            expect(result).toBe("31 December 2099");
+        });
+
+        it("should handle a date in the past for Welsh locale", () => {
+            const pastDate = new Date("1900-01-01");
+            const result = FormatService.formatDateForLocale(pastDate, "cy");
+            expect(result).toBe("1 Ionawr 1900"); // Assuming Welsh translation for January
+        });
+    });
+
     describe("formatDocumentsChecked", () => {
         const locales = getLocalesService();
         it("should return an empty string if no documents are provided", () => {

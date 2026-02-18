@@ -3,28 +3,18 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% extends "layouts/default.njk" %}
 
-{% set title = i18n.emailAddressTabTitle %}
+{% set title = i18n.emailAddressTitle %}
 
 {% block main_content %}
     <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
         {% include "partials/csrf_token.njk" %}
-        <h1 class="govuk-heading-l">{{ i18n.emailAddress | replace("{NAME}", firstName + " " + lastName) }}</h1>
-        <p class="govuk-body">{{ i18n.emailAddressCanOnlyUsedOnce }}</p>
+        <h1 class="govuk-heading-l">{{ i18n.emailAddressTitle }}</h1>
+        <p class="govuk-body">{{ i18n.emailAddressCanOnlyUsedOnce | replace("{NAME}", firstName + " " + lastName) }}</p>
         <div class="govuk-form-group">
-        <div class="govuk-warning-text">
-            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-            <strong class="govuk-warning-text__text">
-            <span class="govuk-visually-hidden">{{ i18n.warning }}</span>
-            {{ i18n.correctEmailAddressAlert }}
-            </strong>
-        </div>
             {{ govukInput({
                 label: {
-                    text: i18n.enterEmailAddress,
+                    text: i18n.enterEmailAddress | replace("{NAME}", firstName + " " + lastName),
                     classes: "govuk-label--s"
-                },
-                hint: {
-                    text: i18n.theyMustAbleToAccess
                 },
                 errorMessage: {
                     text: errors["email-address"].text
@@ -36,19 +26,8 @@
                 value: payload["email-address"]
             }) }}
 
-             {{ govukInput({
-                label: {
-                    text: i18n.confirmEmail,
-                    classes: "govuk-label--s"
-                },
-                errorMessage: {
-                    text: errors["confirm"].text
-                } if errors["confirm"] | length,
-                classes: "govuk-input",
-                id: "confirm",
-                name: "confirm",
-                value: payload["confirm"],
-                autocomplete: "email"
+            {{ govukInsetText({
+                text: i18n.correctEmailInsetText
             }) }}
         </div>
         {{ govukButton({
@@ -56,14 +35,4 @@
             id: "continue-button"
         })}}
     </form>
-
-<!-- Calling Matomo event script to capture event actions based on page title -->
-    <script nonce={{ nonce | dump | safe }}>
-        _paq.push(["setDocumentTitle", "User" + "{{i18n.emailAddress}}" + " - " + "{{ i18n[tabTitleKey]}}"]);
-        $("form").on("submit",function() {analyticsWithCustomisedMatomoText();});
-        function analyticsWithCustomisedMatomoText(){
-        var eventCategory = `{{ i18n.whatIs + i18n.emailAddress}}`;
-        _paq.push(["trackEvent", eventCategory, eventNameBtn]);
-        }
-    </script>
 {% endblock main_content %}

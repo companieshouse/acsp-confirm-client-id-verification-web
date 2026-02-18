@@ -22,8 +22,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
         const clientData: ClientData = session.getExtraData(USER_DATA)!;
 
         const payload = {
-            "email-address": clientData?.emailAddress,
-            confirm: clientData?.confirmEmailAddress
+            "email-address": clientData?.emailAddress
         };
 
         const previousPageUrl = getPreviousPageUrl(req, BASE_URL);
@@ -58,7 +57,6 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
             renderValidationError(req, res, locales, lang, clientData, pageProperties);
         } else {
             clientData.emailAddress = req.body["email-address"];
-            clientData.confirmEmailAddress = req.body.confirm;
             saveDataInSession(req, USER_DATA, clientData);
 
             await findIdentityByEmail(req.body["email-address"]).then(identity => {

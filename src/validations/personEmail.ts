@@ -1,9 +1,7 @@
 import { body } from "express-validator";
 
 export const emailValidator = [
-    body("email-address").trim().notEmpty().withMessage("noEmailAddress").bail().isEmail().withMessage("invalidEmail"),
-
-    body("confirm").trim().notEmpty().withMessage("noConfirmAddress").bail().custom((value, { req }) => emailChecker(req.body["email-address"], req.body.confirm))
+    body("email-address").trim().notEmpty().withMessage("noEmailAddress").bail().isEmail().withMessage("invalidEmail")
 ];
 
 export const confirmEmailValidator = [
