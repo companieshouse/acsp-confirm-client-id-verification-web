@@ -12,18 +12,22 @@
 {% block main_content %}
   <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
     {% include "partials/csrf_token.njk" %}
-    <h1 class="govuk-heading-l"> {{ i18n.idDocumentDetailstitle }} </h1>
+    <h1 class="govuk-heading-l">
+      {{ i18n.idDocumentDetailstitle }}
+    </h1>
     {% for body in documentsChecked %}
       {% set index = loop.index %}
-        <h2 class="govuk-heading-m"> {{i18n.details | replace("{DOCNAME}", body)}} </h2>
+      <h2 class="govuk-heading-m">
+        {{i18n.details | replace("{DOCNAME}", body)}}
+      </h2>
 
-        <!--Document Input-->
-        {% if otherOptionalDocs.includes(body) %}
-           {% set labelText = (i18n.number | replace("{DOCNAME}", body)) + " " +  i18n.optional %}
-        {% else %}
-           {% set labelText = i18n.number | replace("{DOCNAME}", body) %}
-        {% endif %}
-        {{ govukInput({
+      <!--Document Input-->
+      {% if otherOptionalDocs.includes(body) %}
+        {% set labelText = (i18n.number | replace("{DOCNAME}", body)) + " " + i18n.optional %}
+      {% else %}
+        {% set labelText = i18n.number | replace("{DOCNAME}", body) %}
+      {% endif %}
+      {{ govukInput({
             label: {
                 text: labelText,
                 classes: "govuk-label "
@@ -40,33 +44,21 @@
             } if errors["documentNumber_" + index]
         }) }}
 
-        <!--Date  Input-->
-        {% include "partials/date.njk" %}
+      <!--Date  Input-->
+      {% include "partials/date.njk" %}
 
-        <!--Country  Input-->
-        <div id="typeahead-form-group-{{index}}" class="govuk-form-group
-          {% if errors["countryInput_" + index] %} govuk-form-group--error{% endif %}">
-            <label class="govuk-label" for="countryInput_{{index}}">
-              <span class="govuk-visually-hidden">{{ body }}</span>
-              {% if countryOfIssueOptionalDocs.includes(body) or otherOptionalDocs.includes(body) %}
-                {{i18n.chooseCountryText}} {{i18n.optional}}
-              {% else %}
-                {{i18n.chooseCountryText}} 
-              {% endif %}
-            </label>
-            <p class="govuk-hint" id="typeahead-hint-{{index}}">{{i18n.chooseCountryhint}} {{body}}.</p>
-            {% set dropdownDefaultText = i18n.chooseCountryText1 %}
-            {% set dropdownValue = payload["countryInput_" + index] %}
-            <div id="my-autocomplete-container-{{index}}" class="autocomplete-wrapper govuk-input--width-10">
-            </div>
-                  {% set dropdownNumber = index %}            
-                  {% include "partials/country-typeahead-noscript-input.njk" %} 
-        </div>
+      <!--Country of issue Input-->
+      {% set countryList = countryList %}
+      {% set errors = errors %}
+      {% set payload = payload %}
+      {% set index = index %}
+      {% include "partials/country-typeahead-input.njk" %}
+  
     {% endfor %}
-   
+
     {{ govukButton({
             text: i18n.Continue,
             id: "continue-button"
     }) }}
   </form>
-{% endblock main_content %}  
+{% endblock main_content %}

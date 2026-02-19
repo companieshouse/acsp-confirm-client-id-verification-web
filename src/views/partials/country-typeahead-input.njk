@@ -1,0 +1,48 @@
+<div id="my-autocomplete-container-{{index}}" class="govuk-form-group {% if errors['countryInput_' + index] %} govuk-form-group--error{% endif %} govuk-!-margin-bottom-9">
+  <label for="countryInput_{{index}}" class="govuk-label">{{i18n.chooseCountryText}}</label>
+  <div id="country-hint-{{index}}" class="govuk-hint">{{i18n.chooseCountryHint}}</div>
+</div>
+
+<script type="text/javascript" src="{{cdnHost}}/javascripts/app/accessible-autocomplete.min.js"></script>
+<script type="text/javascript" nonce={{ nonce | dump | safe }}>
+(function() {
+  var container = document.getElementById('my-autocomplete-container-{{index}}');
+  // Create the hint element
+  var hint = document.createElement('div');
+  hint.id = 'typeahead-hint-{{index}}';
+  hint.className = 'govuk-hint govuk-typeahead-js-hint';
+  hint.textContent = "{{i18n.typeaheadCountryHint}}";
+  // Insert the hint as the second child of the container
+  container.insertBefore(hint, container.children[2]); // after the label and first hint, before the input
+
+  var countryList = "{{countryList}}";
+  var error = "{% if errors['countryInput_' + index] %}{{errors['countryInput_' + index].text}}{% else %}{% endif %}";
+  var countryDefaultValue = "{{payload['countryInput_' + index]}}";
+  var index = "{{index}}";
+  
+  accessibleAutocomplete({
+    element: document.getElementById('my-autocomplete-container-' + index),
+    id: 'countryInput_' + index,
+    name: 'countryInput_' + index,
+    defaultValue: countryDefaultValue,
+    source: countryList.split(";"),
+    autoselect: true,
+    displayMenu: 'overlay',
+    minLength: 1
+  });
+
+  if (error) {
+    document
+      .getElementById("my-autocomplete-container-" + index)
+      .className += " govuk-form-group--error";
+    var errorHtml = '<p class="govuk-error-message"> <span class="govuk-visually-hidden">Error:</span> ' + error + '</p>';
+    var element = document.getElementById("typeahead-hint-" + index);
+    element.insertAdjacentHTML("afterend", errorHtml);
+  }
+})();
+</script>
+
+<!-- Javascript disabled -->
+<noscript>
+  {% include "./country-typeahead-noscript-input.njk" %}
+</noscript>

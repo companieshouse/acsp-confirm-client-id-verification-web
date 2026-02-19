@@ -7,7 +7,8 @@
     "ExpiryDateHint": "Er enghraifft, 27 3 2035.",
     "chooseCountryText": "Gwlad a gyhoeddwyd",
     "chooseCountryText1": "Dewiswch wlad",
-    "chooseCountryhint": "Fel arfer, dangosir hyn ar dudalen gyntaf y ",
+    "chooseCountryHint": "Fel arfer, dangosir hyn ar dudalen gyntaf y ddogfen.",
+    "typeaheadCountryHint": "Dechreuwch deipio gwlad, yna dewiswch o'r rhestr.",
 
     "biometricPassportHint": "Mae hwn yn 9 nod o hyd. Fe'i dangosir fel arfer yng nghornel dde uchaf y dudalen gyda llun yn y pasbort.",
     "irishPassportHint": "Mae hyn yn 9 nod o hyd. Fe'i dangosir fel arfer ar flaen y cerdyn yn y gornel dde uchaf.",
@@ -44,5 +45,8 @@
     "error-biometric_passport": "Ni all y dyddiad dod i ben ar gyfer {doc selected} fod yn fwy na { graced period } mis cyn {id checks completed} pan gwblhawyd y gwiriadau hunaniaeth",
     "error-irish_passport_card": "Ni all y dyddiad dod i ben ar gyfer {doc selected} fod yn fwy na { graced period } mis cyn {id checks completed} pan gwblhawyd y gwiriadau hunaniaeth",
     "error-passport" : "Ni all y dyddiad dod i ben ar gyfer {doc selected} fod yn fwy na { graced period } mis cyn {id checks completed} pan gwblhawyd y gwiriadau hunaniaeth",
-    "error-noCountry": "Dewiswch wlad ar gyfer {doc selected}"
+    "error-noCountry" : "Rhowch wlad ar gyfer {doc selected}",
+    "error-invalidCountry" : "Dewiswch wlad go iawn ar gyfer {doc selected}"
+
+
 }

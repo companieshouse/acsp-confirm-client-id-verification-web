@@ -6,8 +6,9 @@
     "ExpiryDate": "Expiry Date",
     "ExpiryDateHint": "For example, 27 3 2035.",
     "chooseCountryText": "Country of issue",
-    "chooseCountryText1": "Choose a country",
-    "chooseCountryhint":"This is usually shown on the first page of the ",
+    "chooseCountryHint":"This is usually shown on the first page of the document.",
+    "typeaheadCountryHint": "Start typing a country, then choose from the list.",
+    "typeaheadNoJsCountryHint": "Choose a country from the list.",
 
     "biometricPassportHint": "This is 9 characters long. It is usually shown in the top right hand corner of the photo page in the passport.",
     "irishPassportHint": "This is 9 characters long. It is usually shown on the front of the card in the top, right hand corner.",
@@ -44,5 +45,7 @@
     "error-biometric_passport" : "Expiry date for {doc selected} cannot be more than { graced period } months before {id checks completed} when the identity checks were completed",
     "error-irish_passport_card" : "Expiry date for {doc selected} cannot be more than { graced period } months before {id checks completed} when the identity checks were completed",
     "error-passport" : "Expiry date for {doc selected} cannot be more than { graced period } months before {id checks completed} when the identity checks were completed",
-    "error-noCountry" : "Choose a country for {doc selected}"
+    "error-noCountry" : "Enter the country for {doc selected}",
+    "error-invalidCountry" : "Select a real country for {doc selected}"
+
 }
