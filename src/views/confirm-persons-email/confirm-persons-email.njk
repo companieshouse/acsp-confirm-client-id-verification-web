@@ -41,7 +41,8 @@
                         value: "true",
                         text: i18n.confirmEmailCheckboxText.replace("{NAME}", firstName + " " + lastName)
                     }
-                ]
+                ],
+                errorMessage: errors['confirm-email-address'] if errors
             }) }}
         </div>
         {{ govukButton({
