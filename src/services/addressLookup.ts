@@ -10,7 +10,7 @@ import { saveDataInSession } from "../utils/sessionHelper";
 import { Address } from "../model/Address";
 
 export class AddressLookUpService {
-    public getAddressFromPostcode (req: Request, postcode: string, inputPremise: string, clientData: ClientData, ...nexPageUrls: string[]) : Promise<string> {
+    public getAddressFromPostcode (req: Request, postcode: string, inputPremise: string, clientData: ClientData, ...nexPageUrls: string[]): Promise<string> {
         const lang = selectLang(req.query.lang);
         return getAddressFromPostcode(postcode).then((ukAddresses) => {
             if (inputPremise !== "" && ukAddresses.find((address) => address.premise === inputPremise)) {
@@ -28,7 +28,7 @@ export class AddressLookUpService {
         });
     }
 
-    public getReVerificationAddressFromPostcode (req: Request, postcode: string, inputPremise: string, clientData: ClientData, ...nexPageUrls: string[]) : Promise<string> {
+    public getReVerificationAddressFromPostcode (req: Request, postcode: string, inputPremise: string, clientData: ClientData, ...nexPageUrls: string[]): Promise<string> {
         const lang = selectLang(req.query.lang);
         return getAddressFromPostcode(postcode).then((ukAddresses) => {
             if (inputPremise !== "" && ukAddresses.find((address) => address.premise === inputPremise)) {
@@ -60,7 +60,7 @@ export class AddressLookUpService {
 
     public saveAddressListToSession (req: Request, ukAddresses: UKAddress[]): void {
 
-        const addressList : Array<Address> = [];
+        const addressList: Array<Address> = [];
         for (const ukAddress of ukAddresses) {
             const address = {
                 propertyDetails: ukAddress.premise,
