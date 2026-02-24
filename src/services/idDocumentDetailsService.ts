@@ -37,9 +37,9 @@ export class IdDocumentDetailsService {
             clientData.idDocumentDetails = documentDetails;
         }
         saveDataInSession(req, USER_DATA, clientData);
-    }
+    };
 
-    public errorListDisplay = (errors: any[], documentsChecked: string[], lang: string, whenIdDocsChecked: Date, typeOfTheDocumentCheck:string): any[] => {
+    public errorListDisplay = (errors: any[], documentsChecked: string[], lang: string, whenIdDocsChecked: Date, typeOfTheDocumentCheck: string): any[] => {
         const newErrorArray: any[] = [];
         errors.forEach((element) => {
             const errorText = element.msg;
@@ -60,7 +60,7 @@ export class IdDocumentDetailsService {
     };
 }
 
-const getErrorForSpecificDocs = (docName:string, errorMessage: string, errorText: string, whenIdDocsChecked:Date, typeOfTheDocumentCheck:string, lang: string, i18n: any) => {
+const getErrorForSpecificDocs = (docName: string, errorMessage: string, errorText: string, whenIdDocsChecked: Date, typeOfTheDocumentCheck: string, lang: string, i18n: any) => {
     // make error message empty for optional fields for below specific docs
     let documentsWithGracedExpiryMap: Map<string, number> = new Map();
     if (typeOfTheDocumentCheck === CRYPTOGRAPHIC_SECURITY_FEATURES) {
