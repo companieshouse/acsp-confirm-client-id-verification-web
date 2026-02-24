@@ -5,7 +5,7 @@ import { Resource } from "@companieshouse/api-sdk-node";
 import { AcspFullProfile } from "private-api-sdk-node/dist/services/acsp-profile/types";
 import { AMLSupervioryBodies } from "../model/AMLSupervioryBodies";
 
-export const getAcspFullProfile = async (acspNumber: string):Promise<AcspFullProfile> => {
+export const getAcspFullProfile = async (acspNumber: string): Promise<AcspFullProfile> => {
     const apiClient: PrivateApiClient = createLocalApiKeyClient();
 
     logger.info(`Recieved request to get acsp full profile for acsp number: ${acspNumber}`);

@@ -14,7 +14,7 @@
     "build": "npm run build:assets && npm run build:server",
     "lint": "eslint 'src/**/*.ts' 'test/src/**/*.ts'",
     "lint:fix": "eslint 'src/**/*.ts' 'test/src/**/*.ts' --fix",
-    "test:coverage": "node --expose-gc ./node_modules/.bin/jest --logHeapUsage --coverage --passWithNoTests",
+    "test:coverage": "node --expose-gc ./node_modules/.bin/jest --logHeapUsage --coverage --passWithNoTests --coverageProvider=v8",
     "test": "node --expose-gc ./node_modules/.bin/jest --logHeapUsage",
     "start": "npm run build && source ./dist/config/.env && node dist/server.js",
     "start:watch": "nodemon",
@@ -69,15 +69,12 @@
     "@types/nunjucks": "3.2.6",
     "@types/supertest": "^2.0.16",
     "@types/uuid": "7.0.8",
-    "@typescript-eslint/eslint-plugin": "2.34.0",
-    "@typescript-eslint/parser": "2.34.0",
+    "@stylistic/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/eslint-plugin": "^8.56.0",
+    "@eslint/js": "^10.0.1",
     "cheerio": "^1.2.0",
-    "eslint": "6.8.0",
-    "eslint-config-standard": "14.1.1",
-    "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-promise": "4.3.1",
-    "eslint-plugin-standard": "4.1.0",
+    "eslint": "10.0.1",
+    "globals": "^17.3.0",
     "gulp": "^5.0.1",
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
@@ -103,7 +100,8 @@
   },
   "overrides": {
     "chokidar": "3.5.3",
-    "glob-parent": "6.0.2"
+    "glob-parent": "6.0.2",
+    "minimatch": "10.2.1"
   },
   "nodemonConfig": {
     "watch": [

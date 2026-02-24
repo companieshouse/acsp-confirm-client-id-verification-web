@@ -4,7 +4,7 @@ import { Session } from "@companieshouse/node-session-handler";
 import { CRYPTOGRAPHIC_SECURITY_FEATURES, OPTION_1_ID_DOCUMENTS_WITH_GRACED_EXPIRY, OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY, PHYSICAL_SECURITY_FEATURES, USER_DATA } from "../utils/constants";
 import countryList from "../lib/countryList";
 
-const documentNumberFormat:RegExp = /^[A-Za-z0-9\-',\s]*$/;
+const documentNumberFormat: RegExp = /^[A-Za-z0-9\-',\s]*$/;
 
 const idDocumentDetailsValidator = (): ValidationChain[] => {
     const documentDetailsValidatorErrors: ValidationChain[] = [];
@@ -105,7 +105,7 @@ export const validDataChecker = (day: string, month: string, year: string, docSe
     return true;
 };
 
-export const validateAgainstWhenIdDocsChecked = (day: number, month: number, year: number, docSequence:number, req: Session): void => {
+export const validateAgainstWhenIdDocsChecked = (day: number, month: number, year: number, docSequence: number, req: Session): void => {
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
     const whenIdDocsChecked: Date = new Date(clientData.whenIdentityChecksCompleted!);
     const expiryDate = new Date(year, month - 1, day);

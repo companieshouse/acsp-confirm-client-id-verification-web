@@ -3,7 +3,7 @@
     "confirmEmailSummaryListEmail": "e-bost",
     "confirmEmailSummaryListChange": "Newid",
     "confirmEmailWarningText": "Ni fyddant yn derbyn eu cod personol os yw hyn yn anghywir.",
-    "confirmEmailCheckboxText": "Rwy'n cadarnhau fy mod wedi rhoi'r dyddiad geni cywir ar gyfer {NAME}.",
+    "confirmEmailCheckboxText": "Rwy'n cadarnhau fy mod wedi rhoi'r cyfeiriad e-bost cywir ar gyfer {NAME}.",
     "confirmEmailContinue": "Cadarnhau a pharhau",
 
     "error-unconfirmedEmail": "Dewiswch i cadarnhau'r cyfeiriad e-bost"

@@ -12,7 +12,7 @@ export type FormattedValidationErrors = {
     }[],
   };
 
-export function formatValidationError (validationErrors: ValidationError[], lang?: string, errorMessageAlreadyResolved? : boolean | false): FormattedValidationErrors {
+export function formatValidationError (validationErrors: ValidationError[], lang?: string, errorMessageAlreadyResolved?: boolean | false): FormattedValidationErrors {
     const errors = { errorList: [] } as any;
     validationErrors.forEach(validationResult => {
         let errorMessage = validationResult.msg;
