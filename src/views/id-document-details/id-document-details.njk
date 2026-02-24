@@ -51,8 +51,16 @@
       {% set countryList = countryList %}
       {% set errors = errors %}
       {% set payload = payload %}
+      {% if countryOfIssueOptionalDocs.includes(body) %}
+        {% set countryLabelText = i18n.chooseCountryText + " " + i18n.optional %}
+      {% else %}
+        {% set countryLabelText = i18n.chooseCountryText %}
+      {% endif %}
       {% set index = index %}
-      {% include "partials/country-typeahead-input.njk" %}
+      <div id="typeahead-form-group-{{index}}" class="govuk-form-group
+          {% if errors["countryInput_" + index] %} govuk-form-group--error{% endif %}">
+        {% include "partials/country-typeahead-input.njk" %}
+      </div>
   
     {% endfor %}
 

@@ -6,9 +6,7 @@
     "ExpiryDate": "Expiry Date",
     "ExpiryDateHint": "For example, 27 3 2035.",
     "chooseCountryText": "Country of issue",
-    "chooseCountryHint":"This is usually shown on the first page of the document.",
-    "typeaheadCountryHint": "Start typing a country, then choose from the list.",
-    "typeaheadNoJsCountryHint": "Choose a country from the list.",
+    "enterCountryHint": "Start typing a country, then choose from the list.",
 
     "biometricPassportHint": "This is 9 characters long. It is usually shown in the top right hand corner of the photo page in the passport.",
     "irishPassportHint": "This is 9 characters long. It is usually shown on the front of the card in the top, right hand corner.",

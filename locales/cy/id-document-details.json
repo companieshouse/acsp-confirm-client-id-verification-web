@@ -6,9 +6,7 @@
     "ExpiryDate": "Dyddiad dod i ben",
     "ExpiryDateHint": "Er enghraifft, 27 3 2035.",
     "chooseCountryText": "Gwlad a gyhoeddwyd",
-    "chooseCountryText1": "Dewiswch wlad",
-    "chooseCountryHint": "Fel arfer, dangosir hyn ar dudalen gyntaf y ddogfen.",
-    "typeaheadCountryHint": "Dechreuwch deipio gwlad, yna dewiswch o'r rhestr.",
+    "enterCountryHint": "Dechreuwch deipio gwlad, yna dewiswch o'r rhestr.",
 
     "biometricPassportHint": "Mae hwn yn 9 nod o hyd. Fe'i dangosir fel arfer yng nghornel dde uchaf y dudalen gyda llun yn y pasbort.",
     "irishPassportHint": "Mae hyn yn 9 nod o hyd. Fe'i dangosir fel arfer ar flaen y cerdyn yn y gornel dde uchaf.",
