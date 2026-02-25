@@ -199,7 +199,7 @@ describe("errorListDisplay for PRADO", () => {
             ["Photographic ID listed on PRADO"],
             new Date(2025, 2, 28),
             CRYPTOGRAPHIC_SECURITY_FEATURES,
-            1 // TODO: get Analyst confirmation on whether country is an optional field for Photographic ID listed on PRADO; all fields being optional allows no details to be entered for this document which may not be intended
+            0
         ],
         [
             [{ msg: "docNumberInput", param: "documentNumber_1" }],

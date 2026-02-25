@@ -70,7 +70,7 @@ const getErrorForSpecificDocs = (docName: string, errorMessage: string, errorTex
     }
 
     const optionalExpiryDateDocs = [i18n.UK_PASS_card, i18n.UK_HM_veteran_card, i18n.PRADO_supported_photo_id, i18n.work_permit_photo_id];
-    const optionalCountryOfIssueDocs = [i18n.UK_or_EU_digital_tachograph_card];
+    const optionalCountryOfIssueDocs = [i18n.UK_or_EU_digital_tachograph_card, i18n.PRADO_supported_photo_id];
     const optionalNumberDocs = [i18n.PRADO_supported_photo_id, i18n.work_permit_photo_id];
 
     if ((optionalExpiryDateDocs.includes(docName) && errorText === "noExpiryDate") ||
