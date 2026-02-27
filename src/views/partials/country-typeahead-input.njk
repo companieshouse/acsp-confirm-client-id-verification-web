@@ -1,10 +1,10 @@
-<div id="my-autocomplete-container-{{index}}" class="govuk-form-group {% if errors['countryInput_' + index] %} govuk-form-group--error{% endif %} govuk-!-margin-bottom-9">
-  <label for="countryInput_{{index}}" class="govuk-label">{{countryLabelText}}</label>
-  <div id="country-hint-{{index}}" class="govuk-hint">{{i18n.enterCountryHint}}</div>
-<!-- Javascript disabled -->
+<label for="countryInput_{{index}}" class="govuk-label">{{countryLabelText}}</label>
+<div id="country-hint-{{index}}" class="govuk-hint">{{i18n.enterCountryHint}}</div>
+  <!-- Javascript disabled -->
   <noscript>
     {% include "./country-typeahead-noscript-input.njk" %}
   </noscript>
+<div id="my-autocomplete-container-{{index}}" class="govuk-form-group {% if errors['countryInput_' + index] %} govuk-form-group--error{% endif %} govuk-!-margin-bottom-9">
 </div>
 
 <script type="text/javascript" src="{{cdnHost}}/javascripts/app/accessible-autocomplete.min.js"></script>
