@@ -19,12 +19,11 @@
     "error-invalidAddressLine2": "Address line 2 must only include letters a to z, numbers and common special characters",
     "error-invalidAddressTown": "City or town must only include letters a to z and common special characters such as hyphens, spaces and apostrophes",
     "error-invalidAddressCounty": "County, state, province or region must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes",
-    "error-invalidAddressCountry": "Country must only include letters a to z, and common special characters such as hyphens, spaces and apostrophes",
+    "error-invalidAddressCountry": "Select a real country",
     "error-invalidPropertyDetailsLength": "Property name or number must be 200 characters or less",
     "error-invalidAddressLine1Length": "Address line 1 must be 50 characters or less",
     "error-invalidAddressLine2Length": "Address line 2 must be 50 characters or less",
     "error-invalidAddressTownLength": "City or town must be 50 characters or less",
     "error-invalidAddressCountyLength": "County, state, province or region must be 50 characters or less",
-    "error-invalidAddressCountryLength": "Country must be 50 characters or less",
     "error-invalidPostcodeLength": "Postcode or ZIP must be 20 characters or less"
 }
