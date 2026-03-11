@@ -121,11 +121,11 @@ export class FormatService {
         howIdentityDocsChecked: string | undefined,
         i18n: any
     ): string[] {
-        var formattedDocuments:string[] = [];
+        const formattedDocuments: string[] = [];
         if (!documents || documents.length === 0) {
             return formattedDocuments;
         }
-        let documentMapping:{ [key: string]: string };
+        let documentMapping: { [key: string]: string };
         if (howIdentityDocsChecked === CRYPTOGRAPHIC_SECURITY_FEATURES) {
             // option1
             documentMapping = {
@@ -180,7 +180,7 @@ export class FormatService {
         if (!documents || documents.length === 0) {
             return documentHintText;
         }
-        let hintMapping:{ [key: string]: string };
+        let hintMapping: { [key: string]: string };
         if (howIdentityDocsChecked === CRYPTOGRAPHIC_SECURITY_FEATURES) {
             // option1
             hintMapping = {

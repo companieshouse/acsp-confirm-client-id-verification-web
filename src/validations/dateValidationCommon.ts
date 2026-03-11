@@ -64,7 +64,7 @@ export const validDataChecker = (day: string, month: string, year: string, type:
 
 const validateWiccAgainstDob = (day: number, month: number, year: number, req: Session): void => {
     const clientData: ClientData = req?.getExtraData(USER_DATA)!;
-    const dob:Date = new Date(clientData.dateOfBirth!);
+    const dob: Date = new Date(clientData.dateOfBirth!);
     const wicc = new Date(year, month - 1, day);
 
     if (wicc <= dob) {

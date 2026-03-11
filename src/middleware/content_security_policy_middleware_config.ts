@@ -6,7 +6,7 @@ const ONE_YEAR_SECONDS = 31536000;
 // Design System hash value from: https://frontend.design-system.service.gov.uk/import-javascript/#if-our-inline-javascript-snippet-is-blocked-by-a-content-security-policy
 const DS_SCRIPT_HASH = `'sha256-GUQ5ad8JK5KmEWmROf3LZd9ge94daqNvd8xy9YS1iDw='`;
 
-export const prepareCSPConfig = (nonce: string) : HelmetOptions => {
+export const prepareCSPConfig = (nonce: string): HelmetOptions => {
     const NONCE = `'nonce-${nonce}'`;
     return {
         contentSecurityPolicy: {
@@ -33,7 +33,7 @@ export const prepareCSPConfig = (nonce: string) : HelmetOptions => {
     };
 };
 
-export const prepareCSPConfigHomePage = (nonce: string) : HelmetOptions => {
+export const prepareCSPConfigHomePage = (nonce: string): HelmetOptions => {
     const NONCE = `'nonce-${nonce}'`;
     return {
         contentSecurityPolicy: {

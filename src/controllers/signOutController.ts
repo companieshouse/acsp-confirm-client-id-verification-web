@@ -31,7 +31,7 @@ export const post = (req: Request, res: Response, next: NextFunction) => {
         const lang = selectLang(req.query.lang);
         const locales = getLocalesService();
         const session: Session = req.session as any as Session;
-        const previousPageUrl : string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
+        const previousPageUrl: string = session?.getExtraData(PREVIOUS_PAGE_URL)!;
         const errorList = validationResult(req);
         logger.info(previousPageUrl);
         if (!errorList.isEmpty()) {

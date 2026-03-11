@@ -1,4 +1,3 @@
-/* eslint-disable import/first */
 jest.mock("../../../src/services/apiService");
 jest.mock("@companieshouse/api-sdk-node");
 jest.mock("../../../src/utils/logger");

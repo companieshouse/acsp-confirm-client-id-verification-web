@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import { NextFunction, Request, Response } from "express";
 import * as config from "../../config";
 import {
