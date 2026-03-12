@@ -1,0 +1,38 @@
+<label for="addressCountry" class="govuk-label">{{i18n.addressCountry}}</label>
+<div id="country-hint" class="govuk-hint">{{i18n.enterCountryHint}}</div>
+  <!-- Javascript disabled -->
+  <noscript>
+    {% include "./addr-country-typeahead-noscript-input.njk" %}
+  </noscript>
+<div id="my-autocomplete-container" class="govuk-form-group {% if errors['addressCountry'] %} govuk-form-group--error{% endif %}">
+</div>
+
+<script type="text/javascript" src="{{cdnHost}}/javascripts/app/accessible-autocomplete.min.js"></script>
+<script type="text/javascript" nonce={{ nonce | dump | safe }}>
+(function() {
+  var container = document.getElementById('my-autocomplete-container');
+  var countryList = "{{countryList}}";
+  var error = "{% if errors['addressCountry'] %}{{errors['addressCountry'].text}}{% else %}{% endif %}";
+  var countryDefaultValue = "{{payload['addressCountry']}}";
+  
+  accessibleAutocomplete({
+    element: document.getElementById('my-autocomplete-container'),
+    id: 'addressCountry',
+    name: 'addressCountry',
+    defaultValue: countryDefaultValue,
+    source: countryList.split(";"),
+    autoselect: true,
+    displayMenu: 'overlay',
+    minLength: 1
+  });
+
+  if (error) {
+    container.className += " govuk-form-group--error";
+    var errorHtml = '<p class="govuk-error-message"> <span class="govuk-visually-hidden">Error:</span> ' + error + '</p>';
+    var element = document.getElementById("country-hint");
+    element.insertAdjacentHTML("afterend", errorHtml);
+    var input = document.getElementById('addressCountry');
+    input.className += " govuk-input--error";
+  }
+})();
+</script>

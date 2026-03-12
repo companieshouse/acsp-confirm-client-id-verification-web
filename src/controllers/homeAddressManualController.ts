@@ -1,6 +1,7 @@
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../config";
 import { NextFunction, Request, Response } from "express";
+import countryList from "../lib/countryList";
 import { BASE_URL, CONFIRM_HOME_ADDRESS, HOME_ADDRESS, HOME_ADDRESS_MANUAL } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { ClientData } from "../model/ClientData";
@@ -27,6 +28,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             currentUrl,
             firstName: clientData?.firstName,
             lastName: clientData?.lastName,
+            countryList: countryList,
             payload
         });
     } catch (error) {
@@ -53,7 +55,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 currentUrl,
                 payload: req.body,
                 firstName: clientData?.firstName,
-                lastName: clientData?.lastName
+                lastName: clientData?.lastName,
+                countryList: countryList
             });
         } else {
             const addressManualService = new AddressManualService();

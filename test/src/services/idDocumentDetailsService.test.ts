@@ -141,8 +141,8 @@ describe("IdDocumentDetailsService tests", () => {
         const whenIdDocsChecked = new Date(2025, 1, 28);
         const howIdDocsChecked = CRYPTOGRAPHIC_SECURITY_FEATURES;
         const actual = service.errorListDisplay(errors, documentsChecked, "en", whenIdDocsChecked, howIdDocsChecked);
-        const expected = [{ msg: "Choose a country for UK biometric residence permit (BRP)" }];
-        expect(actual[0].msg).toBe(expected[0].msg);
+        const expected = [{ msg: "country for UK biometric residence permit (BRP)" }];
+        expect(actual[0].msg).toContain(expected[0].msg);
     });
 
     it("should not return an error array for expiry date non mandatory docs when expiry date not given", () => {

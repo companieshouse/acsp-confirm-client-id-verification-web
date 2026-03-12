@@ -15,12 +15,12 @@
       label: {
         html: dropdownTitle
       },
-      id: "countryInput_" +  index,
-      name: "countryInput_" +  index,
+      id: "addressCountry",
+      name: "addressCountry",
       value: dropdownValue,
       errorMessage: {
-               text: errors["countryInput_" + index].text
-      }if errors["countryInput_" + index],
+               text: errors["addressCountry"].text
+      }if errors["addressCountry"],
       items: DROPDOWN
     }) }}
 

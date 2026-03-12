@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../../config";
+import countryList from "../../lib/countryList";
 import { ClientData } from "../../model/ClientData";
 import { AddressManualService } from "../../services/addressManualService";
 import { USER_DATA } from "../../utils/constants";
@@ -27,6 +28,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             currentUrl,
             firstName: clientData?.firstName,
             lastName: clientData?.lastName,
+            countryList: countryList,
             payload,
             previousPage
         });
@@ -54,6 +56,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 currentUrl,
                 firstName: clientData?.firstName,
                 lastName: clientData?.lastName,
+                countryList: countryList,
                 payload: req.body,
                 previousPage
             });

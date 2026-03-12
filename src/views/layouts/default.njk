@@ -20,8 +20,8 @@
 {% block pageTitle %}{{ tabTitle }}{% endblock %}
 
 {% block head %}
-  {{ super() }}
   {% include "partials/__meta_header.njk" %}
+  {{ super() }}
 {% endblock %}
 
 {% block skipLink %}
