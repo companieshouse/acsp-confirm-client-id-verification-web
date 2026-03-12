@@ -53,7 +53,6 @@
     "nunjucks": "^3.2.4",
     "private-api-sdk-node": "github:companieshouse/private-api-sdk-node#1.0.114",
     "tslib": "^2.8.1",
-    "uuid": "^11.1.0",
     "yargs": "15.4.1"
   },
   "devDependencies": {
