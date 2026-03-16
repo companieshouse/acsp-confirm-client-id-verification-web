@@ -48,7 +48,7 @@
       {% include "partials/date.njk" %}
 
       <!--Country of issue Input-->
-      {% set countryList = countryList %}
+      {% set validCountryArray = validCountryArray %}
       {% set errors = errors %}
       {% set payload = payload %}
       {% if countryOfIssueOptionalDocs.includes(body) %}

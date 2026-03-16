@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 import { EXCLUDED_CHARS, LETTERS, NUMBERS, PUNCTUATION, SYMBOLS, WHITESPACE } from "./regexParts";
-import countryList from "../lib/countryList";
+import { validCountrySet } from "../lib/countryList";
 
 const extendedOtherAddressDetailsPattern = `^(?!.*[${EXCLUDED_CHARS}])[${LETTERS}${NUMBERS}${PUNCTUATION}${SYMBOLS}${WHITESPACE}]*$`;
 const extendedOtherAddressDetailsFormat: RegExp = new RegExp(extendedOtherAddressDetailsPattern, "u");
@@ -30,12 +30,10 @@ export const manualAddressValidator = [
         .isLength({ max: 50 }).withMessage("invalidAddressCountyLength"),
 
     body("addressCountry")
-        .if(body("addressCountry").exists()).trim().notEmpty().withMessage("countryIsMissing")
+        .trim().notEmpty().withMessage("countryIsMissing")
         .bail()
         .custom((value) => {
-            // countryList is a string of countries separated by ';'
-            const validCountries = countryList.split(";").map(c => c.trim());
-            if (!validCountries.includes(value)) {
+            if (!validCountrySet.has(value)) {
                 throw new Error("invalidAddressCountry");
             }
             return true;

@@ -2,13 +2,13 @@ import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../../config";
-import countryList from "../../lib/countryList";
 import { ClientData } from "../../model/ClientData";
 import { AddressManualService } from "../../services/addressManualService";
 import { USER_DATA } from "../../utils/constants";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
 import { REVERIFY_BASE_URL, REVERIFY_CONFIRM_HOME_ADDRESS, REVERIFY_HOME_ADDRESS_MANUAL, REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS } from "../../types/pageURL";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
+import { validCountryArray, validCountrySet } from "../../lib/countryList";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -28,7 +28,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             currentUrl,
             firstName: clientData?.firstName,
             lastName: clientData?.lastName,
-            countryList: countryList,
+            validCountryArray,
             payload,
             previousPage
         });
@@ -56,7 +56,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 currentUrl,
                 firstName: clientData?.firstName,
                 lastName: clientData?.lastName,
-                countryList: countryList,
+                validCountryArray,
                 payload: req.body,
                 previousPage
             });

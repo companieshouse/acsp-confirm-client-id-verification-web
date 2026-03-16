@@ -11,7 +11,7 @@
 <script type="text/javascript" nonce={{ nonce | dump | safe }}>
 (function() {
   var container = document.getElementById('my-autocomplete-container');
-  var countryList = "{{countryList}}";
+  var validCountryArray = {{validCountryArray | dump | safe}};
   var error = "{% if errors['addressCountry'] %}{{errors['addressCountry'].text}}{% else %}{% endif %}";
   var countryDefaultValue = "{{payload['addressCountry']}}";
   
@@ -20,7 +20,7 @@
     id: 'addressCountry',
     name: 'addressCountry',
     defaultValue: countryDefaultValue,
-    source: countryList.split(";"),
+    source: validCountryArray,
     autoselect: true,
     displayMenu: 'overlay',
     minLength: 1

@@ -22,7 +22,6 @@ import { getLocalesService, selectLang } from "./utils/localise";
 import { ErrorService } from "./services/errorService";
 import { acspAuthMiddleware } from "./middleware/acsp_authentication_middleware";
 import helmet from "helmet";
-import { v4 as uuidv4 } from "uuid";
 import nocache from "nocache";
 import { prepareCSPConfig, prepareCSPConfigHomePage } from "./middleware/content_security_policy_middleware_config";
 import { csrfProtectionMiddleware } from "./middleware/csrf_protection_middleware";

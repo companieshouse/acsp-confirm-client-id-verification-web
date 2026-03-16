@@ -3,7 +3,7 @@
       { value: '', text: dropdownDefaultText }
     ] %}
 
-    {% set dropdownArray = countryList.split(";") %}
+    {% set dropdownArray = validCountryArray %}
 
     {% for i in dropdownArray %}
       {% set dropdownObject = { value: i, text: i, selected: dropdownValue === i } %}

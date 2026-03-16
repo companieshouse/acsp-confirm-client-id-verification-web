@@ -2,7 +2,7 @@ import { body, ValidationChain } from "express-validator";
 import { ClientData } from "../model/ClientData";
 import { Session } from "@companieshouse/node-session-handler";
 import { CRYPTOGRAPHIC_SECURITY_FEATURES, OPTION_1_ID_DOCUMENTS_WITH_GRACED_EXPIRY, OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY, PHYSICAL_SECURITY_FEATURES, USER_DATA } from "../utils/constants";
-import countryList from "../lib/countryList";
+import { validCountrySet } from "../lib/countryList";
 
 const documentNumberFormat: RegExp = /^[A-Za-z0-9\-',\s]*$/;
 
@@ -48,9 +48,7 @@ const idDocumentDetailsValidator = (): ValidationChain[] => {
                     .if(body(`countryInput_${i}`).exists()).trim().notEmpty().withMessage("noCountry")
                     .bail()
                     .custom((value) => {
-                        // countryList is a string of countries separated by ';'
-                        const validCountries = countryList.split(";").map(c => c.trim());
-                        if (!validCountries.includes(value)) {
+                        if (!validCountrySet.has(value.trim())) {
                             throw new Error("invalidCountry");
                         }
                         return true;

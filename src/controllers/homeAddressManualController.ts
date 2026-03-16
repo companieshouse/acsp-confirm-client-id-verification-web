@@ -1,7 +1,6 @@
 import { Session } from "@companieshouse/node-session-handler";
 import * as config from "../config";
 import { NextFunction, Request, Response } from "express";
-import countryList from "../lib/countryList";
 import { BASE_URL, CONFIRM_HOME_ADDRESS, HOME_ADDRESS, HOME_ADDRESS_MANUAL } from "../types/pageURL";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../utils/localise";
 import { ClientData } from "../model/ClientData";
@@ -9,6 +8,7 @@ import { USER_DATA } from "../utils/constants";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { AddressManualService } from "../services/addressManualService";
+import { validCountryArray } from "../lib/countryList";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -28,7 +28,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             currentUrl,
             firstName: clientData?.firstName,
             lastName: clientData?.lastName,
-            countryList: countryList,
+            validCountryArray,
             payload
         });
     } catch (error) {
@@ -56,7 +56,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 payload: req.body,
                 firstName: clientData?.firstName,
                 lastName: clientData?.lastName,
-                countryList: countryList
+                validCountryArray
             });
         } else {
             const addressManualService = new AddressManualService();

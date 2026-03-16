@@ -1,6 +1,6 @@
 import { Session } from "@companieshouse/node-session-handler";
 import { NextFunction, Request, Response } from "express";
-import countryList from "../lib/countryList";
+import { validCountryArray } from "../lib/countryList";
 import * as config from "../config";
 import { BASE_URL, CHECK_YOUR_ANSWERS, CONFIRM_IDENTITY_VERIFICATION, ID_DOCUMENT_DETAILS, WHICH_IDENTITY_DOCS_CHECKED_GROUP1, WHICH_IDENTITY_DOCS_CHECKED_GROUP2 } from "../types/pageURL";
 import { ClientData } from "../model/ClientData";
@@ -40,7 +40,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             currentUrl: BASE_URL + ID_DOCUMENT_DETAILS,
             documentsChecked: formattedDocumentsChecked,
             hintText: formattedHintText,
-            countryList: countryList,
+            validCountryArray,
             payload
         });
     } catch (error) {
@@ -78,7 +78,7 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 currentUrl,
                 documentsChecked: formattedDocumentsChecked,
                 hintText: formattedHintText,
-                countryList: countryList
+                validCountryArray
             });
         } else {
             documentDetailsService.saveIdDocumentDetails(req, clientData, clientData.documentsChecked!);
