@@ -19,7 +19,7 @@
     "error-invalidAddressLine2": "[CY] Address line 2 must only include letters a to z, numbers and common special characters",
     "error-invalidAddressTown": "Rhaid i’r ddinas neu’r dref gynnwys llythrennau a i z a nodau arbennig cyffredin fel cysylltnodau, bylchau a chollnodau yn unig",
     "error-invalidAddressCounty": "Rhaid i’r sir, gwladwriaeth, talaith neu ranbarth gynnwys llythrennau a i z a nodau arbennig cyffredin fel cysylltnodau, bylchau a chollnodau yn unig",
-    "error-invalidAddressCountry": "Dewiswch wlad go iawn",
+    "error-invalidAddressCountry": "Dewiswch genedligrwydd o’r rhestr",
     "error-invalidPropertyDetailsLength": "Rhaid i enw neu rif eiddo fod yn 200 nod neu lai",
     "error-invalidAddressLine1Length": "Rhaid i linell cyfeiriad 1 fod yn 50 nod neu lai",
     "error-invalidAddressLine2Length": "Rhaid i linell cyfeirad 2 fod yn 50 nod neu lai",
