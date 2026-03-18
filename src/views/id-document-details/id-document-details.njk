@@ -15,6 +15,7 @@
     <h1 class="govuk-heading-l">
       {{ i18n.idDocumentDetailstitle }}
     </h1>
+    {% include "partials/accessible-autocomplete-lib.njk" %}
     {% for body in documentsChecked %}
       {% set index = loop.index %}
       <h2 class="govuk-heading-m">

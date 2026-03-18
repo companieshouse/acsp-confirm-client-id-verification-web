@@ -9,6 +9,7 @@
   <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
     {% include "partials/csrf_token.njk" %}
     {% include "partials/user_name.njk" %}
+    {% include "partials/accessible-autocomplete-lib.njk" %}
     {{ govukFieldset({
             legend: {
             text: i18n.homeAddressManualTitle,

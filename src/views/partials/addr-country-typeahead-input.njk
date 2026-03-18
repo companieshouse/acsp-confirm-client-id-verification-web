@@ -7,7 +7,6 @@
 <div id="my-autocomplete-container" class="govuk-form-group {% if errors['addressCountry'] %} govuk-form-group--error{% endif %}">
 </div>
 
-<script type="text/javascript" src="{{cdnHost}}/javascripts/app/accessible-autocomplete.min.js"></script>
 <script type="text/javascript" nonce={{ nonce | dump | safe }}>
 (function() {
   var container = document.getElementById('my-autocomplete-container');
