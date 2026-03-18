@@ -8,7 +8,7 @@ import { USER_DATA } from "../../utils/constants";
 import { addLangToUrl, getLocaleInfo, getLocalesService, selectLang } from "../../utils/localise";
 import { REVERIFY_BASE_URL, REVERIFY_CONFIRM_HOME_ADDRESS, REVERIFY_HOME_ADDRESS_MANUAL, REVERIFY_WHAT_IS_THEIR_HOME_ADDRESS } from "../../types/pageURL";
 import { formatValidationError, getPageProperties } from "../../validations/validation";
-import { validCountryArray, validCountrySet } from "../../lib/countryList";
+import { validCountryArray } from "../../lib/countryList";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
