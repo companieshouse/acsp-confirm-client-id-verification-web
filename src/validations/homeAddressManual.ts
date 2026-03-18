@@ -33,7 +33,7 @@ export const manualAddressValidator = [
         .trim().notEmpty().withMessage("countryIsMissing")
         .bail()
         .custom((value) => {
-            if (!validCountrySet.has(value)) {
+            if (!validCountrySet.has(value.trim())) {
                 throw new Error("invalidAddressCountry");
             }
             return true;
