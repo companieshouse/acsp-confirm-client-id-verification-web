@@ -30,7 +30,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@companieshouse/api-sdk-node": "^2.0.328",
+    "@companieshouse/api-sdk-node": "^2.0.329",
     "@companieshouse/ch-node-utils": "^2.1.13",
     "@companieshouse/node-session-handler": "5.2.10",
     "@companieshouse/structured-logging-node": "^2.0.9",
@@ -69,7 +69,7 @@
     "@types/node": "^25.5.0",
     "@types/nunjucks": "3.2.6",
     "@types/supertest": "^2.0.16",
-    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
     "cheerio": "^1.2.0",
     "eslint": "10.0.3",
     "globals": "^17.4.0",
