@@ -84,7 +84,7 @@
     {% set dropdownDefaultText = payload['addressCountry'] if payload['addressCountry'] else i18n.addressCountry %}
     <div id="typeahead-form-group" class="govuk-form-group
         {% if errors["addressCountry"] %} govuk-form-group--error{% endif %}">
-      {% include "../partials/addr-country-typeahead-input.njk" %}
+      {% include "partials/addr-country-typeahead-input.njk" %}
     </div>
   
     {{ govukInput({

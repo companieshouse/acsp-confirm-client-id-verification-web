@@ -12,8 +12,8 @@
   var container = document.getElementById('my-autocomplete-container');
   var validCountryArray = {{validCountryArray | dump | safe}};
   var error = "{% if errors['addressCountry'] %}{{errors['addressCountry'].text}}{% else %}{% endif %}";
-  var countryDefaultValue = {{payload['addressCountry'] | dump | safe}};
-  
+  var countryDefaultValue = {{payload['addressCountry'] or '' | dump | safe}};
+
   accessibleAutocomplete({
     element: document.getElementById('my-autocomplete-container'),
     id: 'addressCountry',
