@@ -12,8 +12,7 @@
   var container = document.getElementById('my-autocomplete-container-{{index}}');
     var validCountryArray = {{validCountryArray | dump | safe}};
   var error = "{% if errors['countryInput_' + index] %}{{errors['countryInput_' + index].text}}{% else %}{% endif %}";
-  {# var countryDefaultValue = "{{payload['countryInput_' + index]}}"; #}
-  var countryDefaultValue = {{payload['countryInput_' + index] or '' | dump | safe}};
+  var countryDefaultValue = "{{payload['countryInput_' + index]}}";
   var index = "{{index}}";
   
   accessibleAutocomplete({
