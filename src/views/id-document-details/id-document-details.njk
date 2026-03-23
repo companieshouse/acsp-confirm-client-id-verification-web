@@ -58,6 +58,7 @@
         {% set countryLabelText = i18n.chooseCountryText %}
       {% endif %}
       {% set index = index %}
+      {% set dropdownValue = payload['countryInput_' + index] if payload['countryInput_' + index] else '' %}
       <div id="typeahead-form-group-{{index}}" class="govuk-form-group
           {% if errors["countryInput_" + index] %} govuk-form-group--error{% endif %}">
         {% include "partials/country-typeahead-input.njk" %}
