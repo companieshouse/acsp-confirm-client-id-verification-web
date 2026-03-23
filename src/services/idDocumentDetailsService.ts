@@ -68,12 +68,12 @@ const getErrorForSpecificDocs = (docName: string, errorMessage: string, errorTex
     } else if (typeOfTheDocumentCheck === PHYSICAL_SECURITY_FEATURES) {
         documentsWithGracedExpiryMap = new Map(Object.entries(OPTION_2_ID_DOCUMENTS_WITH_GRACED_EXPIRY));
     }
+
     if (((docName === i18n.UK_PASS_card || docName === i18n.UK_HM_veteran_card) && errorText === "noExpiryDate") ||
         ((docName === i18n.PRADO_supported_photo_id || docName === i18n.work_permit_photo_id) &&
          (errorText === "noExpiryDate" || errorText === "noCountry" || errorText === "docNumberInput")) ||
         (docName === i18n.UK_or_EU_digital_tachograph_card && errorText === "noCountry")) {
         return "";
-    // replace date placeholder with formatted date if error is about invalid expirydate
     } else if (errorText === "dateAfterIdChecksDone" ||
         documentsWithGracedExpiryMap.has(errorText)) {
         const idChecksCompletedDate = FormatService.formatDateForLocale(whenIdDocsChecked, lang);

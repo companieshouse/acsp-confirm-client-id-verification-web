@@ -22,7 +22,6 @@ import { getLocalesService, selectLang } from "./utils/localise";
 import { ErrorService } from "./services/errorService";
 import { acspAuthMiddleware } from "./middleware/acsp_authentication_middleware";
 import helmet from "helmet";
-import { v4 as uuidv4 } from "uuid";
 import nocache from "nocache";
 import { prepareCSPConfig, prepareCSPConfigHomePage } from "./middleware/content_security_policy_middleware_config";
 import { csrfProtectionMiddleware } from "./middleware/csrf_protection_middleware";
@@ -31,9 +30,10 @@ import { acspIsActiveMiddleware } from "./middleware/acsp_is_active_middleware";
 import { userIsPartOfAcspMiddleware } from "./middleware/user_is_part_of_acsp_middleware";
 import { verifyVariablesMiddleware } from "./middleware/verify_variables_middleware";
 import { reverifyVariablesMiddleware } from "./middleware/reverify-someones-identity/reverify_variables_middleware";
+import crypto from "crypto";
 const app = express();
 
-const nonce: string = uuidv4();
+const nonce: string = crypto.randomUUID();
 
 const nunjucksEnv = nunjucks.configure([path.join(__dirname, "views"),
     path.join(__dirname, "/../node_modules/govuk-frontend/dist"),

@@ -8,7 +8,8 @@
 {% block main_content %}
   <form action="{{ currentUrl }}?lang={{ lang }}" method="POST">
     {% include "partials/csrf_token.njk" %}
-    {% include "partials/user_name.njk" %} 
+    {% include "partials/user_name.njk" %}
+    {% include "partials/accessible-autocomplete-lib.njk" %}
     {{ govukFieldset({
             legend: {
             text: i18n.homeAddressManualTitle,
@@ -76,18 +77,16 @@
             text: errors["addressCounty"].text
             } if errors.addressCounty
         }) }}
-    {{ govukInput({
-            label: {
-            text: i18n.addressCountry
-            },
-            classes: "govuk-!-width-two-thirds",
-            id: "addressCountry",
-            name: "addressCountry",
-            value: payload["addressCountry"],
-            errorMessage: {
-            text: errors["addressCountry"].text
-            } if errors.addressCountry
-        }) }}
+
+    {% set validCountryArray = validCountryArray %}
+    {% set errors = errors %}
+    {% set payload = payload %}
+    {% set dropdownValue = payload['addressCountry'] if payload['addressCountry'] else '' %}
+    <div id="typeahead-form-group" class="govuk-form-group
+        {% if errors["addressCountry"] %} govuk-form-group--error{% endif %}">
+      {% include "partials/addr-country-typeahead-input.njk" %}
+    </div>
+  
     {{ govukInput({
             label: {
             text: i18n.addressPostcode
@@ -100,11 +99,10 @@
             text: errors["addressPostcode"].text
             } if errors.addressPostcode
         }) }}
-       {{ govukButton({
+    {{ govukButton({
             text: i18n.Continue,
             id: "continue-button"
         }) }}
   </form>
-  
 
 {% endblock main_content %}

@@ -8,6 +8,7 @@ import { USER_DATA } from "../utils/constants";
 import { validationResult } from "express-validator";
 import { formatValidationError, getPageProperties } from "../validations/validation";
 import { AddressManualService } from "../services/addressManualService";
+import { validCountryArray } from "../lib/countryList";
 
 export const get = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -27,6 +28,7 @@ export const get = async (req: Request, res: Response, next: NextFunction) => {
             currentUrl,
             firstName: clientData?.firstName,
             lastName: clientData?.lastName,
+            validCountryArray,
             payload
         });
     } catch (error) {
@@ -53,7 +55,8 @@ export const post = async (req: Request, res: Response, next: NextFunction) => {
                 currentUrl,
                 payload: req.body,
                 firstName: clientData?.firstName,
-                lastName: clientData?.lastName
+                lastName: clientData?.lastName,
+                validCountryArray
             });
         } else {
             const addressManualService = new AddressManualService();

@@ -1,19 +1,11 @@
-<head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta charset="utf-8"/>
-
-    <title>{{ tabTitle }}</title>
-    <link rel="stylesheet" href="{{cdnHost}}/stylesheets/accessible-autocomplete/autocomplete.min.css" />
-    <link href="{{cdnHost}}/stylesheets/extensions/languages-nav.css" rel="stylesheet"/>
-     <link href="{{ cdnHost }}/stylesheets/ch.gov.uk.css" rel="stylesheet"/>
-    <link href="{{ cdnHost }}/images/favicon.ico" rel="icon" type="image/x-icon"/>
-    {% include "partials/__styles.njk" %}
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <meta name="format-detection" content="telephone=no">
-    {# Set the page object to hold values exported from server to JS files #}
-    <script nonce={{ nonce | dump | safe }}>
-        var page = page || {};
-    </script>
-    <!-- Matomo script to run function trackEventBasedOnPageTitle on each page -->
-    {% include "partials/piwik.njk" %}
-</head>
+<link rel="stylesheet" href="{{cdnHost}}/stylesheets/accessible-autocomplete/autocomplete.min.css"/>
+<link href="{{cdnHost}}/stylesheets/extensions/languages-nav.css" rel="stylesheet"/>
+<link href="{{ cdnHost }}/stylesheets/ch.gov.uk.css" rel="stylesheet"/>
+{% include "partials/__styles.njk" %}
+<meta name="format-detection" content="telephone=no">
+{# Set the page object to hold values exported from server to JS files #}
+<script nonce={{ nonce | dump | safe }}>
+  var page = page || {};
+</script>
+<!-- Matomo script to run function trackEventBasedOnPageTitle on each page -->
+{% include "partials/piwik.njk" %}

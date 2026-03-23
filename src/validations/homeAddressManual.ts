@@ -1,5 +1,6 @@
 import { body } from "express-validator";
 import { EXCLUDED_CHARS, LETTERS, NUMBERS, PUNCTUATION, SYMBOLS, WHITESPACE } from "./regexParts";
+import { validCountrySet } from "../lib/countryList";
 
 const extendedOtherAddressDetailsPattern = `^(?!.*[${EXCLUDED_CHARS}])[${LETTERS}${NUMBERS}${PUNCTUATION}${SYMBOLS}${WHITESPACE}]*$`;
 const extendedOtherAddressDetailsFormat: RegExp = new RegExp(extendedOtherAddressDetailsPattern, "u");
@@ -28,9 +29,15 @@ export const manualAddressValidator = [
     body("addressCounty").trim().matches(addressCountyAndCountryFormat).withMessage("invalidAddressCounty").bail()
         .isLength({ max: 50 }).withMessage("invalidAddressCountyLength"),
 
-    body("addressCountry").trim().notEmpty().withMessage("countryIsMissing").bail()
-        .matches(addressCountyAndCountryFormat).withMessage("invalidAddressCountry").bail()
-        .isLength({ max: 50 }).withMessage("invalidAddressCountryLength"),
+    body("addressCountry")
+        .trim().notEmpty().withMessage("countryIsMissing")
+        .bail()
+        .custom((value) => {
+            if (!validCountrySet.has(value.trim())) {
+                throw new Error("invalidAddressCountry");
+            }
+            return true;
+        }),
 
     body("addressPostcode").trim().notEmpty().withMessage("noPostCode").bail()
         .isLength({ max: 20 }).withMessage("invalidPostcodeLength")
