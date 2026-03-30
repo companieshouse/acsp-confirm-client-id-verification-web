@@ -44,6 +44,6 @@
     "error-irish_passport_card" : "Expiry date for {doc selected} cannot be more than { graced period } months before {id checks completed} when the identity checks were completed",
     "error-passport" : "Expiry date for {doc selected} cannot be more than { graced period } months before {id checks completed} when the identity checks were completed",
     "error-noCountry" : "Enter the country for {doc selected}",
-    "error-invalidCountry" : "Select a nationality from the list for {doc selected}"
+    "error-invalidCountry" : "Select a country from the list for {doc selected}"
 
 }
