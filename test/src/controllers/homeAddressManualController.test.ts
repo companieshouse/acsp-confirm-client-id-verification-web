@@ -187,7 +187,7 @@ describe("POST" + HOME_ADDRESS_MANUAL, () => {
         const res = await router.post(BASE_URL + HOME_ADDRESS_MANUAL)
             .send({ addressPropertyDetails: "abc", addressLine1: "pqr", addressLine2: "abc", addressTown: "lmn", addressCounty: "lmnop", addressCountry: "qwerty", addressPostcode: "MK9 3GB" });
         expect(res.status).toBe(400);
-        expect(res.text).toContain("Select a nationality from the list");
+        expect(res.text).toContain("Select a country from the list");
     });
 
     // Test for no addressPostcode, will return 400.
