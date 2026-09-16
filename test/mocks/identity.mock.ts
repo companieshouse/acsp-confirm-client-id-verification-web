@@ -1,4 +1,4 @@
-import { Identity, VerificationType, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity, VerificationEvidenceType, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 
 export const dummyIdentity: Identity = {
     id: "23456",
@@ -28,7 +28,7 @@ export const dummyIdentity: Identity = {
         created: new Date()
     },
     previousAddresses: [],
-    verificationEvidence: [{ type: VerificationType.passport }],
+    verificationEvidence: [{ type: VerificationEvidenceType.PASSPORT }],
     lastUpdated: new Date(),
     preferredName: {
         forenames: ["DEMO"],
@@ -67,7 +67,7 @@ export const dummyReverificationIdentity: Identity = {
         created: new Date()
     },
     previousAddresses: [],
-    verificationEvidence: [{ type: VerificationType.passport }],
+    verificationEvidence: [{ type: VerificationEvidenceType.PASSPORT }],
     lastUpdated: new Date(),
     preferredName: {
         forenames: ["DEMO"],
@@ -103,7 +103,7 @@ export const verifiedClientDetails: VerifiedClientData = {
         locality: "locality",
         created: new Date()
     },
-    verificationEvidence: [{ type: VerificationType.passport }],
+    verificationEvidence: [{ type: VerificationEvidenceType.PASSPORT }],
     acspUserId: "",
     verificationDate: new Date(),
     validationMethod: ""
