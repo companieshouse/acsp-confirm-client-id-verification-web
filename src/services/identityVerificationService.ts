@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { Identity, VerificationEvidence, VerificationType, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
+import { Identity, VerificationEvidence, VerificationEvidenceType, VerifiedClientData } from "private-api-sdk-node/dist/services/identity-verification/types";
 import logger from "../utils/logger";
 import { Resource } from "@companieshouse/api-sdk-node";
 import { ApiErrorResponse } from "@companieshouse/api-sdk-node/dist/services/resource";
@@ -104,7 +104,7 @@ export const sendVerifiedClientDetails = async (verifiedClientData: VerifiedClie
 };
 
 export class IdentityVerificationService {
-    public prepareVerifiedClientData (clientData: ClientData, req: Request): VerifiedClientData {
+    public prepareVerifiedClientData(clientData: ClientData, req: Request): VerifiedClientData {
         const acspNumber: string = getLoggedInAcspNumber(req.session);
         const acspUserId: string = getLoggedInUserId(req.session);
         const foreNames: string[] = [];
@@ -130,7 +130,7 @@ export class IdentityVerificationService {
             // Map biometric_passport to passport to be accepted by Verification Api
             const documentType = document.docName === BIOMETRIC_PASSPORT ? PASSPORT : document.docName;
             return {
-                type: documentType as unknown as VerificationType,
+                type: documentType as unknown as VerificationEvidenceType,
                 idNumber: document.documentNumber,
                 expiryDate: document.expiryDate,
                 issuedBy: document.countryOfIssue
