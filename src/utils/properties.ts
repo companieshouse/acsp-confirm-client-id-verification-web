@@ -50,7 +50,7 @@ export const CHS_API_KEY = getEnvironmentValue("CHS_API_KEY", "chs.api.key");
 
 export const CHS_INTERNAL_API_KEY = getEnvironmentValue("CHS_INTERNAL_API_KEY");
 
-export const COOKIE_SECRET = getEnvironmentValue("COOKIE_SECRET", "ChGovUk-XQrbf3sLj2abFxIY2TlapsJ");
+export const COOKIE_SECRET = getEnvironmentValue("COOKIE_SECRET");
 
 export const COOKIE_NAME = getEnvironmentValue("COOKIE_NAME", "__SID");
 
