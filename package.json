@@ -102,6 +102,10 @@
     ],
     "@package glob": [
       "Pinned to 14.0.3 to fix GHSA-3g3m-2fjr-6pw4 (patched in 14.0.2, no backport to 10.x/13.x); only used by jest internals and test-exclude"
+    ],
+    "@package deepmerge": [
+      "Pinned down to 4.1.1 (used by jest-config) because 4.2.0 to 4.3.1 are affected by GHSA-gcqx-w48m-w2h4 and no fixed version has been released",
+      "Remove the deepmerge override once GitHub withdraws the advisory or a fixed deepmerge version is available"
     ]
   },
   "overrides": {
@@ -114,7 +118,8 @@
     "nodemon": {
       "chokidar": "4.0.3"
     },
-    "glob": "14.0.3"
+    "glob": "14.0.3",
+    "deepmerge": "4.1.1"
   },
   "nodemonConfig": {
     "watch": [
