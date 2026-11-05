@@ -27,7 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "@companieshouse/api-sdk-node": "2.0.351",
-    "@companieshouse/ch-node-utils": "3.0.7",
+    "@companieshouse/ch-node-utils": "3.0.22",
     "@companieshouse/node-session-handler": "5.2.15",
     "@companieshouse/structured-logging-node": "2.0.16",
     "@companieshouse/web-security-node": "4.4.21",
@@ -96,18 +96,30 @@
     "@package @istanbuljs/load-nyc-config": [
       "js-yaml is overridden to v4 to remove js-yaml@3 -> argparse@1 -> sprintf-js (GHSA-hp3w-g68c-fv3c, no patched sprintf-js release)",
       "load-nyc-config only calls yaml.load(), which is compatible with js-yaml v4"
+    ],
+    "@package minimatch": [
+      "Pinned to 11.0.4 to fix GHSA-g3hv-75wg-m249 (patched in 11.0.1); dependents (eslint, typescript-eslint, nodemon, jest) only use the named minimatch() export"
+    ],
+    "@package glob": [
+      "Pinned to 14.0.3 to fix GHSA-3g3m-2fjr-6pw4 (patched in 14.0.2, no backport to 10.x/13.x); only used by jest internals and test-exclude"
+    ],
+    "@package deepmerge": [
+      "Pinned down to 4.1.1 (used by jest-config) because 4.2.0 to 4.3.1 are affected by GHSA-gcqx-w48m-w2h4 and no fixed version has been released",
+      "Remove the deepmerge override once GitHub withdraws the advisory or a fixed deepmerge version is available"
     ]
   },
   "overrides": {
     "adm-zip": "^0.6.1",
     "glob-parent": "6.0.2",
-    "minimatch": "10.2.4",
+    "minimatch": "11.0.4",
     "@istanbuljs/load-nyc-config": {
       "js-yaml": "^4.2.0"
     },
     "nodemon": {
       "chokidar": "4.0.3"
-    }
+    },
+    "glob": "14.0.3",
+    "deepmerge": "4.1.1"
   },
   "nodemonConfig": {
     "watch": [

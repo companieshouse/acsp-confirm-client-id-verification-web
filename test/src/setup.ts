@@ -7,6 +7,7 @@ process.env.NUNJUCKS_LOADER_NO_CACHE = "true";
 process.env.CHS_URL = "http://chs.local";
 
 process.env.API_URL = "http://testapi.co";
+process.env.CHS_API_KEY = "test-chs-api-key";
 process.env.COOKIE_SECRET = "Xy6onkjQWF0TkRn0hfdqUw==";
 process.env.COOKIE_DOMAIN = "cookie domain";
 process.env.CACHE_SERVER = "test";
