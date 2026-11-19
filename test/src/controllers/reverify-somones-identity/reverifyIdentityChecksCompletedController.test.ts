@@ -92,7 +92,7 @@ describe("POST" + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, () => {
         const sendData = {
             "wicc-day": "08",
             "wicc-month": "07",
-            "wicc-year": "2024"
+            "wicc-year": "2025"
         };
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED).send(sendData);
         expect(res.status).toBe(302);
@@ -104,7 +104,7 @@ describe("POST" + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, () => {
         const sendData = {
             "wicc-day": "08",
             "wicc-month": "07",
-            "wicc-year": "2024"
+            "wicc-year": "2025"
         };
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED).send(sendData);
         expect(res.status).toBe(302);
@@ -185,7 +185,7 @@ describe("POST" + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED, () => {
         const sendData = {
             "wicc-day": "08",
             "wicc-month": "07",
-            "wicc-year": "2024"
+            "wicc-year": "2025"
         };
         const res = await router.post(REVERIFY_BASE_URL + REVERIFY_WHEN_IDENTITY_CHECKS_COMPLETED).send(sendData);
         expect(res.status).toBe(302);
