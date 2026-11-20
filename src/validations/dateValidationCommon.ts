@@ -74,7 +74,7 @@ const validateWiccAgainstDob = (day: number, month: number, year: number, req: S
 };
 
 const validateWiccAfterStart = (day: number, month: number, year: number): void => {
-    const releaseDate: Date = new Date(2025, 4 - 1, 8); // Can not be validated before IDV started
+    const releaseDate: Date = new Date(2025, 4 - 1, 8); // Can not be verified before IDV started
     const wicc = new Date(year, month - 1, day); // Month starts from 0, so need to correct by 1
 
     if (wicc < releaseDate) {
