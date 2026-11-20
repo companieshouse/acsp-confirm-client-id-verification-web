@@ -169,6 +169,21 @@ describe("Valid data input tests", () => {
         session.setExtraData(USER_DATA, clientData);
         expect(() => validDataChecker("05", "02", "1998", "wicc", session)).toThrow(new Error("dateAfterDob"));
     });
+
+    test("Error when identity checks completed is before start", () => {
+        const clientData = { dateOfBirth: new Date(2000, 2, 5) };
+        const session = getSessionRequestWithPermission();
+        session.setExtraData(USER_DATA, clientData);
+        expect(() => validDataChecker("07", "04", "2025", "wicc", session)).toThrow(new Error("dateBeforeRelease"));
+    });
+
+    test("Valid when identity checks completed is after start", () => {
+        const clientData = { dateOfBirth: new Date(2000, 2, 5) };
+        const session = getSessionRequestWithPermission();
+        session.setExtraData(USER_DATA, clientData);
+        expect(() => validDataChecker("08", "04", "2025", "wicc", session)).toBeTruthy();
+    });
+
 });
 
 describe("Age calculation tests", () => {

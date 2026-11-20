@@ -13,5 +13,6 @@
     "error-noMonthIdentity" : "The date must include a month",
     "error-noYearIdentity" : "The date must include a year",
     "error-nonNumericIdentity" : "The date must only include numbers",
-    "error-dateAfterDob": "The date must be after Date of birth"
+    "error-dateAfterDob": "The date must be after Date of birth",
+    "error-dateBeforeRelease": "The date when the identity checks were completed must be the same as or after 8 April 2025 when identity verification for Companies House started"
 }

@@ -57,6 +57,7 @@ export const validDataChecker = (day: string, month: string, year: string, type:
             validateDobAge(day, month, year);
         } else if (type === "wicc") {
             validateWiccAgainstDob(+day, +month, +year, req);
+            validateWiccAfterStart(+day, +month, +year);
         }
     }
     return true;
@@ -69,6 +70,15 @@ const validateWiccAgainstDob = (day: number, month: number, year: number, req: S
 
     if (wicc <= dob) {
         throw new Error("dateAfterDob");
+    }
+};
+
+const validateWiccAfterStart = (day: number, month: number, year: number): void => {
+    const releaseDate: Date = new Date(2025, 4 - 1, 8); // Can not be verified before IDV started
+    const wicc = new Date(year, month - 1, day); // Month starts from 0, so need to correct by 1
+
+    if (wicc < releaseDate) {
+        throw new Error("dateBeforeRelease");
     }
 };
 
