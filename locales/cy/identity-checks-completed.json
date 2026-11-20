@@ -13,5 +13,6 @@
     "error-noMonthIdentity" : "Rhaid i'r dyddiad gynnwys mis",
     "error-noYearIdentity" : "Rhaid i'r dyddiad gynnwys blwyddyn",
     "error-nonNumericIdentity" : "Rhaid i'r dyddiad gynnwys rhifau yn unig",
-    "error-dateAfterDob": "Rhaid i'r dyddiad fod ar ôl y dyddiad geni"
+    "error-dateAfterDob": "Rhaid i'r dyddiad fod ar ôl y dyddiad geni",
+    "error-dateBeforeRelease": "Rhaid i'r dyddiad y cwblhawyd y gwiriadau hunaniaeth fod ar 8 Ebrill 2025 neu'n ddiweddarach, sef y dyddiad y dechreuodd y broses o wirio hunaniaeth ar gyfer Tŷ’r Cwmnïau"
 }
